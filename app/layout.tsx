@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import { GoogleAnalytics } from '@/components/google-analytics'
 import './globals.css'
 
 const syne = Syne({ 
@@ -169,6 +170,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-[#1B1F26] text-[#f2ede6]">
         {children}
         <Analytics />
+        <GoogleAnalytics />
       </body>
     </html>
   )
