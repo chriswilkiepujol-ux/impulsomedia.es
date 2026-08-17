@@ -76,6 +76,18 @@ const projects = [
     tags: ["Web Design", "Influencer Marketing", "Media Kit"],
     image: "/images/nathanjosh-screenshot.png",
   },
+  {
+    id: "onlinegames",
+    name: "OnlineGames.cat",
+    url: "onlinegames.cat",
+    href: "https://onlinegames.cat",
+    industryEn: "Video Game News & Reviews",
+    industryEs: "Noticias y Análisis de Videojuegos",
+    descEn: "Video game news and review platform with fully automated content production, covering analysis, guides and news across PS5, Xbox, Nintendo, PC and mobile.",
+    descEs: "Plataforma de noticias y análisis de videojuegos con producción de contenido totalmente automatizada, cubriendo análisis, guías y noticias de PS5, Xbox, Nintendo, PC y móvil.",
+    tags: ["Web Design", "Content Automation", "Publishing"],
+    image: "/images/onlinegames-screenshot.png",
+  },
 ]
 
 export function Work() {

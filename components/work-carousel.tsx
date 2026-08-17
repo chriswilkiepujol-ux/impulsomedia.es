@@ -61,6 +61,15 @@ const projects = [
     industryEs: "Media Kit de Creadores",
     image: "/images/nathanjosh-screenshot.png",
   },
+  {
+    id: "onlinegames",
+    name: "OnlineGames.cat",
+    url: "onlinegames.cat",
+    href: "https://onlinegames.cat",
+    industryEn: "Video Game News & Reviews",
+    industryEs: "Noticias de Videojuegos",
+    image: "/images/onlinegames-screenshot.png",
+  },
 ]
 
 export function WorkCarousel() {
