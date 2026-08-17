@@ -126,4 +126,22 @@
     <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/contacto"/>
   </url>
+  <url>
+    <loc>https://impulsomedia.es/opiniones</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/opiniones"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/reviews"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/opiniones"/>
+  </url>
+  <url>
+    <loc>https://impulsomedia.es/en/reviews</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/opiniones"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/reviews"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/opiniones"/>
+  </url>
 </urlset>

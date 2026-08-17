@@ -29,14 +29,14 @@ export function Header() {
         { href: esToEn['/servicios'], label: 'Services' },
         { href: esToEn['/proyectos'], label: 'Work' },
         { href: esToEn['/nosotros'], label: 'About' },
-        { href: `${homeHref}#reviews`, label: 'Reviews' },
+        { href: esToEn['/opiniones'], label: 'Reviews' },
         { href: esToEn['/contacto'], label: 'Contact' },
       ]
     : [
         { href: '/servicios', label: 'Servicios' },
         { href: '/proyectos', label: 'Proyectos' },
         { href: '/nosotros', label: 'Nosotros' },
-        { href: `${homeHref}#reviews`, label: 'Opiniones' },
+        { href: '/opiniones', label: 'Opiniones' },
         { href: '/contacto', label: 'Contacto' },
       ]
 
