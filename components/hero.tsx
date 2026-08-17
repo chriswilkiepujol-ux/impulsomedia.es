@@ -34,24 +34,20 @@ export function Hero() {
           className="inline-flex items-center gap-3 text-[0.72rem] font-medium tracking-[0.18em] uppercase text-[#d4a853] mb-6 md:mb-8"
         >
           <span className="w-7 h-[1px] bg-[#d4a853]" />
-          {language === "en" ? "Full-Service Digital Agency" : "Agencia Digital Integral"}
+          {language === "en" ? "Digital Agency, Sotogrande" : "Agencia Digital, Sotogrande"}
         </div>
 
         {/* Main Headline */}
         <h1 
-          className="font-display font-extrabold text-[clamp(2.5rem,9.5vw,10rem)] leading-[0.9] tracking-[-0.025em] mb-8 md:mb-12"
+          className="font-display font-extrabold text-[clamp(2.3rem,6vw,5.2rem)] leading-[1.05] tracking-[-0.02em] mb-8 md:mb-12 max-w-[18ch]"
         >
           {language === "en" ? (
             <>
-              <span className="block text-transparent" style={{ WebkitTextStroke: '1.5px rgba(242,237,230,0.28)' }}>Built</span>
-              <span className="block text-[#d4a853]">From</span>
-              <span className="block text-[#f2ede6]">Scratch.</span>
+              Websites that convert. <span className="text-[#d4a853]">Campaigns that scale.</span>
             </>
           ) : (
             <>
-              <span className="block text-transparent" style={{ WebkitTextStroke: '1.5px rgba(242,237,230,0.28)' }}>Creado</span>
-              <span className="block text-[#d4a853]">Desde</span>
-              <span className="block text-[#f2ede6]">Cero.</span>
+              Webs que convierten. <span className="text-[#d4a853]">Campañas que escalan.</span>
             </>
           )}
         </h1>
@@ -60,24 +56,10 @@ export function Hero() {
         <div 
           className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-end gap-8 lg:gap-16"
         >
-          <p className="text-[clamp(0.95rem,1.5vw,1.15rem)] text-[rgba(242,237,230,0.68)] font-light leading-[1.75] max-w-[46ch]">
-            {language === "en" ? (
-              <>
-                We don&apos;t patch broken websites. We don&apos;t rescue half-built projects.{" "}
-                <strong className="text-[#f2ede6] font-medium">
-                  We build the whole thing — properly — from day one.
-                </strong>{" "}
-                Websites, SEO, paid social, and conversion systems that turn visitors into revenue.
-              </>
-            ) : (
-              <>
-                No parcheamos webs rotas. No rescatamos proyectos a medias.{" "}
-                <strong className="text-[#f2ede6] font-medium">
-                  Construimos todo desde cero — bien hecho — desde el primer día.
-                </strong>{" "}
-                Webs, SEO, publicidad y sistemas de conversión que convierten visitas en ingresos.
-              </>
-            )}
+          <p className="text-[clamp(0.95rem,1.5vw,1.15rem)] text-[rgba(242,237,230,0.82)] font-light leading-[1.75] max-w-[46ch]">
+            {language === "en"
+              ? "Hand-built websites and results-driven marketing for local businesses and brands that need to manage campaigns at a larger scale. No templates, no middlemen."
+              : "Diseño web hecho a mano y marketing de resultados para negocios locales y marcas que necesitan gestionar campañas a mayor escala. Sin plantillas, sin intermediarios."}
           </p>
 
           <div className="flex flex-col gap-4 items-start lg:items-end">
@@ -119,7 +101,7 @@ export function Hero() {
           </div>
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              5<em className="text-[#d4a853] not-italic">+</em>
+              12
             </div>
             <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
               {language === "en" ? "Core Services" : "Servicios Clave"}

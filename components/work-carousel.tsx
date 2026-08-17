@@ -43,6 +43,24 @@ const projects = [
     industryEs: "Fitness & Gimnasio",
     image: "/images/one4one-screenshot.png",
   },
+  {
+    id: "racketbreaks",
+    name: "Racket Breaks",
+    url: "racketbreaks.com",
+    href: "https://www.racketbreaks.com",
+    industryEn: "Padel Travel & Booking",
+    industryEs: "Viajes y Reservas de Pádel",
+    image: "/images/racketbreaks-screenshot.png",
+  },
+  {
+    id: "nathanjosh",
+    name: "Nathan & Josh",
+    url: "nathanjosh.com",
+    href: "https://www.nathanjosh.com",
+    industryEn: "Content Creator Media Kit",
+    industryEs: "Media Kit de Creadores",
+    image: "/images/nathanjosh-screenshot.png",
+  },
 ]
 
 export function WorkCarousel() {
@@ -61,11 +79,10 @@ export function WorkCarousel() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
           <div>
             <span className="section-label mb-3 block">
-              {t("Nuestros Proyectos", "Our Work")}
+              {t("Nuestro Trabajo", "Our Work")}
             </span>
             <h2 className="font-display font-extrabold text-[clamp(1.8rem,4.5vw,3.2rem)] leading-none tracking-[-0.02em]">
-              {t("Negocios reales, ", "Real businesses, ")}
-              <em className="text-[#d4a853] not-italic">{t("resultados reales", "real results")}</em>
+              {t("Clientes con los que trabajamos", "Clients we work with")}
             </h2>
           </div>
           <div className="flex items-center gap-3">

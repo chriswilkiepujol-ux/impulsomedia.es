@@ -27,6 +27,16 @@ export function Reviews() {
           author: "Pujol Wilkie",
           role: "Legal Services",
         },
+        {
+          quote: "The booking flow was exactly what we needed for a UK audience. Everything just works, and updates are turned around fast.",
+          author: "Racket Breaks",
+          role: "Padel Travel & Booking",
+        },
+        {
+          quote: "Our media kit finally looks as good as our content. Brands take us seriously now, and enquiries have picked up since launch.",
+          author: "Nathan & Josh",
+          role: "Content Creator Media Kit",
+        },
       ],
     },
     es: {
@@ -48,6 +58,16 @@ export function Reviews() {
           quote: "Comunicación rápida y resultados claros desde las primeras semanas.",
           author: "Pujol Wilkie",
           role: "Servicios Jurídicos",
+        },
+        {
+          quote: "El flujo de reservas era justo lo que necesitábamos para un público del Reino Unido. Todo funciona, y los cambios se resuelven rápido.",
+          author: "Racket Breaks",
+          role: "Viajes y Reservas de Pádel",
+        },
+        {
+          quote: "Nuestro media kit por fin luce tan bien como nuestro contenido. Las marcas ahora nos toman en serio y las consultas han aumentado desde el lanzamiento.",
+          author: "Nathan & Josh",
+          role: "Media Kit de Creadores",
         },
       ],
     },

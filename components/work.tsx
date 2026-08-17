@@ -52,6 +52,30 @@ const projects = [
     tags: ["Web Design", "Fitness", "Conversion"],
     image: "/images/one4one-screenshot.png",
   },
+  {
+    id: "racketbreaks",
+    name: "Racket Breaks",
+    url: "racketbreaks.com",
+    href: "https://www.racketbreaks.com",
+    industryEn: "Padel Travel & Booking · South of Spain",
+    industryEs: "Viajes y Reservas de Pádel · Sur de España",
+    descEn: "Custom booking platform for padel holidays across Sotogrande, Marbella, Estepona, Málaga and Almería, built for UK and European travel groups with a tailored quote engine.",
+    descEs: "Plataforma de reservas a medida para vacaciones de pádel en Sotogrande, Marbella, Estepona, Málaga y Almería, pensada para grupos de viaje del Reino Unido y Europa con motor de presupuesto personalizado.",
+    tags: ["Web Design", "Booking Engine", "Travel"],
+    image: "/images/racketbreaks-screenshot.png",
+  },
+  {
+    id: "nathanjosh",
+    name: "Nathan & Josh",
+    url: "nathanjosh.com",
+    href: "https://www.nathanjosh.com",
+    industryEn: "Content Creator Media Kit · Dubai & Bali",
+    industryEs: "Media Kit de Creadores de Contenido · Dubái y Bali",
+    descEn: "Media kit and brand partnership site for a fashion, style and lifestyle content duo based in Dubai and filming in Bali, built to convert brand enquiries into booked collaborations.",
+    descEs: "Media kit y web de colaboraciones de marca para un dúo de creadores de contenido de moda y estilo de vida con base en Dubái y grabaciones en Bali, pensada para convertir consultas de marcas en colaboraciones reservadas.",
+    tags: ["Web Design", "Influencer Marketing", "Media Kit"],
+    image: "/images/nathanjosh-screenshot.png",
+  },
 ]
 
 export function Work() {
@@ -65,14 +89,10 @@ export function Work() {
           <div>
             <span className="inline-flex items-center gap-2.5 text-[0.7rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4 md:mb-5">
               <span className="w-5 h-[1px] bg-[#d4a853]" />
-              {language === "en" ? "Our Work" : "Nuestros Proyectos"}
+              {language === "en" ? "Our Work" : "Nuestro Trabajo"}
             </span>
             <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,4.2rem)] leading-none tracking-[-0.02em]">
-              {language === "en" ? (
-                <>Real businesses.<br/><em className="text-[#d4a853] not-italic">Real results.</em></>
-              ) : (
-                <>Negocios reales.<br/><em className="text-[#d4a853] not-italic">Resultados reales.</em></>
-              )}
+              {language === "en" ? "Clients we work with" : "Clientes con los que trabajamos"}
             </h2>
           </div>
           <p className="max-w-[38ch] text-[rgba(242, 237, 230, 0.82)] text-base font-light leading-[1.7]">

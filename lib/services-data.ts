@@ -1,4 +1,4 @@
-import { Globe, Smartphone, Palette, TrendingUp, Wrench, Package, MessageCircle, Target, Share2, BarChart3, Handshake, Store, Instagram, Megaphone, Briefcase, LucideIcon } from 'lucide-react'
+import { Globe, Smartphone, TrendingUp, Wrench, Package, MessageCircle, Target, Share2, BarChart3, Handshake, Store, Instagram, Megaphone, Briefcase, LucideIcon } from 'lucide-react'
 
 export interface ServiceItem {
   num: string
@@ -114,16 +114,6 @@ export const services: ServiceItem[] = [
   },
   {
     num: '11',
-    icon: Palette,
-    titleEs: 'Identidad Visual',
-    titleEn: 'Visual Identity',
-    descEs: 'Branding coherente que comunica tu esencia. Logos, paletas de color y guías de estilo que hacen tu marca memorable.',
-    descEn: 'Coherent branding that communicates your essence. Logos, color palettes and style guides that make your brand memorable.',
-    tagsEs: ['Logo', 'Branding', 'Guía de estilo', 'Tipografía'],
-    tagsEn: ['Logo', 'Branding', 'Style Guide', 'Typography'],
-  },
-  {
-    num: '12',
     icon: Wrench,
     titleEs: 'Mantenimiento Web',
     titleEn: 'Web Maintenance',
@@ -133,7 +123,7 @@ export const services: ServiceItem[] = [
     tagsEn: ['Updates', 'Security', 'Backups', 'Support'],
   },
   {
-    num: '13',
+    num: '12',
     icon: Briefcase,
     titleEs: 'Consultoría',
     titleEn: 'Consultancy',
