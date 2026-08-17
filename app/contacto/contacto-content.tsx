@@ -7,9 +7,9 @@ import { FAQ } from '@/components/faq'
 import { Footer } from '@/components/footer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
-export function ContactoContent() {
+export function ContactoContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
-    <LanguageProvider>
+    <LanguageProvider initialLanguage={lang}>
       <div className="min-h-screen bg-[#1B1F26]">
         <Header />
         <main className="pt-[68px]">

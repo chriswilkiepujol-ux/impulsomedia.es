@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description: 'Diseño web a medida, SEO, PPC, paid social, programática, afiliación, ASO y consultoría. Servicios completos de marketing digital en Sotogrande y Campo de Gibraltar.',
   alternates: {
     canonical: '/servicios',
+    languages: {
+      'es-ES': 'https://impulsomedia.es/servicios',
+      'en-GB': 'https://impulsomedia.es/en/servicios',
+      'x-default': 'https://impulsomedia.es/servicios',
+    },
   },
   openGraph: {
     title: 'Servicios de Diseño Web y Marketing Digital | ImpulsoMedia',
@@ -13,7 +18,6 @@ export const metadata: Metadata = {
     url: 'https://impulsomedia.es/servicios',
   },
 }
-
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -31,7 +35,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <ServiciosContent />
+      <ServiciosContent lang="es" />
     </>
   )
 }

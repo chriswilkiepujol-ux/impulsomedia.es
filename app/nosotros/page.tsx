@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description: 'Agencia digital con sede en Sotogrande. Construimos sitios web desde cero, sin plantillas, con trato directo y comunicación rápida por WhatsApp.',
   alternates: {
     canonical: '/nosotros',
+    languages: {
+      'es-ES': 'https://impulsomedia.es/nosotros',
+      'en-GB': 'https://impulsomedia.es/en/nosotros',
+      'x-default': 'https://impulsomedia.es/nosotros',
+    },
   },
   openGraph: {
     title: 'Sobre Nosotros | ImpulsoMedia',
@@ -13,7 +18,6 @@ export const metadata: Metadata = {
     url: 'https://impulsomedia.es/nosotros',
   },
 }
-
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -31,7 +35,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <NosotrosContent />
+      <NosotrosContent lang="es" />
     </>
   )
 }

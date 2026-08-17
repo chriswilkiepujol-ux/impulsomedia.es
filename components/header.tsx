@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { useLanguage } from '@/lib/language-context'
 import { cn } from '@/lib/utils'
 
 export function Header() {
-  const { language, setLanguage, t } = useLanguage()
+  const { language, t } = useLanguage()
+  const pathname = usePathname() || '/'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -18,12 +21,21 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const isEn = pathname === '/en' || pathname.startsWith('/en/')
+  const prefix = isEn ? '/en' : ''
+  const homeHref = isEn ? '/en' : '/'
+
+  // Alternate-language URL for the current page, used by the EN/ES toggle
+  const altHref = isEn
+    ? (pathname.replace(/^\/en/, '') || '/')
+    : (pathname === '/' ? '/en' : `/en${pathname}`)
+
   const navLinks = [
-    { href: '/servicios', label: t('Servicios', 'Services') },
-    { href: '/proyectos', label: t('Proyectos', 'Work') },
-    { href: '/nosotros', label: t('Nosotros', 'About') },
-    { href: '/#reviews', label: t('Opiniones', 'Reviews') },
-    { href: '/contacto', label: t('Contacto', 'Contact') },
+    { href: `${prefix}/servicios`, label: t('Servicios', 'Services') },
+    { href: `${prefix}/proyectos`, label: t('Proyectos', 'Work') },
+    { href: `${prefix}/nosotros`, label: t('Nosotros', 'About') },
+    { href: `${homeHref}#reviews`, label: t('Opiniones', 'Reviews') },
+    { href: `${prefix}/contacto`, label: t('Contacto', 'Contact') },
   ]
 
   return (
@@ -37,8 +49,8 @@ export function Header() {
       )}
     >
       {/* Logo with Icon */}
-      <a 
-        href="/" 
+      <Link
+        href={homeHref}
         className="flex items-center gap-2 font-display font-extrabold text-[1.1rem] tracking-[0.12em] uppercase text-[#f2ede6] no-underline"
       >
         <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +58,7 @@ export function Header() {
           <path d="M6 16 L10 16 L12 10 L16 22 L20 8 L22 16 L26 16" stroke="#d4a853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
         </svg>
         Impulso<em className="text-[#d4a853] not-italic">Media</em>
-      </a>
+      </Link>
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-6">
@@ -62,30 +74,30 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Language Toggle */}
+        {/* Language Toggle - navigates to the alternate-language URL for this page */}
         <div className="flex items-center border border-[rgba(255,255,255,0.13)] rounded-[3px] overflow-hidden">
-          <button
-            onClick={() => setLanguage('en')}
+          <Link
+            href={isEn ? pathname : altHref}
             className={cn(
-              'px-[0.65rem] py-[0.35rem] font-display font-bold text-[0.68rem] tracking-[0.1em] cursor-pointer border-none transition-all duration-200',
-              language === 'en' 
-                ? 'bg-[#d4a853] text-[#0a0808]' 
+              'px-[0.65rem] py-[0.35rem] font-display font-bold text-[0.68rem] tracking-[0.1em] no-underline transition-all duration-200',
+              isEn
+                ? 'bg-[#d4a853] text-[#0a0808]'
                 : 'bg-transparent text-[rgba(242,237,230,0.42)]'
             )}
           >
             EN
-          </button>
-          <button
-            onClick={() => setLanguage('es')}
+          </Link>
+          <Link
+            href={isEn ? altHref : pathname}
             className={cn(
-              'px-[0.65rem] py-[0.35rem] font-display font-bold text-[0.68rem] tracking-[0.1em] cursor-pointer border-none transition-all duration-200',
-              language === 'es' 
-                ? 'bg-[#d4a853] text-[#0a0808]' 
+              'px-[0.65rem] py-[0.35rem] font-display font-bold text-[0.68rem] tracking-[0.1em] no-underline transition-all duration-200',
+              !isEn
+                ? 'bg-[#d4a853] text-[#0a0808]'
                 : 'bg-transparent text-[rgba(242,237,230,0.42)]'
             )}
           >
             ES
-          </button>
+          </Link>
         </div>
 
         {/* WhatsApp CTA */}
@@ -133,28 +145,30 @@ export function Header() {
           <div className="flex items-center justify-between pt-6 gap-4">
             {/* Language Toggle Mobile */}
             <div className="flex items-center border border-[rgba(255,255,255,0.13)] rounded-[3px] overflow-hidden">
-              <button
-                onClick={() => setLanguage('en')}
+              <Link
+                href={isEn ? pathname : altHref}
+                onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  'px-4 py-2 font-display font-bold text-[0.75rem] tracking-[0.1em] cursor-pointer border-none transition-all duration-200',
-                  language === 'en' 
-                    ? 'bg-[#d4a853] text-[#0a0808]' 
+                  'px-4 py-2 font-display font-bold text-[0.75rem] tracking-[0.1em] no-underline transition-all duration-200',
+                  isEn
+                    ? 'bg-[#d4a853] text-[#0a0808]'
                     : 'bg-transparent text-[rgba(242,237,230,0.42)]'
                 )}
               >
                 EN
-              </button>
-              <button
-                onClick={() => setLanguage('es')}
+              </Link>
+              <Link
+                href={isEn ? altHref : pathname}
+                onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  'px-4 py-2 font-display font-bold text-[0.75rem] tracking-[0.1em] cursor-pointer border-none transition-all duration-200',
-                  language === 'es' 
-                    ? 'bg-[#d4a853] text-[#0a0808]' 
+                  'px-4 py-2 font-display font-bold text-[0.75rem] tracking-[0.1em] no-underline transition-all duration-200',
+                  !isEn
+                    ? 'bg-[#d4a853] text-[#0a0808]'
                     : 'bg-transparent text-[rgba(242,237,230,0.42)]'
                 )}
               >
                 ES
-              </button>
+              </Link>
             </div>
 
             {/* WhatsApp CTA Mobile */}

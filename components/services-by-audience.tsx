@@ -71,7 +71,7 @@ export function ServicesByAudience({ category }: Props) {
           </a>
         ) : (
           <a
-            href="/contacto"
+            href={language === 'en' ? '/en/contacto' : '/contacto'}
             className="inline-flex items-center gap-3 bg-[#d4a853] text-[#1B1F26] px-8 py-4 rounded-[3px] font-display font-bold text-[0.82rem] tracking-[0.07em] uppercase no-underline transition-all duration-200 hover:-translate-y-[2px]"
           >
             <Calendar className="w-[18px] h-[18px]" />

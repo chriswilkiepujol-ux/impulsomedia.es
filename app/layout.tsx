@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { GoogleAnalytics } from '@/components/google-analytics'
+import { headers } from 'next/headers'
 import './globals.css'
 
 const syne = Syne({ 
@@ -43,10 +44,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: '/',
-    languages: {
-      'es-ES': '/',
-      'en-GB': '/',
-    },
   },
   openGraph: {
     type: 'website',
@@ -153,13 +150,16 @@ const structuredData = {
   knowsLanguage: ['Spanish', 'English'],
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const headersList = await headers()
+  const locale = headersList.get('x-locale') === 'en' ? 'en' : 'es'
+
   return (
-    <html lang="es" className={`${syne.variable} ${dmSans.variable}`}>
+    <html lang={locale} className={`${syne.variable} ${dmSans.variable}`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <script

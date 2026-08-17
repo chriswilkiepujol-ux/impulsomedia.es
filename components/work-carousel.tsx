@@ -96,7 +96,7 @@ export function WorkCarousel() {
           </div>
           <div className="flex items-center gap-3">
             <Link
-              href="/proyectos"
+              href={language === "en" ? "/en/proyectos" : "/proyectos"}
               className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm hover:gap-3 transition-all duration-200 whitespace-nowrap mr-2"
             >
               {t("Ver todos", "See all")}

@@ -3,7 +3,8 @@
 import { useLanguage } from '@/lib/language-context'
 
 export function Footer() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const prefix = language === 'en' ? '/en' : ''
   const currentYear = new Date().getFullYear()
 
   return (
@@ -13,7 +14,7 @@ export function Footer() {
           {/* Brand */}
           <div className="max-w-[280px]">
             <a 
-              href="/" 
+              href={prefix || "/"} 
               className="flex items-center gap-2 font-display font-extrabold text-[1.1rem] tracking-[0.12em] uppercase text-[#f2ede6] no-underline mb-3"
             >
               <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,22 +40,22 @@ export function Footer() {
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
                 <li>
-                  <a href="/servicios" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={`${prefix}/servicios`} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Diseño Web & Desarrollo', 'Web Design & Development')}
                   </a>
                 </li>
                 <li>
-                  <a href="/servicios" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={`${prefix}/servicios`} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('SEO & Posicionamiento', 'SEO & Performance')}
                   </a>
                 </li>
                 <li>
-                  <a href="/servicios" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={`${prefix}/servicios`} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Publicidad & Social Ads', 'Paid Social & Ads')}
                   </a>
                 </li>
                 <li>
-                  <a href="/servicios" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={`${prefix}/servicios`} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Conversión & Leads', 'Conversion & Leads')}
                   </a>
                 </li>
@@ -68,17 +69,17 @@ export function Footer() {
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
                 <li>
-                  <a href="/proyectos" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={`${prefix}/proyectos`} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Trabajo', 'Work')}
                   </a>
                 </li>
                 <li>
-                  <a href="/servicios#process" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={`${prefix}/servicios#process`} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Proceso', 'Process')}
                   </a>
                 </li>
                 <li>
-                  <a href="/contacto" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={`${prefix}/contacto`} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Contacto', 'Contact')}
                   </a>
                 </li>

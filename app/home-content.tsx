@@ -12,9 +12,9 @@ import { CtaBand } from '@/components/cta-band'
 import { Footer } from '@/components/footer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
-export function HomeContent() {
+export function HomeContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
-    <LanguageProvider>
+    <LanguageProvider initialLanguage={lang}>
       <div className="min-h-screen bg-[#1B1F26]">
         <Header />
         <main>

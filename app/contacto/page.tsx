@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description: 'Empieza tu proyecto con ImpulsoMedia. Contáctanos por WhatsApp o formulario y te responderemos rápido. Agencia digital en Sotogrande, Cádiz.',
   alternates: {
     canonical: '/contacto',
+    languages: {
+      'es-ES': 'https://impulsomedia.es/contacto',
+      'en-GB': 'https://impulsomedia.es/en/contacto',
+      'x-default': 'https://impulsomedia.es/contacto',
+    },
   },
   openGraph: {
     title: 'Contacto | ImpulsoMedia',
@@ -69,6 +74,15 @@ const faqSchema = {
   ],
 }
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://impulsomedia.es" },
+    { "@type": "ListItem", "position": 2, "name": "Contacto", "item": "https://impulsomedia.es/contacto" }
+  ],
+}
+
 export default function Page() {
   return (
     <>
@@ -76,7 +90,11 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <ContactoContent />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <ContactoContent lang="es" />
     </>
   )
 }

@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description: 'PPC, programática, afiliación, in-app, ASO y consultoría para marcas y operadores que necesitan gestionar campañas de marketing digital a mayor escala.',
   alternates: {
     canonical: '/servicios/performance',
+    languages: {
+      'es-ES': 'https://impulsomedia.es/servicios/performance',
+      'en-GB': 'https://impulsomedia.es/en/servicios/performance',
+      'x-default': 'https://impulsomedia.es/servicios/performance',
+    },
   },
   openGraph: {
     title: 'Gestión de Campañas y Media Buying a Escala | ImpulsoMedia',
@@ -13,7 +18,6 @@ export const metadata: Metadata = {
     url: 'https://impulsomedia.es/servicios/performance',
   },
 }
-
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -32,7 +36,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <PerformanceContent />
+      <PerformanceContent lang="es" />
     </>
   )
 }

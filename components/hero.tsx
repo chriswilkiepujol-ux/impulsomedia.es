@@ -76,7 +76,7 @@ export function Hero() {
               {language === "en" ? "Let's Talk on WhatsApp" : "Hablemos por WhatsApp"}
             </a>
             <a
-              href="/proyectos"
+              href={language === "en" ? "/en/proyectos" : "/proyectos"}
               className="inline-flex items-center gap-2 text-[rgba(242,237,230,0.42)] text-[0.75rem] font-normal tracking-[0.08em] uppercase no-underline transition-colors duration-200 hover:text-[#f2ede6]"
             >
               {language === "en" ? "See our work" : "Ver proyectos"}

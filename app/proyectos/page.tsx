@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description: 'Sitios web construidos desde cero para clientes reales en Sotogrande, Gibraltar y más allá. Sotovet, Ágora Sotogrande, Pujol Wilkie, Racket Breaks, Nathan & Josh y OnlineGames.cat.',
   alternates: {
     canonical: '/proyectos',
+    languages: {
+      'es-ES': 'https://impulsomedia.es/proyectos',
+      'en-GB': 'https://impulsomedia.es/en/proyectos',
+      'x-default': 'https://impulsomedia.es/proyectos',
+    },
   },
   openGraph: {
     title: 'Proyectos y Clientes | ImpulsoMedia',
@@ -13,7 +18,6 @@ export const metadata: Metadata = {
     url: 'https://impulsomedia.es/proyectos',
   },
 }
-
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -31,7 +35,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <ProyectosContent />
+      <ProyectosContent lang="es" />
     </>
   )
 }
