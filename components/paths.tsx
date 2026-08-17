@@ -17,6 +17,7 @@ export function Paths() {
           description: "I want a professional website and to show up when people search in my area.",
           items: ["Custom web design", "Local SEO and Google Business", "Social media and content", "Ongoing maintenance"],
           cta: "See local services",
+          href: "/servicios/negocio-local",
         },
         {
           icon: TrendingUp,
@@ -24,6 +25,7 @@ export function Paths() {
           description: "I manage larger budgets and need a team with real performance experience.",
           items: ["PPC and programmatic", "Affiliate and in-app", "ASO and paid social", "Tailored consultancy"],
           cta: "See performance services",
+          href: "/servicios/performance",
         },
       ],
     },
@@ -37,6 +39,7 @@ export function Paths() {
           description: "Quiero una web profesional y aparecer cuando la gente busca en mi zona.",
           items: ["Diseño web a medida", "SEO local y Google Business", "Redes sociales y contenido", "Mantenimiento continuo"],
           cta: "Ver servicios locales",
+          href: "/servicios/negocio-local",
         },
         {
           icon: TrendingUp,
@@ -44,6 +47,7 @@ export function Paths() {
           description: "Gestiono presupuestos mayores y necesito un equipo con experiencia real en resultados.",
           items: ["PPC y programática", "Afiliación e in-app", "ASO y paid social", "Consultoría a medida"],
           cta: "Ver servicios de performance",
+          href: "/servicios/performance",
         },
       ],
     },
@@ -87,7 +91,7 @@ export function Paths() {
                 ))}
               </ul>
               <a
-                href="/servicios"
+                href={path.href}
                 className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm hover:gap-3 transition-all duration-200"
               >
                 {path.cta}

@@ -3,6 +3,7 @@ import { Globe, Smartphone, TrendingUp, Wrench, Package, MessageCircle, Target, 
 export interface ServiceItem {
   num: string
   icon: LucideIcon
+  category: 'local' | 'performance'
   titleEs: string
   titleEn: string
   descEs: string
@@ -15,6 +16,7 @@ export const services: ServiceItem[] = [
   {
     num: '01',
     icon: Globe,
+    category: 'local',
     titleEs: 'Diseño Web',
     titleEn: 'Web Design',
     descEs: 'Sitios web únicos construidos desde cero. Sin plantillas, sin WordPress. Código limpio y diseño que convierte visitantes en clientes.',
@@ -25,6 +27,7 @@ export const services: ServiceItem[] = [
   {
     num: '02',
     icon: TrendingUp,
+    category: 'local',
     titleEs: 'SEO',
     titleEn: 'SEO',
     descEs: 'Posicionamiento local y nacional. Contenido, técnica y estrategia para aparecer donde tus clientes buscan.',
@@ -35,6 +38,7 @@ export const services: ServiceItem[] = [
   {
     num: '03',
     icon: Target,
+    category: 'performance',
     titleEs: 'PPC',
     titleEn: 'PPC',
     descEs: 'Campañas de Google Ads gestionadas para convertir, con seguimiento claro de coste por lead y retorno.',
@@ -45,6 +49,7 @@ export const services: ServiceItem[] = [
   {
     num: '04',
     icon: Share2,
+    category: 'performance',
     titleEs: 'Paid Social',
     titleEn: 'Paid Social',
     descEs: 'Campañas pagadas en Meta, TikTok y Snapchat diseñadas para generar demanda y captar clientes.',
@@ -55,6 +60,7 @@ export const services: ServiceItem[] = [
   {
     num: '05',
     icon: BarChart3,
+    category: 'performance',
     titleEs: 'Programática',
     titleEn: 'Programmatic',
     descEs: 'Compra de medios a escala para marcas y operadores con presupuestos mayores y objetivos de alcance.',
@@ -65,6 +71,7 @@ export const services: ServiceItem[] = [
   {
     num: '06',
     icon: Handshake,
+    category: 'performance',
     titleEs: 'Afiliación',
     titleEn: 'Affiliate Marketing',
     descEs: 'Gestión y optimización de programas de afiliados, con foco en calidad de tráfico y rendimiento real.',
@@ -75,6 +82,7 @@ export const services: ServiceItem[] = [
   {
     num: '07',
     icon: Smartphone,
+    category: 'performance',
     titleEs: 'In-App Marketing',
     titleEn: 'In-App Marketing',
     descEs: 'Estrategias de adquisición y retención dentro de apps, pensadas para maximizar el valor de cada usuario.',
@@ -85,6 +93,7 @@ export const services: ServiceItem[] = [
   {
     num: '08',
     icon: Store,
+    category: 'performance',
     titleEs: 'ASO',
     titleEn: 'ASO',
     descEs: 'Optimización en App Store y Google Play para mejorar visibilidad, descargas y conversión.',
@@ -95,6 +104,7 @@ export const services: ServiceItem[] = [
   {
     num: '09',
     icon: Instagram,
+    category: 'local',
     titleEs: 'Redes Sociales',
     titleEn: 'Social Media',
     descEs: 'Estrategias de contenido y gestión de redes que construyen comunidad y generan engagement real.',
@@ -105,6 +115,7 @@ export const services: ServiceItem[] = [
   {
     num: '10',
     icon: Megaphone,
+    category: 'performance',
     titleEs: 'Marketing de Influencers',
     titleEn: 'Influencer Marketing',
     descEs: 'Colaboraciones con creadores de contenido para ampliar alcance y credibilidad de marca.',
@@ -115,6 +126,7 @@ export const services: ServiceItem[] = [
   {
     num: '11',
     icon: Wrench,
+    category: 'local',
     titleEs: 'Mantenimiento Web',
     titleEn: 'Web Maintenance',
     descEs: 'Actualizaciones, seguridad, backups y soporte técnico continuo para que tu sitio siempre funcione al máximo.',
@@ -125,6 +137,7 @@ export const services: ServiceItem[] = [
   {
     num: '12',
     icon: Briefcase,
+    category: 'performance',
     titleEs: 'Consultoría',
     titleEn: 'Consultancy',
     descEs: 'Estrategia y asesoría a medida por proyecto, tarifa diaria o retainer, según lo que tu equipo necesite.',
