@@ -32,11 +32,11 @@ export function CtaBand() {
       />
       
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-12 text-center">
-        <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] text-[#080808] mb-4 md:mb-6">
+        <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] text-[#1B1F26] mb-4 md:mb-6">
           {t.headline}
         </h2>
         
-        <p className="text-[#080808]/80 text-lg md:text-xl max-w-2xl mx-auto mb-8 md:mb-10 font-sans">
+        <p className="text-[#1B1F26]/80 text-lg md:text-xl max-w-2xl mx-auto mb-8 md:mb-10 font-sans">
           {t.subheadline}
         </p>
         
@@ -44,7 +44,7 @@ export function CtaBand() {
           href="https://wa.me/34680863229"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-8 py-4 bg-[#080808] text-[#f2ede6] font-semibold text-sm md:text-base tracking-wide rounded-full hover:bg-[#1a1a1a] transition-all duration-300 hover:scale-105 shadow-xl"
+          className="inline-flex items-center gap-3 px-8 py-4 bg-[#1B1F26] text-[#f2ede6] font-semibold text-sm md:text-base tracking-wide rounded-full hover:bg-[#2B313B] transition-all duration-300 hover:scale-105 shadow-xl"
         >
           <MessageCircle className="w-5 h-5" />
           {t.cta}

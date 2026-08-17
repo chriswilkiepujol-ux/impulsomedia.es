@@ -21,6 +21,7 @@ export function Header() {
   const navLinks = [
     { href: '#work', label: t('Trabajo', 'Work') },
     { href: '#services', label: t('Servicios', 'Services') },
+    { href: '#reviews', label: t('Opiniones', 'Reviews') },
     { href: '#process', label: t('Proceso', 'Process') },
     { href: '#contact', label: t('Contacto', 'Contact') },
   ]

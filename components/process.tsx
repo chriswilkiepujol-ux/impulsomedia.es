@@ -37,7 +37,7 @@ export function Process() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="process" className="py-[clamp(5rem,10vw,9rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#080808]">
+    <section id="process" className="py-[clamp(5rem,10vw,9rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#1B1F26]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
         <div className="text-center mb-[clamp(3rem,6vw,5rem)]">
@@ -60,7 +60,7 @@ export function Process() {
           {steps.map((step, index) => (
             <div key={step.num} className="p-4 md:p-[clamp(1.5rem,3vw,2.5rem)] text-center relative z-10">
               {/* Step Number */}
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center mx-auto mb-3 md:mb-6 font-display font-extrabold text-[0.75rem] md:text-[0.85rem] text-[#d4a853] bg-[#080808]">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center mx-auto mb-3 md:mb-6 font-display font-extrabold text-[0.75rem] md:text-[0.85rem] text-[#d4a853] bg-[#1B1F26]">
                 {step.num}
               </div>
 
@@ -70,7 +70,7 @@ export function Process() {
               </h4>
 
               {/* Description */}
-              <p className="text-[0.75rem] md:text-[0.85rem] text-[rgba(242,237,230,0.42)] leading-relaxed">
+              <p className="text-[0.75rem] md:text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] leading-relaxed">
                 {language === 'es' ? step.descEs : step.descEn}
               </p>
             </div>

@@ -74,7 +74,7 @@ export function About() {
   const t = content[language]
 
   return (
-    <section id="about" className="relative py-24 md:py-32 bg-[#080808]">
+    <section id="about" className="relative py-24 md:py-32 bg-[#1B1F26]">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="max-w-3xl mb-16 md:mb-20">
@@ -100,7 +100,7 @@ export function About() {
           {t.values.map((value, index) => (
             <div 
               key={index}
-              className="group relative p-4 md:p-8 rounded-xl bg-[#0f0f0f] border border-[#1a1a1a] hover:border-[#d4a853]/40 transition-all duration-300"
+              className="group relative p-4 md:p-8 rounded-xl bg-[#232830] border border-[#2B313B] hover:border-[#d4a853]/40 transition-all duration-300"
             >
               {/* Top gold line on hover */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#d4a853] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-xl" />

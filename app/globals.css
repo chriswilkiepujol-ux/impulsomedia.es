@@ -3,41 +3,41 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ImpulsoMedia - Premium Dark Theme with exact original colors */
+/* ImpulsoMedia - Softer charcoal theme, lightened for readability */
 :root {
-  /* Core colors from original HTML */
-  --bg: #080808;
-  --bg2: #0f0f0f;
-  --bg3: #141414;
-  --surface: #1c1c1c;
+  /* Core colors - lightened from near-black to soft charcoal */
+  --bg: #1B1F26;
+  --bg2: #232830;
+  --bg3: #2B313B;
+  --surface: #323944;
   --gold: #d4a853;
   --gold-light: #e8c97a;
   --green: #25d366;
   --text-primary: #f2ede6;
-  --text-muted: rgba(242, 237, 230, 0.42);
-  --text-mid: rgba(242, 237, 230, 0.68);
-  --border-color: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.13);
+  --text-muted: rgba(242, 237, 230, 0.60);
+  --text-mid: rgba(242, 237, 230, 0.82);
+  --border-color: rgba(255, 255, 255, 0.09);
+  --border-hover: rgba(255, 255, 255, 0.18);
   
   /* Semantic tokens */
-  --background: #080808;
+  --background: #1B1F26;
   --foreground: #f2ede6;
-  --card: #0f0f0f;
+  --card: #232830;
   --card-foreground: #f2ede6;
-  --popover: #0f0f0f;
+  --popover: #232830;
   --popover-foreground: #f2ede6;
   --primary: #d4a853;
-  --primary-foreground: #0a0808;
-  --secondary: #141414;
+  --primary-foreground: #14171c;
+  --secondary: #2B313B;
   --secondary-foreground: #f2ede6;
-  --muted: #1c1c1c;
-  --muted-foreground: rgba(242, 237, 230, 0.42);
+  --muted: #323944;
+  --muted-foreground: rgba(242, 237, 230, 0.60);
   --accent: #d4a853;
-  --accent-foreground: #0a0808;
+  --accent-foreground: #14171c;
   --destructive: #ef4444;
   --destructive-foreground: #f2ede6;
-  --border: rgba(255, 255, 255, 0.06);
-  --input: #141414;
+  --border: rgba(255, 255, 255, 0.09);
+  --input: #2B313B;
   --ring: #d4a853;
   --radius: 3px;
 }
@@ -72,9 +72,9 @@
   --color-gold: #d4a853;
   --color-gold-light: #e8c97a;
   --color-whatsapp: #25d366;
-  --color-bg2: #0f0f0f;
-  --color-bg3: #141414;
-  --color-surface: #1c1c1c;
+  --color-bg2: #232830;
+  --color-bg3: #2B313B;
+  --color-surface: #323944;
   --color-text-mid: rgba(242, 237, 230, 0.68);
 }
 

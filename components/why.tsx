@@ -80,7 +80,7 @@ export function Why() {
   const t = content[language]
 
   return (
-    <section id="why" className="relative py-24 md:py-32 bg-[#0a0a0a]">
+    <section id="why" className="relative py-24 md:py-32 bg-[#232830]">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="max-w-3xl mb-16 md:mb-20">
@@ -102,7 +102,7 @@ export function Why() {
             {t.reasons.map((reason, index) => (
               <div 
                 key={index}
-                className="flex flex-col md:flex-row gap-3 md:gap-6 p-4 md:p-6 rounded-xl bg-[#111111] border border-[#1a1a1a] hover:border-[#d4a853]/30 transition-colors duration-300"
+                className="flex flex-col md:flex-row gap-3 md:gap-6 p-4 md:p-6 rounded-xl bg-[#2B313B] border border-[#2B313B] hover:border-[#d4a853]/30 transition-colors duration-300"
               >
                 <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
                   <reason.icon className="w-4 h-4 md:w-5 md:h-5 text-[#d4a853]" />
@@ -137,7 +137,7 @@ export function Why() {
                 </p>
                 <footer className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-[#d4a853] flex items-center justify-center">
-                    <svg className="w-5 h-5 text-[#080808]" viewBox="0 0 32 32" fill="none">
+                    <svg className="w-5 h-5 text-[#1B1F26]" viewBox="0 0 32 32" fill="none">
                       <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M6 16 L10 16 L12 10 L16 22 L20 8 L22 16 L26 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                     </svg>

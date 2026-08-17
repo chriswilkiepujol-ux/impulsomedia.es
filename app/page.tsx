@@ -5,7 +5,9 @@ import { Header } from '@/components/header'
 import { Hero } from '@/components/hero'
 import { Marquee } from '@/components/marquee'
 import { Work } from '@/components/work'
+import { Paths } from '@/components/paths'
 import { Services } from '@/components/services'
+import { Reviews } from '@/components/reviews'
 import { Why } from '@/components/why'
 import { CtaBand } from '@/components/cta-band'
 import { About } from '@/components/about'
@@ -18,13 +20,15 @@ import { WhatsAppButton } from '@/components/whatsapp-button'
 export default function Home() {
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-[#080808]">
+      <div className="min-h-screen bg-[#1B1F26]">
         <Header />
         <main>
           <Hero />
           <Marquee />
           <Work />
+          <Paths />
           <Services />
+          <Reviews />
           <Why />
           <CtaBand />
           <About />

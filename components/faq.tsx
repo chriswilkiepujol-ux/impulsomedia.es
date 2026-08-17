@@ -71,7 +71,7 @@ export function FAQ() {
   const t = content[language]
 
   return (
-    <section id="faq" className="relative py-24 md:py-32 bg-[#0a0a0a]">
+    <section id="faq" className="relative py-24 md:py-32 bg-[#232830]">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
@@ -88,7 +88,7 @@ export function FAQ() {
           {t.faqs.map((faq, index) => (
             <div 
               key={index}
-              className="p-4 md:p-8 rounded-xl bg-[#0f0f0f] border border-[#1a1a1a] hover:border-[#d4a853]/20 transition-colors duration-300"
+              className="p-4 md:p-8 rounded-xl bg-[#232830] border border-[#2B313B] hover:border-[#d4a853]/20 transition-colors duration-300"
             >
               <h3 className="font-display font-bold text-sm md:text-xl text-[#f2ede6] mb-2 md:mb-4">
                 {faq.question}

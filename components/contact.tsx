@@ -53,7 +53,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-[clamp(5rem,10vw,9rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#0f0f0f]">
+    <section id="contact" className="py-[clamp(5rem,10vw,9rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#232830]">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column - Info */}
@@ -65,7 +65,7 @@ export function Contact() {
               {t('Hablemos de tu ', "Let's talk about your ")}
               <em className="text-[#d4a853] not-italic">{t('proyecto', 'project')}</em>
             </h2>
-            <p className="text-[rgba(242,237,230,0.68)] text-base font-light leading-[1.7] mb-10 max-w-md">
+            <p className="text-[rgba(242, 237, 230, 0.82)] text-base font-light leading-[1.7] mb-10 max-w-md">
               {t(
                 'Cuéntanos sobre tu negocio y tus objetivos. Te responderemos en menos de 24 horas.',
                 'Tell us about your business and goals. We\'ll respond within 24 hours.'
@@ -73,11 +73,11 @@ export function Contact() {
             </p>
 
             {/* WhatsApp CTA */}
-            <div className="p-6 rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#141414] mb-8">
+            <div className="p-6 rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#2B313B] mb-8">
               <h3 className="font-display font-bold text-lg mb-2">
                 {t('Prefiere WhatsApp?', 'Prefer WhatsApp?')}
               </h3>
-              <p className="text-[0.9rem] text-[rgba(242,237,230,0.42)] mb-4">
+              <p className="text-[0.9rem] text-[rgba(242, 237, 230, 0.60)] mb-4">
                 {t(
                   'Respuesta inmediata para consultas rápidas.',
                   'Immediate response for quick inquiries.'
@@ -99,13 +99,13 @@ export function Contact() {
             {/* Contact Info */}
             <div className="space-y-4">
               <div>
-                <p className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mb-1">Email</p>
+                <p className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-1">Email</p>
                 <a href="mailto:info@impulsomedia.es" className="text-[#f2ede6] hover:text-[#d4a853] transition-colors">
                   info@impulsomedia.es
                 </a>
               </div>
               <div>
-                <p className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mb-1">
+                <p className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-1">
                   {t('Ubicación', 'Location')}
                 </p>
                 <p className="text-[#f2ede6]">Sotogrande, Cádiz, España</p>
@@ -114,11 +114,11 @@ export function Contact() {
           </div>
 
           {/* Right Column - Form */}
-          <div className="p-[clamp(1.5rem,4vw,2.5rem)] rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#141414]">
+          <div className="p-[clamp(1.5rem,4vw,2.5rem)] rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#2B313B]">
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mb-2">
+                <label htmlFor="name" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-2">
                   {t('Nombre', 'Name')} *
                 </label>
                 <input
@@ -126,14 +126,14 @@ export function Contact() {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#0f0f0f] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
                   placeholder={t('Tu nombre', 'Your name')}
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mb-2">
+                <label htmlFor="email" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-2">
                   Email *
                 </label>
                 <input
@@ -141,34 +141,34 @@ export function Contact() {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#0f0f0f] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
                   placeholder={t('tu@email.com', 'you@email.com')}
                 />
               </div>
 
               {/* Company */}
               <div>
-                <label htmlFor="company" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mb-2">
+                <label htmlFor="company" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-2">
                   {t('Empresa', 'Company')}
                 </label>
                 <input
                   type="text"
                   id="company"
                   name="company"
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#0f0f0f] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
                   placeholder={t('Nombre de tu empresa', 'Your company name')}
                 />
               </div>
 
               {/* Service */}
               <div>
-                <label htmlFor="service" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mb-2">
+                <label htmlFor="service" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-2">
                   {t('Servicio de interés', 'Service of interest')}
                 </label>
                 <select
                   id="service"
                   name="service"
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#0f0f0f] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] focus:outline-none focus:border-[#d4a853] transition-colors"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] focus:outline-none focus:border-[#d4a853] transition-colors"
                 >
                   <option value="">{t('Selecciona un servicio', 'Select a service')}</option>
                   <option value="web">{t('Diseño Web', 'Web Design')}</option>
@@ -181,7 +181,7 @@ export function Contact() {
 
               {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mb-2">
+                <label htmlFor="message" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-2">
                   {t('Mensaje', 'Message')} *
                 </label>
                 <textarea
@@ -189,7 +189,7 @@ export function Contact() {
                   name="message"
                   required
                   rows={4}
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#0f0f0f] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors resize-none"
                   placeholder={t('Cuéntanos sobre tu proyecto...', 'Tell us about your project...')}
                 />
               </div>
