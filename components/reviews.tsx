@@ -1,7 +1,8 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { Star } from "lucide-react"
+import { useRef } from "react"
+import { Star, ArrowLeft, ArrowRight } from "lucide-react"
 
 export function Reviews() {
   const { language } = useLanguage()
@@ -74,24 +75,52 @@ export function Reviews() {
   }
 
   const t = content[language]
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollRef.current) return
+    const cardWidth = scrollRef.current.clientWidth / (window.innerWidth >= 768 ? 3 : 1)
+    scrollRef.current.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" })
+  }
 
   return (
     <section id="reviews" className="relative py-24 md:py-32 bg-[#232830]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
-        <div className="max-w-2xl mx-auto text-center mb-14 md:mb-16">
-          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
-            {t.tag}
-          </span>
-          <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,3.2rem)] leading-[1.1] text-[#f2ede6]">
-            {t.headline}
-          </h2>
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-8 md:mb-10 gap-6 text-center md:text-left">
+          <div className="max-w-2xl mx-auto md:mx-0">
+            <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
+              {t.tag}
+            </span>
+            <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,3.2rem)] leading-[1.1] text-[#f2ede6]">
+              {t.headline}
+            </h2>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              onClick={() => scroll("left")}
+              aria-label={language === "es" ? "Anterior" : "Previous"}
+              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center hover:border-[#d4a853] hover:text-[#d4a853] transition-colors duration-200"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              aria-label={language === "es" ? "Siguiente" : "Next"}
+              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center hover:border-[#d4a853] hover:text-[#d4a853] transition-colors duration-200"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-10">
+        <div
+          ref={scrollRef}
+          className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth mb-10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        >
           {t.reviews.map((review, index) => (
             <div
               key={index}
-              className="bg-[#1B1F26] border border-[rgba(255,255,255,0.09)] rounded-xl p-6 md:p-8"
+              className="snap-start shrink-0 w-[85%] md:w-[calc(33.333%-16px)] bg-[#1B1F26] border border-[rgba(255,255,255,0.09)] rounded-xl p-6 md:p-8"
             >
               <div className="flex gap-1 mb-5">
                 {[...Array(5)].map((_, i) => (
