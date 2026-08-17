@@ -4,11 +4,10 @@ import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { useLanguage } from '@/lib/language-context'
 import { cn } from '@/lib/utils'
+import { esToEn, getAlternatePath } from '@/lib/route-map'
 
 export function Header() {
-  const { language, t } = useLanguage()
   const pathname = usePathname() || '/'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -22,21 +21,24 @@ export function Header() {
   }, [])
 
   const isEn = pathname === '/en' || pathname.startsWith('/en/')
-  const prefix = isEn ? '/en' : ''
   const homeHref = isEn ? '/en' : '/'
+  const altHref = getAlternatePath(pathname)
 
-  // Alternate-language URL for the current page, used by the EN/ES toggle
-  const altHref = isEn
-    ? (pathname.replace(/^\/en/, '') || '/')
-    : (pathname === '/' ? '/en' : `/en${pathname}`)
-
-  const navLinks = [
-    { href: `${prefix}/servicios`, label: t('Servicios', 'Services') },
-    { href: `${prefix}/proyectos`, label: t('Proyectos', 'Work') },
-    { href: `${prefix}/nosotros`, label: t('Nosotros', 'About') },
-    { href: `${homeHref}#reviews`, label: t('Opiniones', 'Reviews') },
-    { href: `${prefix}/contacto`, label: t('Contacto', 'Contact') },
-  ]
+  const navLinks = isEn
+    ? [
+        { href: esToEn['/servicios'], label: 'Services' },
+        { href: esToEn['/proyectos'], label: 'Work' },
+        { href: esToEn['/nosotros'], label: 'About' },
+        { href: `${homeHref}#reviews`, label: 'Reviews' },
+        { href: esToEn['/contacto'], label: 'Contact' },
+      ]
+    : [
+        { href: '/servicios', label: 'Servicios' },
+        { href: '/proyectos', label: 'Proyectos' },
+        { href: '/nosotros', label: 'Nosotros' },
+        { href: `${homeHref}#reviews`, label: 'Opiniones' },
+        { href: '/contacto', label: 'Contacto' },
+      ]
 
   return (
     <header

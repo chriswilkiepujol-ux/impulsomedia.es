@@ -5,17 +5,17 @@ export const metadata: Metadata = {
   title: 'Web Design and Digital Marketing Services',
   description: 'Custom web design, SEO, PPC, paid social, programmatic, affiliate, ASO and consultancy. Full digital marketing services in Sotogrande and Campo de Gibraltar.',
   alternates: {
-    canonical: '/en/servicios',
+    canonical: '/en/services',
     languages: {
       'es-ES': 'https://impulsomedia.es/servicios',
-      'en-GB': 'https://impulsomedia.es/en/servicios',
+      'en-GB': 'https://impulsomedia.es/en/services',
       'x-default': 'https://impulsomedia.es/servicios',
     },
   },
   openGraph: {
     title: 'Web Design and Digital Marketing Services | ImpulsoMedia',
     description: 'Custom web design, SEO, PPC, paid social, programmatic, affiliate, ASO and consultancy, for local businesses and larger brands.',
-    url: 'https://impulsomedia.es/en/servicios',
+    url: 'https://impulsomedia.es/en/services',
     locale: 'en_GB',
   },
 }
@@ -25,7 +25,7 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://impulsomedia.es/en" },
-    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://impulsomedia.es/en/servicios" }
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://impulsomedia.es/en/services" }
   ],
 }
 

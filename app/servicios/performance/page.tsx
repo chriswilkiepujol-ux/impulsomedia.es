@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     canonical: '/servicios/performance',
     languages: {
       'es-ES': 'https://impulsomedia.es/servicios/performance',
-      'en-GB': 'https://impulsomedia.es/en/servicios/performance',
+      'en-GB': 'https://impulsomedia.es/en/services/performance',
       'x-default': 'https://impulsomedia.es/servicios/performance',
     },
   },

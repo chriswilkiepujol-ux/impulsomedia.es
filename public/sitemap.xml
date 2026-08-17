@@ -24,16 +24,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/servicios"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/servicios"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/services"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/servicios"/>
   </url>
   <url>
-    <loc>https://impulsomedia.es/en/servicios</loc>
+    <loc>https://impulsomedia.es/en/services</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/servicios"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/servicios"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/services"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/servicios"/>
   </url>
   <url>
@@ -42,16 +42,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/servicios/negocio-local"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/servicios/negocio-local"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/services/local-business"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/servicios/negocio-local"/>
   </url>
   <url>
-    <loc>https://impulsomedia.es/en/servicios/negocio-local</loc>
+    <loc>https://impulsomedia.es/en/services/local-business</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/servicios/negocio-local"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/servicios/negocio-local"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/services/local-business"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/servicios/negocio-local"/>
   </url>
   <url>
@@ -60,16 +60,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/servicios/performance"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/servicios/performance"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/services/performance"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/servicios/performance"/>
   </url>
   <url>
-    <loc>https://impulsomedia.es/en/servicios/performance</loc>
+    <loc>https://impulsomedia.es/en/services/performance</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/servicios/performance"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/servicios/performance"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/services/performance"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/servicios/performance"/>
   </url>
   <url>
@@ -78,16 +78,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/proyectos"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/proyectos"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/work"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/proyectos"/>
   </url>
   <url>
-    <loc>https://impulsomedia.es/en/proyectos</loc>
+    <loc>https://impulsomedia.es/en/work</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/proyectos"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/proyectos"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/work"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/proyectos"/>
   </url>
   <url>
@@ -96,16 +96,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/nosotros"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/nosotros"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/about"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/nosotros"/>
   </url>
   <url>
-    <loc>https://impulsomedia.es/en/nosotros</loc>
+    <loc>https://impulsomedia.es/en/about</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/nosotros"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/nosotros"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/about"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/nosotros"/>
   </url>
   <url>
@@ -114,16 +114,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/contacto"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/contacto"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/contacto"/>
   </url>
   <url>
-    <loc>https://impulsomedia.es/en/contacto</loc>
+    <loc>https://impulsomedia.es/en/contact</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/contacto"/>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/contacto"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/contacto"/>
   </url>
 </urlset>

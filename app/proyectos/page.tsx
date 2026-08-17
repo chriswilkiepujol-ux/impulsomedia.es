@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     canonical: '/proyectos',
     languages: {
       'es-ES': 'https://impulsomedia.es/proyectos',
-      'en-GB': 'https://impulsomedia.es/en/proyectos',
+      'en-GB': 'https://impulsomedia.es/en/work',
       'x-default': 'https://impulsomedia.es/proyectos',
     },
   },

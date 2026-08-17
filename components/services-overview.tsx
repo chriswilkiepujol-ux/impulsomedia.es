@@ -22,7 +22,7 @@ export function ServicesOverview() {
             </h2>
           </div>
           <Link
-            href={language === 'en' ? '/en/servicios' : '/servicios'}
+            href={language === 'en' ? '/en/services' : '/servicios'}
             className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm hover:gap-3 transition-all duration-200 whitespace-nowrap"
           >
             {t('Ver todos los servicios', 'See all services')}

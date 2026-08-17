@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { Store, TrendingUp, ArrowRight } from "lucide-react"
+import { esToEn } from "@/lib/route-map"
 
 export function Paths() {
   const { language } = useLanguage()
@@ -91,7 +92,7 @@ export function Paths() {
                 ))}
               </ul>
               <a
-                href={language === 'en' ? `/en${path.href}` : path.href}
+                href={language === 'en' ? esToEn[path.href] : path.href}
                 className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm hover:gap-3 transition-all duration-200"
               >
                 {path.cta}

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     canonical: '/nosotros',
     languages: {
       'es-ES': 'https://impulsomedia.es/nosotros',
-      'en-GB': 'https://impulsomedia.es/en/nosotros',
+      'en-GB': 'https://impulsomedia.es/en/about',
       'x-default': 'https://impulsomedia.es/nosotros',
     },
   },

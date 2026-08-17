@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     canonical: '/servicios/negocio-local',
     languages: {
       'es-ES': 'https://impulsomedia.es/servicios/negocio-local',
-      'en-GB': 'https://impulsomedia.es/en/servicios/negocio-local',
+      'en-GB': 'https://impulsomedia.es/en/services/local-business',
       'x-default': 'https://impulsomedia.es/servicios/negocio-local',
     },
   },
