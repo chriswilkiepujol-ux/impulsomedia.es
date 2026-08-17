@@ -1,0 +1,9 @@
+# ImpulsoMedia robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://impulsomedia.es/sitemap.xml
+
+# Disallow admin/api routes
+Disallow: /api/

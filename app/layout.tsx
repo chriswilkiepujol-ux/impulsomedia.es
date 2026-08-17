@@ -1,0 +1,144 @@
+import type { Metadata, Viewport } from 'next'
+import { Syne, DM_Sans } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
+import './globals.css'
+
+const syne = Syne({ 
+  subsets: ["latin"],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const dmSans = DM_Sans({ 
+  subsets: ["latin"],
+  weight: ['300', '400', '500'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+export const viewport: Viewport = {
+  themeColor: '#d4a853',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://impulsomedia.es'),
+  title: {
+    default: 'ImpulsoMedia | Diseño Web y Marketing Digital en España',
+    template: '%s | ImpulsoMedia'
+  },
+  description: 'Agencia digital especializada en diseño web, redes sociales e identidad visual. Creamos sitios web desde cero para negocios en España. Sin plantillas, sin parches. Solo resultados.',
+  keywords: ['diseño web', 'marketing digital', 'redes sociales', 'identidad visual', 'desarrollo web', 'España', 'Sotogrande', 'agencia digital', 'web design', 'digital agency', 'social media'],
+  authors: [{ name: 'ImpulsoMedia', url: 'https://impulsomedia.es' }],
+  creator: 'ImpulsoMedia',
+  publisher: 'ImpulsoMedia',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: '/',
+    languages: {
+      'es-ES': '/',
+      'en-GB': '/',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'es_ES',
+    alternateLocale: 'en_GB',
+    url: 'https://impulsomedia.es',
+    siteName: 'ImpulsoMedia',
+    title: 'ImpulsoMedia | Diseño Web y Marketing Digital',
+    description: 'Creamos sitios web desde cero para negocios en España. Sin plantillas, sin parches. Solo resultados.',
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'ImpulsoMedia - Agencia Digital',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ImpulsoMedia | Diseño Web y Marketing Digital',
+    description: 'Creamos sitios web desde cero para negocios en España. Sin plantillas, sin parches.',
+    images: ['/images/og-image.jpg'],
+    creator: '@impulsomedia',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add your verification codes when ready
+    // google: 'your-google-verification-code',
+    // yandex: 'your-yandex-verification-code',
+  },
+  category: 'technology',
+}
+
+// JSON-LD Structured Data
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'ImpulsoMedia',
+  description: 'Agencia digital especializada en diseño web, redes sociales e identidad visual. Creamos sitios web desde cero para negocios en España y mercados internacionales.',
+  url: 'https://impulsomedia.es',
+  logo: 'https://impulsomedia.es/images/impulsomedia-logo.svg',
+  image: 'https://impulsomedia.es/images/og-image.jpg',
+  telephone: '+34680863229',
+  email: 'info@impulsomedia.es',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'ES',
+    addressRegion: 'Andalucía',
+  },
+  areaServed: [
+    { '@type': 'Country', name: 'Spain' },
+    { '@type': 'Country', name: 'United Kingdom' },
+  ],
+  serviceType: ['Web Design', 'Social Media Management', 'Visual Identity', 'Digital Marketing', 'SEO'],
+  priceRange: '$$',
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '18:00',
+  },
+  knowsLanguage: ['Spanish', 'English'],
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="es" className={`${syne.variable} ${dmSans.variable}`}>
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
+      <body className="font-sans antialiased bg-[#080808] text-[#f2ede6]">
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  )
+}
