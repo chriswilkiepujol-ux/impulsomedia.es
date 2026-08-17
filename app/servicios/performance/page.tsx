@@ -1,22 +1,38 @@
-"use client"
+import type { Metadata } from 'next'
+import { PerformanceContent } from './performance-content'
 
-import { LanguageProvider } from '@/lib/language-context'
-import { Header } from '@/components/header'
-import { ServicesByAudience } from '@/components/services-by-audience'
-import { Footer } from '@/components/footer'
-import { WhatsAppButton } from '@/components/whatsapp-button'
+export const metadata: Metadata = {
+  title: 'Gestión de Campañas y Media Buying a Escala',
+  description: 'PPC, programática, afiliación, in-app, ASO y consultoría para marcas y operadores que necesitan gestionar campañas de marketing digital a mayor escala.',
+  alternates: {
+    canonical: '/servicios/performance',
+  },
+  openGraph: {
+    title: 'Gestión de Campañas y Media Buying a Escala | ImpulsoMedia',
+    description: 'PPC, programática, afiliación, in-app, ASO y consultoría para marcas y operadores con presupuestos mayores.',
+    url: 'https://impulsomedia.es/servicios/performance',
+  },
+}
 
-export default function PerformancePage() {
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://impulsomedia.es" },
+    { "@type": "ListItem", "position": 2, "name": "Servicios", "item": "https://impulsomedia.es/servicios" },
+    { "@type": "ListItem", "position": 3, "name": "Performance", "item": "https://impulsomedia.es/servicios/performance" }
+  ],
+}
+
+export default function Page() {
   return (
-    <LanguageProvider>
-      <div className="min-h-screen bg-[#1B1F26]">
-        <Header />
-        <main className="pt-[68px]">
-          <ServicesByAudience category="performance" />
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </div>
-    </LanguageProvider>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <PerformanceContent />
+    </>
   )
 }

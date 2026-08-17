@@ -1,26 +1,37 @@
-"use client"
+import type { Metadata } from 'next'
+import { NosotrosContent } from './nosotros-content'
 
-import { LanguageProvider } from '@/lib/language-context'
-import { Header } from '@/components/header'
-import { About } from '@/components/about'
-import { Why } from '@/components/why'
-import { CtaBand } from '@/components/cta-band'
-import { Footer } from '@/components/footer'
-import { WhatsAppButton } from '@/components/whatsapp-button'
+export const metadata: Metadata = {
+  title: 'Sobre Nosotros',
+  description: 'Agencia digital con sede en Sotogrande. Construimos sitios web desde cero, sin plantillas, con trato directo y comunicación rápida por WhatsApp.',
+  alternates: {
+    canonical: '/nosotros',
+  },
+  openGraph: {
+    title: 'Sobre Nosotros | ImpulsoMedia',
+    description: 'Agencia digital con sede en Sotogrande. Construimos sitios web desde cero, sin plantillas, con trato directo.',
+    url: 'https://impulsomedia.es/nosotros',
+  },
+}
 
-export default function NosotrosPage() {
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://impulsomedia.es" },
+    { "@type": "ListItem", "position": 2, "name": "Nosotros", "item": "https://impulsomedia.es/nosotros" }
+  ],
+}
+
+export default function Page() {
   return (
-    <LanguageProvider>
-      <div className="min-h-screen bg-[#1B1F26]">
-        <Header />
-        <main className="pt-[68px]">
-          <About />
-          <Why />
-          <CtaBand />
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </div>
-    </LanguageProvider>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <NosotrosContent />
+    </>
   )
 }
