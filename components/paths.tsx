@@ -87,7 +87,7 @@ export function Paths() {
                 ))}
               </ul>
               <a
-                href="#services"
+                href="/servicios"
                 className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm hover:gap-3 transition-all duration-200"
               >
                 {path.cta}

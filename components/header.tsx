@@ -19,11 +19,11 @@ export function Header() {
   }, [])
 
   const navLinks = [
-    { href: '#work', label: t('Trabajo', 'Work') },
-    { href: '#services', label: t('Servicios', 'Services') },
-    { href: '#reviews', label: t('Opiniones', 'Reviews') },
-    { href: '#process', label: t('Proceso', 'Process') },
-    { href: '#contact', label: t('Contacto', 'Contact') },
+    { href: '/servicios', label: t('Servicios', 'Services') },
+    { href: '/proyectos', label: t('Proyectos', 'Work') },
+    { href: '/nosotros', label: t('Nosotros', 'About') },
+    { href: '/#reviews', label: t('Opiniones', 'Reviews') },
+    { href: '/contacto', label: t('Contacto', 'Contact') },
   ]
 
   return (
@@ -38,7 +38,7 @@ export function Header() {
     >
       {/* Logo with Icon */}
       <a 
-        href="#" 
+        href="/" 
         className="flex items-center gap-2 font-display font-extrabold text-[1.1rem] tracking-[0.12em] uppercase text-[#f2ede6] no-underline"
       >
         <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
