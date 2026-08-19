@@ -3,6 +3,7 @@ export const esToEn: Record<string, string> = {
   '/servicios': '/en/services',
   '/servicios/negocio-local': '/en/services/local-business',
   '/servicios/performance': '/en/services/performance',
+  '/precios': '/en/pricing',
   '/proyectos': '/en/work',
   '/nosotros': '/en/about',
   '/contacto': '/en/contact',
