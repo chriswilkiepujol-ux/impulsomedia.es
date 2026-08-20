@@ -7,6 +7,7 @@ export function Footer() {
   const isEn = language === 'en'
   const homeHref = isEn ? '/en' : '/'
   const serviciosHref = isEn ? '/en/services' : '/servicios'
+  const preciosHref = isEn ? '/en/pricing' : '/precios'
   const proyectosHref = isEn ? '/en/work' : '/proyectos'
   const contactoHref = isEn ? '/en/contact' : '/contacto'
   const currentYear = new Date().getFullYear()
@@ -72,6 +73,11 @@ export function Footer() {
                 {t('Empresa', 'Company')}
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
+                <li>
+                  <a href={preciosHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                    {t('Precios', 'Pricing')}
+                  </a>
+                </li>
                 <li>
                   <a href={proyectosHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Trabajo', 'Work')}

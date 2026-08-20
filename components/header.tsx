@@ -27,6 +27,7 @@ export function Header() {
   const navLinks = isEn
     ? [
         { href: esToEn['/servicios'], label: 'Services' },
+        { href: esToEn['/precios'], label: 'Pricing' },
         { href: esToEn['/proyectos'], label: 'Work' },
         { href: esToEn['/nosotros'], label: 'About' },
         { href: esToEn['/opiniones'], label: 'Reviews' },
@@ -34,6 +35,7 @@ export function Header() {
       ]
     : [
         { href: '/servicios', label: 'Servicios' },
+        { href: '/precios', label: 'Precios' },
         { href: '/proyectos', label: 'Proyectos' },
         { href: '/nosotros', label: 'Nosotros' },
         { href: '/opiniones', label: 'Opiniones' },
