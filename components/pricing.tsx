@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from '@/lib/language-context'
-import { MessageCircle, CreditCard, Repeat, Briefcase, Package } from 'lucide-react'
+import { MessageCircle, CreditCard, Repeat, Briefcase, Package, Sparkles as SparklesIcon } from 'lucide-react'
 import { websitePackages, retainerServices } from '@/lib/pricing-data'
 
 function TypeTag({ icon: Icon, label }: { icon: typeof CreditCard; label: string }) {
@@ -15,14 +15,20 @@ function TypeTag({ icon: Icon, label }: { icon: typeof CreditCard; label: string
   )
 }
 
+const jumpLinks = [
+  { id: 'pricing-websites', es: 'Webs', en: 'Websites' },
+  { id: 'pricing-recurring', es: 'Mensual', en: 'Monthly' },
+  { id: 'pricing-consultancy', es: 'Consultoría', en: 'Consultancy' },
+]
+
 export function Pricing() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="pricing" className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#232830]">
+    <section className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#232830]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
-        <div className="mb-14 md:mb-[clamp(4rem,7vw,6rem)] max-w-[62ch]">
+        <div className="mb-10 md:mb-14 max-w-[62ch]">
           <span className="section-label mb-4 md:mb-5 block">
             {t('Precios', 'Pricing')}
           </span>
@@ -49,10 +55,26 @@ export function Pricing() {
           </a>
         </div>
 
+        {/* Sticky jump nav */}
+        <nav
+          aria-label={t('Ir a sección', 'Jump to section')}
+          className="sticky top-[68px] z-30 -mx-6 md:-mx-[clamp(1.5rem,5vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] py-3 mb-10 md:mb-14 flex gap-6 overflow-x-auto bg-[#232830]/95 backdrop-blur-md border-y border-[rgba(255,255,255,0.06)]"
+        >
+          {jumpLinks.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className="text-[0.78rem] font-medium tracking-[0.05em] uppercase text-[rgba(242,237,230,0.55)] whitespace-nowrap no-underline transition-colors duration-200 hover:text-[#d4a853]"
+            >
+              {language === 'es' ? link.es : link.en}
+            </a>
+          ))}
+        </nav>
+
         {/* One-time: Website Builds */}
-        <div className="mb-10 md:mb-14">
+        <div id="pricing-websites" className="mb-10 md:mb-14 scroll-mt-[130px]">
           <TypeTag icon={CreditCard} label={t('Pago único', 'One time')} />
-          <div className="flex items-baseline justify-between gap-4 mb-6 md:mb-8">
+          <div className="flex items-baseline justify-between gap-4 mb-3 md:mb-4">
             <h3 className="font-display font-bold text-[clamp(1.3rem,2.5vw,1.8rem)]">
               {t('Webs', 'Websites')}
             </h3>
@@ -61,34 +83,53 @@ export function Pricing() {
             </p>
           </div>
 
+          {/* Cuál elijo helper */}
+          <div className="flex items-start gap-2.5 mb-6 md:mb-8 p-4 rounded-lg bg-[rgba(212,168,83,0.06)] border border-[rgba(212,168,83,0.15)]">
+            <SparklesIcon className="w-4 h-4 text-[#d4a853] shrink-0 mt-0.5" strokeWidth={1.75} />
+            <p className="text-[0.82rem] text-[rgba(242,237,230,0.70)] leading-[1.6]">
+              <span className="font-semibold text-[#f2ede6]">{t('¿Cuál elijo? ', 'Which one? ')}</span>
+              {t(
+                'Si es tu primera web, empieza con Essential. Si ya sabes que vas a necesitar blog, contenido y SEO desde el día uno, Growth te ahorra tener que ampliar más adelante.',
+                'If this is your first website, start with Essential. If you already know you\u2019ll need a blog, content and SEO from day one, Growth saves you upgrading later.'
+              )}
+            </p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.06)]">
             {websitePackages.map((pkg, index) => {
               const Icon = pkg.icon
+              const isFeatured = pkg.id === 'growth'
               return (
                 <div
                   key={pkg.id}
-                  className="group bg-[#232830] p-6 md:p-[clamp(2rem,4vw,2.5rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#2B313B]"
+                  className={
+                    isFeatured
+                      ? 'group bg-gradient-to-br from-[#d4a853] to-[#b8923f] p-6 md:p-[clamp(2rem,4vw,2.5rem)] relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4a853]/20'
+                      : 'group bg-[#232830] p-6 md:p-[clamp(2rem,4vw,2.5rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#2B313B]'
+                  }
                 >
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#d4a853] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
+                  {!isFeatured && (
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#d4a853] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
+                  )}
 
                   <div className="flex items-center justify-between mb-5 md:mb-6">
-                    <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#d4a853]">
-                      {`0${index + 1}`}
+                    <span className={`font-display text-[0.65rem] font-bold tracking-[0.2em] ${isFeatured ? 'text-[#1B1F26]/60' : 'text-[#d4a853]'}`}>
+                      {isFeatured ? t('MÁS ELEGIDO', 'MOST CHOSEN') : `0${index + 1}`}
                     </span>
-                    <Icon className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+                    <Icon className={`w-5 h-5 ${isFeatured ? 'text-[#1B1F26]' : 'text-[#d4a853]'}`} strokeWidth={1.5} />
                   </div>
 
-                  <h4 className="font-display font-extrabold text-[clamp(1.1rem,2.5vw,1.4rem)] tracking-[-0.01em] mb-4 leading-[1.1]">
+                  <h4 className={`font-display font-extrabold text-[clamp(1.1rem,2.5vw,1.4rem)] tracking-[-0.01em] mb-4 leading-[1.1] ${isFeatured ? 'text-[#1B1F26]' : ''}`}>
                     {language === 'es' ? pkg.nameEs : pkg.nameEn}
                   </h4>
 
-                  <div className="mb-5 pb-5 border-b border-[rgba(255,255,255,0.08)]">
+                  <div className={`mb-5 pb-5 border-b ${isFeatured ? 'border-[#1B1F26]/15' : 'border-[rgba(255,255,255,0.08)]'}`}>
                     {pkg.priceFrom ? (
                       <>
-                        <span className="text-[0.68rem] font-medium tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] block mb-1">
+                        <span className={`text-[0.68rem] font-medium tracking-[0.1em] uppercase block mb-1 ${isFeatured ? 'text-[#1B1F26]/60' : 'text-[rgba(242,237,230,0.42)]'}`}>
                           {t('Desde', 'From')}
                         </span>
-                        <div className="font-display text-[clamp(1.7rem,3.5vw,2.2rem)] font-extrabold leading-none">
+                        <div className={`font-display text-[clamp(1.7rem,3.5vw,2.2rem)] font-extrabold leading-none ${isFeatured ? 'text-[#1B1F26]' : ''}`}>
                           €{pkg.priceFrom}
                         </div>
                       </>
@@ -99,7 +140,7 @@ export function Pricing() {
                     )}
                   </div>
 
-                  <p className="text-[0.85rem] text-[rgba(242,237,230,0.60)] leading-[1.7]">
+                  <p className={`text-[0.85rem] leading-[1.7] ${isFeatured ? 'text-[#1B1F26]/70' : 'text-[rgba(242,237,230,0.60)]'}`}>
                     {language === 'es' ? pkg.scopeEs : pkg.scopeEn}
                   </p>
                 </div>
@@ -116,7 +157,7 @@ export function Pricing() {
         </div>
 
         {/* Recurring: Retainers */}
-        <div className="mb-14 md:mb-20">
+        <div id="pricing-recurring" className="mb-14 md:mb-20 scroll-mt-[130px]">
           <TypeTag icon={Repeat} label={t('Recurrente', 'Recurring')} />
           <div className="flex items-baseline justify-between gap-4 mb-6 md:mb-8">
             <h3 className="font-display font-bold text-[clamp(1.3rem,2.5vw,1.8rem)]">
@@ -158,7 +199,7 @@ export function Pricing() {
         </div>
 
         {/* Consultancy + Full Stack Bundle */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-5">
+        <div id="pricing-consultancy" className="grid md:grid-cols-2 gap-4 md:gap-5 scroll-mt-[130px]">
           <div className="bg-[#1B1F26] border border-[rgba(255,255,255,0.08)] rounded-xl p-6 md:p-[clamp(2rem,4vw,2.5rem)]">
             <div className="flex items-center gap-2.5 mb-3">
               <Briefcase className="w-[18px] h-[18px] text-[#d4a853]" strokeWidth={1.75} />
