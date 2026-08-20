@@ -1,5 +1,8 @@
+import { Globe, Rocket, Sparkles, Share2, TrendingUp, Target, Instagram, LucideIcon } from 'lucide-react'
+
 export interface WebsitePackage {
   id: string
+  icon: LucideIcon
   nameEs: string
   nameEn: string
   priceFrom: string
@@ -9,10 +12,11 @@ export interface WebsitePackage {
 
 export interface RetainerService {
   id: string
+  icon: LucideIcon
   nameEs: string
   nameEn: string
-  priceEs: string
-  priceEn: string
+  priceShortEs: string
+  priceShortEn: string
   scopeEs: string
   scopeEn: string
 }
@@ -20,6 +24,7 @@ export interface RetainerService {
 export const websitePackages: WebsitePackage[] = [
   {
     id: 'essential',
+    icon: Globe,
     nameEs: 'Essential',
     nameEn: 'Essential',
     priceFrom: '950',
@@ -28,6 +33,7 @@ export const websitePackages: WebsitePackage[] = [
   },
   {
     id: 'growth',
+    icon: Rocket,
     nameEs: 'Growth',
     nameEn: 'Growth',
     priceFrom: '1.800',
@@ -36,6 +42,7 @@ export const websitePackages: WebsitePackage[] = [
   },
   {
     id: 'custom',
+    icon: Sparkles,
     nameEs: 'Custom / Enterprise',
     nameEn: 'Custom / Enterprise',
     priceFrom: '',
@@ -48,37 +55,41 @@ export const websitePackages: WebsitePackage[] = [
 export const retainerServices: RetainerService[] = [
   {
     id: 'paid-social',
+    icon: Share2,
     nameEs: 'Social Ads',
     nameEn: 'Paid Social',
-    priceEs: '€400/mes fijo, o un porcentaje de la inversión publicitaria para cuentas de mayor volumen',
-    priceEn: '€400/mo flat, or a percentage of ad spend for larger accounts',
-    scopeEs: 'Anuncios en redes: Meta, TikTok, Snapchat. 1 a 2 plataformas, hasta 8 creatividades al mes, gestión de presupuesto, informe mensual.',
-    scopeEn: 'Ads on social channels: Meta, TikTok, Snapchat. 1 to 2 platforms, up to 8 creatives per month, budget management, monthly report.',
+    priceShortEs: 'Desde €400/mes',
+    priceShortEn: 'From €400/mo',
+    scopeEs: 'Anuncios en redes: Meta, TikTok, Snapchat. 1 a 2 plataformas, hasta 8 creatividades al mes, gestión de presupuesto, informe mensual. Para cuentas de mayor volumen, tarifa como porcentaje de la inversión.',
+    scopeEn: 'Ads on social channels: Meta, TikTok, Snapchat. 1 to 2 platforms, up to 8 creatives per month, budget management, monthly report. For larger accounts, fee as a percentage of ad spend.',
   },
   {
     id: 'seo',
+    icon: TrendingUp,
     nameEs: 'SEO',
     nameEn: 'SEO',
-    priceEs: '€350/mes',
-    priceEn: '€350/mo',
+    priceShortEs: 'Desde €350/mes',
+    priceShortEn: 'From €350/mo',
     scopeEs: 'Optimización de GMB, hasta 15 citas locales, 2 artículos de blog al mes, SEO on page, 1 informe mensual.',
     scopeEn: 'GMB optimization, up to 15 local citations, 2 blog posts per month, on page SEO, 1 monthly report.',
   },
   {
     id: 'ppc',
+    icon: Target,
     nameEs: 'PPC',
     nameEn: 'PPC',
-    priceEs: '€400/mes fijo, o un porcentaje de la inversión publicitaria para cuentas de mayor volumen',
-    priceEn: '€400/mo flat, or a percentage of ad spend for larger accounts',
-    scopeEs: 'Google Ads y búsqueda. 1 campaña activa, hasta 20 palabras clave gestionadas, informe mensual.',
-    scopeEn: 'Google Ads and search. 1 active campaign, up to 20 managed keywords, monthly report.',
+    priceShortEs: 'Desde €400/mes',
+    priceShortEn: 'From €400/mo',
+    scopeEs: 'Google Ads y búsqueda. 1 campaña activa, hasta 20 palabras clave gestionadas, informe mensual. Para cuentas de mayor volumen, tarifa como porcentaje de la inversión.',
+    scopeEn: 'Google Ads and search. 1 active campaign, up to 20 managed keywords, monthly report. For larger accounts, fee as a percentage of ad spend.',
   },
   {
     id: 'organic-social',
+    icon: Instagram,
     nameEs: 'Social Orgánico',
     nameEn: 'Organic Social',
-    priceEs: '€225/mes',
-    priceEn: '€225/mo',
+    priceShortEs: 'Desde €225/mes',
+    priceShortEn: 'From €225/mo',
     scopeEs: 'Contenido orgánico: 8 publicaciones al mes, hasta 2 plataformas, informe mensual. Sin inversión publicitaria incluida.',
     scopeEn: 'Organic content: 8 posts per month, up to 2 platforms, monthly report. No ad spend included.',
   },
