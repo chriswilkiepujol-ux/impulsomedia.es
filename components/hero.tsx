@@ -93,7 +93,7 @@ export function Hero() {
         >
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              4<em className="text-[#d4a853] not-italic">+</em>
+              7<em className="text-[#d4a853] not-italic">+</em>
             </div>
             <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
               {language === "en" ? "Live Clients" : "Clientes Activos"}
