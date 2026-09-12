@@ -40,6 +40,7 @@ export function Contact() {
 
       setError('')
       setIsSuccess(true)
+      window.gtag?.('event', 'form_submit', { service: data.service })
       form.reset()
     } catch {
       setIsSuccess(false)
