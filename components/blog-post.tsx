@@ -87,6 +87,22 @@ export function BlogPost({ post }: { post: BlogPostType }) {
                 </h2>
               )
             }
+            if (block.type === "stats") {
+              return (
+                <div key={i} className="grid grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.09)] border border-[rgba(255,255,255,0.09)] rounded-xl overflow-hidden my-8">
+                  {block.stats?.map((stat, j) => (
+                    <div key={j} className="bg-[#2E3542] p-4 md:p-6 text-center">
+                      <div className="font-display font-extrabold text-lg md:text-2xl text-[#d4a853] leading-none mb-2">
+                        {stat.value}
+                      </div>
+                      <div className="text-[0.68rem] md:text-[0.75rem] text-[rgba(242,237,230,0.55)] leading-[1.4]">
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )
+            }
             if (block.type === "ul") {
               return (
                 <ul key={i} className="mb-6 flex flex-col gap-2.5">

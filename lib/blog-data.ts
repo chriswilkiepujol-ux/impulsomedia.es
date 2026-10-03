@@ -1,7 +1,8 @@
 export interface BlogBlock {
-  type: 'p' | 'h2' | 'ul'
+  type: 'p' | 'h2' | 'ul' | 'stats'
   text?: string
   items?: string[]
+  stats?: { value: string; label: string }[]
 }
 
 export interface BlogPost {
@@ -89,8 +90,8 @@ export const blogPosts: BlogPost[] = [
     slugEn: 'racket-breaks-case-study-padel-booking-platform',
     titleEs: 'Cómo construimos la plataforma de reservas de Racket Breaks',
     titleEn: "Building Racket Breaks' padel booking platform",
-    excerptEs: 'Un vistazo real al proceso de construir una plataforma de reservas a medida para vacaciones de pádel en el sur de España, pensada para un público británico y europeo.',
-    excerptEn: 'A real look at building a custom booking platform for padel holidays in southern Spain, designed for a UK and European audience.',
+    excerptEs: 'Web de ~50 páginas construida en dos semanas para un público británico y europeo. Más de 10 nuevos leads en el primer mes tras el lanzamiento.',
+    excerptEn: 'A ~50-page website built in two weeks for a UK and European audience. Over 10 new leads in the first month after launch.',
     date: '2026-10-04',
     readMinutes: 5,
     coverImage: '/images/blog-racket-breaks-cover.svg',
@@ -113,7 +114,13 @@ export const blogPosts: BlogPost[] = [
       { type: 'h2', text: 'Por qué importaban las páginas de destino' },
       { type: 'p', text: 'Alguien que busca unas vacaciones de pádel en Sotogrande no es necesariamente la misma persona que busca en Estepona. Cada zona atrae a un perfil ligeramente distinto. Tener una página dedicada por destino, en vez de una sola página genérica de "vacaciones de pádel en España", permite que cada una compita por su propia búsqueda específica en Google.' },
       { type: 'h2', text: 'Resultado' },
-      { type: 'p', text: 'La web se lanzó para la temporada 2026 con cobertura completa de los cinco destinos. Seguimos trabajando con Racket Breaks de forma activa, ampliando contenido por destino y afinando el motor de presupuesto según el feedback real de los primeros clientes que han reservado a través de la web.' },
+      { type: 'p', text: 'La web se construyó en dos semanas, con cerca de 50 páginas cubriendo destinos, alojamientos, ofertas y paquetes concretos, no una estructura genérica de cuatro secciones. Se lanzó a tiempo para la temporada 2026 con cobertura completa de los cinco destinos.' },
+      { type: 'stats', stats: [
+        { value: '2 semanas', label: 'De la construcción al lanzamiento' },
+        { value: '~50 páginas', label: 'Destinos, ofertas y paquetes' },
+        { value: '10+ leads', label: 'Nuevos clientes en el primer mes' },
+      ]},
+      { type: 'p', text: 'En el primer mes desde el lanzamiento, la web generó más de 10 nuevos leads de clientes reales, sin necesidad de campañas pagadas adicionales en ese periodo. Seguimos trabajando con Racket Breaks de forma activa, ampliando contenido por destino y afinando el motor de presupuesto según el feedback real de quienes han reservado a través de la web.' },
     ],
     contentEn: [
       { type: 'p', text: 'Racket Breaks organises padel holidays across the south of Spain: Sotogrande, Marbella, Estepona, Málaga and Almería. The business was already running well on referral and direct contact, but needed a website that matched the quality of the service and let a UK client understand what they were buying within seconds.' },
@@ -129,7 +136,13 @@ export const blogPosts: BlogPost[] = [
       { type: 'h2', text: 'Why the destination pages mattered' },
       { type: 'p', text: "Someone searching for a padel holiday in Sotogrande isn't necessarily the same person searching in Estepona. Each area attracts a slightly different profile. Having a dedicated page per destination, instead of one generic 'padel holidays in Spain' page, lets each one compete for its own specific search on Google." },
       { type: 'h2', text: 'Result' },
-      { type: 'p', text: 'The site launched for the 2026 season with full coverage across all five destinations. We continue working with Racket Breaks actively, expanding destination content and refining the quote engine based on real feedback from the first clients booking through the site.' },
+      { type: 'p', text: "The site was built in two weeks, with close to 50 pages covering destinations, accommodation, offers and specific packages, not a generic four-section structure. It launched in time for the 2026 season with full coverage across all five destinations." },
+      { type: 'stats', stats: [
+        { value: '2 weeks', label: 'From build to launch' },
+        { value: '~50 pages', label: 'Destinations, offers and packages' },
+        { value: '10+ leads', label: 'New clients in the first month' },
+      ]},
+      { type: 'p', text: 'In the first month after launch, the site generated over 10 new client leads, without needing additional paid campaigns in that period. We continue working with Racket Breaks actively, expanding destination content and refining the quote engine based on real feedback from people booking through the site.' },
     ],
   },
   {
