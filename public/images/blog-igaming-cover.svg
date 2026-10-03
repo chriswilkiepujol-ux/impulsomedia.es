@@ -1,0 +1,55 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E3542"/>
+      <stop offset="100%" stop-color="#1D212A"/>
+    </linearGradient>
+    <radialGradient id="glow3" cx="45%" cy="55%" r="60%">
+      <stop offset="0%" stop-color="#d4a853" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#d4a853" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bgGrad3)"/>
+  <rect width="800" height="450" fill="url(#glow3)"/>
+
+  <!-- grid -->
+  <g opacity="0.07" stroke="#f2ede6">
+    <line x1="0" y1="112" x2="800" y2="112" stroke-width="1"/>
+    <line x1="0" y1="225" x2="800" y2="225" stroke-width="1"/>
+    <line x1="0" y1="337" x2="800" y2="337" stroke-width="1"/>
+  </g>
+
+  <!-- ascending bars -->
+  <g>
+    <rect x="150" y="300" width="56" height="90" fill="#2B313B" stroke="#d4a853" stroke-width="2.5" opacity="0.85"/>
+    <rect x="230" y="260" width="56" height="130" fill="#2B313B" stroke="#d4a853" stroke-width="2.5" opacity="0.85"/>
+    <rect x="310" y="210" width="56" height="180" fill="#2B313B" stroke="#d4a853" stroke-width="2.5" opacity="0.85"/>
+    <rect x="390" y="150" width="56" height="240" fill="#2B313B" stroke="#d4a853" stroke-width="2.5" opacity="0.9"/>
+    <rect x="470" y="100" width="56" height="290" fill="#d4a853" opacity="0.92"/>
+  </g>
+
+  <!-- trend line with arrow -->
+  <path d="M 150 340 L 258 300 L 338 260 L 418 190 L 498 95"
+        fill="none" stroke="#f2ede6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <path d="M 498 95 L 475 102 M 498 95 L 490 118"
+        fill="none" stroke="#f2ede6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+
+  <!-- data point dots -->
+  <g fill="#f2ede6">
+    <circle cx="150" cy="340" r="5"/>
+    <circle cx="258" cy="300" r="5"/>
+    <circle cx="338" cy="260" r="5"/>
+    <circle cx="418" cy="190" r="5"/>
+  </g>
+
+  <!-- subtle target reticle, performance/precision motif -->
+  <g transform="translate(640,160)" opacity="0.3" stroke="#d4a853" fill="none">
+    <circle cx="0" cy="0" r="46" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="28" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="4" fill="#d4a853" stroke="none"/>
+    <line x1="-60" y1="0" x2="-52" y2="0" stroke-width="1.5"/>
+    <line x1="52" y1="0" x2="60" y2="0" stroke-width="1.5"/>
+    <line x1="0" y1="-60" x2="0" y2="-52" stroke-width="1.5"/>
+    <line x1="0" y1="52" x2="0" y2="60" stroke-width="1.5"/>
+  </g>
+</svg>

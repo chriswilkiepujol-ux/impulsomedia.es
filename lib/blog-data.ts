@@ -17,6 +17,7 @@ export interface BlogPost {
   excerptEn: string
   date: string
   readMinutes: number
+  coverImage: string
   contentEs: BlogBlock[]
   contentEn: BlogBlock[]
 }
@@ -35,6 +36,7 @@ export const blogPosts: BlogPost[] = [
     excerptEn: 'What actually works to show up on Google when someone searches for a business in Sotogrande, San Roque or Gibraltar. No generic theory, just what we apply with real clients.',
     date: '2026-10-04',
     readMinutes: 6,
+    coverImage: '/images/blog-local-seo-cover.svg',
     contentEs: [
       { type: 'p', text: 'La mayoría de guías de SEO local están escritas para cualquier ciudad del mundo. Aquí hablamos específicamente de Sotogrande, San Roque, Gibraltar y el resto del Campo de Gibraltar, una zona con una mezcla particular de búsquedas en español e inglés, mucho tráfico de residentes extranjeros y negocios que compiten tanto a nivel local como con agencias de Marbella o Málaga.' },
       { type: 'h2', text: 'Empieza por tu ficha de Google Business' },
@@ -85,6 +87,7 @@ export const blogPosts: BlogPost[] = [
     excerptEn: 'A real look at building a custom booking platform for padel holidays in southern Spain, designed for a UK and European audience.',
     date: '2026-10-04',
     readMinutes: 5,
+    coverImage: '/images/blog-racket-breaks-cover.svg',
     contentEs: [
       { type: 'p', text: 'Racket Breaks organiza vacaciones de pádel en el sur de España: Sotogrande, Marbella, Estepona, Málaga y Almería. El negocio ya funcionaba bien por recomendación y contacto directo, pero necesitaban una web que reflejara el nivel del servicio y que permitiera a un cliente del Reino Unido entender en segundos qué estaban comprando.' },
       { type: 'h2', text: 'El problema real' },
@@ -131,6 +134,7 @@ export const blogPosts: BlogPost[] = [
     excerptEn: 'Years running media buying for betting and casino operators leave a particular way of thinking about performance marketing. Here is what we now apply to clients outside the sector.',
     date: '2026-10-04',
     readMinutes: 5,
+    coverImage: '/images/blog-igaming-cover.svg',
     contentEs: [
       { type: 'p', text: 'Antes de fundar ImpulsoMedia, pasamos años trabajando en compra de medios para operadores de iGaming: apuestas deportivas, casino online, afiliación. Es un sector que exige un nivel de disciplina en el rendimiento que pocas industrias igualan, porque cada euro gastado en adquisición se mide contra el valor real de cada cliente, no contra una impresión vaga de "está funcionando bien".' },
       { type: 'h2', text: 'Todo se mide contra el coste de adquisición real' },

@@ -4,6 +4,7 @@ import { useLanguage } from "@/lib/language-context"
 import { blogPosts } from "@/lib/blog-data"
 import { Reveal } from "@/components/reveal"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 
 export function BlogListing() {
@@ -33,8 +34,18 @@ export function BlogListing() {
               <Reveal key={post.id} delay={i * 80}>
                 <Link
                   href={href}
-                  className="group block h-full bg-[#2E3542] border border-[rgba(255,255,255,0.09)] rounded-xl p-6 no-underline text-[#f2ede6] transition-colors duration-200 hover:bg-[#36404E]"
+                  className="group block h-full bg-[#2E3542] border border-[rgba(255,255,255,0.09)] rounded-xl overflow-hidden no-underline text-[#f2ede6] transition-colors duration-200 hover:bg-[#36404E]"
                 >
+                  <div className="relative w-full aspect-[16/9] overflow-hidden">
+                    <Image
+                      src={post.coverImage}
+                      alt=""
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+                  <div className="p-6">
                   <span className="text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[#d4a853] mb-3 block">
                     {language === "es" ? post.categoryLabelEs : post.categoryLabelEn}
                   </span>
@@ -48,6 +59,7 @@ export function BlogListing() {
                     {t("Leer más", "Read more")}
                     <ArrowRight className="w-4 h-4" />
                   </span>
+                  </div>
                 </Link>
               </Reveal>
             )

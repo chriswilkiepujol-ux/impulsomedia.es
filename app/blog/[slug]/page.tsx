@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: esUrl,
       type: 'article',
       publishedTime: post.date,
+      images: [{ url: `https://impulsomedia.es${post.coverImage.replace('.svg', '-og.png')}` }],
     },
   }
 }

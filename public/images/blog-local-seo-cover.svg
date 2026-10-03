@@ -1,0 +1,49 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E3542"/>
+      <stop offset="100%" stop-color="#1D212A"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#d4a853" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#d4a853" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bgGrad1)"/>
+  <rect width="800" height="450" fill="url(#glow1)"/>
+
+  <!-- grid texture -->
+  <g opacity="0.06" stroke="#f2ede6">
+    <line x1="0" y1="90" x2="800" y2="90" stroke-width="1"/>
+    <line x1="0" y1="180" x2="800" y2="180" stroke-width="1"/>
+    <line x1="0" y1="270" x2="800" y2="270" stroke-width="1"/>
+    <line x1="0" y1="360" x2="800" y2="360" stroke-width="1"/>
+    <line x1="133" y1="0" x2="133" y2="450" stroke-width="1"/>
+    <line x1="266" y1="0" x2="266" y2="450" stroke-width="1"/>
+    <line x1="399" y1="0" x2="399" y2="450" stroke-width="1"/>
+    <line x1="532" y1="0" x2="532" y2="450" stroke-width="1"/>
+    <line x1="665" y1="0" x2="665" y2="450" stroke-width="1"/>
+  </g>
+
+  <!-- coastline suggestion -->
+  <path d="M -20 320 Q 150 280 280 310 T 560 290 T 820 330" fill="none" stroke="#d4a853" stroke-width="2" opacity="0.35"/>
+  <path d="M -20 360 Q 160 330 300 350 T 580 335 T 820 365" fill="none" stroke="#d4a853" stroke-width="1.5" opacity="0.2"/>
+
+  <!-- radiating search signal rings -->
+  <circle cx="400" cy="210" r="60" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.25"/>
+  <circle cx="400" cy="210" r="95" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.15"/>
+  <circle cx="400" cy="210" r="130" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.08"/>
+
+  <!-- location pin -->
+  <g transform="translate(400,210)">
+    <path d="M 0 -55 C 30 -55 50 -33 50 -5 C 50 35 0 75 0 75 C 0 75 -50 35 -50 -5 C -50 -33 -30 -55 0 -55 Z"
+          fill="#d4a853" opacity="0.95"/>
+    <circle cx="0" cy="-5" r="16" fill="#1D212A"/>
+  </g>
+
+  <!-- magnifying glass overlapping -->
+  <g transform="translate(455,255)">
+    <circle cx="0" cy="0" r="34" fill="none" stroke="#f2ede6" stroke-width="5"/>
+    <line x1="24" y1="24" x2="52" y2="52" stroke="#f2ede6" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

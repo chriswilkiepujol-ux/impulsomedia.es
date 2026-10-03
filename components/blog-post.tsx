@@ -4,6 +4,7 @@ import { useLanguage } from "@/lib/language-context"
 import { BlogPost as BlogPostType } from "@/lib/blog-data"
 import { Reveal } from "@/components/reveal"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 
 export function BlogPost({ post }: { post: BlogPostType }) {
@@ -28,6 +29,9 @@ export function BlogPost({ post }: { post: BlogPostType }) {
         </Link>
 
         <Reveal>
+          <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-8">
+            <Image src={post.coverImage} alt="" fill className="object-cover" sizes="760px" priority />
+          </div>
           <span className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[#d4a853] mb-3 block">
             {language === "es" ? post.categoryLabelEs : post.categoryLabelEn}
           </span>
