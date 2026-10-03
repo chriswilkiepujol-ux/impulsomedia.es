@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { Store, TrendingUp, ArrowRight } from "lucide-react"
+import { Store, TrendingUp, MessageCircle, Calendar } from "lucide-react"
 import { esToEn } from "@/lib/route-map"
 import { Reveal } from "@/components/reveal"
 
@@ -20,6 +20,7 @@ export function Paths() {
           items: ["Custom web design", "Local SEO and Google Business", "Social media and content", "Ongoing maintenance"],
           cta: "See local services",
           href: "/servicios/negocio-local",
+          style: "whatsapp" as const,
         },
         {
           icon: TrendingUp,
@@ -28,6 +29,7 @@ export function Paths() {
           items: ["PPC and programmatic", "Affiliate and in-app", "ASO and paid social", "Tailored consultancy"],
           cta: "See performance services",
           href: "/servicios/performance",
+          style: "formal" as const,
         },
       ],
     },
@@ -42,6 +44,7 @@ export function Paths() {
           items: ["Diseño web a medida", "SEO local y Google Business", "Redes sociales y contenido", "Mantenimiento continuo"],
           cta: "Ver servicios locales",
           href: "/servicios/negocio-local",
+          style: "whatsapp" as const,
         },
         {
           icon: TrendingUp,
@@ -50,6 +53,7 @@ export function Paths() {
           items: ["PPC y programática", "Afiliación e in-app", "ASO y paid social", "Consultoría a medida"],
           cta: "Ver servicios de performance",
           href: "/servicios/performance",
+          style: "formal" as const,
         },
       ],
     },
@@ -71,7 +75,7 @@ export function Paths() {
 
         <div className="grid md:grid-cols-2 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
           {t.paths.map((path, index) => (
-            <div key={index} className="bg-[#2E3542] p-8 md:p-10">
+            <div key={index} className="bg-[#2E3542] p-8 md:p-10 flex flex-col">
               <div className="w-12 h-12 rounded-full border border-[#d4a853] flex items-center justify-center mb-6">
                 <path.icon className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               </div>
@@ -92,13 +96,26 @@ export function Paths() {
                   </li>
                 ))}
               </ul>
-              <a
-                href={language === 'en' ? esToEn[path.href] : path.href}
-                className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm hover:gap-3 transition-all duration-200"
-              >
-                {path.cta}
-                <ArrowRight className="w-4 h-4" />
-              </a>
+
+              <div className="mt-auto">
+                {path.style === "whatsapp" ? (
+                  <a
+                    href={language === 'en' ? esToEn[path.href] : path.href}
+                    className="inline-flex items-center gap-2.5 bg-[#25d366] text-white px-5 py-3 rounded-[3px] font-display font-bold text-[0.78rem] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:-translate-y-[1px]"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    {path.cta}
+                  </a>
+                ) : (
+                  <a
+                    href={language === 'en' ? esToEn[path.href] : path.href}
+                    className="inline-flex items-center gap-2.5 border border-[#d4a853] text-[#d4a853] px-5 py-3 rounded-[3px] font-display font-bold text-[0.78rem] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:bg-[#d4a853] hover:text-[#1a1408]"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    {path.cta}
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>

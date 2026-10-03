@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { MessageCircle } from "lucide-react"
+import { MessageCircle, Calendar } from "lucide-react"
 import { Reveal } from "@/components/reveal"
 
 export function CtaBand() {
@@ -11,12 +11,16 @@ export function CtaBand() {
     en: {
       headline: "Ready to build something real?",
       subheadline: "No templates. No shortcuts. Just a website built from scratch — designed to work.",
-      cta: "Let's Talk on WhatsApp"
+      cta: "Let's Talk on WhatsApp",
+      secondaryLabel: "Bigger project or larger budget?",
+      secondaryCta: "Book a call instead",
     },
     es: {
       headline: "¿Listo para construir algo real?",
       subheadline: "Sin plantillas. Sin atajos. Solo un sitio web creado desde cero — diseñado para funcionar.",
-      cta: "Hablemos por WhatsApp"
+      cta: "Hablemos por WhatsApp",
+      secondaryLabel: "¿Proyecto más grande o mayor presupuesto?",
+      secondaryCta: "Reserva una llamada",
     }
   }
 
@@ -50,6 +54,17 @@ export function CtaBand() {
           <MessageCircle className="w-5 h-5" />
           {t.cta}
         </a>
+
+        <div className="mt-6 flex flex-col items-center gap-1.5">
+          <span className="text-[#262C37]/70 text-sm">{t.secondaryLabel}</span>
+          <a
+            href={language === "en" ? "/en/contact" : "/contacto"}
+            className="inline-flex items-center gap-2 text-[#262C37] font-semibold text-sm underline underline-offset-2 decoration-[#262C37]/40 hover:decoration-[#262C37] transition-all duration-200"
+          >
+            <Calendar className="w-4 h-4" />
+            {t.secondaryCta}
+          </a>
+        </div>
       </Reveal>
     </section>
   )

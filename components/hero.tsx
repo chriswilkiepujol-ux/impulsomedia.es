@@ -76,6 +76,23 @@ export function Hero() {
                 </svg>
                 {language === "en" ? "Let's Talk on WhatsApp" : "Hablemos por WhatsApp"}
               </a>
+
+              <a
+                href={language === "en" ? "/en/reviews" : "/opiniones"}
+                className="inline-flex items-center gap-2 no-underline group"
+              >
+                <span className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill="#d4a853">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
+                </span>
+                <span className="text-[0.78rem] text-[rgba(242,237,230,0.6)] group-hover:text-[#f2ede6] transition-colors duration-200">
+                  5.0 {language === "en" ? "on Google (5 reviews)" : "en Google (5 reseñas)"}
+                </span>
+              </a>
+
               <a
                 href={language === "en" ? "/en/work" : "/proyectos"}
                 className="inline-flex items-center gap-2 text-[rgba(242,237,230,0.42)] text-[0.75rem] font-normal tracking-[0.08em] uppercase no-underline transition-colors duration-200 hover:text-[#f2ede6]"

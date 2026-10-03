@@ -21,10 +21,10 @@ export function HomeContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
         <main>
           <Hero />
           <Marquee />
+          <Paths />
           <ServicesOverview />
           <PlatformStrip />
           <WorkCarousel />
-          <Paths />
           <Reviews />
           <CtaBand />
         </main>

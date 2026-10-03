@@ -18,8 +18,8 @@ export function ServicesOverview() {
               {t('Lo que hacemos', 'What we do')}
             </span>
             <h2 className="font-display font-extrabold text-[clamp(1.7rem,3.6vw,2.5rem)] leading-[1.2] tracking-[-0.015em]">
-              {t('Todo lo que necesita tu ', 'Everything your ')}
-              <em className="text-[#d4a853] not-italic">{t('negocio', 'business needs')}</em>
+              {t('El rango completo de ', 'The full range of ')}
+              <em className="text-[#d4a853] not-italic">{t('servicios', 'services')}</em>
             </h2>
           </Reveal>
           <Link
