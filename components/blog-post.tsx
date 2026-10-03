@@ -5,7 +5,7 @@ import { BlogPost as BlogPostType } from "@/lib/blog-data"
 import { Reveal } from "@/components/reveal"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, ExternalLink } from "lucide-react"
 
 export function BlogPost({ post }: { post: BlogPostType }) {
   const { language, t } = useLanguage()
@@ -44,6 +44,36 @@ export function BlogPost({ post }: { post: BlogPostType }) {
             <span>{post.readMinutes} {t("min de lectura", "min read")}</span>
           </div>
         </Reveal>
+
+        {post.caseStudy && (
+          <Reveal className="mb-10">
+            <a
+              href={post.caseStudy.siteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block rounded-xl overflow-hidden border border-[rgba(255,255,255,0.09)] bg-[#2E3542] no-underline"
+            >
+              <div className="relative w-full aspect-[16/10]">
+                <Image
+                  src={post.caseStudy.screenshot}
+                  alt={`${language === "es" ? post.titleEs : post.titleEn} - website screenshot`}
+                  fill
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                  sizes="760px"
+                />
+              </div>
+              <div className="flex items-center justify-between px-5 py-4">
+                <span className="text-sm text-[rgba(242,237,230,0.6)]">
+                  {t("Sitio en vivo", "Live site")}
+                </span>
+                <span className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm group-hover:gap-3 transition-all duration-200">
+                  {post.caseStudy.siteLabel}
+                  <ExternalLink className="w-4 h-4" />
+                </span>
+              </div>
+            </a>
+          </Reveal>
+        )}
 
         <Reveal delay={100} className="prose-content">
           {content.map((block, i) => {

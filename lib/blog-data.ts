@@ -18,6 +18,12 @@ export interface BlogPost {
   date: string
   readMinutes: number
   coverImage: string
+  /** Optional - for case study posts: a real screenshot of the client site and a link to visit it */
+  caseStudy?: {
+    screenshot: string
+    siteUrl: string
+    siteLabel: string
+  }
   contentEs: BlogBlock[]
   contentEn: BlogBlock[]
 }
@@ -88,6 +94,11 @@ export const blogPosts: BlogPost[] = [
     date: '2026-10-04',
     readMinutes: 5,
     coverImage: '/images/blog-racket-breaks-cover.svg',
+    caseStudy: {
+      screenshot: '/images/racketbreaks-screenshot.png',
+      siteUrl: 'https://www.racketbreaks.com',
+      siteLabel: 'racketbreaks.com',
+    },
     contentEs: [
       { type: 'p', text: 'Racket Breaks organiza vacaciones de pádel en el sur de España: Sotogrande, Marbella, Estepona, Málaga y Almería. El negocio ya funcionaba bien por recomendación y contacto directo, pero necesitaban una web que reflejara el nivel del servicio y que permitiera a un cliente del Reino Unido entender en segundos qué estaban comprando.' },
       { type: 'h2', text: 'El problema real' },
