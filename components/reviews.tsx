@@ -190,7 +190,14 @@ export function Reviews() {
           ))}
         </div>
 
-        <p className="text-center text-[#f2ede6]/60 text-sm">{t.googleLabel}</p>
+        <a
+          href="https://g.page/r/Cart50OPlmevEBE/review"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-center text-[#f2ede6]/60 text-sm no-underline hover:text-[#d4a853] transition-colors duration-200"
+        >
+          {t.googleLabel}
+        </a>
       </div>
     </section>
   )
