@@ -140,6 +140,12 @@ const structuredData = {
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Consultoría' } },
     ],
   },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5.0',
+    reviewCount: '5',
+    bestRating: '5',
+  },
   priceRange: '$$',
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',

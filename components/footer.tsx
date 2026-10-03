@@ -28,10 +28,16 @@ export function Footer() {
               </svg>
               Impulso<em className="text-[#d4a853] not-italic">Media</em>
             </a>
-            <p className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] leading-[1.6]">
+            <p className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] leading-[1.6] mb-3">
               {t(
                 'Agencia digital integral. Diseño web, SEO, publicidad y conversión — construido desde cero. Siempre.',
                 'Full-service digital agency. Web design, SEO, paid social & conversion — built from scratch. Always.'
+              )}
+            </p>
+            <p className="text-[0.78rem] text-[rgba(242, 237, 230, 0.42)] leading-[1.6]">
+              {t(
+                'Con sede en Sotogrande, Cádiz. Servicio en San Roque, Gibraltar, La Línea y todo el Campo de Gibraltar.',
+                'Based in Sotogrande, Cádiz. Serving San Roque, Gibraltar, La Línea and all of Campo de Gibraltar.'
               )}
             </p>
           </div>
