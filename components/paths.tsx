@@ -57,7 +57,7 @@ export function Paths() {
   const t = content[language]
 
   return (
-    <section id="paths" className="relative py-24 md:py-32 bg-[#1B1F26]">
+    <section id="paths" className="relative py-24 md:py-32 bg-[#262C37]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
         <div className="max-w-2xl mx-auto text-center mb-16 md:mb-20">
           <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
@@ -70,7 +70,7 @@ export function Paths() {
 
         <div className="grid md:grid-cols-2 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
           {t.paths.map((path, index) => (
-            <div key={index} className="bg-[#232830] p-8 md:p-10">
+            <div key={index} className="bg-[#2E3542] p-8 md:p-10">
               <div className="w-12 h-12 rounded-full border border-[#d4a853] flex items-center justify-center mb-6">
                 <path.icon className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               </div>

@@ -15,7 +15,7 @@ export function ServicesByAudience({ category }: Props) {
   const isLocal = category === 'local'
 
   return (
-    <section className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#232830]">
+    <section className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         <div className="max-w-2xl mb-10 md:mb-14">
           <span className="section-label mb-4 block">
@@ -43,7 +43,7 @@ export function ServicesByAudience({ category }: Props) {
           {filtered.map((service) => {
             const Icon = service.icon
             return (
-              <div key={service.num} className="bg-[#232830] p-6 md:p-7">
+              <div key={service.num} className="bg-[#2E3542] p-6 md:p-7">
                 <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#d4a853] mb-4 block">
                   {service.num}
                 </span>
@@ -72,7 +72,7 @@ export function ServicesByAudience({ category }: Props) {
         ) : (
           <a
             href={language === 'en' ? '/en/contact' : '/contacto'}
-            className="inline-flex items-center gap-3 bg-[#d4a853] text-[#1B1F26] px-8 py-4 rounded-[3px] font-display font-bold text-[0.82rem] tracking-[0.07em] uppercase no-underline transition-all duration-200 hover:-translate-y-[2px]"
+            className="inline-flex items-center gap-3 bg-[#d4a853] text-[#262C37] px-8 py-4 rounded-[3px] font-display font-bold text-[0.82rem] tracking-[0.07em] uppercase no-underline transition-all duration-200 hover:-translate-y-[2px]"
           >
             <Calendar className="w-[18px] h-[18px]" />
             {t('Solicitar Una Llamada', 'Book A Call')}

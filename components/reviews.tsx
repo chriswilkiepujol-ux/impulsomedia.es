@@ -94,7 +94,7 @@ export function Reviews() {
   }
 
   return (
-    <section id="reviews" className="relative py-24 md:py-32 bg-[#232830]">
+    <section id="reviews" className="relative py-24 md:py-32 bg-[#2E3542]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-8 md:mb-10 gap-6 text-center md:text-left">
           <div className="max-w-2xl mx-auto md:mx-0">
@@ -130,7 +130,7 @@ export function Reviews() {
           {t.reviews.map((review, index) => (
             <div
               key={index}
-              className="snap-start shrink-0 w-[85%] md:w-[calc(33.333%-16px)] bg-[#1B1F26] border border-[rgba(255,255,255,0.09)] rounded-xl p-6 md:p-8"
+              className="snap-start shrink-0 w-[85%] md:w-[calc(33.333%-16px)] bg-[#262C37] border border-[rgba(255,255,255,0.09)] rounded-xl p-6 md:p-8"
             >
               <div className="flex gap-1 mb-5">
                 {[...Array(5)].map((_, i) => (

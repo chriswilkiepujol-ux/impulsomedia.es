@@ -5,39 +5,39 @@
 
 /* ImpulsoMedia - Softer charcoal theme, lightened for readability */
 :root {
-  /* Core colors - lightened from near-black to soft charcoal */
-  --bg: #1B1F26;
-  --bg2: #232830;
-  --bg3: #2B313B;
-  --surface: #323944;
+  /* Core colors - one step lighter again, still dark enough for gold to pop */
+  --bg: #262C37;
+  --bg2: #2E3542;
+  --bg3: #36404E;
+  --surface: #3D4858;
   --gold: #d4a853;
   --gold-light: #e8c97a;
   --green: #25d366;
   --text-primary: #f2ede6;
   --text-muted: rgba(242, 237, 230, 0.60);
   --text-mid: rgba(242, 237, 230, 0.82);
-  --border-color: rgba(255, 255, 255, 0.09);
-  --border-hover: rgba(255, 255, 255, 0.18);
+  --border-color: rgba(255, 255, 255, 0.10);
+  --border-hover: rgba(255, 255, 255, 0.19);
   
   /* Semantic tokens */
-  --background: #1B1F26;
+  --background: #262C37;
   --foreground: #f2ede6;
-  --card: #232830;
+  --card: #2E3542;
   --card-foreground: #f2ede6;
-  --popover: #232830;
+  --popover: #2E3542;
   --popover-foreground: #f2ede6;
   --primary: #d4a853;
   --primary-foreground: #14171c;
-  --secondary: #2B313B;
+  --secondary: #36404E;
   --secondary-foreground: #f2ede6;
-  --muted: #323944;
+  --muted: #3D4858;
   --muted-foreground: rgba(242, 237, 230, 0.60);
   --accent: #d4a853;
   --accent-foreground: #14171c;
   --destructive: #ef4444;
   --destructive-foreground: #f2ede6;
-  --border: rgba(255, 255, 255, 0.09);
-  --input: #2B313B;
+  --border: rgba(255, 255, 255, 0.10);
+  --input: #36404E;
   --ring: #d4a853;
   --radius: 3px;
 }
@@ -72,9 +72,9 @@
   --color-gold: #d4a853;
   --color-gold-light: #e8c97a;
   --color-whatsapp: #25d366;
-  --color-bg2: #232830;
-  --color-bg3: #2B313B;
-  --color-surface: #323944;
+  --color-bg2: #2E3542;
+  --color-bg3: #36404E;
+  --color-surface: #3D4858;
   --color-text-mid: rgba(242, 237, 230, 0.68);
 }
 
@@ -209,4 +209,26 @@
 
 .animate-marquee {
   animation: marquee 22s linear infinite;
+}
+
+/* Device showcase: synchronized scroll-through animation for live site previews
+   inside monitor + phone frames. Uses background-position percentages so it
+   works regardless of actual image height, and runs identically on both
+   devices since they share the same animation name/duration/timing. */
+@keyframes deviceScrollSite {
+  0%   { background-position: top center; }
+  15%  { background-position: top center; }
+  85%  { background-position: bottom center; }
+  100% { background-position: bottom center; }
+}
+
+.device-scroll-content {
+  animation: deviceScrollSite 13s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device-scroll-content {
+    animation: none;
+    background-position: top center;
+  }
 }

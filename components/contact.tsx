@@ -55,7 +55,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-[clamp(5rem,10vw,9rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#232830]">
+    <section id="contact" className="py-[clamp(5rem,10vw,9rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column - Info */}
@@ -75,7 +75,7 @@ export function Contact() {
             </p>
 
             {/* WhatsApp CTA */}
-            <div className="p-6 rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#2B313B] mb-8">
+            <div className="p-6 rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#36404E] mb-8">
               <h3 className="font-display font-bold text-lg mb-2">
                 {t('Prefiere WhatsApp?', 'Prefer WhatsApp?')}
               </h3>
@@ -116,7 +116,7 @@ export function Contact() {
           </div>
 
           {/* Right Column - Form */}
-          <div className="p-[clamp(1.5rem,4vw,2.5rem)] rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#2B313B]">
+          <div className="p-[clamp(1.5rem,4vw,2.5rem)] rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#36404E]">
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Honeypot field - hidden from real visitors, bots that auto-fill every field will trip it */}
               <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }} aria-hidden="true">
@@ -139,7 +139,7 @@ export function Contact() {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#2E3542] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
                   placeholder={t('Tu nombre', 'Your name')}
                 />
               </div>
@@ -154,7 +154,7 @@ export function Contact() {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#2E3542] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
                   placeholder={t('tu@email.com', 'you@email.com')}
                 />
               </div>
@@ -168,7 +168,7 @@ export function Contact() {
                   type="text"
                   id="company"
                   name="company"
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#2E3542] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors"
                   placeholder={t('Nombre de tu empresa', 'Your company name')}
                 />
               </div>
@@ -181,7 +181,7 @@ export function Contact() {
                 <select
                   id="service"
                   name="service"
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] focus:outline-none focus:border-[#d4a853] transition-colors"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#2E3542] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] focus:outline-none focus:border-[#d4a853] transition-colors"
                 >
                   <option value="">{t('Selecciona un servicio', 'Select a service')}</option>
                   <option value="web">{t('Diseño Web', 'Web Design')}</option>
@@ -202,7 +202,7 @@ export function Contact() {
                   name="message"
                   required
                   rows={4}
-                  className="w-full px-4 py-3 rounded-[3px] bg-[#232830] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-[3px] bg-[#2E3542] border border-[rgba(255,255,255,0.06)] text-[#f2ede6] placeholder:text-[rgba(242,237,230,0.3)] focus:outline-none focus:border-[#d4a853] transition-colors resize-none"
                   placeholder={t('Cuéntanos sobre tu proyecto...', 'Tell us about your project...')}
                 />
               </div>

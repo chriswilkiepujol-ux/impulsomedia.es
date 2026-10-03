@@ -5,6 +5,7 @@ import { Header } from '@/components/header'
 import { Hero } from '@/components/hero'
 import { Marquee } from '@/components/marquee'
 import { ServicesOverview } from '@/components/services-overview'
+import { PlatformStrip } from '@/components/platform-strip'
 import { WorkCarousel } from '@/components/work-carousel'
 import { Paths } from '@/components/paths'
 import { Reviews } from '@/components/reviews'
@@ -15,12 +16,13 @@ import { WhatsAppButton } from '@/components/whatsapp-button'
 export function HomeContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
     <LanguageProvider initialLanguage={lang}>
-      <div className="min-h-screen bg-[#1B1F26]">
+      <div className="min-h-screen bg-[#262C37]">
         <Header />
         <main>
           <Hero />
           <Marquee />
           <ServicesOverview />
+          <PlatformStrip />
           <WorkCarousel />
           <Paths />
           <Reviews />

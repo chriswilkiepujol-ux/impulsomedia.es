@@ -83,7 +83,7 @@ export function WorkCarousel() {
   }
 
   return (
-    <section id="work" className="py-[clamp(3rem,8vw,6rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#1B1F26]">
+    <section id="work" className="py-[clamp(3rem,8vw,6rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
           <div>
@@ -128,9 +128,9 @@ export function WorkCarousel() {
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group snap-start shrink-0 w-[85%] md:w-[calc(33.333%-14px)] bg-[#232830] rounded-[4px] overflow-hidden flex flex-col transition-all duration-300 hover:bg-[#2B313B] no-underline text-[#f2ede6]"
+              className="group snap-start shrink-0 w-[85%] md:w-[calc(33.333%-14px)] bg-[#2E3542] rounded-[4px] overflow-hidden flex flex-col transition-all duration-300 hover:bg-[#36404E] no-underline text-[#f2ede6]"
             >
-              <div className="relative w-full aspect-[16/10] bg-[#2B313B] overflow-hidden">
+              <div className="relative w-full aspect-[16/10] bg-[#36404E] overflow-hidden">
                 <Image
                   src={project.image}
                   alt={`${project.name} website screenshot`}

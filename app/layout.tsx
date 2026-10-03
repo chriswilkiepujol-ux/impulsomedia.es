@@ -167,7 +167,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="font-sans antialiased bg-[#1B1F26] text-[#f2ede6]">
+      <body className="font-sans antialiased bg-[#262C37] text-[#f2ede6]">
         {children}
         <Analytics />
         <GoogleAnalytics />

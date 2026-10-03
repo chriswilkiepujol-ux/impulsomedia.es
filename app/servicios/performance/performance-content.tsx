@@ -9,7 +9,7 @@ import { WhatsAppButton } from '@/components/whatsapp-button'
 export function PerformanceContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
     <LanguageProvider initialLanguage={lang}>
-      <div className="min-h-screen bg-[#1B1F26]">
+      <div className="min-h-screen bg-[#262C37]">
         <Header />
         <main className="pt-[68px]">
           <ServicesByAudience category="performance" />

@@ -25,7 +25,7 @@ export function Pricing() {
   const { t, language } = useLanguage()
 
   return (
-    <section className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#232830]">
+    <section className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
         <div className="mb-10 md:mb-14 max-w-[62ch]">
@@ -48,7 +48,7 @@ export function Pricing() {
             href="https://wa.me/34680863229"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 md:mt-8 px-5 py-3 bg-[#d4a853] text-[#1B1F26] font-semibold text-sm tracking-wide rounded-full hover:bg-[#e5bb66] transition-colors duration-300"
+            className="inline-flex items-center gap-2 mt-6 md:mt-8 px-5 py-3 bg-[#d4a853] text-[#262C37] font-semibold text-sm tracking-wide rounded-full hover:bg-[#e5bb66] transition-colors duration-300"
           >
             <MessageCircle className="w-4 h-4" />
             {t('Reserva tu llamada de descubrimiento', 'Book your discovery call')}
@@ -58,7 +58,7 @@ export function Pricing() {
         {/* Sticky jump nav */}
         <nav
           aria-label={t('Ir a sección', 'Jump to section')}
-          className="sticky top-[68px] z-30 -mx-6 md:-mx-[clamp(1.5rem,5vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] py-3 mb-10 md:mb-14 flex gap-6 overflow-x-auto bg-[#232830]/95 backdrop-blur-md border-y border-[rgba(255,255,255,0.06)]"
+          className="sticky top-[68px] z-30 -mx-6 md:-mx-[clamp(1.5rem,5vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] py-3 mb-10 md:mb-14 flex gap-6 overflow-x-auto bg-[#2E3542]/95 backdrop-blur-md border-y border-[rgba(255,255,255,0.06)]"
         >
           {jumpLinks.map((link) => (
             <a
@@ -105,7 +105,7 @@ export function Pricing() {
                   className={
                     isFeatured
                       ? 'group bg-gradient-to-br from-[#d4a853] to-[#b8923f] p-6 md:p-[clamp(2rem,4vw,2.5rem)] relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4a853]/20'
-                      : 'group bg-[#232830] p-6 md:p-[clamp(2rem,4vw,2.5rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#2B313B]'
+                      : 'group bg-[#2E3542] p-6 md:p-[clamp(2rem,4vw,2.5rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#36404E]'
                   }
                 >
                   {!isFeatured && (
@@ -113,23 +113,23 @@ export function Pricing() {
                   )}
 
                   <div className="flex items-center justify-between mb-5 md:mb-6">
-                    <span className={`font-display text-[0.65rem] font-bold tracking-[0.2em] ${isFeatured ? 'text-[#1B1F26]/60' : 'text-[#d4a853]'}`}>
+                    <span className={`font-display text-[0.65rem] font-bold tracking-[0.2em] ${isFeatured ? 'text-[#262C37]/60' : 'text-[#d4a853]'}`}>
                       {isFeatured ? t('MÁS ELEGIDO', 'MOST CHOSEN') : `0${index + 1}`}
                     </span>
-                    <Icon className={`w-5 h-5 ${isFeatured ? 'text-[#1B1F26]' : 'text-[#d4a853]'}`} strokeWidth={1.5} />
+                    <Icon className={`w-5 h-5 ${isFeatured ? 'text-[#262C37]' : 'text-[#d4a853]'}`} strokeWidth={1.5} />
                   </div>
 
-                  <h4 className={`font-display font-extrabold text-[clamp(1.1rem,2.5vw,1.4rem)] tracking-[-0.01em] mb-4 leading-[1.1] ${isFeatured ? 'text-[#1B1F26]' : ''}`}>
+                  <h4 className={`font-display font-extrabold text-[clamp(1.1rem,2.5vw,1.4rem)] tracking-[-0.01em] mb-4 leading-[1.1] ${isFeatured ? 'text-[#262C37]' : ''}`}>
                     {language === 'es' ? pkg.nameEs : pkg.nameEn}
                   </h4>
 
-                  <div className={`mb-5 pb-5 border-b ${isFeatured ? 'border-[#1B1F26]/15' : 'border-[rgba(255,255,255,0.08)]'}`}>
+                  <div className={`mb-5 pb-5 border-b ${isFeatured ? 'border-[#262C37]/15' : 'border-[rgba(255,255,255,0.08)]'}`}>
                     {pkg.priceFrom ? (
                       <>
-                        <span className={`text-[0.68rem] font-medium tracking-[0.1em] uppercase block mb-1 ${isFeatured ? 'text-[#1B1F26]/60' : 'text-[rgba(242,237,230,0.42)]'}`}>
+                        <span className={`text-[0.68rem] font-medium tracking-[0.1em] uppercase block mb-1 ${isFeatured ? 'text-[#262C37]/60' : 'text-[rgba(242,237,230,0.42)]'}`}>
                           {t('Desde', 'From')}
                         </span>
-                        <div className={`font-display text-[clamp(1.7rem,3.5vw,2.2rem)] font-extrabold leading-none ${isFeatured ? 'text-[#1B1F26]' : ''}`}>
+                        <div className={`font-display text-[clamp(1.7rem,3.5vw,2.2rem)] font-extrabold leading-none ${isFeatured ? 'text-[#262C37]' : ''}`}>
                           €{pkg.priceFrom}
                         </div>
                       </>
@@ -140,7 +140,7 @@ export function Pricing() {
                     )}
                   </div>
 
-                  <p className={`text-[0.85rem] leading-[1.7] ${isFeatured ? 'text-[#1B1F26]/70' : 'text-[rgba(242,237,230,0.60)]'}`}>
+                  <p className={`text-[0.85rem] leading-[1.7] ${isFeatured ? 'text-[#262C37]/70' : 'text-[rgba(242,237,230,0.60)]'}`}>
                     {language === 'es' ? pkg.scopeEs : pkg.scopeEn}
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export function Pricing() {
               return (
                 <div
                   key={svc.id}
-                  className="bg-[#1B1F26] border border-[rgba(255,255,255,0.08)] rounded-xl p-5 md:p-6 transition-colors duration-300 hover:border-[#d4a853]/30"
+                  className="bg-[#262C37] border border-[rgba(255,255,255,0.08)] rounded-xl p-5 md:p-6 transition-colors duration-300 hover:border-[#d4a853]/30"
                 >
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div className="flex items-center gap-2.5">
@@ -200,7 +200,7 @@ export function Pricing() {
 
         {/* Consultancy + Full Stack Bundle */}
         <div id="pricing-consultancy" className="grid md:grid-cols-2 gap-4 md:gap-5 scroll-mt-[130px]">
-          <div className="bg-[#1B1F26] border border-[rgba(255,255,255,0.08)] rounded-xl p-6 md:p-[clamp(2rem,4vw,2.5rem)]">
+          <div className="bg-[#262C37] border border-[rgba(255,255,255,0.08)] rounded-xl p-6 md:p-[clamp(2rem,4vw,2.5rem)]">
             <div className="flex items-center gap-2.5 mb-3">
               <Briefcase className="w-[18px] h-[18px] text-[#d4a853]" strokeWidth={1.75} />
               <h3 className="font-display font-extrabold text-[clamp(1.1rem,2.5vw,1.4rem)]">
@@ -219,12 +219,12 @@ export function Pricing() {
           </div>
           <div className="bg-gradient-to-br from-[#d4a853] to-[#b8923f] rounded-xl p-6 md:p-[clamp(2rem,4vw,2.5rem)]">
             <div className="flex items-center gap-2.5 mb-3">
-              <Package className="w-[18px] h-[18px] text-[#1B1F26]" strokeWidth={1.75} />
-              <h3 className="font-display font-extrabold text-[clamp(1.1rem,2.5vw,1.4rem)] text-[#1B1F26]">
+              <Package className="w-[18px] h-[18px] text-[#262C37]" strokeWidth={1.75} />
+              <h3 className="font-display font-extrabold text-[clamp(1.1rem,2.5vw,1.4rem)] text-[#262C37]">
                 {t('Pack Full Stack', 'Full Stack Bundle')}
               </h3>
             </div>
-            <p className="text-[0.88rem] text-[#1B1F26]/70 leading-[1.7]">
+            <p className="text-[0.88rem] text-[#262C37]/70 leading-[1.7]">
               {t(
                 'Web (Essential o Growth) más un servicio recurrente, con permanencia mínima de 6 meses: 10% de descuento en el recurrente.',
                 'Website build (Essential or Growth) plus one retainer, 6 month minimum commitment: 10% off the retainer.'

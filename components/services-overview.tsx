@@ -9,7 +9,7 @@ export function ServicesOverview() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="services" className="py-[clamp(3rem,8vw,6rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#232830]">
+    <section id="services" className="py-[clamp(3rem,8vw,6rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
           <div>
@@ -36,7 +36,7 @@ export function ServicesOverview() {
             return (
               <div
                 key={service.num}
-                className="bg-[#232830] p-4 md:p-5 flex flex-col items-start gap-2.5 hover:bg-[#2B313B] transition-colors duration-200"
+                className="bg-[#2E3542] p-4 md:p-5 flex flex-col items-start gap-2.5 hover:bg-[#36404E] transition-colors duration-200"
               >
                 <Icon className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                 <span className="font-display font-bold text-[0.85rem] leading-tight">
