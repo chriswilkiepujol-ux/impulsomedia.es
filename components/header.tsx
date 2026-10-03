@@ -31,6 +31,7 @@ export function Header() {
         { href: esToEn['/proyectos'], label: 'Work' },
         { href: esToEn['/nosotros'], label: 'About' },
         { href: esToEn['/opiniones'], label: 'Reviews' },
+        { href: esToEn['/blog'], label: 'Blog' },
         { href: esToEn['/contacto'], label: 'Contact' },
       ]
     : [
@@ -39,6 +40,7 @@ export function Header() {
         { href: '/proyectos', label: 'Proyectos' },
         { href: '/nosotros', label: 'Nosotros' },
         { href: '/opiniones', label: 'Opiniones' },
+        { href: '/blog', label: 'Blog' },
         { href: '/contacto', label: 'Contacto' },
       ]
 
@@ -66,7 +68,7 @@ export function Header() {
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-6">
-        <nav className="flex items-center gap-8">
+        <nav className="flex items-center gap-5 lg:gap-6">
           {navLinks.map((link) => (
             <a
               key={link.href}

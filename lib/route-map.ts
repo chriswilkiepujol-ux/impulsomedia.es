@@ -8,6 +8,7 @@ export const esToEn: Record<string, string> = {
   '/nosotros': '/en/about',
   '/contacto': '/en/contact',
   '/opiniones': '/en/reviews',
+  '/blog': '/en/blog',
 }
 
 export const enToEs: Record<string, string> = Object.fromEntries(

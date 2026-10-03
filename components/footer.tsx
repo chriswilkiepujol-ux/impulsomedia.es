@@ -95,6 +95,11 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
+                  <a href={isEn ? '/en/blog' : '/blog'} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                    {t('Blog', 'Blog')}
+                  </a>
+                </li>
+                <li>
                   <a href={contactoHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Contacto', 'Contact')}
                   </a>
