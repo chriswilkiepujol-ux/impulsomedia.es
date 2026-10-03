@@ -88,8 +88,8 @@ export function Hero() {
           </div>
 
           <DeviceShowcase
-            desktopImage="/images/pujolwilkie-scroll-desktop.webp"
-            mobileImage="/images/pujolwilkie-scroll-mobile.webp"
+            desktopImageBase="/images/pujolwilkie-scroll-desktop"
+            mobileImageBase="/images/pujolwilkie-scroll-mobile"
             alt="Pujol Wilkie"
           />
         </div>
