@@ -101,8 +101,8 @@ export function Contact() {
             <div className="space-y-4">
               <div>
                 <p className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-1">Email</p>
-                <a href="mailto:info@impulsomedia.es" className="text-[#f2ede6] hover:text-[#d4a853] transition-colors">
-                  info@impulsomedia.es
+                <a href="mailto:chris@impulsomedia.es" className="text-[#f2ede6] hover:text-[#d4a853] transition-colors">
+                  chris@impulsomedia.es
                 </a>
               </div>
               <div>

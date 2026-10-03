@@ -98,7 +98,7 @@ const structuredData = {
   logo: 'https://impulsomedia.es/images/impulsomedia-logo.svg',
   image: 'https://impulsomedia.es/images/og-image.jpg',
   telephone: '+34680863229',
-  email: 'info@impulsomedia.es',
+  email: 'chris@impulsomedia.es',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Sotogrande',

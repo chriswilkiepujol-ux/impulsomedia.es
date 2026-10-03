@@ -37,8 +37,8 @@ export async function POST(request: Request) {
 
     // Send email
     const result = await resend.emails.send({
-      from: 'ImpulsoMedia <info@impulsomedia.es>',
-      to: ['info@impulsomedia.es'],
+      from: 'ImpulsoMedia <chris@impulsomedia.es>',
+      to: ['chris@impulsomedia.es'],
       replyTo: email,
       subject: `Nuevo contacto de ${name} - ImpulsoMedia`,
       html: `

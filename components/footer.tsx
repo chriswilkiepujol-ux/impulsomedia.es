@@ -103,8 +103,8 @@ export function Footer() {
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
                 <li>
-                  <a href="mailto:info@impulsomedia.es" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    info@impulsomedia.es
+                  <a href="mailto:chris@impulsomedia.es" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                    chris@impulsomedia.es
                   </a>
                 </li>
                 <li>
