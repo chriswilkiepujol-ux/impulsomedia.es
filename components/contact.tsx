@@ -63,7 +63,7 @@ export function Contact() {
             <span className="section-label mb-5 block">
               {t('Contacto', 'Contact')}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(2.4rem,5vw,4.2rem)] leading-none tracking-[-0.02em] mb-6">
+            <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em] mb-6">
               {t('Hablemos de tu ', "Let's talk about your ")}
               <em className="text-[#d4a853] not-italic">{t('proyecto', 'project')}</em>
             </h2>

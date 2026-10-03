@@ -21,7 +21,7 @@ export function ServicesByAudience({ category }: Props) {
           <span className="section-label mb-4 block">
             {isLocal ? t('Para Negocios Locales', 'For Local Businesses') : t('Performance A Escala', 'Performance At Scale')}
           </span>
-          <h1 className="font-display font-extrabold text-[clamp(2rem,5vw,3.6rem)] leading-[1.05] tracking-[-0.02em] mb-5">
+          <h1 className="font-display font-extrabold text-[clamp(1.9rem,3.8vw,2.8rem)] leading-[1.2] tracking-[-0.015em] mb-5">
             {isLocal
               ? t('Web, SEO y presencia local que atrae clientes', 'Web, SEO and local presence that brings in clients')
               : t('Gestión de campañas para marcas y operadores', 'Campaign management for brands and operators')}

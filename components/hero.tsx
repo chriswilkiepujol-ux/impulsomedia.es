@@ -30,32 +30,32 @@ export function Hero() {
       />
 
       <div className="max-w-[1200px] mx-auto w-full relative z-10 py-12 md:py-20">
-        {/* Tag */}
-        <div 
-          className="inline-flex items-center gap-3 text-[0.72rem] font-medium tracking-[0.18em] uppercase text-[#d4a853] mb-6 md:mb-8"
-        >
-          <span className="w-7 h-[1px] bg-[#d4a853]" />
-          {language === "en" ? "Digital Agency, Sotogrande" : "Agencia Digital, Sotogrande"}
-        </div>
-
-        {/* Main Headline */}
-        <h1 
-          className="font-display font-extrabold text-[clamp(2.3rem,6vw,5.2rem)] leading-[1.05] tracking-[-0.02em] mb-8 md:mb-12 max-w-[18ch]"
-        >
-          {language === "en" ? (
-            <>
-              Websites that convert. <span className="text-[#d4a853]">Campaigns that scale.</span>
-            </>
-          ) : (
-            <>
-              Webs que convierten. <span className="text-[#d4a853]">Campañas que escalan.</span>
-            </>
-          )}
-        </h1>
-
-        {/* Bottom section: copy + CTAs on one side, live device showcase on the other */}
+        {/* Headline block + device showcase, side by side as one centered row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16">
           <div>
+            {/* Tag */}
+            <div 
+              className="inline-flex items-center gap-3 text-[0.72rem] font-medium tracking-[0.18em] uppercase text-[#d4a853] mb-5 md:mb-6"
+            >
+              <span className="w-7 h-[1px] bg-[#d4a853]" />
+              {language === "en" ? "Digital Agency, Sotogrande" : "Agencia Digital, Sotogrande"}
+            </div>
+
+            {/* Main Headline */}
+            <h1 
+              className="font-display font-extrabold text-[clamp(1.9rem,3.6vw,3.1rem)] leading-[1.22] tracking-[-0.015em] mb-6"
+            >
+              {language === "en" ? (
+                <>
+                  Websites that convert. <span className="text-[#d4a853]">Campaigns that scale.</span>
+                </>
+              ) : (
+                <>
+                  Webs que convierten. <span className="text-[#d4a853]">Campañas que escalan.</span>
+                </>
+              )}
+            </h1>
+
             <p className="text-[clamp(0.95rem,1.5vw,1.15rem)] text-[rgba(242,237,230,0.82)] font-light leading-[1.75] max-w-[46ch] mb-8">
               {language === "en"
                 ? "Hand-built websites and results-driven marketing for local businesses and brands that need to manage campaigns at a larger scale. No templates, no middlemen."

@@ -44,7 +44,7 @@ export function Process() {
           <span className="section-label justify-center mb-5">
             {t('Cómo trabajamos', 'How we work')}
           </span>
-          <h2 className="font-display font-extrabold text-[clamp(2.4rem,5vw,4.2rem)] leading-none tracking-[-0.02em]">
+          <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
             {t('Proceso ', 'Process ')}
             <em className="text-[#d4a853] not-italic">{t('simple', 'simple')}</em>
             {t(', resultados ', ', results ')}

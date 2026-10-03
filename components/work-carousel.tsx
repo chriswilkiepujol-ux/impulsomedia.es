@@ -90,7 +90,7 @@ export function WorkCarousel() {
             <span className="section-label mb-3 block">
               {t("Nuestro Trabajo", "Our Work")}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(1.8rem,4.5vw,3.2rem)] leading-none tracking-[-0.02em]">
+            <h2 className="font-display font-extrabold text-[clamp(1.7rem,3.6vw,2.5rem)] leading-[1.2] tracking-[-0.015em]">
               {t("Clientes con los que trabajamos", "Clients we work with")}
             </h2>
           </div>

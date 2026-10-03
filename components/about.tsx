@@ -81,7 +81,7 @@ export function About() {
           <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
             {t.tag}
           </span>
-          <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] text-[#f2ede6] mb-8">
+          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6] mb-8">
             {t.headline}
           </h2>
           

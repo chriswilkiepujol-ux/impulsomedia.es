@@ -16,7 +16,7 @@ export function ServicesOverview() {
             <span className="section-label mb-3 block">
               {t('Lo que hacemos', 'What we do')}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(1.8rem,4.5vw,3.2rem)] leading-none tracking-[-0.02em]">
+            <h2 className="font-display font-extrabold text-[clamp(1.7rem,3.6vw,2.5rem)] leading-[1.2] tracking-[-0.015em]">
               {t('Todo lo que necesita tu ', 'Everything your ')}
               <em className="text-[#d4a853] not-italic">{t('negocio', 'business needs')}</em>
             </h2>

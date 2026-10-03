@@ -32,7 +32,7 @@ export function Pricing() {
           <span className="section-label mb-4 md:mb-5 block">
             {t('Precios', 'Pricing')}
           </span>
-          <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,4.2rem)] leading-none tracking-[-0.02em] mb-5 md:mb-6">
+          <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em] mb-5 md:mb-6">
             {t('Precios orientativos. ', 'Starting prices. ')}
             <em className="text-[#d4a853] not-italic">
               {t('Propuesta a medida.', 'Custom proposal.')}

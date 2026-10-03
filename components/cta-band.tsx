@@ -32,7 +32,7 @@ export function CtaBand() {
       />
       
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-12 text-center">
-        <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] text-[#262C37] mb-4 md:mb-6">
+        <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#262C37] mb-4 md:mb-6">
           {t.headline}
         </h2>
         

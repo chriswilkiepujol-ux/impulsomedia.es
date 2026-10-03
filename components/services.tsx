@@ -17,7 +17,7 @@ export function Services() {
             <span className="section-label mb-4 md:mb-5 block">
               {t('Lo que hacemos', 'What we do')}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,4.2rem)] leading-none tracking-[-0.02em]">
+            <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
               {t('Servicios que ', 'Services that ')}
               <em className="text-[#d4a853] not-italic">{t('funcionan', 'work')}</em>
             </h2>

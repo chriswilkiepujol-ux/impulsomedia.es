@@ -103,7 +103,7 @@ export function Work() {
               <span className="w-5 h-[1px] bg-[#d4a853]" />
               {language === "en" ? "Our Work" : "Nuestro Trabajo"}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(2rem,5vw,4.2rem)] leading-none tracking-[-0.02em]">
+            <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
               {language === "en" ? "Clients we work with" : "Clientes con los que trabajamos"}
             </h2>
           </div>
