@@ -20,9 +20,9 @@ export function Footer() {
           <div className="max-w-[280px]">
             <a 
               href={homeHref} 
-              className="flex items-center gap-2 font-display font-extrabold text-[1.1rem] tracking-[0.12em] uppercase text-[#f2ede6] no-underline mb-3"
+              className="flex items-center gap-2 font-display font-extrabold text-[1.1rem] tracking-[0.12em] uppercase text-[#f2ede6] no-underline mb-3 shrink-0"
             >
-              <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-7 h-7 shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="16" cy="16" r="14" stroke="#d4a853" strokeWidth="2" fill="none"/>
                 <path d="M6 16 L10 16 L12 10 L16 22 L20 8 L22 16 L26 16" stroke="#d4a853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
               </svg>
