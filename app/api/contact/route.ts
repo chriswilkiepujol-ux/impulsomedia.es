@@ -14,7 +14,14 @@ export async function POST(request: Request) {
     }
     const resend = new Resend(apiKey)
     const body = await request.json()
-    const { name, email, company, service, message } = body
+    const { name, email, company, service, message, website } = body
+
+    // Honeypot check: real visitors never see or fill this field.
+    // Bots that auto-fill every input will trip it. Return a fake
+    // success so the bot doesn't learn it was caught, but skip sending.
+    if (website) {
+      return NextResponse.json({ success: true })
+    }
 
     // Validate required fields
     if (!name || !email || !message) {

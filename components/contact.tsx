@@ -23,6 +23,7 @@ export function Contact() {
       company: formData.get('company') as string,
       service: formData.get('service') as string,
       message: formData.get('message') as string,
+      website: formData.get('website') as string, // honeypot
     }
 
     const form = e.currentTarget
@@ -117,6 +118,17 @@ export function Contact() {
           {/* Right Column - Form */}
           <div className="p-[clamp(1.5rem,4vw,2.5rem)] rounded-[3px] border border-[rgba(255,255,255,0.06)] bg-[#2B313B]">
             <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Honeypot field - hidden from real visitors, bots that auto-fill every field will trip it */}
+              <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }} aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
               {/* Name */}
               <div>
                 <label htmlFor="name" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242, 237, 230, 0.60)] mb-2">
