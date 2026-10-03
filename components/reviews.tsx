@@ -1,8 +1,9 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { useRef } from "react"
+import { useRef, useEffect, useState } from "react"
 import { Star, ArrowLeft, ArrowRight } from "lucide-react"
+import { Reveal } from "@/components/reveal"
 
 export function Reviews() {
   const { language } = useLanguage()
@@ -86,25 +87,43 @@ export function Reviews() {
 
   const t = content[language]
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [isPaused, setIsPaused] = useState(false)
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return
-    const cardWidth = scrollRef.current.clientWidth / (window.innerWidth >= 768 ? 3 : 1)
-    scrollRef.current.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" })
+    const el = scrollRef.current
+    const cardWidth = el.clientWidth / (window.innerWidth >= 768 ? 3 : 1)
+    const atEnd = Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth
+    const atStart = el.scrollLeft <= 0
+
+    if (direction === "right" && atEnd) {
+      el.scrollTo({ left: 0, behavior: "smooth" })
+    } else if (direction === "left" && atStart) {
+      el.scrollTo({ left: el.scrollWidth, behavior: "smooth" })
+    } else {
+      el.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" })
+    }
   }
+
+  useEffect(() => {
+    if (isPaused) return
+    const interval = setInterval(() => scroll("right"), 4800)
+    return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPaused])
 
   return (
     <section id="reviews" className="relative py-14 md:py-20 bg-[#2E3542]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-8 md:mb-10 gap-6 text-center md:text-left">
-          <div className="max-w-2xl mx-auto md:mx-0">
+          <Reveal className="max-w-2xl mx-auto md:mx-0">
             <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
               {t.tag}
             </span>
             <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6]">
               {t.headline}
             </h2>
-          </div>
+          </Reveal>
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => scroll("left")}
@@ -125,6 +144,10 @@ export function Reviews() {
 
         <div
           ref={scrollRef}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setTimeout(() => setIsPaused(false), 3000)}
           className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth mb-10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {t.reviews.map((review, index) => (

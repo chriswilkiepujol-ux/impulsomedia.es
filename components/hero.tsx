@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { DeviceShowcase } from "@/components/device-showcase"
+import { CountUp } from "@/components/count-up"
 
 export function Hero() {
   const { language } = useLanguage()
@@ -100,7 +101,7 @@ export function Hero() {
         >
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              7<em className="text-[#d4a853] not-italic">+</em>
+              <CountUp target={7} /><em className="text-[#d4a853] not-italic">+</em>
             </div>
             <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
               {language === "en" ? "Live Clients" : "Clientes Activos"}
@@ -108,7 +109,7 @@ export function Hero() {
           </div>
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              12
+              <CountUp target={12} />
             </div>
             <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
               {language === "en" ? "Core Services" : "Servicios Clave"}
@@ -116,7 +117,7 @@ export function Hero() {
           </div>
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              3<em className="text-[#d4a853] not-italic">x</em>
+              <CountUp target={3} /><em className="text-[#d4a853] not-italic">x</em>
             </div>
             <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
               {language === "en" ? "Markets Served" : "Mercados Cubiertos"}
@@ -124,7 +125,7 @@ export function Hero() {
           </div>
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              100<em className="text-[#d4a853] not-italic">%</em>
+              <CountUp target={100} /><em className="text-[#d4a853] not-italic">%</em>
             </div>
             <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
               {language === "en" ? "From Scratch" : "Desde Cero"}

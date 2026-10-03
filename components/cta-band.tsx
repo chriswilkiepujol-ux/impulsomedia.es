@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { MessageCircle } from "lucide-react"
+import { Reveal } from "@/components/reveal"
 
 export function CtaBand() {
   const { language } = useLanguage()
@@ -31,7 +32,7 @@ export function CtaBand() {
         }}
       />
       
-      <div className="relative max-w-[1400px] mx-auto px-6 md:px-12 text-center">
+      <Reveal className="relative max-w-[1400px] mx-auto px-6 md:px-12 text-center">
         <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#262C37] mb-4 md:mb-6">
           {t.headline}
         </h2>
@@ -49,7 +50,7 @@ export function CtaBand() {
           <MessageCircle className="w-5 h-5" />
           {t.cta}
         </a>
-      </div>
+      </Reveal>
     </section>
   )
 }

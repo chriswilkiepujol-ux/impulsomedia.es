@@ -1,10 +1,11 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { useRef } from "react"
+import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { Reveal } from "@/components/reveal"
 
 const projects = [
   {
@@ -75,25 +76,46 @@ const projects = [
 export function WorkCarousel() {
   const { language, t } = useLanguage()
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [isPaused, setIsPaused] = useState(false)
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return
-    const cardWidth = scrollRef.current.clientWidth / (window.innerWidth >= 768 ? 3 : 1)
-    scrollRef.current.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" })
+    const el = scrollRef.current
+    const cardWidth = el.clientWidth / (window.innerWidth >= 768 ? 3 : 1)
+    const atEnd = Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth
+    const atStart = el.scrollLeft <= 0
+
+    if (direction === "right" && atEnd) {
+      el.scrollTo({ left: 0, behavior: "smooth" })
+    } else if (direction === "left" && atStart) {
+      el.scrollTo({ left: el.scrollWidth, behavior: "smooth" })
+    } else {
+      el.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" })
+    }
   }
+
+  // Autoscroll: advance one card every few seconds, pause while the
+  // visitor is interacting (hover on desktop, touch on mobile), loop
+  // back to the start once it reaches the end.
+  useEffect(() => {
+    if (isPaused) return
+    const interval = setInterval(() => scroll("right"), 4200)
+    return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPaused])
 
   return (
     <section id="work" className="py-[clamp(2.5rem,6vw,4.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
-          <div>
+          <Reveal>
             <span className="section-label mb-3 block">
               {t("Nuestro Trabajo", "Our Work")}
             </span>
             <h2 className="font-display font-extrabold text-[clamp(1.7rem,3.6vw,2.5rem)] leading-[1.2] tracking-[-0.015em]">
               {t("Clientes con los que trabajamos", "Clients we work with")}
             </h2>
-          </div>
+          </Reveal>
           <div className="flex items-center gap-3">
             <Link
               href={language === "en" ? "/en/work" : "/proyectos"}
@@ -120,6 +142,10 @@ export function WorkCarousel() {
 
         <div
           ref={scrollRef}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setTimeout(() => setIsPaused(false), 3000)}
           className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {projects.map((project) => (

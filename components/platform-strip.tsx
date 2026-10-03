@@ -1,12 +1,13 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
+import { Reveal } from "@/components/reveal"
 
 export function PlatformStrip() {
   const { t } = useLanguage()
 
   return (
-    <div className="max-w-[1200px] mx-auto px-6 md:px-[clamp(1.5rem,5vw,4rem)] py-8 border-t border-b border-[rgba(255,255,255,0.09)] flex items-center gap-6 md:gap-10 flex-wrap">
+    <Reveal className="max-w-[1200px] mx-auto px-6 md:px-[clamp(1.5rem,5vw,4rem)] py-8 border-t border-b border-[rgba(255,255,255,0.09)] flex items-center gap-6 md:gap-10 flex-wrap">
       <span className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[rgba(242,237,230,0.5)] mr-1">
         {t("También gestionamos campañas en", "We also run campaigns on")}
       </span>
@@ -52,6 +53,6 @@ export function PlatformStrip() {
         </svg>
         SEO / GMB
       </div>
-    </div>
+    </Reveal>
   )
 }

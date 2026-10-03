@@ -3,6 +3,7 @@
 import { useLanguage } from "@/lib/language-context"
 import { Store, TrendingUp, ArrowRight } from "lucide-react"
 import { esToEn } from "@/lib/route-map"
+import { Reveal } from "@/components/reveal"
 
 export function Paths() {
   const { language } = useLanguage()
@@ -59,14 +60,14 @@ export function Paths() {
   return (
     <section id="paths" className="relative py-14 md:py-20 bg-[#262C37]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
-        <div className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
+        <Reveal className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
           <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
             {t.tag}
           </span>
           <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6]">
             {t.headline}
           </h2>
-        </div>
+        </Reveal>
 
         <div className="grid md:grid-cols-2 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
           {t.paths.map((path, index) => (
