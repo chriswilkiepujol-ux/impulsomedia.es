@@ -15,7 +15,7 @@ export function ServicesByAudience({ category }: Props) {
   const isLocal = category === 'local'
 
   return (
-    <section className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+    <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         <div className="max-w-2xl mb-10 md:mb-14">
           <span className="section-label mb-4 block">

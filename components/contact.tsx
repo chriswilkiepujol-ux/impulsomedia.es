@@ -55,7 +55,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-[clamp(5rem,10vw,9rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+    <section id="contact" className="py-[clamp(3.5rem,7vw,5.5rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column - Info */}

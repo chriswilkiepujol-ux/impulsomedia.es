@@ -22,7 +22,7 @@ export function CtaBand() {
   const t = content[language]
 
   return (
-    <section className="relative py-20 md:py-28 bg-[#d4a853] overflow-hidden">
+    <section className="relative py-14 md:py-18 bg-[#d4a853] overflow-hidden">
       {/* Subtle pattern overlay */}
       <div 
         className="absolute inset-0 opacity-10"

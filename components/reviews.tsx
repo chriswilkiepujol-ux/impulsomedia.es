@@ -94,7 +94,7 @@ export function Reviews() {
   }
 
   return (
-    <section id="reviews" className="relative py-24 md:py-32 bg-[#2E3542]">
+    <section id="reviews" className="relative py-14 md:py-20 bg-[#2E3542]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-8 md:mb-10 gap-6 text-center md:text-left">
           <div className="max-w-2xl mx-auto md:mx-0">

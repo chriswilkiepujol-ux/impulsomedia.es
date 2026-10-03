@@ -25,7 +25,7 @@ export function Pricing() {
   const { t, language } = useLanguage()
 
   return (
-    <section className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+    <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
         <div className="mb-10 md:mb-14 max-w-[62ch]">
@@ -157,7 +157,7 @@ export function Pricing() {
         </div>
 
         {/* Recurring: Retainers */}
-        <div id="pricing-recurring" className="mb-14 md:mb-20 scroll-mt-[130px]">
+        <div id="pricing-recurring" className="mb-10 md:mb-14 scroll-mt-[130px]">
           <TypeTag icon={Repeat} label={t('Recurrente', 'Recurring')} />
           <div className="flex items-baseline justify-between gap-4 mb-6 md:mb-8">
             <h3 className="font-display font-bold text-[clamp(1.3rem,2.5vw,1.8rem)]">

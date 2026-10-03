@@ -94,10 +94,10 @@ export function Work() {
   const { language } = useLanguage()
 
   return (
-    <section id="work" className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
+    <section id="work" className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-[clamp(3rem,6vw,5rem)] gap-6 md:gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-[clamp(2rem,4vw,3.5rem)] gap-6 md:gap-8">
           <div>
             <span className="inline-flex items-center gap-2.5 text-[0.7rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4 md:mb-5">
               <span className="w-5 h-[1px] bg-[#d4a853]" />

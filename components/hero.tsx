@@ -29,7 +29,7 @@ export function Hero() {
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto w-full relative z-10 py-12 md:py-20">
+      <div className="max-w-[1200px] mx-auto w-full relative z-10 py-10 md:py-14">
         {/* Headline block + device showcase, side by side as one centered row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16">
           <div>

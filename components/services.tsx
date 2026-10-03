@@ -9,10 +9,10 @@ export function Services() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="services" className="py-[clamp(4rem,10vw,9rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+    <section id="services" className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-[clamp(3rem,6vw,5rem)] gap-6 md:gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-[clamp(2rem,4vw,3.5rem)] gap-6 md:gap-8">
           <div>
             <span className="section-label mb-4 md:mb-5 block">
               {t('Lo que hacemos', 'What we do')}

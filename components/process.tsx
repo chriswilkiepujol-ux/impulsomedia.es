@@ -37,10 +37,10 @@ export function Process() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="process" className="py-[clamp(5rem,10vw,9rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
+    <section id="process" className="py-[clamp(3.5rem,7vw,5.5rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-[clamp(3rem,6vw,5rem)]">
+        <div className="text-center mb-[clamp(2rem,4vw,3.5rem)]">
           <span className="section-label justify-center mb-5">
             {t('Cómo trabajamos', 'How we work')}
           </span>

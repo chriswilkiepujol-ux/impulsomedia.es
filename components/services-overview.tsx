@@ -9,7 +9,7 @@ export function ServicesOverview() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="services" className="py-[clamp(3rem,8vw,6rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+    <section id="services" className="py-[clamp(2.5rem,6vw,4.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
           <div>

@@ -13,7 +13,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#262C37] border-t border-[rgba(255,255,255,0.06)] py-[clamp(3rem,6vw,5rem)] px-[clamp(1.5rem,5vw,4rem)]">
+    <footer className="bg-[#262C37] border-t border-[rgba(255,255,255,0.06)] py-[clamp(2.5rem,5vw,4rem)] px-[clamp(1.5rem,5vw,4rem)]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
           {/* Brand */}
