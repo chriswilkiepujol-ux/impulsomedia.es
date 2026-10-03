@@ -87,7 +87,9 @@ export function Reviews() {
 
   const t = content[language]
   const scrollRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   const [isPaused, setIsPaused] = useState(false)
+  const [hasEntered, setHasEntered] = useState(false)
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return
@@ -105,15 +107,32 @@ export function Reviews() {
     }
   }
 
+  // Only start autoscrolling once the section actually scrolls into view.
   useEffect(() => {
-    if (isPaused) return
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasEntered(true)
+          observer.unobserve(el)
+        }
+      },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!hasEntered || isPaused) return
     const interval = setInterval(() => scroll("right"), 4800)
     return () => clearInterval(interval)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPaused])
+  }, [hasEntered, isPaused])
 
   return (
-    <section id="reviews" className="relative py-14 md:py-20 bg-[#2E3542]">
+    <section ref={sectionRef} id="reviews" className="relative py-14 md:py-20 bg-[#2E3542]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-8 md:mb-10 gap-6 text-center md:text-left">
           <Reveal className="max-w-2xl mx-auto md:mx-0">

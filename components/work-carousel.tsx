@@ -76,7 +76,9 @@ const projects = [
 export function WorkCarousel() {
   const { language, t } = useLanguage()
   const scrollRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   const [isPaused, setIsPaused] = useState(false)
+  const [hasEntered, setHasEntered] = useState(false)
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return
@@ -94,18 +96,37 @@ export function WorkCarousel() {
     }
   }
 
+  // Only start autoscrolling once the section actually scrolls into
+  // view - otherwise it's been quietly cycling since page load and may
+  // already be mid-way (or looped) by the time the visitor gets here.
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasEntered(true)
+          observer.unobserve(el)
+        }
+      },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   // Autoscroll: advance one card every few seconds, pause while the
   // visitor is interacting (hover on desktop, touch on mobile), loop
   // back to the start once it reaches the end.
   useEffect(() => {
-    if (isPaused) return
+    if (!hasEntered || isPaused) return
     const interval = setInterval(() => scroll("right"), 4200)
     return () => clearInterval(interval)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPaused])
+  }, [hasEntered, isPaused])
 
   return (
-    <section id="work" className="py-[clamp(2.5rem,6vw,4.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
+    <section ref={sectionRef} id="work" className="py-[clamp(2.5rem,6vw,4.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
           <Reveal>
