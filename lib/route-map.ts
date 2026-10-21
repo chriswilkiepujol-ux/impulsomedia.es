@@ -13,9 +13,12 @@ export const esToEn: Record<string, string> = {
   '/blog': '/en/blog',
 }
 
-export const enToEs: Record<string, string> = Object.fromEntries(
-  Object.entries(esToEn).map(([es, en]) => [en, es])
-)
+export const enToEs: Record<string, string> = {
+  ...Object.fromEntries(Object.entries(esToEn).map(([es, en]) => [en, es])),
+  // City × service landings that only exist in one language (yet) fall back
+  // to the closest page in the other language.
+  '/en/seo-gibraltar': '/servicios/negocio-local',
+}
 
 /**
  * Looks up the matching translated URL for a dynamic blog post path,

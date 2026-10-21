@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { HomeContent } from '../home-content'
 
 export const metadata: Metadata = {
-  title: 'ImpulsoMedia | Web Design and Digital Marketing in Spain',
-  description: 'Digital agency specialised in web design, SEO, PPC, paid social, programmatic, affiliate and consultancy. We build websites from scratch for local businesses and larger brands.',
+  title: 'Digital Agency in Sotogrande & Gibraltar | Web Design, SEO and PPC',
+  description: 'Bilingual digital agency based in Sotogrande, 15 minutes from Gibraltar. Custom web design, local SEO, Google Ads and paid social for businesses in Sotogrande, Gibraltar, Campo de Gibraltar and the Costa del Sol.',
   alternates: {
     canonical: '/en',
     languages: {
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'ImpulsoMedia | Web Design and Digital Marketing in Spain',
-    description: 'We build websites from scratch for local businesses and larger brands. No templates, no middlemen.',
+    title: 'Digital Agency in Sotogrande & Gibraltar | ImpulsoMedia',
+    description: 'Custom web design, SEO and ads for businesses in Sotogrande, Gibraltar and Campo de Gibraltar. No templates, no middlemen.',
     url: 'https://impulsomedia.es/en',
     locale: 'en_GB',
   },

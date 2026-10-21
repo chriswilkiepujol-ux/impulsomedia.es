@@ -29,11 +29,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://impulsomedia.es'),
   title: {
-    default: 'ImpulsoMedia | Diseño Web y Marketing Digital en España',
+    default: 'Diseño Web y Marketing Digital en Sotogrande y Campo de Gibraltar | ImpulsoMedia',
     template: '%s | ImpulsoMedia'
   },
-  description: 'Agencia digital especializada en diseño web, redes sociales e identidad visual. Creamos sitios web desde cero para negocios en España. Sin plantillas, sin parches. Solo resultados.',
-  keywords: ['diseño web', 'marketing digital', 'redes sociales', 'identidad visual', 'desarrollo web', 'España', 'Sotogrande', 'agencia digital', 'web design', 'digital agency', 'social media'],
+  description: 'Agencia digital en Sotogrande (San Roque, Cádiz). Diseño web a medida, SEO local, Google Ads y paid social para negocios de Sotogrande, Gibraltar, La Línea, Algeciras y el Campo de Gibraltar. Sin plantillas, trato directo.',
+  keywords: ['diseño web Sotogrande', 'agencia marketing digital Campo de Gibraltar', 'diseño web Algeciras', 'SEO Gibraltar', 'agencia SEO Cádiz', 'web design Sotogrande', 'digital agency Gibraltar'],
   authors: [{ name: 'ImpulsoMedia', url: 'https://impulsomedia.es' }],
   creator: 'ImpulsoMedia',
   publisher: 'ImpulsoMedia',
@@ -51,8 +51,8 @@ export const metadata: Metadata = {
     alternateLocale: 'en_GB',
     url: 'https://impulsomedia.es',
     siteName: 'ImpulsoMedia',
-    title: 'ImpulsoMedia | Diseño Web y Marketing Digital',
-    description: 'Creamos sitios web desde cero para negocios en España. Sin plantillas, sin parches. Solo resultados.',
+    title: 'ImpulsoMedia | Diseño Web y Marketing Digital en Sotogrande',
+    description: 'Diseño web, SEO y publicidad para negocios de Sotogrande, Gibraltar y el Campo de Gibraltar. Sin plantillas, sin parches. Solo resultados.',
     images: [
       {
         url: '/images/og-image.jpg',
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ImpulsoMedia | Diseño Web y Marketing Digital',
-    description: 'Creamos sitios web desde cero para negocios en España. Sin plantillas, sin parches.',
+    title: 'ImpulsoMedia | Diseño Web y Marketing Digital en Sotogrande',
+    description: 'Diseño web, SEO y publicidad para negocios de Sotogrande, Gibraltar y el Campo de Gibraltar. Sin plantillas, sin parches.',
     images: ['/images/og-image.jpg'],
     creator: '@impulsomedia',
   },
@@ -99,12 +99,22 @@ const structuredData = {
   image: 'https://impulsomedia.es/images/og-image.jpg',
   telephone: '+34680863229',
   email: 'chris@impulsomedia.es',
+  '@id': 'https://impulsomedia.es/#business',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Sotogrande',
+    addressLocality: 'Sotogrande, San Roque',
     addressRegion: 'Cádiz',
+    postalCode: '11310',
     addressCountry: 'ES',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 36.2833,
+    longitude: -5.2833,
+  },
+  hasMap: 'https://g.page/r/Cart50OPlmevEBE',
+  sameAs: ['https://g.page/r/Cart50OPlmevEBE'],
+  founder: { '@type': 'Person', name: 'Chris Wilkie' },
   areaServed: [
     { '@type': 'Place', name: 'Sotogrande' },
     { '@type': 'Place', name: 'San Roque' },

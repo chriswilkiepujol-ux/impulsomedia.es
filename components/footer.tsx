@@ -107,6 +107,25 @@ export function Footer() {
               </ul>
             </div>
 
+            {/* Areas */}
+            <div>
+              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-4">
+                {t('Zonas', 'Areas')}
+              </h6>
+              <ul className="flex flex-col gap-[0.6rem]">
+                <li>
+                  <a href="/en/seo-gibraltar" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                    {t('SEO en Gibraltar', 'SEO Gibraltar')}
+                  </a>
+                </li>
+                <li>
+                  <a href={isEn ? '/en/services/local-business' : '/servicios/negocio-local'} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                    {t('Diseño web Sotogrande', 'Web design Sotogrande')}
+                  </a>
+                </li>
+              </ul>
+            </div>
+
             {/* Contact */}
             <div>
               <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-4">
