@@ -19,10 +19,15 @@ export const enToEs: Record<string, string> = {
   // to the closest page in the other language.
   '/en/seo-gibraltar': '/servicios/negocio-local',
   '/en/web-design-gibraltar': '/servicios/negocio-local',
+  '/en/digital-marketing-gibraltar': '/agencia-marketing-digital-algeciras',
+  '/en/igaming-marketing': '/servicios/performance',
 }
 
 // ES-only landings: the EN switcher goes to the closest EN page.
 esToEn['/diseno-web-algeciras'] = '/en/services/local-business'
+esToEn['/diseno-web-la-linea'] = '/en/web-design-gibraltar'
+esToEn['/diseno-web-san-roque'] = '/en/services/local-business'
+esToEn['/agencia-marketing-digital-algeciras'] = '/en/digital-marketing-gibraltar'
 
 /**
  * Looks up the matching translated URL for a dynamic blog post path,

@@ -4,6 +4,7 @@ import { LanguageProvider } from '@/lib/language-context'
 import { Header } from '@/components/header'
 import { ServicesByAudience } from '@/components/services-by-audience'
 import { Footer } from '@/components/footer'
+import { AreasStrip } from '@/components/areas-strip'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function PerformanceContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
@@ -13,6 +14,7 @@ export function PerformanceContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {})
         <Header />
         <main className="pt-[68px]">
           <ServicesByAudience category="performance" />
+          <AreasStrip services={['performance', 'marketing']} />
         </main>
         <Footer />
         <WhatsAppButton />

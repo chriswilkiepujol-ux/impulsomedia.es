@@ -7,6 +7,7 @@ import { WhatsAppButton } from '@/components/whatsapp-button'
 import { Reveal } from '@/components/reveal'
 import Image from 'next/image'
 import { FaqAccordion } from '@/components/faq-accordion'
+import { AreasStrip } from '@/components/areas-strip'
 import { MessageCircle, Calendar, ArrowUpRight } from 'lucide-react'
 import { getLandingByPath } from '@/lib/landing-data'
 
@@ -183,6 +184,8 @@ export function ServiceLanding({ path }: { path: string }) {
               </div>
             </div>
           </section>
+
+          <AreasStrip exclude={page.path} />
 
           {/* CTA */}
           <section className="py-14 md:py-20 px-6 bg-[#d4a853]">

@@ -5,6 +5,7 @@ import { Header } from '@/components/header'
 import { BlogPost } from '@/components/blog-post'
 import { CtaBand } from '@/components/cta-band'
 import { Footer } from '@/components/footer'
+import { AreasStrip } from '@/components/areas-strip'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { BlogPost as BlogPostType } from '@/lib/blog-data'
 
@@ -15,6 +16,7 @@ export function BlogPostContent({ post, lang = 'es' }: { post: BlogPostType; lan
         <Header />
         <main className="pt-[68px]">
           <BlogPost post={post} />
+          <AreasStrip />
           <CtaBand />
         </main>
         <Footer />

@@ -1,6 +1,7 @@
 "use client"
 
 import { useLanguage } from '@/lib/language-context'
+import { areasFor } from '@/lib/areas'
 
 export function Footer() {
   const { t, language } = useLanguage()
@@ -113,26 +114,13 @@ export function Footer() {
                 {t('Zonas', 'Areas')}
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
-                <li>
-                  <a href="/en/seo-gibraltar" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    {t('SEO en Gibraltar', 'SEO Gibraltar')}
-                  </a>
-                </li>
-                <li>
-                  <a href="/en/web-design-gibraltar" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    {t('Diseño web Gibraltar (EN)', 'Web design Gibraltar')}
-                  </a>
-                </li>
-                <li>
-                  <a href="/diseno-web-algeciras" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    {t('Diseño web Algeciras', 'Web design Algeciras (ES)')}
-                  </a>
-                </li>
-                <li>
-                  <a href={isEn ? '/en/services/local-business' : '/servicios/negocio-local'} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    {t('Diseño web Sotogrande', 'Web design Sotogrande')}
-                  </a>
-                </li>
+                {areasFor(language).map((a) => (
+                  <li key={a.href}>
+                    <a href={a.href} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                      {isEn ? a.labelEn : a.labelEs}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 

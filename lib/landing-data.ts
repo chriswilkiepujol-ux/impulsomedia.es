@@ -269,6 +269,10 @@ export const landingPages: LandingPage[] = [
   },
 ]
 
+import { landingPages2 } from './landing-data-2'
+
+export const allLandingPages: LandingPage[] = [...landingPages, ...landingPages2]
+
 export function getLandingByPath(path: string): LandingPage | undefined {
-  return landingPages.find((p) => p.path === path)
+  return allLandingPages.find((p) => p.path === path)
 }

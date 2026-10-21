@@ -6,6 +6,7 @@ import { Services } from '@/components/services'
 import { Process } from '@/components/process'
 import { CtaBand } from '@/components/cta-band'
 import { Footer } from '@/components/footer'
+import { AreasStrip } from '@/components/areas-strip'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function ServiciosContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
@@ -16,6 +17,7 @@ export function ServiciosContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
         <main className="pt-[68px]">
           <Services />
           <Process />
+          <AreasStrip />
           <CtaBand />
         </main>
         <Footer />

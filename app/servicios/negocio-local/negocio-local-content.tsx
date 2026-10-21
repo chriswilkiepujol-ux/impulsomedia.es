@@ -5,6 +5,7 @@ import { Header } from '@/components/header'
 import { ServicesByAudience } from '@/components/services-by-audience'
 import { Reviews } from '@/components/reviews'
 import { Footer } from '@/components/footer'
+import { AreasStrip } from '@/components/areas-strip'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function NegocioLocalContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
@@ -14,6 +15,7 @@ export function NegocioLocalContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}
         <Header />
         <main className="pt-[68px]">
           <ServicesByAudience category="local" />
+          <AreasStrip services={['web', 'seo', 'marketing']} />
           <Reviews />
         </main>
         <Footer />
