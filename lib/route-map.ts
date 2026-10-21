@@ -20,6 +20,9 @@ export const enToEs: Record<string, string> = {
   '/en/seo-gibraltar': '/servicios/negocio-local',
 }
 
+// ES-only landings: the EN switcher goes to the closest EN page.
+esToEn['/diseno-web-algeciras'] = '/en/services/local-business'
+
 /**
  * Looks up the matching translated URL for a dynamic blog post path,
  * e.g. /blog/seo-local-sotogrande-campo-gibraltar ->

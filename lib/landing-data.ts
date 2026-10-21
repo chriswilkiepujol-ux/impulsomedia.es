@@ -1,4 +1,4 @@
-import { Search, MapPin, FileText, Link2, BarChart3, Gauge, Globe, Languages, type LucideIcon } from 'lucide-react'
+import { Search, MapPin, FileText, Link2, BarChart3, Gauge, Globe, Languages, Smartphone, ShieldCheck, Wrench, PenTool, type LucideIcon } from 'lucide-react'
 
 /**
  * City × service landing pages.
@@ -126,6 +126,70 @@ export const landingPages: LandingPage[] = [
       headline: 'Want to know where your site stands in Gibraltar?',
       sub: 'Send us your URL on WhatsApp and we will reply with the three things holding it back. No forms, no sales deck.',
       whatsappText: "Hi, I'd like a free SEO check for my Gibraltar business",
+    },
+  },
+  {
+    slug: 'diseno-web-algeciras',
+    lang: 'es',
+    path: '/diseno-web-algeciras',
+    metaTitle: 'Diseño Web en Algeciras | Páginas web a medida desde 950 €',
+    metaDescription:
+      'Diseño web en Algeciras y el Campo de Gibraltar: páginas web a medida, rápidas y preparadas para salir en Google. Desde 950 €, bilingüe si lo necesitas, sin plantillas ni cuotas raras. Agencia de Sotogrande, a 25 minutos.',
+    breadcrumb: 'Diseño web Algeciras',
+    serviceType: 'Web Design',
+    areaServed: ['Algeciras', 'Los Barrios', 'La Línea de la Concepción', 'San Roque', 'Tarifa', 'Campo de Gibraltar'],
+    label: 'Diseño web · Algeciras',
+    h1: 'Diseño web en Algeciras para negocios que quieren que les encuentren',
+    lead:
+      'Una página web que carga rápido, se entiende en diez segundos y sale en Google cuando alguien busca lo que haces en Algeciras. Hecha a medida desde Sotogrande, a 25 minutos, sin plantillas de WordPress ni mantenimientos que nadie explica.',
+    stats: [
+      { value: '950 €', label: 'desde, web de hasta 5 páginas' },
+      { value: '2-4 sem.', label: 'de la llamada al lanzamiento' },
+      { value: 'ES + EN', label: 'bilingüe si tu cliente lo es' },
+    ],
+    problemTitle: 'Qué le falta a la mayoría de webs de Algeciras',
+    problem: [
+      'Algeciras es la ciudad más grande del Campo de Gibraltar y la que más búsquedas genera: "fontanero Algeciras", "abogado Algeciras", "transporte Algeciras". Muchas de esas búsquedas acaban en una ficha de Google sin web, o en una web de 2015 que no se puede leer en el móvil. Ahí está el hueco.',
+      'La mayoría de webs locales se hacen con una plantilla, un constructor y quince plugins. Cargan lento, Google lo penaliza y cada año hay que pagar a alguien para que las actualice. Nosotros construimos desde cero, con la misma tecnología que usan las webs grandes, y la entregamos sin cuotas obligatorias.',
+      'Si trabajas con el puerto, con transportistas o con clientes británicos de Gibraltar, tu web tiene que estar en español y en inglés de verdad, no traducida con un botón. Lo escribimos nativo en los dos idiomas.',
+    ],
+    servicesTitle: 'Qué incluye una web nuestra',
+    services: [
+      { icon: PenTool, title: 'Diseño a medida', desc: 'Sin plantilla. Diseñamos tu web para tu negocio y tu cliente, con tu marca, no con una demo que usan otros cien negocios.' },
+      { icon: Gauge, title: 'Velocidad real', desc: 'Construida en Next.js y alojada en Vercel: carga en menos de un segundo. Google lo premia y tus clientes no se van.' },
+      { icon: Smartphone, title: 'Móvil primero', desc: 'Más del 70 % de las búsquedas locales se hacen desde el móvil. Diseñamos primero para la pantalla pequeña.' },
+      { icon: Search, title: 'SEO on page incluido', desc: 'Títulos, descripciones, estructura, schema y sitemap listos para posicionar "tu servicio + Algeciras" desde el primer día.' },
+      { icon: MapPin, title: 'Google Business Profile', desc: 'Configuramos o arreglamos tu ficha de Google para que la web y el mapa trabajen juntos.' },
+      { icon: Languages, title: 'Bilingüe ES/EN', desc: 'Si tienes clientes de Gibraltar o extranjeros, versión en inglés escrita por alguien que lo habla, con hreflang correcto.' },
+      { icon: ShieldCheck, title: 'Sin cuotas obligatorias', desc: 'La web es tuya. El mantenimiento es opcional y se contrata cuando lo quieres, no para que la web siga funcionando.' },
+      { icon: Wrench, title: 'Formulario y WhatsApp', desc: 'Formularios que llegan a tu correo, botón de WhatsApp, llamada directa. Lo que convierte visitas en clientes.' },
+    ],
+    processTitle: 'Cómo trabajamos',
+    steps: [
+      { num: '01', title: 'Llamada de 30 minutos', desc: 'Por WhatsApp, videollamada o en persona en Algeciras. Qué vendes, a quién y qué tiene que conseguir la web.' },
+      { num: '02', title: 'Propuesta cerrada', desc: 'En 48 horas: páginas, textos, precio y plazo. Sin letra pequeña. El 50 % al empezar y el resto al publicar.' },
+      { num: '03', title: 'Diseño y construcción', desc: 'Te enseñamos la web en un enlace privado según avanza. Una o dos rondas de cambios, según el paquete.' },
+      { num: '04', title: 'Lanzamiento y 30 días de ajustes', desc: 'Dominio, hosting, Search Console y Google Business conectados. Los retoques del primer mes van incluidos.' },
+    ],
+    casesTitle: 'Webs hechas para negocios de la comarca',
+    cases: [
+      { name: 'Sotovet', sector: 'Clínica veterinaria', summary: 'Web nueva desde cero para una clínica de Sotogrande: rápida, bien organizada y con las reservas y el teléfono a un toque.', href: 'https://www.sotovet.com' },
+      { name: 'Ágora Sotogrande', sector: 'Restaurante y discoteca', summary: 'Web para un local de eventos con reservas online: entendimos el negocio desde el primer día y las reservas han subido.', href: 'https://agorasotogrande.com' },
+      { name: 'Pujol Wilkie', sector: 'Servicios jurídicos', summary: 'Web bilingüe para un despacho que atiende a compradores extranjeros en la zona. Comunicación rápida y resultados claros.', href: 'https://pujolwilkie.com' },
+    ],
+    faqTitle: 'Preguntas sobre diseño web en Algeciras',
+    faqs: [
+      { q: '¿Cuánto cuesta una página web en Algeciras?', a: 'Nuestra web Essential (hasta 5 páginas, bilingüe, SEO básico, ficha de Google) parte de 950 €. La Growth (hasta 10 páginas, blog, casos de éxito, SEO técnico completo) parte de 1.800 €. Tiendas online y sistemas de reserva se presupuestan aparte. Siempre con propuesta cerrada antes de empezar.' },
+      { q: '¿Cuánto tarda?', a: 'Entre 2 y 4 semanas desde que tenemos los textos y las fotos. Si no los tienes, te ayudamos a prepararlos y el plazo se ajusta.' },
+      { q: '¿Tengo que pagar una cuota mensual?', a: 'No. La web es tuya y funciona sin nosotros. El mantenimiento (actualizaciones, copias, soporte) es opcional, y el hosting en Vercel es gratuito para la mayoría de webs corporativas.' },
+      { q: '¿Hacéis webs en WordPress?', a: 'No. Construimos desde cero en Next.js. Es más rápido, más seguro y no depende de plugins. Si ya tienes una web en WordPress, no la parcheamos: la rehacemos.' },
+      { q: '¿Venís a Algeciras?', a: 'Sí. Estamos en Sotogrande, a 25 minutos, y nos reunimos en Algeciras cuando hace falta. El día a día va por WhatsApp para no cobrarte desplazamientos.' },
+      { q: '¿Me ayudáis a salir en Google después?', a: 'La web sale con el SEO on page hecho. Si quieres posicionar en serio ("tu servicio + Algeciras", Los Barrios, La Línea), tenemos un servicio de SEO local desde 350 € al mes.' },
+    ],
+    cta: {
+      headline: '¿Quieres saber qué le falta a tu web actual?',
+      sub: 'Mándanos tu web por WhatsApp y te decimos las tres cosas que la frenan. Sin formularios ni reuniones de venta.',
+      whatsappText: 'Hola, quiero presupuesto para una web en Algeciras',
     },
   },
 ]

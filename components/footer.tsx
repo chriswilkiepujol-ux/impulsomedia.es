@@ -119,6 +119,11 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
+                  <a href="/diseno-web-algeciras" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                    {t('Diseño web Algeciras', 'Web design Algeciras (ES)')}
+                  </a>
+                </li>
+                <li>
                   <a href={isEn ? '/en/services/local-business' : '/servicios/negocio-local'} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
                     {t('Diseño web Sotogrande', 'Web design Sotogrande')}
                   </a>
