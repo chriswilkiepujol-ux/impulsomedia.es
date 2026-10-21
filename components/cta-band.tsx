@@ -41,7 +41,7 @@ export function CtaBand() {
           {t.headline}
         </h2>
         
-        <p className="text-[#262C37]/80 text-lg md:text-xl max-w-2xl mx-auto mb-8 md:mb-10 font-sans">
+        <p className="text-[#262C37]/80 text-base md:text-xl max-w-2xl mx-auto mb-6 md:mb-10 font-sans">
           {t.subheadline}
         </p>
         

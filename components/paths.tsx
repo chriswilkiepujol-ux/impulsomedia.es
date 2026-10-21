@@ -73,23 +73,23 @@ export function Paths() {
           </h2>
         </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
+        <div className="grid grid-cols-2 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
           {t.paths.map((path, index) => (
-            <div key={index} className="bg-[#2E3542] p-8 md:p-10 flex flex-col">
-              <div className="w-12 h-12 rounded-full border border-[#d4a853] flex items-center justify-center mb-6">
+            <div key={index} className="bg-[#2E3542] p-4 md:p-10 flex flex-col">
+              <div className="w-9 h-9 md:w-12 md:h-12 rounded-full border border-[#d4a853] flex items-center justify-center mb-4 md:mb-6">
                 <path.icon className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               </div>
-              <h3 className="font-display font-bold text-xl md:text-2xl text-[#f2ede6] mb-3">
+              <h3 className="font-display font-bold text-base md:text-2xl text-[#f2ede6] mb-2 md:mb-3">
                 {path.title}
               </h3>
-              <p className="text-[#f2ede6]/[0.82] text-sm md:text-base leading-relaxed mb-6">
+              <p className="text-[#f2ede6]/[0.82] text-xs md:text-base leading-relaxed mb-4 md:mb-6">
                 {path.description}
               </p>
-              <ul className="mb-8">
+              <ul className="mb-5 md:mb-8">
                 {path.items.map((item, i) => (
                   <li
                     key={i}
-                    className="flex items-center gap-3 text-sm text-[#f2ede6]/[0.82] py-3 border-t border-[rgba(255,255,255,0.09)] first:border-t-0"
+                    className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-[#f2ede6]/[0.82] py-2 md:py-3 border-t border-[rgba(255,255,255,0.09)] first:border-t-0"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] flex-shrink-0" />
                     {item}
@@ -101,7 +101,7 @@ export function Paths() {
                 {path.style === "whatsapp" ? (
                   <a
                     href={language === 'en' ? esToEn[path.href] : path.href}
-                    className="inline-flex items-center gap-2.5 bg-[#25d366] text-white px-5 py-3 rounded-[3px] font-display font-bold text-[0.78rem] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:-translate-y-[1px]"
+                    className="inline-flex w-full md:w-auto justify-center items-center gap-2 bg-[#25d366] text-white px-3 py-2.5 md:px-5 md:py-3 rounded-[3px] font-display font-bold text-[0.68rem] md:text-[0.78rem] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:-translate-y-[1px]"
                   >
                     <MessageCircle className="w-4 h-4" />
                     {path.cta}
@@ -109,7 +109,7 @@ export function Paths() {
                 ) : (
                   <a
                     href={language === 'en' ? esToEn[path.href] : path.href}
-                    className="inline-flex items-center gap-2.5 border border-[#d4a853] text-[#d4a853] px-5 py-3 rounded-[3px] font-display font-bold text-[0.78rem] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:bg-[#d4a853] hover:text-[#1a1408]"
+                    className="inline-flex w-full md:w-auto justify-center items-center gap-2 border border-[#d4a853] text-[#d4a853] px-3 py-2.5 md:px-5 md:py-3 rounded-[3px] font-display font-bold text-[0.68rem] md:text-[0.78rem] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:bg-[#d4a853] hover:text-[#1a1408]"
                   >
                     <Calendar className="w-4 h-4" />
                     {path.cta}

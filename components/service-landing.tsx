@@ -37,7 +37,7 @@ export function ServiceLanding({ path }: { path: string }) {
                 <h1 className="font-display font-extrabold text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.12] tracking-[-0.02em] mb-6">
                   {page.h1}
                 </h1>
-                <p className="text-[rgba(242,237,230,0.82)] text-[1.05rem] md:text-lg leading-[1.7] mb-8">
+                <p className="text-[rgba(242,237,230,0.82)] text-[0.95rem] md:text-lg leading-[1.65] md:leading-[1.7] mb-6 md:mb-8">
                   {page.lead}
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -60,9 +60,9 @@ export function ServiceLanding({ path }: { path: string }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.09)] mt-12 md:mt-16 max-w-3xl">
+              <div className="grid grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.09)] mt-8 md:mt-16 max-w-3xl">
                 {page.stats.map((s) => (
-                  <div key={s.label} className="bg-[#262C37] p-4 md:p-6">
+                  <div key={s.label} className="bg-[#262C37] p-3 md:p-6">
                     <div className="font-display font-extrabold text-[clamp(1.3rem,3vw,2rem)] text-[#d4a853] leading-none mb-2">{s.value}</div>
                     <div className="text-[0.72rem] md:text-[0.8rem] text-[rgba(242,237,230,0.6)] leading-[1.4]">{s.label}</div>
                   </div>
@@ -73,16 +73,16 @@ export function ServiceLanding({ path }: { path: string }) {
 
           {/* Problem / context */}
           <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
-            <div className="max-w-[1200px] mx-auto grid md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
+            <div className="max-w-[1200px] mx-auto grid md:grid-cols-[1fr_2fr] gap-5 md:gap-16">
               <Reveal>
                 <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em]">
                   {page.problemTitle}
                 </h2>
               </Reveal>
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-3 md:gap-5">
                 {page.problem.map((p, i) => (
                   <Reveal key={i} delay={i * 80}>
-                    <p className="text-[rgba(242,237,230,0.82)] text-base leading-[1.75]">{p}</p>
+                    <p className="text-[rgba(242,237,230,0.82)] text-[0.92rem] md:text-base leading-[1.65] md:leading-[1.75]">{p}</p>
                   </Reveal>
                 ))}
               </div>
@@ -95,7 +95,7 @@ export function ServiceLanding({ path }: { path: string }) {
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.servicesTitle}
               </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
+              <div className="mobile-dense grid grid-cols-2 lg:grid-cols-4 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
                 {page.services.map((s, i) => {
                   const Icon = s.icon
                   return (
@@ -119,13 +119,13 @@ export function ServiceLanding({ path }: { path: string }) {
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.processTitle}
               </h2>
-              <ol className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 list-none p-0 m-0">
+              <ol className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 list-none p-0 m-0">
                 {page.steps.map((st, i) => (
                   <Reveal key={st.num} delay={i * 80}>
                     <li className="border-t border-[#d4a853]/40 pt-5">
                       <span className="font-display text-[0.7rem] font-bold tracking-[0.2em] text-[#d4a853] mb-3 block">{st.num}</span>
                       <h3 className="font-display font-extrabold text-lg mb-2">{st.title}</h3>
-                      <p className="text-[0.88rem] text-[rgba(242,237,230,0.65)] leading-[1.65]">{st.desc}</p>
+                      <p className="text-[0.78rem] md:text-[0.88rem] text-[rgba(242,237,230,0.65)] leading-[1.55] md:leading-[1.65]">{st.desc}</p>
                     </li>
                   </Reveal>
                 ))}
@@ -139,14 +139,14 @@ export function ServiceLanding({ path }: { path: string }) {
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.casesTitle}
               </h2>
-              <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-6">
                 {page.cases.map((c) => (
                   <a
                     key={c.name}
                     href={c.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block p-6 md:p-7 rounded-[3px] border border-[#36404E] hover:border-[#d4a853]/50 transition-colors no-underline"
+                    className="group block p-4 md:p-7 rounded-[3px] border border-[#36404E] hover:border-[#d4a853]/50 transition-colors no-underline"
                   >
                     <span className="text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-3 block">{c.sector}</span>
                     <h3 className="font-display font-extrabold text-xl text-[#f2ede6] mb-2 flex items-center gap-2">
@@ -166,11 +166,11 @@ export function ServiceLanding({ path }: { path: string }) {
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.faqTitle}
               </h2>
-              <div className="grid md:grid-cols-2 gap-3 md:gap-6">
+              <div className="grid grid-cols-2 gap-3 md:gap-6">
                 {page.faqs.map((f) => (
-                  <div key={f.q} className="p-5 md:p-7 rounded-xl border border-[#36404E] hover:border-[#d4a853]/20 transition-colors">
-                    <h3 className="font-display font-bold text-base md:text-lg text-[#f2ede6] mb-3">{f.q}</h3>
-                    <p className="text-[#f2ede6]/60 text-sm md:text-base leading-relaxed">{f.a}</p>
+                  <div key={f.q} className="p-3.5 md:p-7 rounded-xl border border-[#36404E] hover:border-[#d4a853]/20 transition-colors">
+                    <h3 className="font-display font-bold text-sm md:text-lg text-[#f2ede6] mb-2 md:mb-3">{f.q}</h3>
+                    <p className="text-[#f2ede6]/60 text-xs md:text-base leading-relaxed">{f.a}</p>
                   </div>
                 ))}
               </div>

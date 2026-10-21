@@ -39,7 +39,7 @@ export function ServicesByAudience({ category }: Props) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-[1.5px] bg-[rgba(255,255,255,0.09)] mb-10 md:mb-14">
+        <div className="mobile-dense grid grid-cols-2 lg:grid-cols-4 gap-[1.5px] bg-[rgba(255,255,255,0.09)] mb-8 md:mb-14">
           {filtered.map((service) => {
             const Icon = service.icon
             return (

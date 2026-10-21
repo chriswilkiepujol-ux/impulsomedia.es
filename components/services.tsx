@@ -31,7 +31,7 @@ export function Services() {
         </div>
 
         {/* Services Grid - 5 cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.06)] mb-6">
+        <div className="mobile-dense grid grid-cols-2 lg:grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.06)] mb-6">
           {services.map((service) => {
             const IconComponent = service.icon
             return (
@@ -63,7 +63,7 @@ export function Services() {
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+                <div className="hidden md:flex flex-wrap gap-2">
                   {(language === 'es' ? service.tagsEs : service.tagsEn).map((tag, idx) => (
                     <span
                       key={idx}
