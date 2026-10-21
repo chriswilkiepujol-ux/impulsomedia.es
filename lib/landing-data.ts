@@ -65,7 +65,7 @@ export interface LandingPage {
   cases: LandingCase[]
   faqTitle: string
   faqs: LandingFaq[]
-  cta: { headline: string; sub: string; whatsappText: string }
+  cta: { headline: string; sub: string; whatsappText: string; heroLabel?: string }
 }
 
 export const landingPages: LandingPage[] = [
@@ -126,7 +126,7 @@ export const landingPages: LandingPage[] = [
       { q: 'Do I need content in Spanish?', a: 'For an international company, only if Spain is one of your markets. For a local business, yes: a large part of your customers live in La Línea, San Roque, Algeciras or Sotogrande and search in Spanish on google.es, even when they then speak to you in English. We write both versions natively, not with a translation plugin.' },
       { q: 'How long does SEO take?', a: 'Local terms on google.com.gi are not very competitive: most local businesses see movement in 6 to 8 weeks and page one for their main terms within 3 to 5 months. International terms in iGaming, finance or insurance are a different league: expect 6 to 12 months, a real content and link programme, and a budget to match. We tell you which case you are in before you commit.' },
       { q: 'Can you work with iGaming operators, affiliates and financial firms?', a: 'Yes, and it is most of what we do for Gibraltar. Our background is performance marketing inside licensed operators: PPC, affiliates, programmatic and SEO under regulatory restrictions. We understand brand-term protection, affiliate and comparison SERPs and content that compliance will sign off. See our dedicated iGaming marketing page.' },
-      { q: 'How much does SEO cost?', a: 'Local SEO retainers start at €350 per month (Google Business Profile, citations, two pieces of content, a monthly report). International and regulated-sector SEO is scoped per market and quoted after the audit; it is a bigger programme and we do not pretend otherwise. Either way you get a fixed proposal, not an estimate that grows.' },
+      { q: 'How much does SEO cost?', a: 'It depends on the markets, the competition and what the site needs. Local SEO for a business on the Rock and international SEO for a regulated brand are very different programmes. After the audit you get a written proposal with a fixed scope and fee, not an estimate that grows.' },
       { q: 'Do you come to Gibraltar?', a: 'Yes. We are in Sotogrande, 15 minutes away, and we meet clients in their Gibraltar offices regularly. Day to day we work over WhatsApp and video calls so you are not paying for travel time.' },
     ],
     cta: {
@@ -139,9 +139,9 @@ export const landingPages: LandingPage[] = [
     slug: 'diseno-web-algeciras',
     lang: 'es',
     path: '/diseno-web-algeciras',
-    metaTitle: 'Diseño Web en Algeciras | Páginas web a medida desde 950 €',
+    metaTitle: 'Diseño Web en Algeciras | Páginas web a medida que salen en Google',
     metaDescription:
-      'Diseño web en Algeciras y el Campo de Gibraltar: páginas web a medida, rápidas y preparadas para salir en Google. Desde 950 €, bilingüe si lo necesitas, sin plantillas ni cuotas raras. Agencia de Sotogrande, a 25 minutos.',
+      'Diseño web en Algeciras y el Campo de Gibraltar: páginas web a medida, rápidas y preparadas para salir en Google. Bilingüe si lo necesitas, sin plantillas ni cuotas obligatorias. Agencia de Sotogrande, a 25 minutos.',
     breadcrumb: 'Diseño web Algeciras',
     serviceType: 'Web Design',
     areaServed: ['Algeciras', 'Los Barrios', 'La Línea de la Concepción', 'San Roque', 'Tarifa', 'Campo de Gibraltar'],
@@ -152,7 +152,7 @@ export const landingPages: LandingPage[] = [
     lead:
       'Una página web que carga rápido, se entiende en diez segundos y sale en Google cuando alguien busca lo que haces en Algeciras. Hecha a medida desde Sotogrande, a 25 minutos, sin plantillas de WordPress ni mantenimientos que nadie explica.',
     stats: [
-      { value: '950 €', label: 'desde, web de hasta 5 páginas' },
+      { value: '< 1 s', label: 'de carga en Next.js + Vercel' },
       { value: '2-4 sem.', label: 'de la llamada al lanzamiento' },
       { value: 'ES + EN', label: 'bilingüe si tu cliente lo es' },
     ],
@@ -188,26 +188,27 @@ export const landingPages: LandingPage[] = [
     ],
     faqTitle: 'Preguntas sobre diseño web en Algeciras',
     faqs: [
-      { q: '¿Cuánto cuesta una página web en Algeciras?', a: 'Nuestra web Essential (hasta 5 páginas, bilingüe, SEO básico, ficha de Google) parte de 950 €. La Growth (hasta 10 páginas, blog, casos de éxito, SEO técnico completo) parte de 1.800 €. Tiendas online y sistemas de reserva se presupuestan aparte. Siempre con propuesta cerrada antes de empezar.' },
+      { q: '¿Cuánto cuesta una página web en Algeciras?', a: 'Depende de las páginas, los idiomas, si lleva tienda o reservas y de lo que tenga que conseguir. Después de una llamada de 30 minutos te enviamos una propuesta cerrada con alcance, precio y plazo. Lo que no está en la propuesta no se cobra sin acordarlo antes.' },
       { q: '¿Cuánto tarda?', a: 'Entre 2 y 4 semanas desde que tenemos los textos y las fotos. Si no los tienes, te ayudamos a prepararlos y el plazo se ajusta.' },
       { q: '¿Tengo que pagar una cuota mensual?', a: 'No. La web es tuya y funciona sin nosotros. El mantenimiento (actualizaciones, copias, soporte) es opcional, y el hosting en Vercel es gratuito para la mayoría de webs corporativas.' },
       { q: '¿Hacéis webs en WordPress?', a: 'No. Construimos desde cero en Next.js. Es más rápido, más seguro y no depende de plugins. Si ya tienes una web en WordPress, no la parcheamos: la rehacemos.' },
       { q: '¿Venís a Algeciras?', a: 'Sí. Estamos en Sotogrande, a 25 minutos, y nos reunimos en Algeciras cuando hace falta. El día a día va por WhatsApp para no cobrarte desplazamientos.' },
-      { q: '¿Me ayudáis a salir en Google después?', a: 'La web sale con el SEO on page hecho. Si quieres posicionar en serio ("tu servicio + Algeciras", Los Barrios, La Línea), tenemos un servicio de SEO local desde 350 € al mes.' },
+      { q: '¿Me ayudáis a salir en Google después?', a: 'La web sale con el SEO on page hecho. Si quieres posicionar en serio ("tu servicio + Algeciras", Los Barrios, La Línea), tenemos un servicio de SEO local mensual que se presupuesta según tu sector y tu competencia.' },
     ],
     cta: {
       headline: '¿Quieres saber qué le falta a tu web actual?',
       sub: 'Mándanos tu web por WhatsApp y te decimos las tres cosas que la frenan. Sin formularios ni reuniones de venta.',
       whatsappText: 'Hola, quiero presupuesto para una web en Algeciras',
+      heroLabel: 'Pedir propuesta por WhatsApp',
     },
   },
   {
     slug: 'web-design-gibraltar',
     lang: 'en',
     path: '/en/web-design-gibraltar',
-    metaTitle: 'Web Design in Gibraltar | Custom Websites from €950',
+    metaTitle: 'Web Design in Gibraltar | Custom Websites for International & Local Firms',
     metaDescription:
-      'Web design for companies based in Gibraltar, from international operators, finance and legal firms to local restaurants and shops. Custom-built, fast, multilingual sites with SEO built in, from an agency 15 minutes away in Sotogrande. From €950, no templates, no compulsory monthly fees.',
+      'Web design for companies based in Gibraltar, from international operators, finance and legal firms to local restaurants and shops. Custom-built, fast, multilingual sites with SEO built in, from an agency 15 minutes away in Sotogrande. No templates, no compulsory monthly fees.',
     breadcrumb: 'Web design Gibraltar',
     serviceType: 'Web Design',
     areaServed: ['Gibraltar', 'La Línea de la Concepción', 'Sotogrande', 'San Roque', 'Campo de Gibraltar'],
@@ -218,7 +219,7 @@ export const landingPages: LandingPage[] = [
     lead:
       'Whether you are an operator, a fintech or a law firm serving clients in five countries, or a restaurant serving people on the Rock and in the Campo de Gibraltar, you need a site that loads in under a second, reads well on a phone and ranks where your customers are. Built from scratch by a bilingual agency 15 minutes up the road, not a template with your logo on it.',
     stats: [
-      { value: '€950', label: 'from, up to 5 pages, bilingual' },
+      { value: 'EN + ES', label: 'written natively, more languages on request' },
       { value: '2-4 wks', label: 'from first call to launch' },
       { value: '< 1 s', label: 'typical load time on Next.js + Vercel' },
     ],
@@ -254,7 +255,7 @@ export const landingPages: LandingPage[] = [
     ],
     faqTitle: 'Web design in Gibraltar: common questions',
     faqs: [
-      { q: 'How much does a website cost in Gibraltar?', a: 'Our Essential site (up to 5 pages, bilingual, basic SEO) starts at €950 and suits most local businesses. The Growth site (up to 10 pages, blog, case studies, full technical SEO) starts at €1,800. Corporate sites for operators, finance or legal firms, with several markets, compliance pages and integrations, are scoped and quoted per project. We invoice in euros or pounds, whichever suits you.' },
+      { q: 'How much does a website cost in Gibraltar?', a: 'It depends on the number of pages, languages, markets, integrations and compliance requirements. A local business site and a multi-market corporate site are very different projects. After a 30-minute call you receive a written proposal with a fixed scope, price and timeline. We invoice in euros or pounds, whichever suits you.' },
       { q: 'Should I use a .gi domain?', a: 'Only if your customers are mainly in Gibraltar: .gi is a clear local signal to Google, which is exactly what an international company does not want. Firms selling into the UK or Europe are usually better on a .com or .co.uk with geo-targeted sections. We will tell you which in the proposal, because changing later is expensive.' },
       { q: 'Do I need a Spanish version?', a: 'For an international firm, only if Spain is a market or your staff and partners are Spanish-speaking. For a local business, yes: a large share of the people who shop and eat in Gibraltar live in La Línea, San Roque and Sotogrande and search in Spanish on google.es. We write it natively, not with a plugin.' },
       { q: 'Do you work with WordPress or Wix?', a: 'No. We build from scratch in Next.js, which is faster, more secure and does not depend on plugins. If you have an existing WordPress or Wix site, we do not patch it; we rebuild it and migrate your content and rankings properly.' },
@@ -265,6 +266,7 @@ export const landingPages: LandingPage[] = [
       headline: 'Want an honest opinion on your current site?',
       sub: 'Send us the URL on WhatsApp and we will reply with the three things costing you customers. No forms, no sales call.',
       whatsappText: "Hi, I'd like a quote for a new website for my Gibraltar business",
+      heroLabel: 'Request a proposal on WhatsApp',
     },
   },
 ]

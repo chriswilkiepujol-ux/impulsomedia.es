@@ -51,7 +51,7 @@ export function ServiceLanding({ path }: { path: string }) {
                     className="inline-flex items-center gap-3 bg-[#25d366] text-white px-7 py-4 rounded-[3px] font-display font-bold text-[0.82rem] tracking-[0.07em] uppercase no-underline transition-all duration-200 hover:-translate-y-[2px]"
                   >
                     <MessageCircle className="w-[18px] h-[18px]" />
-                    {isEn ? 'Free SEO check on WhatsApp' : 'Revisión gratis por WhatsApp'}
+                    {page.cta.heroLabel ?? (isEn ? 'Free SEO check on WhatsApp' : 'Revisión gratis por WhatsApp')}
                   </a>
                   <a
                     href={contactHref}
@@ -70,7 +70,7 @@ export function ServiceLanding({ path }: { path: string }) {
                 <div className="grid grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
                   {page.stats.map((s) => (
                     <div key={s.label} className="bg-[#262C37] p-3 md:p-5">
-                      <div className="font-display font-extrabold text-[clamp(1.2rem,2.6vw,1.7rem)] text-[#d4a853] leading-none mb-2">{s.value}</div>
+                      <div className="font-display font-extrabold text-[clamp(1.05rem,2.4vw,1.6rem)] text-[#d4a853] leading-none mb-2 break-words">{s.value}</div>
                       <div className="text-[0.7rem] md:text-[0.78rem] text-[rgba(242,237,230,0.6)] leading-[1.4]">{s.label}</div>
                     </div>
                   ))}
