@@ -1,0 +1,51 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E3542"/>
+      <stop offset="100%" stop-color="#1D212A"/>
+    </linearGradient>
+    <radialGradient id="glowG" cx="58%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#d4a853" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#d4a853" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rockG" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d4a853" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#d4a853" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bgG)"/>
+  <rect width="800" height="450" fill="url(#glowG)"/>
+
+  <!-- grid texture -->
+  <g opacity="0.06" stroke="#f2ede6" stroke-width="1">
+    <line x1="0" y1="90" x2="800" y2="90"/><line x1="0" y1="180" x2="800" y2="180"/><line x1="0" y1="270" x2="800" y2="270"/><line x1="0" y1="360" x2="800" y2="360"/>
+    <line x1="133" y1="0" x2="133" y2="450"/><line x1="266" y1="0" x2="266" y2="450"/><line x1="399" y1="0" x2="399" y2="450"/><line x1="532" y1="0" x2="532" y2="450"/><line x1="665" y1="0" x2="665" y2="450"/>
+  </g>
+
+  <!-- sun / search rings -->
+  <circle cx="470" cy="120" r="34" fill="#d4a853" opacity="0.9"/>
+  <circle cx="470" cy="120" r="70" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.25"/>
+  <circle cx="470" cy="120" r="110" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.12"/>
+
+  <!-- the Rock, seen from the bay: sheer north face, long ridge, slow fall to Europa Point -->
+  <path d="M 268 330 L 272 300 L 286 232 L 300 178 L 318 150 L 334 142 L 350 150 L 372 164 L 398 158 L 428 170 L 458 182 L 492 190 L 528 206 L 564 232 L 602 262 L 640 292 L 676 316 L 700 330 Z" fill="url(#rockG)"/>
+  <!-- ridge detail -->
+  <path d="M 318 150 L 334 142 L 350 150" fill="none" stroke="#1D212A" stroke-width="1.5" opacity="0.5"/>
+  <path d="M 372 164 L 398 158 L 428 170" fill="none" stroke="#1D212A" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- runway + frontier line to the west -->
+  <line x1="40" y1="330" x2="268" y2="330" stroke="#f2ede6" stroke-width="2" opacity="0.5"/>
+  <g stroke="#f2ede6" stroke-width="2" opacity="0.5">
+    <line x1="60" y1="330" x2="78" y2="330"/><line x1="100" y1="330" x2="118" y2="330"/><line x1="140" y1="330" x2="158" y2="330"/><line x1="180" y1="330" x2="198" y2="330"/><line x1="220" y1="330" x2="238" y2="330"/>
+  </g>
+  <line x1="150" y1="300" x2="150" y2="360" stroke="#d4a853" stroke-width="2" stroke-dasharray="6 6" opacity="0.7"/>
+
+  <!-- sea -->
+  <path d="M -20 360 Q 120 345 240 358 T 480 352 T 720 360 T 840 356" fill="none" stroke="#d4a853" stroke-width="2" opacity="0.35"/>
+  <path d="M -20 392 Q 140 378 260 390 T 500 384 T 740 392 T 840 388" fill="none" stroke="#d4a853" stroke-width="1.5" opacity="0.2"/>
+  <path d="M -20 420 Q 160 408 280 418 T 520 412 T 760 420 T 840 416" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.12"/>
+
+  <!-- labels -->
+  <text x="150" y="286" text-anchor="middle" font-family="Syne, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#f2ede6" opacity="0.6">LA LÍNEA · ES</text>
+  <text x="520" y="110" text-anchor="start" font-family="Syne, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#f2ede6" opacity="0.6">GIBRALTAR · GI</text>
+</svg>

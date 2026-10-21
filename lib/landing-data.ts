@@ -31,6 +31,8 @@ export interface LandingCase {
   sector: string
   summary: string
   href: string
+  /** Screenshot in /public/images */
+  image: string
 }
 
 export interface LandingPage {
@@ -46,6 +48,9 @@ export interface LandingPage {
   /** Schema.org Service */
   serviceType: string
   areaServed: string[]
+  /** Brand-style SVG cover in /public/images (16:9), like the blog covers */
+  heroImage: string
+  heroAlt: string
   label: string
   h1: string
   lead: string
@@ -74,6 +79,8 @@ export const landingPages: LandingPage[] = [
     breadcrumb: 'SEO Gibraltar',
     serviceType: 'Search Engine Optimization',
     areaServed: ['Gibraltar', 'La Línea de la Concepción', 'Sotogrande', 'San Roque', 'Campo de Gibraltar'],
+    heroImage: '/images/landing-seo-gibraltar-cover.svg',
+    heroAlt: 'Silhouette of the Rock of Gibraltar seen from the bay, with the frontier line at La Línea',
     label: 'SEO services · Gibraltar',
     h1: 'SEO for Gibraltar businesses that sell on both sides of the frontier',
     lead:
@@ -109,9 +116,9 @@ export const landingPages: LandingPage[] = [
     ],
     casesTitle: 'Work from both sides of the frontier',
     cases: [
-      { name: 'Pujol Wilkie', sector: 'Legal services for foreign buyers', summary: 'Bilingual site for a property and legal firm serving British and international clients buying in the Sotogrande area.', href: 'https://pujolwilkie.com' },
-      { name: 'Racket Breaks', sector: 'Padel travel, UK audience', summary: 'Booking platform aimed at UK players travelling to the south of Spain, built and optimised for English-language search.', href: 'https://www.racketbreaks.com' },
-      { name: 'Sotovet', sector: 'Veterinary clinic, Sotogrande', summary: 'Local clinic site built from scratch with local SEO foundations for an expat and Spanish client base.', href: 'https://www.sotovet.com' },
+      { name: 'Pujol Wilkie', sector: 'Legal services for foreign buyers', summary: 'Bilingual site for a property and legal firm serving British and international clients buying in the Sotogrande area.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
+      { name: 'Racket Breaks', sector: 'Padel travel, UK audience', summary: 'Booking platform aimed at UK players travelling to the south of Spain, built and optimised for English-language search.', href: 'https://www.racketbreaks.com', image: '/images/racketbreaks-screenshot.png' },
+      { name: 'Sotovet', sector: 'Veterinary clinic, Sotogrande', summary: 'Local clinic site built from scratch with local SEO foundations for an expat and Spanish client base.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
     ],
     faqTitle: 'Gibraltar SEO: questions we get asked',
     faqs: [
@@ -138,6 +145,8 @@ export const landingPages: LandingPage[] = [
     breadcrumb: 'Diseño web Algeciras',
     serviceType: 'Web Design',
     areaServed: ['Algeciras', 'Los Barrios', 'La Línea de la Concepción', 'San Roque', 'Tarifa', 'Campo de Gibraltar'],
+    heroImage: '/images/landing-web-algeciras-cover.svg',
+    heroAlt: 'Grúas del puerto de Algeciras con una ventana de navegador y el Peñón al fondo',
     label: 'Diseño web · Algeciras',
     h1: 'Diseño web en Algeciras para negocios que quieren que les encuentren',
     lead:
@@ -173,9 +182,9 @@ export const landingPages: LandingPage[] = [
     ],
     casesTitle: 'Webs hechas para negocios de la comarca',
     cases: [
-      { name: 'Sotovet', sector: 'Clínica veterinaria', summary: 'Web nueva desde cero para una clínica de Sotogrande: rápida, bien organizada y con las reservas y el teléfono a un toque.', href: 'https://www.sotovet.com' },
-      { name: 'Ágora Sotogrande', sector: 'Restaurante y discoteca', summary: 'Web para un local de eventos con reservas online: entendimos el negocio desde el primer día y las reservas han subido.', href: 'https://agorasotogrande.com' },
-      { name: 'Pujol Wilkie', sector: 'Servicios jurídicos', summary: 'Web bilingüe para un despacho que atiende a compradores extranjeros en la zona. Comunicación rápida y resultados claros.', href: 'https://pujolwilkie.com' },
+      { name: 'Sotovet', sector: 'Clínica veterinaria', summary: 'Web nueva desde cero para una clínica de Sotogrande: rápida, bien organizada y con las reservas y el teléfono a un toque.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
+      { name: 'Ágora Sotogrande', sector: 'Restaurante y discoteca', summary: 'Web para un local de eventos con reservas online: entendimos el negocio desde el primer día y las reservas han subido.', href: 'https://agorasotogrande.com', image: '/images/agora-screenshot.png' },
+      { name: 'Pujol Wilkie', sector: 'Servicios jurídicos', summary: 'Web bilingüe para un despacho que atiende a compradores extranjeros en la zona. Comunicación rápida y resultados claros.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
     ],
     faqTitle: 'Preguntas sobre diseño web en Algeciras',
     faqs: [
@@ -202,6 +211,8 @@ export const landingPages: LandingPage[] = [
     breadcrumb: 'Web design Gibraltar',
     serviceType: 'Web Design',
     areaServed: ['Gibraltar', 'La Línea de la Concepción', 'Sotogrande', 'San Roque', 'Campo de Gibraltar'],
+    heroImage: '/images/landing-web-gibraltar-cover.svg',
+    heroAlt: 'A phone showing a website next to the silhouette of the Rock of Gibraltar',
     label: 'Web design · Gibraltar',
     h1: 'Web design in Gibraltar that works on the Rock and across the frontier',
     lead:
@@ -237,9 +248,9 @@ export const landingPages: LandingPage[] = [
     ],
     casesTitle: 'Sites built for this part of the world',
     cases: [
-      { name: 'Racket Breaks', sector: 'Padel travel, UK audience', summary: 'Booking platform for UK players coming to the south of Spain. The booking flow was exactly what a British audience needed.', href: 'https://www.racketbreaks.com' },
-      { name: 'Pujol Wilkie', sector: 'Legal services for foreign buyers', summary: 'Bilingual site for a property and legal firm serving British and international clients in the Sotogrande area.', href: 'https://pujolwilkie.com' },
-      { name: 'Sotovet', sector: 'Veterinary clinic, Sotogrande', summary: 'A brand-new site built from scratch for an expat and Spanish client base: fast, well organised, direct contact throughout.', href: 'https://www.sotovet.com' },
+      { name: 'Racket Breaks', sector: 'Padel travel, UK audience', summary: 'Booking platform for UK players coming to the south of Spain. The booking flow was exactly what a British audience needed.', href: 'https://www.racketbreaks.com', image: '/images/racketbreaks-screenshot.png' },
+      { name: 'Pujol Wilkie', sector: 'Legal services for foreign buyers', summary: 'Bilingual site for a property and legal firm serving British and international clients in the Sotogrande area.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
+      { name: 'Sotovet', sector: 'Veterinary clinic, Sotogrande', summary: 'A brand-new site built from scratch for an expat and Spanish client base: fast, well organised, direct contact throughout.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
     ],
     faqTitle: 'Web design in Gibraltar: common questions',
     faqs: [

@@ -1,0 +1,56 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E3542"/>
+      <stop offset="100%" stop-color="#1D212A"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="40%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#d4a853" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#d4a853" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bgA)"/>
+  <rect width="800" height="450" fill="url(#glowA)"/>
+  <g opacity="0.06" stroke="#f2ede6" stroke-width="1">
+    <line x1="0" y1="90" x2="800" y2="90"/><line x1="0" y1="180" x2="800" y2="180"/><line x1="0" y1="270" x2="800" y2="270"/><line x1="0" y1="360" x2="800" y2="360"/>
+    <line x1="133" y1="0" x2="133" y2="450"/><line x1="266" y1="0" x2="266" y2="450"/><line x1="399" y1="0" x2="399" y2="450"/><line x1="532" y1="0" x2="532" y2="450"/><line x1="665" y1="0" x2="665" y2="450"/>
+  </g>
+
+  <!-- the Rock across the bay, small and far -->
+  <path d="M 600 330 L 606 296 L 618 270 L 636 262 L 668 274 L 702 294 L 736 314 L 760 330 Z" fill="#d4a853" opacity="0.35"/>
+
+  <!-- port cranes of Algeciras -->
+  <g stroke="#d4a853" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.95">
+    <path d="M 120 330 V 200 M 170 330 V 200 M 120 200 H 170 M 100 200 H 330 M 145 200 V 170 M 330 200 L 345 215"/>
+    <path d="M 240 330 V 220 M 280 330 V 220 M 240 220 H 280 M 225 220 H 420 M 260 220 V 192 M 420 220 L 433 233"/>
+  </g>
+  <g stroke="#d4a853" stroke-width="2" opacity="0.6">
+    <line x1="120" y1="240" x2="170" y2="290"/><line x1="170" y1="240" x2="120" y2="290"/>
+    <line x1="240" y1="255" x2="280" y2="300"/><line x1="280" y1="255" x2="240" y2="300"/>
+  </g>
+  <!-- containers -->
+  <g fill="#f2ede6" opacity="0.55">
+    <rect x="90" y="304" width="40" height="26"/><rect x="134" y="304" width="40" height="26"/><rect x="178" y="304" width="40" height="26"/>
+    <rect x="112" y="278" width="40" height="26"/><rect x="156" y="278" width="40" height="26"/>
+    <rect x="350" y="304" width="40" height="26"/><rect x="394" y="304" width="40" height="26"/>
+  </g>
+  <!-- quay -->
+  <line x1="40" y1="330" x2="470" y2="330" stroke="#f2ede6" stroke-width="2" opacity="0.5"/>
+
+  <!-- browser window = the web -->
+  <g transform="translate(470,110)">
+    <rect x="0" y="0" width="250" height="150" rx="8" fill="#1D212A" stroke="#d4a853" stroke-width="2" opacity="0.95"/>
+    <circle cx="16" cy="16" r="4" fill="#d4a853"/><circle cx="30" cy="16" r="4" fill="#d4a853" opacity="0.6"/><circle cx="44" cy="16" r="4" fill="#d4a853" opacity="0.3"/>
+    <rect x="16" y="40" width="140" height="10" rx="2" fill="#f2ede6" opacity="0.8"/>
+    <rect x="16" y="58" width="200" height="6" rx="2" fill="#f2ede6" opacity="0.35"/>
+    <rect x="16" y="70" width="170" height="6" rx="2" fill="#f2ede6" opacity="0.35"/>
+    <rect x="16" y="96" width="90" height="26" rx="3" fill="#25d366"/>
+  </g>
+
+  <!-- sea -->
+  <path d="M -20 360 Q 120 345 240 358 T 480 352 T 720 360 T 840 356" fill="none" stroke="#d4a853" stroke-width="2" opacity="0.35"/>
+  <path d="M -20 392 Q 140 378 260 390 T 500 384 T 740 392 T 840 388" fill="none" stroke="#d4a853" stroke-width="1.5" opacity="0.2"/>
+  <path d="M -20 420 Q 160 408 280 418 T 520 412 T 760 420 T 840 416" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.12"/>
+
+  <text x="255" y="372" text-anchor="middle" font-family="Syne, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#f2ede6" opacity="0.6">PUERTO DE ALGECIRAS</text>
+</svg>

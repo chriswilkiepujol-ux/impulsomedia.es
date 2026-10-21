@@ -5,6 +5,7 @@ import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { Reveal } from '@/components/reveal'
+import Image from 'next/image'
 import { MessageCircle, Calendar, ArrowUpRight } from 'lucide-react'
 import { getLandingByPath } from '@/lib/landing-data'
 
@@ -31,7 +32,7 @@ export function ServiceLanding({ path }: { path: string }) {
         <main className="pt-[68px]">
           {/* Hero */}
           <section className="py-[clamp(3.5rem,8vw,6.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
-            <div className="max-w-[1200px] mx-auto">
+            <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-14 items-center">
               <div className="max-w-3xl">
                 <span className="section-label mb-4 block">{page.label}</span>
                 <h1 className="font-display font-extrabold text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.12] tracking-[-0.02em] mb-6">
@@ -60,13 +61,18 @@ export function ServiceLanding({ path }: { path: string }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.09)] mt-8 md:mt-16 max-w-3xl">
-                {page.stats.map((s) => (
-                  <div key={s.label} className="bg-[#262C37] p-3 md:p-6">
-                    <div className="font-display font-extrabold text-[clamp(1.3rem,3vw,2rem)] text-[#d4a853] leading-none mb-2">{s.value}</div>
-                    <div className="text-[0.72rem] md:text-[0.8rem] text-[rgba(242,237,230,0.6)] leading-[1.4]">{s.label}</div>
-                  </div>
-                ))}
+              <div className="flex flex-col gap-5 md:gap-6">
+                <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-[rgba(255,255,255,0.08)]">
+                  <Image src={page.heroImage} alt={page.heroAlt} fill className="object-cover" sizes="(min-width: 1024px) 560px, 100vw" priority />
+                </div>
+                <div className="grid grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
+                  {page.stats.map((s) => (
+                    <div key={s.label} className="bg-[#262C37] p-3 md:p-5">
+                      <div className="font-display font-extrabold text-[clamp(1.2rem,2.6vw,1.7rem)] text-[#d4a853] leading-none mb-2">{s.value}</div>
+                      <div className="text-[0.7rem] md:text-[0.78rem] text-[rgba(242,237,230,0.6)] leading-[1.4]">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
@@ -146,14 +152,19 @@ export function ServiceLanding({ path }: { path: string }) {
                     href={c.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block p-4 md:p-7 rounded-[3px] border border-[#36404E] hover:border-[#d4a853]/50 transition-colors no-underline"
+                    className="group block rounded-[3px] border border-[#36404E] hover:border-[#d4a853]/50 transition-colors no-underline overflow-hidden"
                   >
-                    <span className="text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-3 block">{c.sector}</span>
+                    <div className="relative w-full aspect-[16/10] bg-[#1D212A] overflow-hidden">
+                      <Image src={c.image} alt={`${c.name} website`} fill className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" sizes="(min-width: 768px) 380px, 100vw" />
+                    </div>
+                    <div className="p-4 md:p-6">
+                    <span className="text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-2 md:mb-3 block">{c.sector}</span>
                     <h3 className="font-display font-extrabold text-xl text-[#f2ede6] mb-2 flex items-center gap-2">
                       {c.name}
                       <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </h3>
                     <p className="text-[0.88rem] text-[rgba(242,237,230,0.65)] leading-[1.65]">{c.summary}</p>
+                    </div>
                   </a>
                 ))}
               </div>
