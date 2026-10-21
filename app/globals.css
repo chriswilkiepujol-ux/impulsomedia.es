@@ -270,6 +270,8 @@
   main .mobile-dense h3.font-display {
     font-size: 0.9rem;
     margin-bottom: 0.35rem;
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
   main .mobile-dense p {
     font-size: 0.78rem;
