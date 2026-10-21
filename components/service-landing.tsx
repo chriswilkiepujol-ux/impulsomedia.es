@@ -6,7 +6,7 @@ import { Footer } from '@/components/footer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { Reveal } from '@/components/reveal'
 import { MessageCircle, Calendar, ArrowUpRight } from 'lucide-react'
-import type { LandingPage } from '@/lib/landing-data'
+import { getLandingByPath } from '@/lib/landing-data'
 
 const WA = 'https://wa.me/34680863229'
 
@@ -15,7 +15,11 @@ const WA = 'https://wa.me/34680863229'
  * /diseno-web-algeciras, …). All copy comes from lib/landing-data.ts so each
  * page stays unique; this file only owns the layout.
  */
-export function ServiceLanding({ page }: { page: LandingPage }) {
+export function ServiceLanding({ path }: { path: string }) {
+  // Looked up here (client side) rather than passed as a prop: the entries
+  // hold icon components, and functions can't cross the server→client boundary.
+  const page = getLandingByPath(path)
+  if (!page) return null
   const isEn = page.lang === 'en'
   const contactHref = isEn ? '/en/contact' : '/contacto'
   const waHref = `${WA}?text=${encodeURIComponent(page.cta.whatsappText)}`

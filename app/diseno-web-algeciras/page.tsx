@@ -13,7 +13,7 @@ export default function Page() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema(page)) }} />
-      <ServiceLanding page={page} />
+      <ServiceLanding path={page.path} />
     </>
   )
 }
