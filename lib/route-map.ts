@@ -18,6 +18,7 @@ export const enToEs: Record<string, string> = {
   // City × service landings that only exist in one language (yet) fall back
   // to the closest page in the other language.
   '/en/seo-gibraltar': '/servicios/negocio-local',
+  '/en/web-design-gibraltar': '/servicios/negocio-local',
 }
 
 // ES-only landings: the EN switcher goes to the closest EN page.

@@ -192,6 +192,70 @@ export const landingPages: LandingPage[] = [
       whatsappText: 'Hola, quiero presupuesto para una web en Algeciras',
     },
   },
+  {
+    slug: 'web-design-gibraltar',
+    lang: 'en',
+    path: '/en/web-design-gibraltar',
+    metaTitle: 'Web Design in Gibraltar | Custom Websites from €950',
+    metaDescription:
+      'Web design for Gibraltar businesses from a bilingual agency 15 minutes away in Sotogrande. Custom-built, fast, mobile-first websites in English and Spanish, with SEO built in. From €950, no templates, no compulsory monthly fees.',
+    breadcrumb: 'Web design Gibraltar',
+    serviceType: 'Web Design',
+    areaServed: ['Gibraltar', 'La Línea de la Concepción', 'Sotogrande', 'San Roque', 'Campo de Gibraltar'],
+    label: 'Web design · Gibraltar',
+    h1: 'Web design in Gibraltar that works on the Rock and across the frontier',
+    lead:
+      'A website that loads in under a second, reads well on a phone and shows up when someone in Gibraltar, La Línea or Sotogrande searches for what you do. Built from scratch by a bilingual agency 15 minutes up the road, not a template with your logo on it.',
+    stats: [
+      { value: '€950', label: 'from, up to 5 pages, bilingual' },
+      { value: '2-4 wks', label: 'from first call to launch' },
+      { value: '< 1 s', label: 'typical load time on Next.js + Vercel' },
+    ],
+    problemTitle: 'Why most Gibraltar websites are losing business',
+    problem: [
+      'Walk down Main Street and search for the shops you pass. Half have no website, and many of the rest have a site built years ago on a page builder that takes six seconds to load on a phone. Gibraltar is a small, dense market where word of mouth still matters, but the first thing a new customer does is Google you. If the site looks old, so do you.',
+      'Gibraltar businesses also serve two audiences at once: locals and the thousands of people who cross from La Línea, San Roque and Sotogrande every day. Most sites are English-only or machine-translated. Ours are written natively in both languages, with the correct technical setup so Google in Spain and Google in Gibraltar each show the right version.',
+      'And then there is the hosting trap: a monthly fee you pay to keep a site you do not own online. We build on Next.js, host on Vercel (free for most business sites) and hand you the keys. Maintenance is optional, not a ransom.',
+    ],
+    servicesTitle: 'What you get',
+    services: [
+      { icon: PenTool, title: 'Custom design', desc: 'Designed for your business and your customers, with your brand. No theme, no demo content, nothing you have seen on another site.' },
+      { icon: Gauge, title: 'Speed that Google notices', desc: 'Built in Next.js and served from Vercel’s edge network. Sub-second loads, which is now a ranking factor and a conversion factor.' },
+      { icon: Smartphone, title: 'Mobile first', desc: 'Most local searches in Gibraltar happen on a phone, often while walking. We design for the small screen first and scale up.' },
+      { icon: Languages, title: 'English and Spanish, written properly', desc: 'Both versions written by people who speak the language, with hreflang set up so the right one ranks in each country.' },
+      { icon: Search, title: 'SEO built in', desc: 'Titles, descriptions, structured data, sitemap and a page structure that can rank for “your service + Gibraltar” from day one.' },
+      { icon: MapPin, title: 'Google Business Profile', desc: 'We set up or fix your Google profile so the map listing and the website work together for local searches.' },
+      { icon: ShieldCheck, title: 'You own it', desc: 'Domain, code and hosting in your name. No compulsory monthly fee, no lock-in, no plugin updates to pay for.' },
+      { icon: Wrench, title: 'Bookings, forms, WhatsApp', desc: 'Contact forms to your inbox, WhatsApp click-to-chat, booking or quote flows where the business needs them.' },
+    ],
+    processTitle: 'How we work',
+    steps: [
+      { num: '01', title: 'A 30-minute call', desc: 'WhatsApp, video or in person in Gibraltar. What you sell, who buys it, and what the site has to achieve: calls, bookings, enquiries, trust.' },
+      { num: '02', title: 'A fixed proposal in 48 hours', desc: 'Pages, copy, price and timeline. 50% to start, the rest at launch. What is not in the proposal is not charged without agreeing it first.' },
+      { num: '03', title: 'Design and build', desc: 'You follow progress on a private link as the site takes shape. One or two rounds of revisions depending on the package.' },
+      { num: '04', title: 'Launch and 30 days of tweaks', desc: 'Domain, hosting, Search Console and Google Business connected. Small changes in the first month are included.' },
+    ],
+    casesTitle: 'Sites built for this part of the world',
+    cases: [
+      { name: 'Racket Breaks', sector: 'Padel travel, UK audience', summary: 'Booking platform for UK players coming to the south of Spain. The booking flow was exactly what a British audience needed.', href: 'https://www.racketbreaks.com' },
+      { name: 'Pujol Wilkie', sector: 'Legal services for foreign buyers', summary: 'Bilingual site for a property and legal firm serving British and international clients in the Sotogrande area.', href: 'https://pujolwilkie.com' },
+      { name: 'Sotovet', sector: 'Veterinary clinic, Sotogrande', summary: 'A brand-new site built from scratch for an expat and Spanish client base: fast, well organised, direct contact throughout.', href: 'https://www.sotovet.com' },
+    ],
+    faqTitle: 'Web design in Gibraltar: common questions',
+    faqs: [
+      { q: 'How much does a website cost in Gibraltar?', a: 'Our Essential site (up to 5 pages, bilingual, basic SEO, Google Business setup) starts at €950. The Growth site (up to 10 pages, blog, case studies, full technical SEO) starts at €1,800. E-commerce and booking systems are quoted per project. We invoice in euros or pounds, whichever suits you.' },
+      { q: 'Should I use a .gi domain?', a: 'If your customers are mainly in Gibraltar, yes: a .gi domain is a clear local signal to Google. If you also serve Spain, we usually recommend a .com with proper language sections, or a .gi plus a .es. We will tell you which in the proposal, because changing later is expensive.' },
+      { q: 'Do I need a Spanish version?', a: 'If any of your customers live across the frontier, or you want frontier workers and Campo de Gibraltar residents to find you, yes. Around a third of the people who shop in Gibraltar search in Spanish on google.es. We write it natively, not with a plugin.' },
+      { q: 'Do you work with WordPress or Wix?', a: 'No. We build from scratch in Next.js, which is faster, more secure and does not depend on plugins. If you have an existing WordPress or Wix site, we do not patch it; we rebuild it and migrate your content and rankings properly.' },
+      { q: 'Can you handle iGaming, finance or insurance sites?', a: 'Yes. Our background is performance marketing for licensed iGaming operators, so we know the compliance constraints, the landing-page rules and what a regulated brand site needs. For B2B suppliers and service firms in those sectors we build the site and can run the marketing afterwards.' },
+      { q: 'Do you come to Gibraltar?', a: 'Yes. We are based in Sotogrande, 15 minutes away, and meet clients in Gibraltar regularly. Day to day we work over WhatsApp and video so you are not paying for travel.' },
+    ],
+    cta: {
+      headline: 'Want an honest opinion on your current site?',
+      sub: 'Send us the URL on WhatsApp and we will reply with the three things costing you customers. No forms, no sales call.',
+      whatsappText: "Hi, I'd like a quote for a new website for my Gibraltar business",
+    },
+  },
 ]
 
 export function getLandingByPath(path: string): LandingPage | undefined {
