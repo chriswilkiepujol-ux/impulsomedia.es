@@ -1,6 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
+import { FaqAccordion } from "@/components/faq-accordion"
 
 export function FAQ() {
   const { language } = useLanguage()
@@ -83,21 +84,8 @@ export function FAQ() {
           </h2>
         </div>
 
-        {/* FAQ Grid - 2 columns on mobile */}
-        <div className="grid grid-cols-2 gap-3 md:gap-8">
-          {t.faqs.map((faq, index) => (
-            <div 
-              key={index}
-              className="p-4 md:p-8 rounded-xl bg-[#2E3542] border border-[#36404E] hover:border-[#d4a853]/20 transition-colors duration-300"
-            >
-              <h3 className="font-display font-bold text-sm md:text-xl text-[#f2ede6] mb-2 md:mb-4">
-                {faq.question}
-              </h3>
-              <p className="text-[#f2ede6]/60 text-xs md:text-base leading-relaxed font-sans">
-                {faq.answer}
-              </p>
-            </div>
-          ))}
+        <div className="max-w-[820px] mx-auto">
+          <FaqAccordion items={t.faqs.map((f) => ({ q: f.question, a: f.answer }))} />
         </div>
       </div>
     </section>

@@ -6,6 +6,7 @@ import { Footer } from '@/components/footer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { Reveal } from '@/components/reveal'
 import Image from 'next/image'
+import { FaqAccordion } from '@/components/faq-accordion'
 import { MessageCircle, Calendar, ArrowUpRight } from 'lucide-react'
 import { getLandingByPath } from '@/lib/landing-data'
 
@@ -177,13 +178,8 @@ export function ServiceLanding({ path }: { path: string }) {
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.faqTitle}
               </h2>
-              <div className="grid grid-cols-2 gap-3 md:gap-6">
-                {page.faqs.map((f) => (
-                  <div key={f.q} className="p-3.5 md:p-7 rounded-xl border border-[#36404E] hover:border-[#d4a853]/20 transition-colors">
-                    <h3 className="font-display font-bold text-sm md:text-lg text-[#f2ede6] mb-2 md:mb-3">{f.q}</h3>
-                    <p className="text-[#f2ede6]/60 text-xs md:text-base leading-relaxed">{f.a}</p>
-                  </div>
-                ))}
+              <div className="max-w-[820px]">
+                <FaqAccordion items={page.faqs} />
               </div>
             </div>
           </section>
