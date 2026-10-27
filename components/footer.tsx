@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/lib/language-context'
 import { areasFor } from '@/lib/areas'
+import { esToEn } from '@/lib/route-map'
 
 export function Footer() {
   const { t, language } = useLanguage()
@@ -51,26 +52,19 @@ export function Footer() {
                 {t('Servicios', 'Services')}
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
-                <li>
-                  <a href={serviciosHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    {t('Diseño Web & Desarrollo', 'Web Design & Development')}
-                  </a>
-                </li>
-                <li>
-                  <a href={serviciosHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    {t('SEO & Posicionamiento', 'SEO & Performance')}
-                  </a>
-                </li>
-                <li>
-                  <a href={serviciosHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    {t('Publicidad & Social Ads', 'Paid Social & Ads')}
-                  </a>
-                </li>
-                <li>
-                  <a href={serviciosHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
-                    {t('Conversión & Leads', 'Conversion & Leads')}
-                  </a>
-                </li>
+                {[
+                  ['/servicios/diseno-web', 'Diseño web', 'Web design'],
+                  ['/servicios/seo', 'SEO', 'SEO'],
+                  ['/servicios/publicidad', 'Google Ads y redes', 'Google Ads & paid social'],
+                  ['/servicios/automatizacion-ia', 'Automatización e IA', 'AI automation'],
+                  ['/servicios/performance', 'Performance a escala', 'Performance at scale'],
+                ].map(([es, labelEs, labelEn]) => (
+                  <li key={es}>
+                    <a href={isEn ? esToEn[es] : es} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                      {isEn ? labelEn : labelEs}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 

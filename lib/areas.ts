@@ -24,6 +24,15 @@ export const areaLinks: AreaLink[] = [
   { href: '/en/igaming-marketing', labelEs: 'Marketing iGaming (EN)', labelEn: 'iGaming marketing', lang: 'en', service: 'performance' },
 ]
 
+/** Service pillar pages, for cross-linking between them and from city pages. */
+export const servicePillars: { es: string; en: string; labelEs: string; labelEn: string }[] = [
+  { es: '/servicios/diseno-web', en: '/en/services/web-design', labelEs: 'Diseño web', labelEn: 'Web design' },
+  { es: '/servicios/seo', en: '/en/services/seo', labelEs: 'SEO', labelEn: 'SEO' },
+  { es: '/servicios/publicidad', en: '/en/services/paid-media', labelEs: 'Google Ads y redes', labelEn: 'Google Ads & paid social' },
+  { es: '/servicios/automatizacion-ia', en: '/en/services/ai-automation', labelEs: 'Automatización e IA', labelEn: 'AI automation' },
+  { es: '/servicios/performance', en: '/en/services/performance', labelEs: 'Performance a escala', labelEn: 'Performance at scale' },
+]
+
 /** Same-language links first, then the rest. */
 export function areasFor(lang: 'es' | 'en', services?: AreaLink['service'][]): AreaLink[] {
   const list = services ? areaLinks.filter((a) => services.includes(a.service)) : areaLinks

@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from '@/lib/language-context'
-import { areasFor, type AreaLink } from '@/lib/areas'
+import { areasFor, servicePillars, type AreaLink } from '@/lib/areas'
 import { ArrowRight } from 'lucide-react'
 
 /**
@@ -17,6 +17,19 @@ export function AreasStrip({ services, exclude }: { services?: AreaLink['service
   return (
     <section className="py-8 md:py-12 px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37] border-t border-[rgba(255,255,255,0.06)]">
       <div className="max-w-[1200px] mx-auto">
+        <span className="section-label mb-4 block">{t('Servicios', 'Services')}</span>
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-6 md:mb-8">
+          {servicePillars.filter((p) => p.es !== exclude && p.en !== exclude).map((p) => (
+            <a
+              key={p.es}
+              href={language === 'es' ? p.es : p.en}
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-[#d4a853]/40 text-[0.78rem] md:text-[0.85rem] text-[#f2ede6] no-underline hover:border-[#d4a853] hover:text-[#d4a853] transition-colors"
+            >
+              {language === 'es' ? p.labelEs : p.labelEn}
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          ))}
+        </div>
         <span className="section-label mb-4 block">{t('Dónde trabajamos', 'Where we work')}</span>
         <div className="flex flex-wrap gap-2 md:gap-3">
           {links.map((a) => (

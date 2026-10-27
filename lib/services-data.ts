@@ -1,4 +1,4 @@
-import { Globe, Smartphone, TrendingUp, Wrench, Package, MessageCircle, Target, Share2, BarChart3, Handshake, Store, Instagram, Megaphone, Briefcase, LucideIcon } from 'lucide-react'
+import { Globe, Smartphone, TrendingUp, Wrench, Package, MessageCircle, Target, Share2, BarChart3, Handshake, Store, Instagram, Megaphone, Briefcase, Sparkles, LucideIcon } from 'lucide-react'
 
 export interface ServiceItem {
   num: string
@@ -10,6 +10,8 @@ export interface ServiceItem {
   descEn: string
   tagsEs: string[]
   tagsEn: string[]
+  /** Pillar page this service belongs to (ES path; EN resolved via route map) */
+  pillar: '/servicios/diseno-web' | '/servicios/seo' | '/servicios/publicidad' | '/servicios/automatizacion-ia' | '/servicios/performance'
 }
 
 export const services: ServiceItem[] = [
@@ -23,6 +25,7 @@ export const services: ServiceItem[] = [
     descEn: 'Unique websites built from scratch. No templates, no WordPress. Clean code and design that converts visitors into clients.',
     tagsEs: ['Diseño UI/UX', 'Desarrollo', 'Responsive', 'SEO técnico'],
     tagsEn: ['UI/UX Design', 'Development', 'Responsive', 'Technical SEO'],
+    pillar: '/servicios/diseno-web',
   },
   {
     num: '02',
@@ -34,6 +37,7 @@ export const services: ServiceItem[] = [
     descEn: 'Local and national search positioning. Content, technical SEO and strategy to show up where your clients search.',
     tagsEs: ['SEO Local', 'Técnico', 'Contenido', 'Google Business'],
     tagsEn: ['Local SEO', 'Technical', 'Content', 'Google Business'],
+    pillar: '/servicios/seo',
   },
   {
     num: '03',
@@ -45,6 +49,7 @@ export const services: ServiceItem[] = [
     descEn: 'Google Ads campaigns managed to convert, with clear tracking on cost per lead and return.',
     tagsEs: ['Google Ads', 'Búsqueda', 'Display', 'Remarketing'],
     tagsEn: ['Google Ads', 'Search', 'Display', 'Remarketing'],
+    pillar: '/servicios/publicidad',
   },
   {
     num: '04',
@@ -56,6 +61,7 @@ export const services: ServiceItem[] = [
     descEn: 'Paid campaigns on Meta, TikTok and Snapchat designed to build demand and capture new clients.',
     tagsEs: ['Meta Ads', 'TikTok', 'Snapchat', 'Creatividades'],
     tagsEn: ['Meta Ads', 'TikTok', 'Snapchat', 'Creative'],
+    pillar: '/servicios/publicidad',
   },
   {
     num: '05',
@@ -67,6 +73,7 @@ export const services: ServiceItem[] = [
     descEn: 'Media buying at scale for brands and operators with larger budgets and reach objectives.',
     tagsEs: ['Media Buying', 'DSP', 'Display', 'Video'],
     tagsEn: ['Media Buying', 'DSP', 'Display', 'Video'],
+    pillar: '/servicios/performance',
   },
   {
     num: '06',
@@ -78,6 +85,7 @@ export const services: ServiceItem[] = [
     descEn: 'Management and optimization of affiliate programs, focused on traffic quality and real performance.',
     tagsEs: ['Gestión de Red', 'Tracking', 'Optimización', 'Reporting'],
     tagsEn: ['Network Management', 'Tracking', 'Optimization', 'Reporting'],
+    pillar: '/servicios/performance',
   },
   {
     num: '07',
@@ -89,6 +97,7 @@ export const services: ServiceItem[] = [
     descEn: 'Acquisition and retention strategies inside apps, built to maximize the value of every user.',
     tagsEs: ['Adquisición', 'Retención', 'Push', 'Segmentación'],
     tagsEn: ['Acquisition', 'Retention', 'Push', 'Segmentation'],
+    pillar: '/servicios/performance',
   },
   {
     num: '08',
@@ -100,6 +109,7 @@ export const services: ServiceItem[] = [
     descEn: 'App Store and Google Play optimization to improve visibility, downloads and conversion.',
     tagsEs: ['App Store', 'Google Play', 'Keywords', 'Conversión'],
     tagsEn: ['App Store', 'Google Play', 'Keywords', 'Conversion'],
+    pillar: '/servicios/performance',
   },
   {
     num: '09',
@@ -111,6 +121,7 @@ export const services: ServiceItem[] = [
     descEn: 'Content strategies and social management that build community and generate real engagement.',
     tagsEs: ['Estrategia', 'Contenido', 'Community', 'Análisis'],
     tagsEn: ['Strategy', 'Content', 'Community', 'Analytics'],
+    pillar: '/servicios/publicidad',
   },
   {
     num: '10',
@@ -122,6 +133,7 @@ export const services: ServiceItem[] = [
     descEn: 'Collaborations with content creators to extend reach and brand credibility.',
     tagsEs: ['Sourcing', 'Gestión', 'Campañas', 'Reporting'],
     tagsEn: ['Sourcing', 'Management', 'Campaigns', 'Reporting'],
+    pillar: '/servicios/publicidad',
   },
   {
     num: '11',
@@ -133,6 +145,7 @@ export const services: ServiceItem[] = [
     descEn: 'Updates, security, backups and ongoing technical support to keep your site running at peak performance.',
     tagsEs: ['Actualizaciones', 'Seguridad', 'Backups', 'Soporte'],
     tagsEn: ['Updates', 'Security', 'Backups', 'Support'],
+    pillar: '/servicios/diseno-web',
   },
   {
     num: '12',
@@ -144,8 +157,20 @@ export const services: ServiceItem[] = [
     descEn: 'Tailored strategy and advisory work, billed by project, day rate or retainer, based on what your team needs.',
     tagsEs: ['Estrategia', 'Auditoría', 'A medida', 'Bajo SOW'],
     tagsEn: ['Strategy', 'Audit', 'Tailored', 'Under SOW'],
+    pillar: '/servicios/performance',
+  },
+  {
+    num: '13',
+    icon: Sparkles,
+    category: 'local',
+    titleEs: 'Automatización e IA',
+    titleEn: 'AI Automation',
+    descEs: 'Procesos que se hacen solos: correo, contenido, leads al CRM, informes y asistentes internos, con revisión humana donde importa.',
+    descEn: 'Processes that run themselves: email, content, leads into the CRM, reporting and internal assistants, with human review where it matters.',
+    tagsEs: ['Automatización', 'IA', 'Integraciones', 'Contenido'],
+    tagsEn: ['Automation', 'AI', 'Integrations', 'Content'],
+    pillar: '/servicios/automatizacion-ia',
   },
 ]
-
 
 export default services

@@ -273,8 +273,10 @@ export const landingPages: LandingPage[] = [
 
 import { landingPages2 } from './landing-data-2'
 import { landingPages3 } from './landing-data-3'
+import { servicePages } from './service-pages'
+import { servicePages2 } from './service-pages-2'
 
-export const allLandingPages: LandingPage[] = [...landingPages, ...landingPages2, ...landingPages3]
+export const allLandingPages: LandingPage[] = [...landingPages, ...landingPages2, ...landingPages3, ...servicePages, ...servicePages2]
 
 export function getLandingByPath(path: string): LandingPage | undefined {
   return allLandingPages.find((p) => p.path === path)

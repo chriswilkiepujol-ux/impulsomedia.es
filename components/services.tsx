@@ -3,6 +3,7 @@
 import { useLanguage } from '@/lib/language-context'
 import { Package, MessageCircle } from 'lucide-react'
 import { services } from '@/lib/services-data'
+import { esToEn } from '@/lib/route-map'
 
 
 export function Services() {
@@ -35,9 +36,10 @@ export function Services() {
           {services.map((service) => {
             const IconComponent = service.icon
             return (
-              <div
+              <a
                 key={service.num}
-                className="group bg-[#2E3542] p-6 md:p-[clamp(2rem,4vw,3rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#36404E]"
+                href={language === 'en' ? esToEn[service.pillar] : service.pillar}
+                className="group bg-[#2E3542] p-6 md:p-[clamp(2rem,4vw,3rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#36404E] no-underline text-[#f2ede6] block"
               >
                 {/* Gold top line on hover */}
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#d4a853] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
@@ -73,7 +75,7 @@ export function Services() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </a>
             )
           })}
           

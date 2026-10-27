@@ -5,6 +5,7 @@ import { services } from '@/lib/services-data'
 import { ArrowRight } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
 import Link from 'next/link'
+import { esToEn } from '@/lib/route-map'
 
 export function ServicesOverview() {
   const { t, language } = useLanguage()
@@ -35,15 +36,16 @@ export function ServicesOverview() {
           {services.map((service) => {
             const Icon = service.icon
             return (
-              <div
+              <Link
                 key={service.num}
-                className="bg-[#2E3542] p-4 md:p-5 flex flex-col items-start gap-2.5 hover:bg-[#36404E] transition-colors duration-200 hover:-translate-y-0.5"
+                href={language === 'en' ? esToEn[service.pillar] : service.pillar}
+                className="bg-[#2E3542] p-4 md:p-5 flex flex-col items-start gap-2.5 hover:bg-[#36404E] transition-colors duration-200 hover:-translate-y-0.5 no-underline text-[#f2ede6]"
               >
                 <Icon className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                 <span className="font-display font-bold text-[0.85rem] leading-tight">
                   {language === 'es' ? service.titleEs : service.titleEn}
                 </span>
-              </div>
+              </Link>
             )
           })}
         </Reveal>
