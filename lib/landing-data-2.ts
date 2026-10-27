@@ -212,6 +212,7 @@ export const landingPages2: LandingPage[] = [
     slug: 'diseno-web-san-roque',
     lang: 'es',
     path: '/diseno-web-san-roque',
+    alternatePath: '/en/web-design-sotogrande',
     metaTitle: 'Diseño Web en San Roque y Sotogrande | Agencia local a medida',
     metaDescription:
       'Diseño web en San Roque: páginas web a medida para negocios de San Roque, Sotogrande, Guadiaro, Pueblo Nuevo y Torreguadiaro. Somos de aquí. Bilingüe, rápida y lista para Google. Sin plantillas ni cuotas obligatorias.',

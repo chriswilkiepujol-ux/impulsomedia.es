@@ -7,6 +7,20 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, ExternalLink } from "lucide-react"
 
+/** Renders [text](/path) as links inside a paragraph; everything else as plain text. */
+function renderInline(text: string) {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g)
+  return parts.map((part, i) => {
+    const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (!m) return part
+    return (
+      <a key={i} href={m[2]} className="text-[#d4a853] underline underline-offset-2 decoration-[#d4a853]/40 hover:decoration-[#d4a853]">
+        {m[1]}
+      </a>
+    )
+  })
+}
+
 export function BlogPost({ post }: { post: BlogPostType }) {
   const { language, t } = useLanguage()
   const content = language === "es" ? post.contentEs : post.contentEn
@@ -89,13 +103,13 @@ export function BlogPost({ post }: { post: BlogPostType }) {
             }
             if (block.type === "stats") {
               return (
-                <div key={i} className="grid grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.09)] border border-[rgba(255,255,255,0.09)] rounded-xl overflow-hidden my-8">
+                <div key={i} className={`grid ${(block.stats?.length ?? 0) === 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-3'} gap-[1.5px] bg-[rgba(255,255,255,0.09)] border border-[rgba(255,255,255,0.09)] rounded-xl overflow-hidden my-8`}>
                   {block.stats?.map((stat, j) => (
-                    <div key={j} className="bg-[#2E3542] p-4 md:p-6 text-center">
-                      <div className="font-display font-extrabold text-lg md:text-2xl text-[#d4a853] leading-none mb-2">
+                    <div key={j} className={`bg-[#2E3542] p-4 md:p-6 ${(block.stats?.length ?? 0) === 4 ? 'text-left' : 'text-center'}`}>
+                      <div className="font-display font-extrabold text-lg md:text-2xl text-[#d4a853] leading-[1.1] mb-2 break-words">
                         {stat.value}
                       </div>
-                      <div className="text-[0.68rem] md:text-[0.75rem] text-[rgba(242,237,230,0.55)] leading-[1.4]">
+                      <div className="text-[0.72rem] md:text-[0.8rem] text-[rgba(242,237,230,0.6)] leading-[1.45]">
                         {stat.label}
                       </div>
                     </div>
@@ -117,7 +131,7 @@ export function BlogPost({ post }: { post: BlogPostType }) {
             }
             return (
               <p key={i} className="text-[rgba(242,237,230,0.82)] leading-[1.75] mb-6">
-                {block.text}
+                {renderInline(block.text ?? '')}
               </p>
             )
           })}

@@ -21,12 +21,15 @@ export const enToEs: Record<string, string> = {
   '/en/web-design-gibraltar': '/servicios/negocio-local',
   '/en/digital-marketing-gibraltar': '/agencia-marketing-digital-algeciras',
   '/en/igaming-marketing': '/servicios/performance',
+  '/en/web-design-sotogrande': '/diseno-web-san-roque',
 }
 
 // ES-only landings: the EN switcher goes to the closest EN page.
 esToEn['/diseno-web-algeciras'] = '/en/services/local-business'
 esToEn['/diseno-web-la-linea'] = '/en/web-design-gibraltar'
-esToEn['/diseno-web-san-roque'] = '/en/services/local-business'
+esToEn['/diseno-web-san-roque'] = '/en/web-design-sotogrande'
+esToEn['/seo-algeciras'] = '/en/seo-gibraltar'
+esToEn['/diseno-web-estepona'] = '/en/web-design-sotogrande'
 esToEn['/agencia-marketing-digital-algeciras'] = '/en/digital-marketing-gibraltar'
 
 /**
