@@ -3,7 +3,7 @@ import { OpinionesContent } from '../../opiniones/opiniones-content'
 
 export const metadata: Metadata = {
   title: 'Client Reviews',
-  description: 'What our clients say about working with ImpulsoMedia. Real reviews from Sotovet, Ágora Sotogrande, Pujol Wilkie, Racket Breaks, Nathan & Josh and OnlineGames.cat.',
+  description: 'What our clients say about working with ImpulsoMedia. Real reviews from Sotovet, Ágora Sotogrande, Racket Breaks, OnlineGames.cat and more.',
   alternates: {
     canonical: '/en/reviews',
     languages: {
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Client Reviews | ImpulsoMedia',
     description: 'What our clients say about working with ImpulsoMedia.',
     url: 'https://impulsomedia.es/en/reviews',

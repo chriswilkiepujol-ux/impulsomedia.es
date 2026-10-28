@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Web Design and Digital Marketing Pricing | ImpulsoMedia',
     description: 'What determines the price of a website or a marketing service, with indicative examples. Fixed proposal after a free call.',
     url: 'https://impulsomedia.es/en/pricing',

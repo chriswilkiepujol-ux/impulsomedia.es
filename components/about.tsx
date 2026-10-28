@@ -3,7 +3,8 @@
 import { useLanguage } from "@/lib/language-context"
 import { Hammer, Target, Handshake, Languages } from "lucide-react"
 
-export function About() {
+export function About({ primary = false }: { primary?: boolean } = {}) {
+  const Heading = primary ? 'h1' : 'h2'
   const { language } = useLanguage()
 
   const content = {
@@ -81,9 +82,9 @@ export function About() {
           <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
             {t.tag}
           </span>
-          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6] mb-8">
+          <Heading className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6] mb-8">
             {t.headline}
-          </h2>
+          </Heading>
           
           {/* Story paragraphs */}
           <div className="space-y-4">

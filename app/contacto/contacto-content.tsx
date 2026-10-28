@@ -13,7 +13,7 @@ export function ContactoContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
       <div className="min-h-screen bg-[#262C37]">
         <Header />
         <main className="pt-[68px]">
-          <Contact />
+          <Contact primary />
           <FAQ />
         </main>
         <Footer />

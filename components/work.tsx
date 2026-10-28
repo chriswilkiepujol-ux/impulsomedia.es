@@ -90,7 +90,8 @@ const projects = [
   },
 ]
 
-export function Work() {
+export function Work({ primary = false }: { primary?: boolean } = {}) {
+  const Heading = primary ? 'h1' : 'h2'
   const { language } = useLanguage()
 
   return (
@@ -103,9 +104,9 @@ export function Work() {
               <span className="w-5 h-[1px] bg-[#d4a853]" />
               {language === "en" ? "Our Work" : "Nuestro Trabajo"}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
+            <Heading className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
               {language === "en" ? "Clients we work with" : "Clientes con los que trabajamos"}
-            </h2>
+            </Heading>
           </div>
           <p className="max-w-[38ch] text-[rgba(242, 237, 230, 0.82)] text-base font-light leading-[1.7]">
             {language === "en" 

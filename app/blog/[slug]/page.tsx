@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const esUrl = `https://impulsomedia.es/blog/${post.slugEs}`
 
   return {
-    title: post.titleEs,
-    description: post.excerptEs,
+    title: post.metaTitleEs ?? post.titleEs,
+    description: post.metaDescEs ?? post.excerptEs,
     alternates: {
       canonical: `/blog/${post.slugEs}`,
       languages: {

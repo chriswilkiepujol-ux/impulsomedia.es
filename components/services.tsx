@@ -6,7 +6,8 @@ import { services } from '@/lib/services-data'
 import { esToEn } from '@/lib/route-map'
 
 
-export function Services() {
+export function Services({ primary = false }: { primary?: boolean } = {}) {
+  const Heading = primary ? 'h1' : 'h2'
   const { t, language } = useLanguage()
 
   return (
@@ -18,10 +19,10 @@ export function Services() {
             <span className="section-label mb-4 md:mb-5 block">
               {t('Lo que hacemos', 'What we do')}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
+            <Heading className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
               {t('Servicios que ', 'Services that ')}
               <em className="text-[#d4a853] not-italic">{t('funcionan', 'work')}</em>
-            </h2>
+            </Heading>
           </div>
           <p className="max-w-[36ch] text-[rgba(242, 237, 230, 0.82)] text-base font-light leading-[1.7]">
             {t(

@@ -13,7 +13,7 @@ export function OpinionesContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
       <div className="min-h-screen bg-[#262C37]">
         <Header />
         <main className="pt-[68px]">
-          <Reviews />
+          <Reviews primary />
           <CtaBand />
         </main>
         <Footer />

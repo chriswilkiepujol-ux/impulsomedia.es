@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Precios de Diseño Web y Marketing Digital | ImpulsoMedia',
     description: 'Qué determina el precio de una web o un servicio de marketing digital, con ejemplos orientativos. Propuesta cerrada tras una llamada gratuita.',
     url: 'https://impulsomedia.es/precios',

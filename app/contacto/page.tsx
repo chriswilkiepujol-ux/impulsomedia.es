@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Contacto | ImpulsoMedia',
     description: 'Empieza tu proyecto con ImpulsoMedia. Contáctanos por WhatsApp o formulario.',
     url: 'https://impulsomedia.es/contacto',

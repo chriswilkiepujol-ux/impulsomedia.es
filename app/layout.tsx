@@ -29,10 +29,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://impulsomedia.es'),
   title: {
-    default: 'Diseño Web y Marketing Digital en Sotogrande y Campo de Gibraltar | ImpulsoMedia',
+    default: 'Diseño Web y SEO en Sotogrande | ImpulsoMedia',
     template: '%s | ImpulsoMedia'
   },
-  description: 'Agencia digital en Sotogrande (San Roque, Cádiz). Diseño web a medida, SEO local, Google Ads y paid social para negocios de Sotogrande, Gibraltar, La Línea, Algeciras y el Campo de Gibraltar. Sin plantillas, trato directo.',
+  description: 'Agencia digital en Sotogrande: diseño web a medida, SEO, Google Ads y automatización con IA para negocios de Sotogrande, Gibraltar y el Campo de Gibraltar.',
   keywords: ['diseño web Sotogrande', 'agencia marketing digital Campo de Gibraltar', 'diseño web Algeciras', 'SEO Gibraltar', 'agencia SEO Cádiz', 'web design Sotogrande', 'digital agency Gibraltar'],
   authors: [{ name: 'ImpulsoMedia', url: 'https://impulsomedia.es' }],
   creator: 'ImpulsoMedia',

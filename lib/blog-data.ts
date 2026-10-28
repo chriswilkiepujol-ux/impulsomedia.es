@@ -14,6 +14,10 @@ export interface BlogPost {
   slugEn: string
   titleEs: string
   titleEn: string
+  metaTitleEs?: string
+  metaTitleEn?: string
+  metaDescEs?: string
+  metaDescEn?: string
   excerptEs: string
   excerptEn: string
   date: string
@@ -35,6 +39,10 @@ export const blogPosts: BlogPost[] = [
     category: 'local-seo',
     categoryLabelEs: 'SEO Local',
     categoryLabelEn: 'Local SEO',
+    metaTitleEs: 'Guía de SEO local en Sotogrande y Gibraltar',
+    metaTitleEn: 'Local SEO guide: Sotogrande & Gibraltar',
+    metaDescEs: 'Qué funciona de verdad para aparecer en Google cuando buscan un negocio en Sotogrande, San Roque o Gibraltar. Lo que aplicamos con clientes reales.',
+    metaDescEn: 'What actually works to show up on Google when someone searches for a business in Sotogrande, San Roque or Gibraltar. What we apply with real clients.',
     slugEs: 'seo-local-sotogrande-campo-gibraltar',
     slugEn: 'local-seo-sotogrande-campo-gibraltar',
     titleEs: 'Guía de SEO local para negocios en Sotogrande y el Campo de Gibraltar',
@@ -86,6 +94,8 @@ export const blogPosts: BlogPost[] = [
     category: 'case-study',
     categoryLabelEs: 'Caso de Éxito',
     categoryLabelEn: 'Case Study',
+    metaTitleEs: 'Caso Racket Breaks: reservas de pádel',
+    metaTitleEn: 'Racket Breaks case study: padel booking',
     slugEs: 'caso-racket-breaks-plataforma-reservas-padel',
     slugEn: 'racket-breaks-case-study-padel-booking-platform',
     titleEs: 'Cómo construimos la plataforma de reservas de Racket Breaks',
@@ -150,10 +160,14 @@ export const blogPosts: BlogPost[] = [
     category: 'industry',
     categoryLabelEs: 'Industria',
     categoryLabelEn: 'Industry Insights',
+    metaTitleEs: 'Lo que el iGaming nos enseñó del marketing',
+    metaTitleEn: 'What iGaming taught us about marketing',
+    metaDescEs: 'Años gestionando media buying para operadores de apuestas y casino dejan una forma concreta de entender el marketing de resultados. Esto es lo que aplicamos.',
+    metaDescEn: 'Years of media buying for betting and casino operators leave a particular way of thinking about performance marketing. Here is what we apply now.',
     slugEs: 'experiencia-igaming-marketing-resultados',
     slugEn: 'igaming-experience-performance-marketing',
     titleEs: 'Lo que el iGaming nos enseñó sobre el marketing de resultados',
-    titleEn: 'What iGaming taught us about performance marketing',
+    titleEn: 'What iGaming taught us about marketing',
     excerptEs: 'Años gestionando campañas para operadores de apuestas y casino dejan una forma muy concreta de entender el marketing de resultados. Esto es lo que aplicamos ahora a clientes fuera del sector.',
     excerptEn: 'Years running media buying for betting and casino operators leave a particular way of thinking about performance marketing. Here is what we now apply to clients outside the sector.',
     date: '2026-10-04',
@@ -187,6 +201,10 @@ export const blogPosts: BlogPost[] = [
     category: 'local-seo',
     categoryLabelEs: 'Guía',
     categoryLabelEn: 'Guide',
+    metaTitleEs: 'Cuánto cuesta una página web en 2026',
+    metaTitleEn: 'How much does a website cost in 2026',
+    metaDescEs: 'Lo que cobran freelancers, agencias locales y grandes agencias por una web en la zona, qué incluye cada rango y qué mueve el precio.',
+    metaDescEn: 'What freelancers, local agencies and larger agencies charge for a website in the area, what each range includes and what moves the price.',
     slugEs: 'cuanto-cuesta-una-pagina-web-2026',
     slugEn: 'how-much-does-a-website-cost-2026',
     titleEs: 'Cuánto cuesta una página web en 2026: precios reales en Cádiz, Málaga y Gibraltar',

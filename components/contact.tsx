@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { useLanguage } from '@/lib/language-context'
 import { Send, Loader2 } from 'lucide-react'
 
-export function Contact() {
+export function Contact({ primary = false }: { primary?: boolean } = {}) {
+  const Heading = primary ? 'h1' : 'h2'
   const { t } = useLanguage()
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -63,10 +64,10 @@ export function Contact() {
             <span className="section-label mb-5 block">
               {t('Contacto', 'Contact')}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em] mb-6">
+            <Heading className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em] mb-6">
               {t('Hablemos de tu ', "Let's talk about your ")}
               <em className="text-[#d4a853] not-italic">{t('proyecto', 'project')}</em>
-            </h2>
+            </Heading>
             <p className="text-[rgba(242, 237, 230, 0.82)] text-base font-light leading-[1.7] mb-10 max-w-md">
               {t(
                 'Cuéntanos sobre tu negocio y tus objetivos. Te responderemos en menos de 24 horas.',

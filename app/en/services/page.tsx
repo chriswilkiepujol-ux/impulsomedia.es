@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Web Design and Digital Marketing Services | ImpulsoMedia',
     description: 'Custom web design, SEO, PPC, paid social, programmatic, affiliate, ASO and consultancy, for local businesses and larger brands.',
     url: 'https://impulsomedia.es/en/services',

@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Gestión de Campañas y Media Buying a Escala | ImpulsoMedia',
     description: 'PPC, programática, afiliación, in-app, ASO y consultoría para marcas y operadores con presupuestos mayores.',
     url: 'https://impulsomedia.es/servicios/performance',

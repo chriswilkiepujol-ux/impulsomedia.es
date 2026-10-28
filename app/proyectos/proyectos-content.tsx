@@ -14,7 +14,7 @@ export function ProyectosContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
       <div className="min-h-screen bg-[#262C37]">
         <Header />
         <main className="pt-[68px]">
-          <Work />
+          <Work primary />
           <Reviews />
           <CtaBand />
         </main>

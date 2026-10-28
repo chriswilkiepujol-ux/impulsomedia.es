@@ -12,6 +12,8 @@ export function landingMetadata(page: LandingPage): Metadata {
   const languages: Record<string, string> = { 'x-default': xDefault }
   languages[page.lang === 'en' ? 'en-GB' : 'es-ES'] = url
   if (alt) languages[page.lang === 'en' ? 'es-ES' : 'en-GB'] = alt
+  // Social platforms don't render SVG: every cover has a 1200x630 PNG twin (-og.png).
+  const ogImage = `${SITE}${page.heroImage.replace(/\.svg$/, '-og.png')}`
   return {
     title: page.metaTitle,
     description: page.metaDescription,
@@ -21,6 +23,15 @@ export function landingMetadata(page: LandingPage): Metadata {
       description: page.metaDescription,
       url,
       locale: page.lang === 'en' ? 'en_GB' : 'es_ES',
+      siteName: 'ImpulsoMedia',
+      type: 'website',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: page.heroAlt }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${page.metaTitle} | ImpulsoMedia`,
+      description: page.metaDescription,
+      images: [ogImage],
     },
   }
 }

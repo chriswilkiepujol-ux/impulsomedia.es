@@ -3,7 +3,7 @@ import { NegocioLocalContent } from './negocio-local-content'
 
 export const metadata: Metadata = {
   title: 'Diseño Web y SEO Local para Negocios',
-  description: 'Diseño web a medida, SEO local, Google Business y redes sociales para negocios en Sotogrande, San Roque, Gibraltar y Campo de Gibraltar. Trato directo por WhatsApp.',
+  description: 'Diseño web a medida, SEO local, Google Business y redes para negocios de Sotogrande, San Roque, Gibraltar y el Campo de Gibraltar. Trato directo.',
   alternates: {
     canonical: '/servicios/negocio-local',
     languages: {
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Diseño Web y SEO Local para Negocios | ImpulsoMedia',
     description: 'Diseño web a medida, SEO local y redes sociales para negocios en Sotogrande y Campo de Gibraltar.',
     url: 'https://impulsomedia.es/servicios/negocio-local',

@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { HomeContent } from '../home-content'
 
 export const metadata: Metadata = {
-  title: 'Digital Agency in Sotogrande & Gibraltar | Web Design, SEO and PPC',
-  description: 'Bilingual digital agency based in Sotogrande, 15 minutes from Gibraltar. Custom web design, local SEO, Google Ads and paid social for businesses in Sotogrande, Gibraltar, Campo de Gibraltar and the Costa del Sol.',
+  title: 'Digital Agency in Sotogrande & Gibraltar',
+  description: 'Bilingual digital agency in Sotogrande, 15 minutes from Gibraltar: custom web design, SEO, Google Ads and AI automation for businesses across the region.',
   alternates: {
     canonical: '/en',
     languages: {
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Digital Agency in Sotogrande & Gibraltar | ImpulsoMedia',
     description: 'Custom web design, SEO and ads for businesses in Sotogrande, Gibraltar and Campo de Gibraltar. No templates, no middlemen.',
     url: 'https://impulsomedia.es/en',

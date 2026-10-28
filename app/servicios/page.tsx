@@ -3,7 +3,7 @@ import { ServiciosContent } from './servicios-content'
 
 export const metadata: Metadata = {
   title: 'Servicios de Diseño Web y Marketing Digital',
-  description: 'Diseño web a medida, SEO, PPC, paid social, programática, afiliación, ASO y consultoría. Servicios completos de marketing digital en Sotogrande y Campo de Gibraltar.',
+  description: 'Diseño web a medida, SEO, Google Ads, paid social, programática, automatización con IA y consultoría. Marketing digital en Sotogrande y Campo de Gibraltar.',
   alternates: {
     canonical: '/servicios',
     languages: {
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Servicios de Diseño Web y Marketing Digital | ImpulsoMedia',
     description: 'Diseño web a medida, SEO, PPC, paid social, programática, afiliación, ASO y consultoría, para negocios locales y marcas a mayor escala.',
     url: 'https://impulsomedia.es/servicios',

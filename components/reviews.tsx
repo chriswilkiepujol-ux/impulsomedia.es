@@ -5,7 +5,8 @@ import { useRef, useEffect, useState } from "react"
 import { Star, ArrowLeft, ArrowRight } from "lucide-react"
 import { Reveal } from "@/components/reveal"
 
-export function Reviews() {
+export function Reviews({ primary = false }: { primary?: boolean } = {}) {
+  const Heading = primary ? 'h1' : 'h2'
   const { language } = useLanguage()
 
   const content = {
@@ -139,9 +140,9 @@ export function Reviews() {
             <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
               {t.tag}
             </span>
-            <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6]">
+            <Heading className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6]">
               {t.headline}
-            </h2>
+            </Heading>
           </Reveal>
           <div className="flex items-center gap-3 shrink-0">
             <button

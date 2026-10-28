@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Sobre Nosotros | ImpulsoMedia',
     description: 'Agencia digital con sede en Sotogrande. Construimos sitios web desde cero, sin plantillas, con trato directo.',
     url: 'https://impulsomedia.es/nosotros',

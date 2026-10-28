@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Blog | ImpulsoMedia',
     description: 'Notas sobre SEO local, campañas de marketing y proyectos reales.',
     url: 'https://impulsomedia.es/blog',
