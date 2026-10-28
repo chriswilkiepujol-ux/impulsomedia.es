@@ -13,9 +13,9 @@ export const servicePages: LandingPage[] = [
     lang: 'es',
     path: '/servicios/automatizacion-ia',
     alternatePath: '/en/services/ai-automation',
-    metaTitle: 'Automatización de procesos con IA para empresas | Agencia en Sotogrande',
+    metaTitle: 'Automatización de Procesos con IA',
     metaDescription:
-      'Automatizamos procesos de negocio con IA: clasificación y respuesta de emails, redacción y publicación de contenido, flujos de leads al CRM, informes automáticos y asistentes internos. Sistemas que aprenden de tu equipo y se integran con lo que ya usas. Agencia en Sotogrande, Campo de Gibraltar.',
+      'Automatizamos procesos con IA: de correos y contenido a leads, informes y asistentes internos. Agencia en Sotogrande. Cuéntanos tu proceso.',
     breadcrumb: 'Automatización e IA',
     serviceType: 'Business Process Automation',
     areaServed: ['Sotogrande', 'Campo de Gibraltar', 'Gibraltar', 'Costa del Sol', 'España'],
@@ -82,9 +82,9 @@ export const servicePages: LandingPage[] = [
     lang: 'en',
     path: '/en/services/ai-automation',
     alternatePath: '/servicios/automatizacion-ia',
-    metaTitle: 'AI Process Automation for Businesses | Agency in Sotogrande & Gibraltar',
+    metaTitle: 'AI Process Automation for Business',
     metaDescription:
-      'We automate business processes with AI: email triage and replies, content drafting and publishing, lead routing into your CRM, automatic reporting and internal assistants. Systems that learn from your team and plug into the tools you already use. Agency in Sotogrande, 15 minutes from Gibraltar.',
+      'We automate business processes with AI: email, content, lead capture, reports and internal assistants. Sotogrande agency. Tell us your process.',
     breadcrumb: 'AI automation',
     serviceType: 'Business Process Automation',
     areaServed: ['Sotogrande', 'Gibraltar', 'Campo de Gibraltar', 'Costa del Sol', 'Spain', 'United Kingdom'],

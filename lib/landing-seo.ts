@@ -5,11 +5,13 @@ const SITE = 'https://impulsomedia.es'
 
 export function landingMetadata(page: LandingPage): Metadata {
   const url = `${SITE}${page.path}`
-  const languages: Record<string, string> = { 'x-default': url }
+  // x-default must be the same URL on both pages of a pair (the Spanish one,
+  // as on the rest of the site); standalone pages declare themselves.
+  const alt = page.alternatePath ? `${SITE}${page.alternatePath}` : null
+  const xDefault = page.lang === 'en' && alt ? alt : url
+  const languages: Record<string, string> = { 'x-default': xDefault }
   languages[page.lang === 'en' ? 'en-GB' : 'es-ES'] = url
-  if (page.alternatePath) {
-    languages[page.lang === 'en' ? 'es-ES' : 'en-GB'] = `${SITE}${page.alternatePath}`
-  }
+  if (alt) languages[page.lang === 'en' ? 'es-ES' : 'en-GB'] = alt
   return {
     title: page.metaTitle,
     description: page.metaDescription,

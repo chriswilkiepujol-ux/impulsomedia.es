@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { PreciosContent } from './precios-content'
 
 export const metadata: Metadata = {
-  title: 'Precios de Diseño Web y Marketing Digital: cómo se calcula tu presupuesto',
-  description: 'Qué determina el precio de una web o un servicio de marketing digital: páginas, diseño, funcionalidades, automatizaciones, idiomas y plazos. Ejemplos orientativos desde 950 € y propuesta cerrada tras una llamada gratuita.',
+  title: 'Precios de Diseño Web y Marketing Digital',
+  description: 'Qué determina el precio de una web o un servicio de marketing: páginas, funcionalidades, idiomas y plazos. Ejemplos orientativos y propuesta tras una llamada.',
   alternates: {
     canonical: '/precios',
     languages: {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Precios | Cómo se calcula tu presupuesto | ImpulsoMedia',
+    title: 'Precios de Diseño Web y Marketing Digital | ImpulsoMedia',
     description: 'Qué determina el precio de una web o un servicio de marketing digital, con ejemplos orientativos. Propuesta cerrada tras una llamada gratuita.',
     url: 'https://impulsomedia.es/precios',
   },

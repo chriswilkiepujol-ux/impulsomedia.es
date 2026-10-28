@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { PreciosContent } from '../../precios/precios-content'
 
 export const metadata: Metadata = {
-  title: 'Web Design and Digital Marketing Pricing: how your quote is built',
-  description: 'What determines the price of a website or a digital marketing service: pages, design, functionality, automations, languages and timeline. Indicative examples from €950 and a fixed written proposal after a free call.',
+  title: 'Web Design and Digital Marketing Pricing',
+  description: 'What determines the price of a website or a marketing service: pages, features, languages and timeline. Indicative examples and a proposal after a free call.',
   alternates: {
     canonical: '/en/pricing',
     languages: {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Pricing | How your quote is built | ImpulsoMedia',
+    title: 'Web Design and Digital Marketing Pricing | ImpulsoMedia',
     description: 'What determines the price of a website or a marketing service, with indicative examples. Fixed proposal after a free call.',
     url: 'https://impulsomedia.es/en/pricing',
     locale: 'en_GB',
