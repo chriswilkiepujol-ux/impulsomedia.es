@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     description: 'Diseño web, SEO y publicidad para negocios de Sotogrande, Gibraltar y el Campo de Gibraltar. Sin plantillas, sin parches. Solo resultados.',
     images: [
       {
-        url: '/images/og-image.jpg',
+        url: '/images/og-image-v2.jpg',
         width: 1200,
         height: 630,
         alt: 'ImpulsoMedia - Agencia Digital',
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ImpulsoMedia | Diseño Web y Marketing Digital en Sotogrande',
     description: 'Diseño web, SEO y publicidad para negocios de Sotogrande, Gibraltar y el Campo de Gibraltar. Sin plantillas, sin parches.',
-    images: ['/images/og-image.jpg'],
+    images: ['/images/og-image-v2.jpg'],
     creator: '@impulsomedia',
   },
   robots: {
@@ -96,7 +96,7 @@ const structuredData = {
   description: 'Agencia digital especializada en diseño web, SEO, PPC, paid social, programática, afiliación, ASO y consultoría. Creamos sitios web desde cero para negocios locales y marcas a mayor escala.',
   url: 'https://impulsomedia.es',
   logo: 'https://impulsomedia.es/images/impulsomedia-logo.svg',
-  image: 'https://impulsomedia.es/images/og-image.jpg',
+  image: 'https://impulsomedia.es/images/og-image-v2.jpg',
   telephone: '+34680863229',
   email: 'chris@impulsomedia.es',
   '@id': 'https://impulsomedia.es/#business',

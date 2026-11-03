@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
+    images: [{ url: '/images/og-image-v2.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Web Design and Local SEO for Businesses | ImpulsoMedia',
     description: 'Custom web design, local SEO and social media for businesses in Sotogrande and Campo de Gibraltar.',
     url: 'https://impulsomedia.es/en/services/local-business',

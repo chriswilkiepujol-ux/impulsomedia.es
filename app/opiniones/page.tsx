@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
+    images: [{ url: '/images/og-image-v2.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Opiniones de Clientes | ImpulsoMedia',
     description: 'Lo que dicen nuestros clientes sobre trabajar con ImpulsoMedia.',
     url: 'https://impulsomedia.es/opiniones',

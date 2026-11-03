@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
+    images: [{ url: '/images/og-image-v2.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
     title: 'Projects and Clients | ImpulsoMedia',
     description: 'Websites built from scratch for real clients in Sotogrande, Gibraltar and beyond.',
     url: 'https://impulsomedia.es/en/work',
