@@ -7,13 +7,13 @@ export function PlatformStrip() {
   const { t } = useLanguage()
 
   return (
-    <Reveal className="max-w-[1200px] mx-auto px-6 md:px-[clamp(1.5rem,5vw,4rem)] py-8 border-t border-b border-[rgba(255,255,255,0.09)] flex items-center gap-6 md:gap-10 flex-wrap">
-      <span className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[rgba(242,237,230,0.5)] mr-1">
+    <Reveal className="max-w-[1200px] mx-auto px-6 md:px-[clamp(1.5rem,5vw,4rem)] py-8 border-t border-b border-[rgba(17,20,24,0.13)] flex items-center gap-6 md:gap-10 flex-wrap">
+      <span className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[rgba(17,20,24,0.7)] mr-1">
         {t("También gestionamos campañas en", "We also run campaigns on")}
       </span>
 
       {/* Meta - official blue #0866FF */}
-      <div className="flex items-center gap-2 text-[rgba(242,237,230,0.85)] font-semibold text-[0.88rem]">
+      <div className="flex items-center gap-2 text-[rgba(17,20,24,0.84)] font-semibold text-[0.88rem]">
         <svg width="20" height="20" viewBox="0 0 36 36" fill="none">
           <path
             fill="#0866FF"
@@ -24,7 +24,7 @@ export function PlatformStrip() {
       </div>
 
       {/* TikTok - official black + cyan + pink */}
-      <div className="flex items-center gap-2 text-[rgba(242,237,230,0.85)] font-semibold text-[0.88rem]">
+      <div className="flex items-center gap-2 text-[rgba(17,20,24,0.84)] font-semibold text-[0.88rem]">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path fill="#25F4EE" d="M9.5 8.6v-.9a5 5 0 0 0-.7 0 6.3 6.3 0 0 0-3.6 11.5 6.3 6.3 0 0 1 4.3-10.6z"/>
           <path fill="#FE2C55" d="M9.8 17.6a2.9 2.9 0 0 0 2.9-2.8V2.1h2.3a4.8 4.8 0 0 1-.1-.9h-3.2v12.6a2.9 2.9 0 0 1-4.8 2.1 2.9 2.9 0 0 0 2.9 1.7z"/>
@@ -35,7 +35,7 @@ export function PlatformStrip() {
       </div>
 
       {/* Google - official four-color G */}
-      <div className="flex items-center gap-2 text-[rgba(242,237,230,0.85)] font-semibold text-[0.88rem]">
+      <div className="flex items-center gap-2 text-[rgba(17,20,24,0.84)] font-semibold text-[0.88rem]">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path fill="#4285F4" d="M23.52 12.27c0-.85-.07-1.47-.23-2.12H12v3.85h6.6c-.13 1.1-.86 2.76-2.47 3.88l-.02.15 3.59 2.78.25.02c2.28-2.11 3.59-5.21 3.59-8.56"/>
           <path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.79-2.94c-1.01.7-2.37 1.19-4.16 1.19-3.18 0-5.87-2.1-6.83-5l-.14.01-3.73 2.89-.05.13C3.26 21.3 7.3 24 12 24"/>
@@ -46,8 +46,8 @@ export function PlatformStrip() {
       </div>
 
       {/* SEO / GMB - gold, brand-native accent */}
-      <div className="flex items-center gap-2 text-[rgba(242,237,230,0.85)] font-semibold text-[0.88rem]">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a853" strokeWidth="2">
+      <div className="flex items-center gap-2 text-[rgba(17,20,24,0.84)] font-semibold text-[0.88rem]">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a04a" strokeWidth="2">
           <circle cx="11" cy="11" r="7"/>
           <path d="M21 21l-4.3-4.3"/>
         </svg>

@@ -1,18 +1,18 @@
 "use client"
 
 import { LanguageProvider } from '@/lib/language-context'
-import { Header } from '@/components/header'
+import { HeaderV2 as Header } from '@/components/v2/header'
 import { ServicesByAudience } from '@/components/services-by-audience'
-import { Footer } from '@/components/footer'
+import { FooterV2 as Footer } from '@/components/v2/sections'
 import { AreasStrip } from '@/components/areas-strip'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function PerformanceContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
     <LanguageProvider initialLanguage={lang}>
-      <div className="min-h-screen bg-[#262C37]">
+      <div className="min-h-screen bg-[#ffffff]">
         <Header />
-        <main className="pt-[68px]">
+        <main>
           <ServicesByAudience category="performance" />
           <AreasStrip services={['performance', 'marketing']} />
         </main>

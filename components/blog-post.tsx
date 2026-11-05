@@ -14,7 +14,7 @@ function renderInline(text: string) {
     const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
     if (!m) return part
     return (
-      <a key={i} href={m[2]} className="text-[#d4a853] underline underline-offset-2 decoration-[#d4a853]/40 hover:decoration-[#d4a853]">
+      <a key={i} href={m[2]} className="text-[#a67c2e] underline underline-offset-2 decoration-[#a67c2e]/40 hover:decoration-[#a67c2e]">
         {m[1]}
       </a>
     )
@@ -36,7 +36,7 @@ export function BlogPost({ post }: { post: BlogPostType }) {
       <div className="max-w-[760px] mx-auto">
         <Link
           href={blogHref}
-          className="inline-flex items-center gap-2 text-[rgba(242,237,230,0.5)] text-sm font-medium no-underline hover:text-[#f2ede6] transition-colors duration-200 mb-8"
+          className="inline-flex items-center gap-2 text-[rgba(17,20,24,0.7)] text-sm font-medium no-underline hover:text-[#111418] transition-colors duration-200 mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           {t("Volver al blog", "Back to blog")}
@@ -46,13 +46,13 @@ export function BlogPost({ post }: { post: BlogPostType }) {
           <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-8">
             <Image src={post.coverImage} alt="" fill className="object-cover" sizes="760px" priority />
           </div>
-          <span className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[#d4a853] mb-3 block">
+          <span className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[#a67c2e] mb-3 block">
             {language === "es" ? post.categoryLabelEs : post.categoryLabelEn}
           </span>
           <h1 className="font-display font-extrabold text-[clamp(1.9rem,3.8vw,2.8rem)] leading-[1.2] tracking-[-0.015em] mb-4">
             {language === "es" ? post.titleEs : post.titleEn}
           </h1>
-          <div className="flex items-center gap-3 text-sm text-[rgba(242,237,230,0.5)] mb-10 pb-10 border-b border-[rgba(255,255,255,0.09)]">
+          <div className="flex items-center gap-3 text-sm text-[rgba(17,20,24,0.7)] mb-10 pb-10 border-b border-[rgba(17,20,24,0.13)]">
             <span>{formattedDate}</span>
             <span>·</span>
             <span>{post.readMinutes} {t("min de lectura", "min read")}</span>
@@ -65,7 +65,7 @@ export function BlogPost({ post }: { post: BlogPostType }) {
               href={post.caseStudy.siteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block rounded-xl overflow-hidden border border-[rgba(255,255,255,0.09)] bg-[#2E3542] no-underline"
+              className="group block rounded-xl overflow-hidden border border-[rgba(17,20,24,0.13)] bg-[#f6f4ef] no-underline"
             >
               <div className="relative w-full aspect-[16/10]">
                 <Image
@@ -77,10 +77,10 @@ export function BlogPost({ post }: { post: BlogPostType }) {
                 />
               </div>
               <div className="flex items-center justify-between px-5 py-4">
-                <span className="text-sm text-[rgba(242,237,230,0.6)]">
+                <span className="text-sm text-[rgba(17,20,24,0.7)]">
                   {t("Sitio en vivo", "Live site")}
                 </span>
-                <span className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm group-hover:gap-3 transition-all duration-200">
+                <span className="inline-flex items-center gap-2 text-[#a67c2e] font-semibold text-sm group-hover:gap-3 transition-all duration-200">
                   {post.caseStudy.siteLabel}
                   <ExternalLink className="w-4 h-4" />
                 </span>
@@ -95,7 +95,7 @@ export function BlogPost({ post }: { post: BlogPostType }) {
               return (
                 <h2
                   key={i}
-                  className="font-display font-extrabold text-xl md:text-2xl leading-[1.3] mt-10 mb-4 text-[#f2ede6]"
+                  className="font-display font-extrabold text-xl md:text-2xl leading-[1.3] mt-10 mb-4 text-[#111418]"
                 >
                   {block.text}
                 </h2>
@@ -103,13 +103,13 @@ export function BlogPost({ post }: { post: BlogPostType }) {
             }
             if (block.type === "stats") {
               return (
-                <div key={i} className={`grid ${(block.stats?.length ?? 0) === 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-3'} gap-[1.5px] bg-[rgba(255,255,255,0.09)] border border-[rgba(255,255,255,0.09)] rounded-xl overflow-hidden my-8`}>
+                <div key={i} className={`grid ${(block.stats?.length ?? 0) === 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-3'} gap-[1.5px] bg-[rgba(17,20,24,0.13)] border border-[rgba(17,20,24,0.13)] rounded-xl overflow-hidden my-8`}>
                   {block.stats?.map((stat, j) => (
-                    <div key={j} className={`bg-[#2E3542] p-4 md:p-6 ${(block.stats?.length ?? 0) === 4 ? 'text-left' : 'text-center'}`}>
-                      <div className="font-display font-extrabold text-lg md:text-2xl text-[#d4a853] leading-[1.1] mb-2 break-words">
+                    <div key={j} className={`bg-[#f6f4ef] p-4 md:p-6 ${(block.stats?.length ?? 0) === 4 ? 'text-left' : 'text-center'}`}>
+                      <div className="font-display font-extrabold text-lg md:text-2xl text-[#a67c2e] leading-[1.1] mb-2 break-words">
                         {stat.value}
                       </div>
-                      <div className="text-[0.72rem] md:text-[0.8rem] text-[rgba(242,237,230,0.6)] leading-[1.45]">
+                      <div className="text-[0.72rem] md:text-[0.8rem] text-[rgba(17,20,24,0.7)] leading-[1.45]">
                         {stat.label}
                       </div>
                     </div>
@@ -121,8 +121,8 @@ export function BlogPost({ post }: { post: BlogPostType }) {
               return (
                 <ul key={i} className="mb-6 flex flex-col gap-2.5">
                   {block.items?.map((item, j) => (
-                    <li key={j} className="flex items-start gap-3 text-[rgba(242,237,230,0.82)] leading-[1.7]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] flex-shrink-0 mt-[0.6em]" />
+                    <li key={j} className="flex items-start gap-3 text-[rgba(17,20,24,0.84)] leading-[1.7]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c9a04a] flex-shrink-0 mt-[0.6em]" />
                       {item}
                     </li>
                   ))}
@@ -130,7 +130,7 @@ export function BlogPost({ post }: { post: BlogPostType }) {
               )
             }
             return (
-              <p key={i} className="text-[rgba(242,237,230,0.82)] leading-[1.75] mb-6">
+              <p key={i} className="text-[rgba(17,20,24,0.84)] leading-[1.75] mb-6">
                 {renderInline(block.text ?? '')}
               </p>
             )

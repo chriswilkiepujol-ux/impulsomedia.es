@@ -72,14 +72,14 @@ export function FAQ() {
   const t = content[language]
 
   return (
-    <section id="faq" className="relative py-14 md:py-20 bg-[#2E3542]">
+    <section id="faq" className="relative py-14 md:py-20 bg-[#f6f4ef]">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
-          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
+          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">
             {t.tag}
           </span>
-          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6]">
+          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#111418]">
             {t.headline}
           </h2>
         </div>

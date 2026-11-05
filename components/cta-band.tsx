@@ -1,8 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { MessageCircle, Calendar } from "lucide-react"
-import { Reveal } from "@/components/reveal"
+import { CtaCard } from "@/components/v2/cta-card"
 
 export function CtaBand() {
   const { language } = useLanguage()
@@ -27,45 +26,14 @@ export function CtaBand() {
   const t = content[language]
 
   return (
-    <section className="relative py-14 md:py-18 bg-[#d4a853] overflow-hidden">
-      {/* Subtle pattern overlay */}
-      <div 
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }}
-      />
-      
-      <Reveal className="relative max-w-[1400px] mx-auto px-6 md:px-12 text-center">
-        <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#262C37] mb-4 md:mb-6">
-          {t.headline}
-        </h2>
-        
-        <p className="text-[#262C37]/80 text-base md:text-xl max-w-2xl mx-auto mb-6 md:mb-10 font-sans">
-          {t.subheadline}
-        </p>
-        
-        <a
-          href="https://wa.me/34680863229"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-8 py-4 bg-[#262C37] text-[#f2ede6] font-semibold text-sm md:text-base tracking-wide rounded-full hover:bg-[#36404E] transition-all duration-300 hover:scale-105 shadow-xl"
-        >
-          <MessageCircle className="w-5 h-5" />
-          {t.cta}
-        </a>
-
-        <div className="mt-6 flex flex-col items-center gap-1.5">
-          <span className="text-[#262C37]/70 text-sm">{t.secondaryLabel}</span>
-          <a
-            href={language === "en" ? "/en/contact" : "/contacto"}
-            className="inline-flex items-center gap-2 text-[#262C37] font-semibold text-sm underline underline-offset-2 decoration-[#262C37]/40 hover:decoration-[#262C37] transition-all duration-200"
-          >
-            <Calendar className="w-4 h-4" />
-            {t.secondaryCta}
-          </a>
-        </div>
-      </Reveal>
-    </section>
+    <CtaCard
+      eyebrow={language === "en" ? "We start when you are ready" : "Empezamos cuando quieras"}
+      headline={t.headline}
+      sub={t.subheadline}
+      primaryHref="https://wa.me/34680863229"
+      primaryLabel={t.cta}
+      secondaryHref={language === "en" ? "/en/contact" : "/contacto"}
+      secondaryLabel={t.secondaryCta}
+    />
   )
 }

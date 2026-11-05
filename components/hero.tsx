@@ -36,9 +36,9 @@ export function Hero() {
           <div>
             {/* Tag */}
             <div 
-              className="inline-flex items-center gap-3 text-[0.72rem] font-medium tracking-[0.18em] uppercase text-[#d4a853] mb-5 md:mb-6"
+              className="inline-flex items-center gap-3 text-[0.72rem] font-medium tracking-[0.18em] uppercase text-[#a67c2e] mb-5 md:mb-6"
             >
-              <span className="w-7 h-[1px] bg-[#d4a853]" />
+              <span className="w-7 h-[1px] bg-[#c9a04a]" />
               {language === "en" ? "Digital Agency, Sotogrande" : "Agencia Digital, Sotogrande"}
             </div>
 
@@ -48,16 +48,16 @@ export function Hero() {
             >
               {language === "en" ? (
                 <>
-                  Websites that convert. <span className="text-[#d4a853]">Campaigns that scale.</span>
+                  Websites that convert. <span className="text-[#a67c2e]">Campaigns that scale.</span>
                 </>
               ) : (
                 <>
-                  Webs que convierten. <span className="text-[#d4a853]">Campañas que escalan.</span>
+                  Webs que convierten. <span className="text-[#a67c2e]">Campañas que escalan.</span>
                 </>
               )}
             </h1>
 
-            <p className="text-[clamp(0.95rem,1.5vw,1.15rem)] text-[rgba(242,237,230,0.82)] font-light leading-[1.75] max-w-[46ch] mb-8">
+            <p className="text-[clamp(0.95rem,1.5vw,1.15rem)] text-[rgba(17,20,24,0.84)] font-light leading-[1.75] max-w-[46ch] mb-8">
               {language === "en"
                 ? "Hand-built websites and results-driven marketing for local businesses and brands that need to manage campaigns at a larger scale. No templates, no middlemen."
                 : "Diseño web hecho a mano y marketing de resultados para negocios locales y marcas que necesitan gestionar campañas a mayor escala. Sin plantillas, sin intermediarios."}
@@ -68,7 +68,7 @@ export function Hero() {
                 href="https://wa.me/34680863229?text=Hi%2C%20I'd%20like%20to%20start%20a%20project%20with%20ImpulsoMedia"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-[#25d366] text-white px-6 md:px-8 py-4 rounded-[3px] font-display font-bold text-[0.82rem] tracking-[0.07em] uppercase no-underline whitespace-nowrap transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_16px_40px_rgba(37,211,102,0.25)]"
+                className="inline-flex items-center gap-3 bg-[#25d366] text-white px-6 md:px-8 py-4 rounded-full font-sans font-semibold text-[0.92rem] no-underline whitespace-nowrap transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_16px_40px_rgba(37,211,102,0.25)]"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
@@ -83,19 +83,19 @@ export function Hero() {
               >
                 <span className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill="#d4a853">
+                    <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill="#c9a04a">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                     </svg>
                   ))}
                 </span>
-                <span className="text-[0.78rem] text-[rgba(242,237,230,0.6)] group-hover:text-[#f2ede6] transition-colors duration-200">
+                <span className="text-[0.78rem] text-[rgba(17,20,24,0.7)] group-hover:text-[#111418] transition-colors duration-200">
                   5.0 {language === "en" ? "on Google (5 reviews)" : "en Google (5 reseñas)"}
                 </span>
               </a>
 
               <a
                 href={language === "en" ? "/en/work" : "/proyectos"}
-                className="inline-flex items-center gap-2 text-[rgba(242,237,230,0.42)] text-[0.75rem] font-normal tracking-[0.08em] uppercase no-underline transition-colors duration-200 hover:text-[#f2ede6]"
+                className="inline-flex items-center gap-2 text-[rgba(17,20,24,0.58)] text-[0.75rem] font-normal tracking-[0.08em] uppercase no-underline transition-colors duration-200 hover:text-[#111418]"
               >
                 {language === "en" ? "See our work" : "Ver proyectos"}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -114,13 +114,13 @@ export function Hero() {
 
         {/* Stats */}
         <div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-x-[clamp(2rem,5vw,5rem)] pt-10 mt-10 border-t border-[rgba(255,255,255,0.06)]"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-x-[clamp(2rem,5vw,5rem)] pt-10 mt-10 border-t border-[rgba(17,20,24,0.1)]"
         >
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              <CountUp target={7} /><em className="text-[#d4a853] not-italic">+</em>
+              <CountUp target={7} /><em className="text-[#a67c2e] not-italic">+</em>
             </div>
-            <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
+            <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(17,20,24,0.58)] mt-1">
               {language === "en" ? "Live Clients" : "Clientes Activos"}
             </div>
           </div>
@@ -128,23 +128,23 @@ export function Hero() {
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
               <CountUp target={12} />
             </div>
-            <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
+            <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(17,20,24,0.58)] mt-1">
               {language === "en" ? "Core Services" : "Servicios Clave"}
             </div>
           </div>
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              <CountUp target={3} /><em className="text-[#d4a853] not-italic">x</em>
+              <CountUp target={3} /><em className="text-[#a67c2e] not-italic">x</em>
             </div>
-            <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
+            <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(17,20,24,0.58)] mt-1">
               {language === "en" ? "Markets Served" : "Mercados Cubiertos"}
             </div>
           </div>
           <div>
             <div className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold leading-none">
-              <CountUp target={100} /><em className="text-[#d4a853] not-italic">%</em>
+              <CountUp target={100} /><em className="text-[#a67c2e] not-italic">%</em>
             </div>
-            <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(242,237,230,0.42)] mt-1">
+            <div className="text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(17,20,24,0.58)] mt-1">
               {language === "en" ? "From Scratch" : "Desde Cero"}
             </div>
           </div>

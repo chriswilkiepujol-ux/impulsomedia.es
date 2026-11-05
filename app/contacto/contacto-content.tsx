@@ -1,18 +1,18 @@
 "use client"
 
 import { LanguageProvider } from '@/lib/language-context'
-import { Header } from '@/components/header'
+import { HeaderV2 as Header } from '@/components/v2/header'
 import { Contact } from '@/components/contact'
 import { FAQ } from '@/components/faq'
-import { Footer } from '@/components/footer'
+import { FooterV2 as Footer } from '@/components/v2/sections'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function ContactoContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
     <LanguageProvider initialLanguage={lang}>
-      <div className="min-h-screen bg-[#262C37]">
+      <div className="min-h-screen bg-[#ffffff]">
         <Header />
-        <main className="pt-[68px]">
+        <main>
           <Contact primary />
           <FAQ />
         </main>

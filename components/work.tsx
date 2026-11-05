@@ -95,20 +95,20 @@ export function Work({ primary = false }: { primary?: boolean } = {}) {
   const { language } = useLanguage()
 
   return (
-    <section id="work" className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
+    <section id="work" className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-[clamp(2rem,4vw,3.5rem)] gap-6 md:gap-8">
           <div>
-            <span className="inline-flex items-center gap-2.5 text-[0.7rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4 md:mb-5">
-              <span className="w-5 h-[1px] bg-[#d4a853]" />
+            <span className="inline-flex items-center gap-2.5 text-[0.7rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4 md:mb-5">
+              <span className="w-5 h-[1px] bg-[#c9a04a]" />
               {language === "en" ? "Our Work" : "Nuestro Trabajo"}
             </span>
             <Heading className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
               {language === "en" ? "Clients we work with" : "Clientes con los que trabajamos"}
             </Heading>
           </div>
-          <p className="max-w-[38ch] text-[rgba(242, 237, 230, 0.82)] text-base font-light leading-[1.7]">
+          <p className="max-w-[38ch] text-[rgba(17,20,24,0.84)] text-base font-light leading-[1.7]">
             {language === "en" 
               ? "Every project here was built from scratch. Different industries, different challenges — same standard of work."
               : "Cada proyecto fue construido desde cero. Distintos sectores, distintos retos — el mismo nivel de exigencia."
@@ -124,10 +124,10 @@ export function Work({ primary = false }: { primary?: boolean } = {}) {
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-[#2E3542] rounded-[4px] overflow-hidden relative flex flex-col transition-all duration-300 hover:bg-[#36404E] no-underline text-[#f2ede6] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+              className="group bg-[#f6f4ef] rounded-[4px] overflow-hidden relative flex flex-col transition-all duration-300 hover:bg-[#ece8e0] no-underline text-[#111418] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
             >
               {/* Image Preview Area */}
-              <div className="relative w-full aspect-[16/10] bg-[#36404E] overflow-hidden">
+              <div className="relative w-full aspect-[16/10] bg-[#ffffff] overflow-hidden">
                 {/* Actual Screenshot */}
                 <Image
                   src={project.image}
@@ -138,10 +138,10 @@ export function Work({ primary = false }: { primary?: boolean } = {}) {
                 />
                 
                 {/* Gradient overlay for better text contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2E3542] via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#f6f4ef] via-transparent to-transparent opacity-60" />
                 
                 {/* View site indicator */}
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-[#d4a853] text-[#262C37] px-4 py-2 rounded-[3px] font-display font-bold text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-[#111418] text-[#111418] px-4 py-2 rounded-full font-sans font-semibold text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                   {language === "en" ? "View Site" : "Ver Web"}
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
@@ -152,7 +152,7 @@ export function Work({ primary = false }: { primary?: boolean } = {}) {
               {/* Content */}
               <div className="p-6 flex flex-col flex-1">
                 {/* Industry */}
-                <span className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-[#d4a853] mb-3">
+                <span className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-[#a67c2e] mb-3">
                   {language === "es" ? project.industryEs : project.industryEn}
                 </span>
 
@@ -161,13 +161,13 @@ export function Work({ primary = false }: { primary?: boolean } = {}) {
                   <h3 className="font-display font-extrabold text-[clamp(1.3rem,2.5vw,1.8rem)] tracking-[-0.01em] leading-[1.1]">
                     {project.name}
                   </h3>
-                  <span className="text-[0.75rem] text-[rgba(242, 237, 230, 0.60)]">
+                  <span className="text-[0.75rem] text-[rgba(17,20,24,0.7)]">
                     {project.url}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="text-[0.88rem] text-[rgba(242, 237, 230, 0.82)] leading-[1.65] mb-5 flex-1">
+                <p className="text-[0.88rem] text-[rgba(17,20,24,0.84)] leading-[1.65] mb-5 flex-1">
                   {language === "es" ? project.descEs : project.descEn}
                 </p>
 
@@ -176,7 +176,7 @@ export function Work({ primary = false }: { primary?: boolean } = {}) {
                   {project.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="text-[0.65rem] font-medium tracking-[0.08em] uppercase px-3 py-1 border border-[rgba(255,255,255,0.13)] rounded-full text-[rgba(242, 237, 230, 0.60)] transition-colors duration-200 group-hover:border-[rgba(212,168,83,0.3)] group-hover:text-[rgba(242,237,230,0.6)]"
+                      className="text-[0.65rem] font-medium tracking-[0.08em] uppercase px-3 py-1 border border-[rgba(17,20,24,0.17)] rounded-full text-[rgba(17,20,24,0.7)] transition-colors duration-200 group-hover:border-[rgba(212,168,83,0.3)] group-hover:text-[rgba(17,20,24,0.7)]"
                     >
                       {tag}
                     </span>
@@ -185,7 +185,7 @@ export function Work({ primary = false }: { primary?: boolean } = {}) {
               </div>
 
               {/* Gold bottom line on hover */}
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#d4a853] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#c9a04a] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
             </a>
           ))}
         </div>

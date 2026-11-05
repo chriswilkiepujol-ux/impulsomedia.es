@@ -18,7 +18,7 @@ export function BlogListing() {
           <h1 className="font-display font-extrabold text-[clamp(1.9rem,3.8vw,2.8rem)] leading-[1.2] tracking-[-0.015em] mb-4">
             {t("Notas sobre SEO, campañas y proyectos reales", "Notes on SEO, campaigns and real projects")}
           </h1>
-          <p className="text-[rgba(242,237,230,0.72)] leading-[1.7]">
+          <p className="text-[rgba(17,20,24,0.84)] leading-[1.7]">
             {t(
               "Lo que aprendemos trabajando con negocios locales y marcas a mayor escala, sin relleno.",
               "What we learn working with local businesses and larger-scale brands, no filler."
@@ -34,7 +34,7 @@ export function BlogListing() {
               <Reveal key={post.id} delay={i * 80}>
                 <Link
                   href={href}
-                  className="group block h-full bg-[#2E3542] border border-[rgba(255,255,255,0.09)] rounded-xl overflow-hidden no-underline text-[#f2ede6] transition-colors duration-200 hover:bg-[#36404E]"
+                  className="group block h-full bg-[#f6f4ef] border border-[rgba(17,20,24,0.13)] rounded-xl overflow-hidden no-underline text-[#111418] transition-colors duration-200 hover:bg-[#ece8e0]"
                 >
                   <div className="relative w-full aspect-[16/9] overflow-hidden">
                     <Image
@@ -46,16 +46,16 @@ export function BlogListing() {
                     />
                   </div>
                   <div className="p-6">
-                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[#d4a853] mb-3 block">
+                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[#a67c2e] mb-3 block">
                     {language === "es" ? post.categoryLabelEs : post.categoryLabelEn}
                   </span>
                   <h2 className="font-display font-extrabold text-lg leading-[1.3] mb-3">
                     {language === "es" ? post.titleEs : post.titleEn}
                   </h2>
-                  <p className="text-sm text-[rgba(242,237,230,0.65)] leading-[1.6] mb-5">
+                  <p className="text-sm text-[rgba(17,20,24,0.7)] leading-[1.6] mb-5">
                     {language === "es" ? post.excerptEs : post.excerptEn}
                   </p>
-                  <span className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm group-hover:gap-3 transition-all duration-200">
+                  <span className="inline-flex items-center gap-2 text-[#a67c2e] font-semibold text-sm group-hover:gap-3 transition-all duration-200">
                     {t("Leer más", "Read more")}
                     <ArrowRight className="w-4 h-4" />
                   </span>

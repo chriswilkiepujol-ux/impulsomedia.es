@@ -126,7 +126,7 @@ export function WorkCarousel() {
   }, [hasEntered, isPaused])
 
   return (
-    <section ref={sectionRef} id="work" className="py-[clamp(2.5rem,6vw,4.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
+    <section ref={sectionRef} id="work" className="py-[clamp(2.5rem,6vw,4.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
           <Reveal>
@@ -140,21 +140,21 @@ export function WorkCarousel() {
           <div className="flex items-center gap-3">
             <Link
               href={language === "en" ? "/en/work" : "/proyectos"}
-              className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm hover:gap-3 transition-all duration-200 whitespace-nowrap mr-2"
+              className="inline-flex items-center gap-2 text-[#a67c2e] font-semibold text-sm hover:gap-3 transition-all duration-200 whitespace-nowrap mr-2"
             >
               {t("Ver todos", "See all")}
             </Link>
             <button
               onClick={() => scroll("left")}
               aria-label={t("Anterior", "Previous")}
-              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center hover:border-[#d4a853] hover:text-[#d4a853] transition-colors duration-200"
+              className="w-10 h-10 rounded-full border border-[rgba(17,20,24,0.17)] flex items-center justify-center hover:border-[#c9a04a] hover:text-[#a67c2e] transition-colors duration-200"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => scroll("right")}
               aria-label={t("Siguiente", "Next")}
-              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center hover:border-[#d4a853] hover:text-[#d4a853] transition-colors duration-200"
+              className="w-10 h-10 rounded-full border border-[rgba(17,20,24,0.17)] flex items-center justify-center hover:border-[#c9a04a] hover:text-[#a67c2e] transition-colors duration-200"
             >
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -175,9 +175,9 @@ export function WorkCarousel() {
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group snap-start shrink-0 w-[85%] md:w-[calc(33.333%-14px)] bg-[#2E3542] rounded-[4px] overflow-hidden flex flex-col transition-all duration-300 hover:bg-[#36404E] no-underline text-[#f2ede6]"
+              className="group snap-start shrink-0 w-[85%] md:w-[calc(33.333%-14px)] bg-[#f6f4ef] rounded-[4px] overflow-hidden flex flex-col transition-all duration-300 hover:bg-[#ece8e0] no-underline text-[#111418]"
             >
-              <div className="relative w-full aspect-[16/10] bg-[#36404E] overflow-hidden">
+              <div className="relative w-full aspect-[16/10] bg-[#ffffff] overflow-hidden">
                 <Image
                   src={project.image}
                   alt={`${project.name} website screenshot`}
@@ -187,13 +187,13 @@ export function WorkCarousel() {
                 />
               </div>
               <div className="p-5">
-                <span className="text-[0.65rem] font-medium tracking-[0.18em] uppercase text-[#d4a853] mb-2 block">
+                <span className="text-[0.65rem] font-medium tracking-[0.18em] uppercase text-[#a67c2e] mb-2 block">
                   {language === "es" ? project.industryEs : project.industryEn}
                 </span>
                 <h3 className="font-display font-extrabold text-lg tracking-[-0.01em]">
                   {project.name}
                 </h3>
-                <span className="text-[0.75rem] text-[rgba(242,237,230,0.60)]">
+                <span className="text-[0.75rem] text-[rgba(17,20,24,0.7)]">
                   {project.url}
                 </span>
               </div>

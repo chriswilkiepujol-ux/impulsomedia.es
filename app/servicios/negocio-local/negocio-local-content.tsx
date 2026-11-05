@@ -1,19 +1,19 @@
 "use client"
 
 import { LanguageProvider } from '@/lib/language-context'
-import { Header } from '@/components/header'
+import { HeaderV2 as Header } from '@/components/v2/header'
 import { ServicesByAudience } from '@/components/services-by-audience'
 import { Reviews } from '@/components/reviews'
-import { Footer } from '@/components/footer'
+import { FooterV2 as Footer } from '@/components/v2/sections'
 import { AreasStrip } from '@/components/areas-strip'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function NegocioLocalContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
     <LanguageProvider initialLanguage={lang}>
-      <div className="min-h-screen bg-[#262C37]">
+      <div className="min-h-screen bg-[#ffffff]">
         <Header />
-        <main className="pt-[68px]">
+        <main>
           <ServicesByAudience category="local" />
           <AreasStrip services={['web', 'seo', 'marketing']} />
           <Reviews />

@@ -15,28 +15,28 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#262C37] border-t border-[rgba(255,255,255,0.06)] py-[clamp(2.5rem,5vw,4rem)] px-[clamp(1.5rem,5vw,4rem)]">
+    <footer className="bg-[#ffffff] border-t border-[rgba(17,20,24,0.1)] py-[clamp(2.5rem,5vw,4rem)] px-[clamp(1.5rem,5vw,4rem)]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
           {/* Brand */}
           <div className="max-w-[280px]">
             <a 
               href={homeHref} 
-              className="flex items-center gap-2 font-display font-extrabold text-[1.1rem] tracking-[0.12em] uppercase text-[#f2ede6] no-underline mb-3 shrink-0"
+              className="flex items-center gap-2 font-display font-extrabold text-[1.1rem] tracking-[0.12em] uppercase text-[#111418] no-underline mb-3 shrink-0"
             >
               <svg className="w-7 h-7 shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="16" cy="16" r="14" stroke="#d4a853" strokeWidth="2" fill="none"/>
-                <path d="M6 16 L10 16 L12 10 L16 22 L20 8 L22 16 L26 16" stroke="#d4a853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                <circle cx="16" cy="16" r="14" stroke="#c9a04a" strokeWidth="2" fill="none"/>
+                <path d="M6 16 L10 16 L12 10 L16 22 L20 8 L22 16 L26 16" stroke="#c9a04a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
               </svg>
-              Impulso<em className="text-[#d4a853] not-italic">Media</em>
+              Impulso<em className="text-[#a67c2e] not-italic">Media</em>
             </a>
-            <p className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] leading-[1.6] mb-3">
+            <p className="text-[0.85rem] text-[rgba(17,20,24,0.7)] leading-[1.6] mb-3">
               {t(
                 'Agencia digital integral. Diseño web, SEO, publicidad y conversión — construido desde cero. Siempre.',
                 'Full-service digital agency. Web design, SEO, paid social & conversion — built from scratch. Always.'
               )}
             </p>
-            <p className="text-[0.78rem] text-[rgba(242, 237, 230, 0.42)] leading-[1.6]">
+            <p className="text-[0.78rem] text-[rgba(17,20,24,0.58)] leading-[1.6]">
               {t(
                 'Con sede en Sotogrande, Cádiz. Servicio en San Roque, Gibraltar, La Línea y todo el Campo de Gibraltar.',
                 'Based in Sotogrande, Cádiz. Serving San Roque, Gibraltar, La Línea and all of Campo de Gibraltar.'
@@ -48,7 +48,7 @@ export function Footer() {
           <div className="flex flex-wrap gap-12 md:gap-16">
             {/* Services */}
             <div>
-              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-4">
+              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#a67c2e] mb-4">
                 {t('Servicios', 'Services')}
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
@@ -60,7 +60,7 @@ export function Footer() {
                   ['/servicios/performance', 'Performance a escala', 'Performance at scale'],
                 ].map(([es, labelEs, labelEn]) => (
                   <li key={es}>
-                    <a href={isEn ? esToEn[es] : es} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                    <a href={isEn ? esToEn[es] : es} className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                       {isEn ? labelEn : labelEs}
                     </a>
                   </li>
@@ -70,32 +70,32 @@ export function Footer() {
 
             {/* Company */}
             <div>
-              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-4">
+              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#a67c2e] mb-4">
                 {t('Empresa', 'Company')}
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
                 <li>
-                  <a href={preciosHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={preciosHref} className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                     {t('Precios', 'Pricing')}
                   </a>
                 </li>
                 <li>
-                  <a href={proyectosHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={proyectosHref} className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                     {t('Trabajo', 'Work')}
                   </a>
                 </li>
                 <li>
-                  <a href={`${serviciosHref}#process`} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={`${serviciosHref}#process`} className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                     {t('Proceso', 'Process')}
                   </a>
                 </li>
                 <li>
-                  <a href={isEn ? '/en/blog' : '/blog'} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={isEn ? '/en/blog' : '/blog'} className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                     {t('Blog', 'Blog')}
                   </a>
                 </li>
                 <li>
-                  <a href={contactoHref} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href={contactoHref} className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                     {t('Contacto', 'Contact')}
                   </a>
                 </li>
@@ -104,13 +104,13 @@ export function Footer() {
 
             {/* Areas */}
             <div>
-              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-4">
+              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#a67c2e] mb-4">
                 {t('Zonas', 'Areas')}
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
                 {areasFor(language).map((a) => (
                   <li key={a.href}>
-                    <a href={a.href} className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                    <a href={a.href} className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                       {isEn ? a.labelEn : a.labelEs}
                     </a>
                   </li>
@@ -120,17 +120,17 @@ export function Footer() {
 
             {/* Contact */}
             <div>
-              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#d4a853] mb-4">
+              <h6 className="font-display font-bold text-[0.72rem] tracking-[0.15em] uppercase text-[#a67c2e] mb-4">
                 {t('Contacto', 'Contact')}
               </h6>
               <ul className="flex flex-col gap-[0.6rem]">
                 <li>
-                  <a href="mailto:chris@impulsomedia.es" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href="mailto:chris@impulsomedia.es" className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                     chris@impulsomedia.es
                   </a>
                 </li>
                 <li>
-                  <a href="https://wa.me/34680863229" className="text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] no-underline transition-colors hover:text-[#f2ede6]">
+                  <a href="https://wa.me/34680863229" className="text-[0.85rem] text-[rgba(17,20,24,0.7)] no-underline transition-colors hover:text-[#111418]">
                     +34 680 863 229
                   </a>
                 </li>
@@ -140,8 +140,8 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="pt-8 border-t border-[rgba(255,255,255,0.06)] flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-[0.78rem] text-[rgba(242, 237, 230, 0.60)]">
+        <div className="pt-8 border-t border-[rgba(17,20,24,0.1)] flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-[0.78rem] text-[rgba(17,20,24,0.7)]">
             &copy; {currentYear} ImpulsoMedia. {t('Todos los derechos reservados.', 'All rights reserved.')}
           </p>
         </div>

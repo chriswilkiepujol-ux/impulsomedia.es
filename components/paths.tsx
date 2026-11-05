@@ -62,36 +62,36 @@ export function Paths() {
   const t = content[language]
 
   return (
-    <section id="paths" className="relative py-14 md:py-20 bg-[#262C37]">
+    <section id="paths" className="relative py-14 md:py-20 bg-[#ffffff]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
         <Reveal className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
-          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
+          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">
             {t.tag}
           </span>
-          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6]">
+          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#111418]">
             {t.headline}
           </h2>
         </Reveal>
 
-        <div className="grid grid-cols-2 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
+        <div className="grid grid-cols-2 gap-[1.5px] bg-[rgba(17,20,24,0.13)]">
           {t.paths.map((path, index) => (
-            <div key={index} className="bg-[#2E3542] p-4 md:p-10 flex flex-col">
-              <div className="w-9 h-9 md:w-12 md:h-12 rounded-full border border-[#d4a853] flex items-center justify-center mb-4 md:mb-6">
-                <path.icon className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+            <div key={index} className="bg-[#f6f4ef] p-4 md:p-10 flex flex-col">
+              <div className="w-9 h-9 md:w-12 md:h-12 rounded-full border border-[#c9a04a] flex items-center justify-center mb-4 md:mb-6">
+                <path.icon className="w-5 h-5 text-[#a67c2e]" strokeWidth={1.5} />
               </div>
-              <h3 className="font-display font-bold text-base md:text-2xl text-[#f2ede6] mb-2 md:mb-3">
+              <h3 className="font-display font-bold text-base md:text-2xl text-[#111418] mb-2 md:mb-3">
                 {path.title}
               </h3>
-              <p className="text-[#f2ede6]/[0.82] text-xs md:text-base leading-relaxed mb-4 md:mb-6">
+              <p className="text-[#111418]/[0.82] text-xs md:text-base leading-relaxed mb-4 md:mb-6">
                 {path.description}
               </p>
               <ul className="mb-5 md:mb-8">
                 {path.items.map((item, i) => (
                   <li
                     key={i}
-                    className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-[#f2ede6]/[0.82] py-2 md:py-3 border-t border-[rgba(255,255,255,0.09)] first:border-t-0"
+                    className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-[#111418]/[0.82] py-2 md:py-3 border-t border-[rgba(17,20,24,0.13)] first:border-t-0"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#c9a04a] flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -101,7 +101,7 @@ export function Paths() {
                 {path.style === "whatsapp" ? (
                   <a
                     href={language === 'en' ? esToEn[path.href] : path.href}
-                    className="inline-flex w-full md:w-auto justify-center items-center gap-2 bg-[#25d366] text-white px-3 py-2.5 md:px-5 md:py-3 rounded-[3px] font-display font-bold text-[0.68rem] md:text-[0.78rem] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:-translate-y-[1px]"
+                    className="inline-flex w-full md:w-auto justify-center items-center gap-2 bg-[#25d366] text-white px-3 py-2.5 md:px-5 md:py-3 rounded-full font-sans font-semibold text-[0.68rem] md:text-[0.78rem] no-underline transition-all duration-200 hover:-translate-y-[1px]"
                   >
                     <MessageCircle className="w-4 h-4" />
                     {path.cta}
@@ -109,7 +109,7 @@ export function Paths() {
                 ) : (
                   <a
                     href={language === 'en' ? esToEn[path.href] : path.href}
-                    className="inline-flex w-full md:w-auto justify-center items-center gap-2 border border-[#d4a853] text-[#d4a853] px-3 py-2.5 md:px-5 md:py-3 rounded-[3px] font-display font-bold text-[0.68rem] md:text-[0.78rem] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:bg-[#d4a853] hover:text-[#1a1408]"
+                    className="inline-flex w-full md:w-auto justify-center items-center gap-2 border border-[#c9a04a] text-[#a67c2e] px-3 py-2.5 md:px-5 md:py-3 rounded-full font-sans font-semibold text-[0.68rem] md:text-[0.78rem] no-underline transition-all duration-200 hover:bg-[#c9a04a] hover:text-[#1a1408]"
                   >
                     <Calendar className="w-4 h-4" />
                     {path.cta}

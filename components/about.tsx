@@ -75,21 +75,21 @@ export function About({ primary = false }: { primary?: boolean } = {}) {
   const t = content[language]
 
   return (
-    <section id="about" className="relative py-14 md:py-20 bg-[#262C37]">
+    <section id="about" className="relative py-14 md:py-20 bg-[#ffffff]">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="max-w-3xl mb-10 md:mb-14">
-          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
+          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">
             {t.tag}
           </span>
-          <Heading className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6] mb-8">
+          <Heading className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#111418] mb-8">
             {t.headline}
           </Heading>
           
           {/* Story paragraphs */}
           <div className="space-y-4">
             {t.story.map((paragraph, index) => (
-              <p key={index} className="text-[#f2ede6]/60 text-lg leading-relaxed font-sans">
+              <p key={index} className="text-[#111418]/60 text-lg leading-relaxed font-sans">
                 {paragraph}
               </p>
             ))}
@@ -101,20 +101,20 @@ export function About({ primary = false }: { primary?: boolean } = {}) {
           {t.values.map((value, index) => (
             <div 
               key={index}
-              className="group relative p-4 md:p-8 rounded-xl bg-[#2E3542] border border-[#36404E] hover:border-[#d4a853]/40 transition-all duration-300"
+              className="group relative p-4 md:p-8 rounded-xl bg-[#f6f4ef] border border-[#ece8e0] hover:border-[#c9a04a]/40 transition-all duration-300"
             >
               {/* Top gold line on hover */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#d4a853] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-xl" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c9a04a] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-xl" />
               
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#d4a853]/10 flex items-center justify-center mb-3 md:mb-5">
-                <value.icon className="w-4 h-4 md:w-5 md:h-5 text-[#d4a853]" />
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#c9a04a]/10 flex items-center justify-center mb-3 md:mb-5">
+                <value.icon className="w-4 h-4 md:w-5 md:h-5 text-[#a67c2e]" />
               </div>
               
-              <h3 className="font-display font-bold text-sm md:text-lg text-[#f2ede6] mb-2 md:mb-3">
+              <h3 className="font-display font-bold text-sm md:text-lg text-[#111418] mb-2 md:mb-3">
                 {value.title}
               </h3>
               
-              <p className="text-[#f2ede6]/50 text-xs md:text-sm leading-relaxed font-sans">
+              <p className="text-[#111418]/50 text-xs md:text-sm leading-relaxed font-sans">
                 {value.description}
               </p>
             </div>

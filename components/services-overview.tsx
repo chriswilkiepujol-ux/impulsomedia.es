@@ -11,7 +11,7 @@ export function ServicesOverview() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="services" className="py-[clamp(2.5rem,6vw,4.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+    <section id="services" className="py-[clamp(2.5rem,6vw,4.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
           <Reveal>
@@ -20,28 +20,28 @@ export function ServicesOverview() {
             </span>
             <h2 className="font-display font-extrabold text-[clamp(1.7rem,3.6vw,2.5rem)] leading-[1.2] tracking-[-0.015em]">
               {t('El rango completo de ', 'The full range of ')}
-              <em className="text-[#d4a853] not-italic">{t('servicios', 'services')}</em>
+              <em className="text-[#a67c2e] not-italic">{t('servicios', 'services')}</em>
             </h2>
           </Reveal>
           <Link
             href={language === 'en' ? '/en/services' : '/servicios'}
-            className="inline-flex items-center gap-2 text-[#d4a853] font-semibold text-sm hover:gap-3 transition-all duration-200 whitespace-nowrap"
+            className="inline-flex items-center gap-2 text-[#a67c2e] font-semibold text-sm hover:gap-3 transition-all duration-200 whitespace-nowrap"
           >
             {t('Ver todos los servicios', 'See all services')}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <Reveal delay={120} className="grid grid-cols-2 md:grid-cols-4 gap-[1.5px] bg-[rgba(255,255,255,0.09)] border border-[rgba(255,255,255,0.09)]">
+        <Reveal delay={120} className="grid grid-cols-2 md:grid-cols-4 gap-[1.5px] bg-[rgba(17,20,24,0.13)] border border-[rgba(17,20,24,0.13)]">
           {services.map((service) => {
             const Icon = service.icon
             return (
               <Link
                 key={service.num}
                 href={language === 'en' ? esToEn[service.pillar] : service.pillar}
-                className="bg-[#2E3542] p-4 md:p-5 flex flex-col items-start gap-2.5 hover:bg-[#36404E] transition-colors duration-200 hover:-translate-y-0.5 no-underline text-[#f2ede6]"
+                className="bg-[#f6f4ef] p-4 md:p-5 flex flex-col items-start gap-2.5 hover:bg-[#ece8e0] transition-colors duration-200 hover:-translate-y-0.5 no-underline text-[#111418]"
               >
-                <Icon className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+                <Icon className="w-5 h-5 text-[#a67c2e]" strokeWidth={1.5} />
                 <span className="font-display font-bold text-[0.85rem] leading-tight">
                   {language === 'es' ? service.titleEs : service.titleEn}
                 </span>

@@ -37,7 +37,7 @@ export function Process() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="process" className="py-[clamp(3.5rem,7vw,5.5rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
+    <section id="process" className="py-[clamp(3.5rem,7vw,5.5rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
         <div className="text-center mb-[clamp(2rem,4vw,3.5rem)]">
@@ -46,21 +46,21 @@ export function Process() {
           </span>
           <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
             {t('Proceso ', 'Process ')}
-            <em className="text-[#d4a853] not-italic">{t('simple', 'simple')}</em>
+            <em className="text-[#a67c2e] not-italic">{t('simple', 'simple')}</em>
             {t(', resultados ', ', results ')}
-            <em className="text-[#d4a853] not-italic">{t('excepcionales', 'exceptional')}</em>
+            <em className="text-[#a67c2e] not-italic">{t('excepcionales', 'exceptional')}</em>
           </h2>
         </div>
 
         {/* Process Steps */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 relative">
           {/* Connecting line */}
-          <div className="hidden lg:block absolute top-10 left-[12%] right-[12%] h-[1px] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.13)] to-transparent" />
+          <div className="hidden lg:block absolute top-10 left-[12%] right-[12%] h-[1px] bg-gradient-to-r from-transparent via-[rgba(17,20,24,0.17)] to-transparent" />
 
           {steps.map((step, index) => (
             <div key={step.num} className="p-4 md:p-[clamp(1.5rem,3vw,2.5rem)] text-center relative z-10">
               {/* Step Number */}
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center mx-auto mb-3 md:mb-6 font-display font-extrabold text-[0.75rem] md:text-[0.85rem] text-[#d4a853] bg-[#262C37]">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[rgba(17,20,24,0.17)] flex items-center justify-center mx-auto mb-3 md:mb-6 font-display font-extrabold text-[0.75rem] md:text-[0.85rem] text-[#a67c2e] bg-[#ffffff]">
                 {step.num}
               </div>
 
@@ -70,7 +70,7 @@ export function Process() {
               </h4>
 
               {/* Description */}
-              <p className="text-[0.75rem] md:text-[0.85rem] text-[rgba(242, 237, 230, 0.60)] leading-relaxed">
+              <p className="text-[0.75rem] md:text-[0.85rem] text-[rgba(17,20,24,0.7)] leading-relaxed">
                 {language === 'es' ? step.descEs : step.descEn}
               </p>
             </div>

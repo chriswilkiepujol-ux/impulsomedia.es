@@ -80,17 +80,17 @@ export function Why() {
   const t = content[language]
 
   return (
-    <section id="why" className="relative py-14 md:py-20 bg-[#2E3542]">
+    <section id="why" className="relative py-14 md:py-20 bg-[#f6f4ef]">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="max-w-3xl mb-10 md:mb-14">
-          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
+          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">
             {t.tag}
           </span>
-          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6] mb-6">
+          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#111418] mb-6">
             {t.headline}
           </h2>
-          <p className="text-[#f2ede6]/60 text-lg md:text-xl leading-relaxed font-sans">
+          <p className="text-[#111418]/60 text-lg md:text-xl leading-relaxed font-sans">
             {t.description}
           </p>
         </div>
@@ -102,16 +102,16 @@ export function Why() {
             {t.reasons.map((reason, index) => (
               <div 
                 key={index}
-                className="flex flex-col md:flex-row gap-3 md:gap-6 p-4 md:p-6 rounded-xl bg-[#36404E] border border-[#36404E] hover:border-[#d4a853]/30 transition-colors duration-300"
+                className="flex flex-col md:flex-row gap-3 md:gap-6 p-4 md:p-6 rounded-xl bg-[#ffffff] border border-[#ece8e0] hover:border-[#c9a04a]/30 transition-colors duration-300"
               >
-                <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
-                  <reason.icon className="w-4 h-4 md:w-5 md:h-5 text-[#d4a853]" />
+                <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#c9a04a]/10 flex items-center justify-center">
+                  <reason.icon className="w-4 h-4 md:w-5 md:h-5 text-[#a67c2e]" />
                 </div>
                 <div>
-                  <h3 className="font-display font-bold text-sm md:text-lg text-[#f2ede6] mb-1 md:mb-2">
+                  <h3 className="font-display font-bold text-sm md:text-lg text-[#111418] mb-1 md:mb-2">
                     {reason.title}
                   </h3>
-                  <p className="text-[#f2ede6]/60 text-xs md:text-base leading-relaxed font-sans">
+                  <p className="text-[#111418]/60 text-xs md:text-base leading-relaxed font-sans">
                     {reason.description}
                   </p>
                 </div>
@@ -121,10 +121,10 @@ export function Why() {
 
           {/* Quote Card */}
           <div className="lg:sticky lg:top-32 h-fit">
-            <div className="relative p-8 md:p-10 rounded-2xl bg-gradient-to-br from-[#d4a853]/20 to-[#d4a853]/5 border border-[#d4a853]/30">
+            <div className="relative p-8 md:p-10 rounded-2xl bg-gradient-to-br from-[#c9a04a]/20 to-[#c9a04a]/5 border border-[#c9a04a]/30">
               {/* Quote mark */}
               <svg 
-                className="absolute top-6 left-6 w-10 h-10 text-[#d4a853]/30"
+                className="absolute top-6 left-6 w-10 h-10 text-[#a67c2e]/30"
                 viewBox="0 0 24 24" 
                 fill="currentColor"
               >
@@ -132,17 +132,17 @@ export function Why() {
               </svg>
               
               <blockquote className="relative z-10 pt-8">
-                <p className="font-display font-semibold text-xl md:text-2xl text-[#f2ede6] leading-snug mb-6">
+                <p className="font-display font-semibold text-xl md:text-2xl text-[#111418] leading-snug mb-6">
                   {t.quote}
                 </p>
                 <footer className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#d4a853] flex items-center justify-center">
-                    <svg className="w-5 h-5 text-[#262C37]" viewBox="0 0 32 32" fill="none">
+                  <div className="w-10 h-10 rounded-full bg-[#c9a04a] flex items-center justify-center">
+                    <svg className="w-5 h-5 text-[#111418]" viewBox="0 0 32 32" fill="none">
                       <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M6 16 L10 16 L12 10 L16 22 L20 8 L22 16 L26 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                     </svg>
                   </div>
-                  <span className="text-[#d4a853] font-semibold text-sm tracking-wide">
+                  <span className="text-[#a67c2e] font-semibold text-sm tracking-wide">
                     {t.quoteAuthor}
                   </span>
                 </footer>

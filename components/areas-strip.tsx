@@ -15,7 +15,7 @@ export function AreasStrip({ services, exclude }: { services?: AreaLink['service
   if (!links.length) return null
 
   return (
-    <section className="py-8 md:py-12 px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37] border-t border-[rgba(255,255,255,0.06)]">
+    <section className="py-8 md:py-12 px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff] border-t border-[rgba(17,20,24,0.1)]">
       <div className="max-w-[1200px] mx-auto">
         <span className="section-label mb-4 block">{t('Servicios', 'Services')}</span>
         <div className="flex flex-wrap gap-2 md:gap-3 mb-6 md:mb-8">
@@ -23,7 +23,7 @@ export function AreasStrip({ services, exclude }: { services?: AreaLink['service
             <a
               key={p.es}
               href={language === 'es' ? p.es : p.en}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-[#d4a853]/40 text-[0.78rem] md:text-[0.85rem] text-[#f2ede6] no-underline hover:border-[#d4a853] hover:text-[#d4a853] transition-colors"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-[#c9a04a]/40 text-[0.78rem] md:text-[0.85rem] text-[#111418] no-underline hover:border-[#c9a04a] hover:text-[#a67c2e] transition-colors"
             >
               {language === 'es' ? p.labelEs : p.labelEn}
               <ArrowRight className="w-3.5 h-3.5" />
@@ -36,7 +36,7 @@ export function AreasStrip({ services, exclude }: { services?: AreaLink['service
             <a
               key={a.href}
               href={a.href}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-[rgba(255,255,255,0.13)] text-[0.78rem] md:text-[0.85rem] text-[rgba(242,237,230,0.75)] no-underline hover:border-[#d4a853] hover:text-[#d4a853] transition-colors"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-[rgba(17,20,24,0.17)] text-[0.78rem] md:text-[0.85rem] text-[rgba(17,20,24,0.84)] no-underline hover:border-[#c9a04a] hover:text-[#a67c2e] transition-colors"
             >
               {language === 'es' ? a.labelEs : a.labelEn}
               <ArrowRight className="w-3.5 h-3.5" />

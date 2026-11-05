@@ -57,21 +57,21 @@ export function PricingGuide() {
   return (
     <>
       {/* Intro */}
-      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
+      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
         <div className="max-w-[1200px] mx-auto">
           <div className="max-w-[64ch]">
             <span className="section-label mb-4 block">{t('Precios', 'Pricing')}</span>
             <h1 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em] mb-5">
               {t('Cada proyecto se presupuesta ', 'Every project is priced ')}
-              <em className="text-[#d4a853] not-italic">{t('según lo que necesita.', 'on what it needs.')}</em>
+              <em className="text-[#a67c2e] not-italic">{t('según lo que necesita.', 'on what it needs.')}</em>
             </h1>
-            <p className="text-[rgba(242,237,230,0.82)] text-base leading-[1.7] mb-4">
+            <p className="text-[rgba(17,20,24,0.84)] text-base leading-[1.7] mb-4">
               {t(
                 'No trabajamos con tarifas fijas porque dos negocios nunca necesitan lo mismo. El precio depende del diseño, del número de páginas, de las funcionalidades y automatizaciones, de si partimos de cero o de una web existente, de los idiomas y del plazo. Más abajo tienes qué pesa en el presupuesto y unos ejemplos orientativos para situarte.',
                 "We don't work with fixed rates because no two businesses need the same thing. The price depends on the design, the number of pages, the functionality and automations, whether we start from scratch or from an existing site, the languages and the timeline. Below you'll find what drives the budget and some indicative examples to place yourself."
               )}
             </p>
-            <p className="text-[rgba(242,237,230,0.6)] text-sm leading-[1.7] mb-7">
+            <p className="text-[rgba(17,20,24,0.7)] text-sm leading-[1.7] mb-7">
               {t(
                 'El precio definitivo siempre va por escrito en una propuesta cerrada, después de una llamada de descubrimiento gratuita.',
                 'The final price always goes in a written, fixed proposal after a free discovery call.'
@@ -81,7 +81,7 @@ export function PricingGuide() {
               href="https://wa.me/34680863229?text=Hola%2C%20quiero%20una%20propuesta%20para%20mi%20proyecto"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#25d366] text-white px-7 py-4 rounded-[3px] font-display font-bold text-[0.82rem] tracking-[0.07em] uppercase no-underline transition-all duration-200 hover:-translate-y-[2px]"
+              className="inline-flex items-center gap-3 bg-[#25d366] text-white px-7 py-4 rounded-full font-sans font-semibold text-[0.92rem] no-underline transition-all duration-200 hover:-translate-y-[2px]"
             >
               <MessageCircle className="w-[18px] h-[18px]" />
               {t('Pedir propuesta por WhatsApp', 'Request a proposal on WhatsApp')}
@@ -91,24 +91,24 @@ export function PricingGuide() {
       </section>
 
       {/* Factors */}
-      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-3">
             {t('Qué determina el precio', 'What determines the price')}
           </h2>
-          <p className="text-[rgba(242,237,230,0.65)] text-sm md:text-base mb-8 md:mb-10 max-w-[60ch]">
+          <p className="text-[rgba(17,20,24,0.7)] text-sm md:text-base mb-8 md:mb-10 max-w-[60ch]">
             {t('Ocho cosas que miramos antes de poner un número.', 'Eight things we look at before putting a number down.')}
           </p>
-          <div className="mobile-dense grid grid-cols-2 lg:grid-cols-4 gap-[1.5px] bg-[rgba(255,255,255,0.09)]">
+          <div className="mobile-dense grid grid-cols-2 lg:grid-cols-4 gap-[1.5px] bg-[rgba(17,20,24,0.13)]">
             {factors.map((f, i) => {
               const Icon = f.icon
               const [title, desc] = es ? f.es : f.en
               return (
-                <div key={title} className="bg-[#2E3542] p-6 md:p-7">
-                  <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#d4a853] mb-4 block">{String(i + 1).padStart(2, '0')}</span>
-                  <Icon className="w-7 h-7 text-[#d4a853] mb-4" strokeWidth={1.5} />
+                <div key={title} className="bg-[#f6f4ef] p-6 md:p-7">
+                  <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#a67c2e] mb-4 block">{String(i + 1).padStart(2, '0')}</span>
+                  <Icon className="w-7 h-7 text-[#a67c2e] mb-4" strokeWidth={1.5} />
                   <h3 className="font-display font-extrabold text-lg mb-2">{title}</h3>
-                  <p className="text-[0.85rem] text-[rgba(242,237,230,0.60)] leading-[1.6]">{desc}</p>
+                  <p className="text-[0.85rem] text-[rgba(17,20,24,0.7)] leading-[1.6]">{desc}</p>
                 </div>
               )
             })}
@@ -117,12 +117,12 @@ export function PricingGuide() {
       </section>
 
       {/* Examples */}
-      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#262C37]">
+      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-3">
             {t('Ejemplos orientativos', 'Indicative examples')}
           </h2>
-          <p className="text-[rgba(242,237,230,0.65)] text-sm md:text-base mb-8 md:mb-10 max-w-[64ch]">
+          <p className="text-[rgba(17,20,24,0.7)] text-sm md:text-base mb-8 md:mb-10 max-w-[64ch]">
             {t(
               'Para que sepas en qué orden de magnitud se mueve cada tipo de proyecto. Son puntos de partida, no presupuestos.',
               'So you know the order of magnitude for each type of project. Starting points, not quotes.'
@@ -132,14 +132,14 @@ export function PricingGuide() {
             {examples.map((ex) => {
               const e = es ? ex.es : ex.en
               return (
-                <div key={e.name} className="rounded-[3px] border border-[#36404E] p-5 md:p-6 flex flex-col">
+                <div key={e.name} className="rounded-2xl border border-[#ece8e0] p-5 md:p-6 flex flex-col">
                   <h3 className="font-display font-extrabold text-lg mb-1">{e.name}</h3>
-                  <div className="font-display font-extrabold text-[1.35rem] text-[#d4a853] leading-none mb-2">{e.from}</div>
-                  <p className="text-[0.78rem] text-[rgba(242,237,230,0.55)] mb-4">{e.who}</p>
+                  <div className="font-display font-extrabold text-[1.35rem] text-[#a67c2e] leading-none mb-2">{e.from}</div>
+                  <p className="text-[0.78rem] text-[rgba(17,20,24,0.7)] mb-4">{e.who}</p>
                   <ul className="flex flex-col gap-1.5 mt-auto">
                     {e.scope.map((s) => (
-                      <li key={s} className="flex items-start gap-2 text-[0.82rem] text-[rgba(242,237,230,0.75)]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] shrink-0 mt-[7px]" />
+                      <li key={s} className="flex items-start gap-2 text-[0.82rem] text-[rgba(17,20,24,0.84)]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#c9a04a] shrink-0 mt-[7px]" />
                         {s}
                       </li>
                     ))}
@@ -148,7 +148,7 @@ export function PricingGuide() {
               )
             })}
           </div>
-          <p className="text-[rgba(242,237,230,0.5)] text-xs md:text-sm mt-6 max-w-[70ch]">
+          <p className="text-[rgba(17,20,24,0.7)] text-xs md:text-sm mt-6 max-w-[70ch]">
             {t(
               'Precios sin IVA, orientativos y sujetos al alcance final de cada propuesta. Los servicios mensuales (SEO, anuncios, contenido) se presupuestan por canales, sector e inversión.',
               'Prices exclude VAT, are indicative and subject to the final scope of each proposal. Monthly services (SEO, ads, content) are scoped by channels, sector and media budget.'
@@ -158,7 +158,7 @@ export function PricingGuide() {
       </section>
 
       {/* FAQ */}
-      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-8">
             {t('Preguntas sobre precios', 'Questions about pricing')}
@@ -168,7 +168,7 @@ export function PricingGuide() {
           </div>
           <a
             href={contactHref}
-            className="inline-flex items-center gap-3 mt-8 border border-[rgba(242,237,230,0.25)] text-[#f2ede6] px-7 py-4 rounded-[3px] font-display font-bold text-[0.82rem] tracking-[0.07em] uppercase no-underline transition-all duration-200 hover:border-[#d4a853] hover:text-[#d4a853]"
+            className="inline-flex items-center gap-3 mt-8 border border-[rgba(17,20,24,0.58)] text-[#111418] px-7 py-4 rounded-full font-sans font-semibold text-[0.92rem] no-underline transition-all duration-200 hover:border-[#c9a04a] hover:text-[#a67c2e]"
           >
             <Calendar className="w-[18px] h-[18px]" />
             {t('Reservar llamada de descubrimiento', 'Book a discovery call')}

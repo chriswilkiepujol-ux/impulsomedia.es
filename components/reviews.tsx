@@ -133,14 +133,14 @@ export function Reviews({ primary = false }: { primary?: boolean } = {}) {
   }, [hasEntered, isPaused])
 
   return (
-    <section ref={sectionRef} id="reviews" className="relative py-14 md:py-20 bg-[#2E3542]">
+    <section ref={sectionRef} id="reviews" className="relative py-14 md:py-20 bg-[#f6f4ef]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-8 md:mb-10 gap-6 text-center md:text-left">
           <Reveal className="max-w-2xl mx-auto md:mx-0">
-            <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#d4a853] mb-4">
+            <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">
               {t.tag}
             </span>
-            <Heading className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#f2ede6]">
+            <Heading className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#111418]">
               {t.headline}
             </Heading>
           </Reveal>
@@ -148,14 +148,14 @@ export function Reviews({ primary = false }: { primary?: boolean } = {}) {
             <button
               onClick={() => scroll("left")}
               aria-label={language === "es" ? "Anterior" : "Previous"}
-              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center hover:border-[#d4a853] hover:text-[#d4a853] transition-colors duration-200"
+              className="w-10 h-10 rounded-full border border-[rgba(17,20,24,0.17)] flex items-center justify-center hover:border-[#c9a04a] hover:text-[#a67c2e] transition-colors duration-200"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => scroll("right")}
               aria-label={language === "es" ? "Siguiente" : "Next"}
-              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.13)] flex items-center justify-center hover:border-[#d4a853] hover:text-[#d4a853] transition-colors duration-200"
+              className="w-10 h-10 rounded-full border border-[rgba(17,20,24,0.17)] flex items-center justify-center hover:border-[#c9a04a] hover:text-[#a67c2e] transition-colors duration-200"
             >
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -173,19 +173,19 @@ export function Reviews({ primary = false }: { primary?: boolean } = {}) {
           {t.reviews.map((review, index) => (
             <div
               key={index}
-              className="snap-start shrink-0 w-[85%] md:w-[calc(33.333%-16px)] bg-[#262C37] border border-[rgba(255,255,255,0.09)] rounded-xl p-6 md:p-8"
+              className="snap-start shrink-0 w-[85%] md:w-[calc(33.333%-16px)] bg-[#ffffff] border border-[rgba(17,20,24,0.13)] rounded-xl p-6 md:p-8"
             >
               <div className="flex gap-1 mb-5">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#d4a853] text-[#d4a853]" />
+                  <Star key={i} className="w-4 h-4 fill-[#a67c2e] text-[#a67c2e]" />
                 ))}
               </div>
-              <p className="text-[#f2ede6]/[0.82] text-sm leading-relaxed mb-6">
+              <p className="text-[#111418]/[0.82] text-sm leading-relaxed mb-6">
                 {review.quote}
               </p>
               <div>
-                <p className="text-[#f2ede6] font-semibold text-sm">{review.author}</p>
-                <p className="text-[#f2ede6]/60 text-xs mt-0.5">{review.role}</p>
+                <p className="text-[#111418] font-semibold text-sm">{review.author}</p>
+                <p className="text-[#111418]/60 text-xs mt-0.5">{review.role}</p>
               </div>
             </div>
           ))}
@@ -195,7 +195,7 @@ export function Reviews({ primary = false }: { primary?: boolean } = {}) {
           href="https://g.page/r/Cart50OPlmevEBE/review"
           target="_blank"
           rel="noopener noreferrer"
-          className="block text-center text-[#f2ede6]/60 text-sm no-underline hover:text-[#d4a853] transition-colors duration-200"
+          className="block text-center text-[#111418]/60 text-sm no-underline hover:text-[#a67c2e] transition-colors duration-200"
         >
           {t.googleLabel}
         </a>

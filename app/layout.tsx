@@ -1,22 +1,15 @@
 import type { Metadata, Viewport } from 'next'
-import { Syne, DM_Sans } from 'next/font/google'
 import localFont from 'next/font/local'
 import { Analytics } from '@vercel/analytics/react'
 import { GoogleAnalytics } from '@/components/google-analytics'
 import { headers } from 'next/headers'
 import './globals.css'
+import './v2.css'
 
-const syne = Syne({ 
-  subsets: ["latin"],
-  weight: ['400', '500', '600', '700', '800'],
+const syne = localFont({
+  src: './fonts/syne-800.woff2',
+  weight: '800',
   variable: '--font-display',
-  display: 'swap',
-})
-
-const dmSans = DM_Sans({ 
-  subsets: ["latin"],
-  weight: ['300', '400', '500'],
-  variable: '--font-sans',
   display: 'swap',
 })
 
@@ -45,7 +38,7 @@ const dmMono = localFont({
 })
 
 export const viewport: Viewport = {
-  themeColor: '#d4a853',
+  themeColor: '#c9a04a',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -200,7 +193,7 @@ export default async function RootLayout({
   const locale = headersList.get('x-locale') === 'en' ? 'en' : 'es'
 
   return (
-    <html lang={locale} className={`${syne.variable} ${dmSans.variable} ${bricolage.variable} ${manrope.variable} ${dmMono.variable}`}>
+    <html lang={locale} className={`${syne.variable} ${bricolage.variable} ${manrope.variable} ${dmMono.variable}`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <script
@@ -208,7 +201,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="font-sans antialiased bg-[#262C37] text-[#f2ede6]">
+      <body className="v2 font-sans antialiased bg-white text-[#111418]">
         {children}
         <Analytics />
         <GoogleAnalytics />

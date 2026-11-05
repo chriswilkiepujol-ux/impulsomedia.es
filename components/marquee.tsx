@@ -17,7 +17,7 @@ export function Marquee() {
   ]
 
   return (
-    <div className="bg-[#d4a853] overflow-hidden py-[0.9rem]">
+    <div className="bg-[#c9a04a] overflow-hidden py-[0.9rem]">
       <div className="flex w-max animate-marquee">
         {/* Duplicate items for seamless loop */}
         {[...items, ...items].map((item, index) => (

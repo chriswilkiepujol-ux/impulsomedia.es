@@ -11,7 +11,7 @@ export function Services({ primary = false }: { primary?: boolean } = {}) {
   const { t, language } = useLanguage()
 
   return (
-    <section id="services" className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#2E3542]">
+    <section id="services" className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
       <div className="max-w-[1200px] mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-[clamp(2rem,4vw,3.5rem)] gap-6 md:gap-8">
@@ -21,10 +21,10 @@ export function Services({ primary = false }: { primary?: boolean } = {}) {
             </span>
             <Heading className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
               {t('Servicios que ', 'Services that ')}
-              <em className="text-[#d4a853] not-italic">{t('funcionan', 'work')}</em>
+              <em className="text-[#a67c2e] not-italic">{t('funcionan', 'work')}</em>
             </Heading>
           </div>
-          <p className="max-w-[36ch] text-[rgba(242, 237, 230, 0.82)] text-base font-light leading-[1.7]">
+          <p className="max-w-[36ch] text-[rgba(17,20,24,0.84)] text-base font-light leading-[1.7]">
             {t(
               'Soluciones digitales completas para hacer crecer tu negocio.',
               'Complete digital solutions to grow your business.'
@@ -33,26 +33,26 @@ export function Services({ primary = false }: { primary?: boolean } = {}) {
         </div>
 
         {/* Services Grid - 5 cards */}
-        <div className="mobile-dense grid grid-cols-2 lg:grid-cols-3 gap-[1.5px] bg-[rgba(255,255,255,0.06)] mb-6">
+        <div className="mobile-dense grid grid-cols-2 lg:grid-cols-3 gap-[1.5px] bg-[rgba(17,20,24,0.1)] mb-6">
           {services.map((service) => {
             const IconComponent = service.icon
             return (
               <a
                 key={service.num}
                 href={language === 'en' ? esToEn[service.pillar] : service.pillar}
-                className="group bg-[#2E3542] p-6 md:p-[clamp(2rem,4vw,3rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#36404E] no-underline text-[#f2ede6] block"
+                className="group bg-[#f6f4ef] p-6 md:p-[clamp(2rem,4vw,3rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#ece8e0] no-underline text-[#111418] block"
               >
                 {/* Gold top line on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#d4a853] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#c9a04a] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
 
                 {/* Number */}
-                <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#d4a853] mb-4 md:mb-6 block">
+                <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#a67c2e] mb-4 md:mb-6 block">
                   {service.num}
                 </span>
 
                 {/* Icon */}
                 <div className="mb-4 md:mb-5">
-                  <IconComponent className="w-8 h-8 text-[#d4a853]" strokeWidth={1.5} />
+                  <IconComponent className="w-8 h-8 text-[#a67c2e]" strokeWidth={1.5} />
                 </div>
 
                 {/* Title */}
@@ -61,7 +61,7 @@ export function Services({ primary = false }: { primary?: boolean } = {}) {
                 </h3>
 
                 {/* Description */}
-                <p className="text-[0.9rem] text-[rgba(242, 237, 230, 0.60)] leading-[1.7] mb-5 md:mb-6">
+                <p className="text-[0.9rem] text-[rgba(17,20,24,0.7)] leading-[1.7] mb-5 md:mb-6">
                   {language === 'es' ? service.descEs : service.descEn}
                 </p>
 
@@ -70,7 +70,7 @@ export function Services({ primary = false }: { primary?: boolean } = {}) {
                   {(language === 'es' ? service.tagsEs : service.tagsEn).map((tag, idx) => (
                     <span
                       key={idx}
-                      className="text-[0.68rem] font-medium tracking-[0.08em] uppercase px-3 py-1 border border-[rgba(255,255,255,0.13)] rounded-full text-[rgba(242, 237, 230, 0.60)]"
+                      className="text-[0.68rem] font-medium tracking-[0.08em] uppercase px-3 py-1 border border-[rgba(17,20,24,0.17)] rounded-full text-[rgba(17,20,24,0.7)]"
                     >
                       {tag}
                     </span>
@@ -81,24 +81,24 @@ export function Services({ primary = false }: { primary?: boolean } = {}) {
           })}
           
           {/* Highlighted Package Card */}
-          <div className="group bg-gradient-to-br from-[#d4a853] to-[#b8923f] p-6 md:p-[clamp(2rem,4vw,3rem)] relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4a853]/20">
+          <div className="group bg-gradient-to-br from-[#c9a04a] to-[#b8923f] p-6 md:p-[clamp(2rem,4vw,3rem)] relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-[#c9a04a]/20">
             {/* Number */}
-            <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#262C37]/60 mb-4 md:mb-6 block">
+            <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#111418]/60 mb-4 md:mb-6 block">
               PACK
             </span>
 
             {/* Icon */}
             <div className="mb-4 md:mb-5">
-              <Package className="w-8 h-8 text-[#262C37]" strokeWidth={1.5} />
+              <Package className="w-8 h-8 text-[#111418]" strokeWidth={1.5} />
             </div>
 
             {/* Title */}
-            <h3 className="font-display font-extrabold text-[clamp(1.2rem,2.5vw,1.8rem)] tracking-[-0.01em] mb-3 leading-[1.1] text-[#262C37]">
+            <h3 className="font-display font-extrabold text-[clamp(1.2rem,2.5vw,1.8rem)] tracking-[-0.01em] mb-3 leading-[1.1] text-[#111418]">
               {language === 'es' ? 'Paquete Digital Completo' : 'Full Digital Package'}
             </h3>
 
             {/* Description */}
-            <p className="text-[0.9rem] text-[#262C37]/70 leading-[1.7] mb-5 md:mb-6">
+            <p className="text-[0.9rem] text-[#111418]/70 leading-[1.7] mb-5 md:mb-6">
               {language === 'es' 
                 ? 'Todo incluido: web, branding, redes sociales y mantenimiento. La solución completa para lanzar o renovar tu presencia digital.' 
                 : 'All-inclusive: web, branding, social media and maintenance. The complete solution to launch or renew your digital presence.'}
@@ -109,7 +109,7 @@ export function Services({ primary = false }: { primary?: boolean } = {}) {
               href="https://wa.me/34680863229"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 bg-[#262C37] text-[#f2ede6] font-semibold text-sm tracking-wide rounded-full hover:bg-[#36404E] transition-colors duration-300"
+              className="inline-flex items-center gap-2 px-5 py-3 bg-[#ffffff] text-[#111418] font-semibold text-sm tracking-wide rounded-full hover:bg-[#ece8e0] transition-colors duration-300"
             >
               <MessageCircle className="w-4 h-4" />
               {language === 'es' ? 'Solicitar info' : 'Request info'}
