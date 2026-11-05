@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
-import { Syne, DM_Sans, Bricolage_Grotesque, Manrope, DM_Mono } from 'next/font/google'
+import { Syne, DM_Sans } from 'next/font/google'
+import localFont from 'next/font/local'
 import { Analytics } from '@vercel/analytics/react'
 import { GoogleAnalytics } from '@/components/google-analytics'
 import { headers } from 'next/headers'
@@ -19,23 +20,26 @@ const dmSans = DM_Sans({
   display: 'swap',
 })
 
-const bricolage = Bricolage_Grotesque({
-  subsets: ['latin'],
-  weight: ['500', '700', '800'],
+// v2 fonts are self-hosted (app/fonts) so builds never depend on fetching Google Fonts.
+const bricolage = localFont({
+  src: './fonts/bricolage-grotesque.woff2',
+  weight: '200 800',
   variable: '--font-v2-display',
   display: 'swap',
 })
 
-const manrope = Manrope({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const manrope = localFont({
+  src: './fonts/manrope.woff2',
+  weight: '200 800',
   variable: '--font-v2-body',
   display: 'swap',
 })
 
-const dmMono = DM_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
+const dmMono = localFont({
+  src: [
+    { path: './fonts/dm-mono-400.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/dm-mono-500.woff2', weight: '500', style: 'normal' },
+  ],
   variable: '--font-v2-mono',
   display: 'swap',
 })
