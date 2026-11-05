@@ -56,9 +56,9 @@ export const servicePages3: LandingPage[] = [
     ],
     casesTitle: 'Marcas de la zona con las que trabajamos',
     cases: [
-      { name: 'Pujol Wilkie', sector: 'Servicios jurídicos', summary: 'Un despacho para compradores extranjeros que necesita una imagen sobria y bilingüe, que transmita solvencia desde la primera pantalla.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
-      { name: 'Sotovet', sector: 'Clínica veterinaria · Sotogrande', summary: 'Una clínica de Sotogrande con una web clara y cercana que genera confianza tanto en clientes españoles como extranjeros.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
-      { name: 'Ágora Sotogrande', sector: 'Restaurante y eventos', summary: 'Un local de referencia en la zona, con una presencia digital que mantiene su carácter en cada página.', href: 'https://agorasotogrande.com', image: '/images/agora-screenshot.png' },
+      { name: 'Sotovet', sector: 'Clínica veterinaria · Sotogrande', summary: 'Identidad y web de una clínica de Sotogrande, diseñadas a la vez para que la marca se reconozca en cada pantalla y genere confianza en clientes españoles y extranjeros.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
+      { name: 'Racket Breaks', sector: 'Viajes de pádel', summary: 'Marca y plataforma de reservas para jugadores británicos que viajan al sur de España, con una imagen coherente de la primera página a la confirmación de la reserva.', href: 'https://www.racketbreaks.com', image: '/images/racketbreaks-screenshot.png' },
+      { name: 'Pujol Wilkie', sector: 'Servicios jurídicos', summary: 'Identidad modernizada y web nueva para un despacho que atiende a compradores extranjeros: una imagen más sobria y actual, en español e inglés.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
     ],
     faqTitle: 'Preguntas sobre branding',
     faqs: [
@@ -125,9 +125,9 @@ export const servicePages3: LandingPage[] = [
     ],
     casesTitle: 'Local brands we work with',
     cases: [
-      { name: 'Pujol Wilkie', sector: 'Legal services', summary: 'A firm serving international buyers that needs a sober, bilingual image conveying solidity from the first screen.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
-      { name: 'Sotovet', sector: 'Veterinary clinic · Sotogrande', summary: 'A Sotogrande clinic with a clear, friendly site that builds trust with both Spanish and international clients.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
-      { name: 'Racket Breaks', sector: 'Padel travel, UK audience', summary: 'A padel travel brand for UK players heading to southern Spain, with a site that keeps its personality on every page.', href: 'https://www.racketbreaks.com', image: '/images/racketbreaks-screenshot.png' },
+      { name: 'Sotovet', sector: 'Veterinary clinic · Sotogrande', summary: 'Identity and website for a Sotogrande clinic, designed together so the brand is recognisable on every screen and builds trust with both Spanish and international clients.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
+      { name: 'Racket Breaks', sector: 'Padel travel, UK audience', summary: 'Brand and booking platform for UK players travelling to southern Spain, with a consistent look from the first page to the booking confirmation.', href: 'https://www.racketbreaks.com', image: '/images/racketbreaks-screenshot.png' },
+      { name: 'Pujol Wilkie', sector: 'Legal services', summary: 'A modernised identity and a new website for a firm serving international buyers: a sharper, more current image, in English and Spanish.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
     ],
     faqTitle: 'Branding questions we get asked',
     faqs: [
