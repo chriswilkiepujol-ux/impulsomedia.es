@@ -77,9 +77,6 @@ export function ServiceOrbit() {
           <circle cx="16" cy="16" r="14" stroke="#c9a04a" strokeWidth="2" />
           <path d="M6 16 L10 16 L12 10 L16 22 L20 8 L22 16 L26 16" stroke="#c9a04a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <b>13</b>
-        <span>{en ? 'services' : 'servicios'}</span>
-        <small>{en ? 'one point of contact' : 'un solo contacto'}</small>
       </div>
     </div>
   )
