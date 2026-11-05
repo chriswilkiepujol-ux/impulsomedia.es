@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useLanguage } from '@/lib/language-context'
 import { esToEn } from '@/lib/route-map'
 import { Reveal, CountUp, Mesh, Logo, GOLD, GOLD2 } from './shared'
+import { GReviews, type GReview } from './greviews'
 
 const href = (en: boolean, es: string) => (en ? esToEn[es] ?? es : es)
 
@@ -162,26 +163,18 @@ export function ProcessV2() {
 export function ReviewsV2() {
   const { t, language } = useLanguage()
   const en = language === 'en'
-  const quotes = [
-    ['S', 'Sotovet', t('Clínica veterinaria', 'Veterinary clinic'), t('Web totalmente nueva construida desde cero, rápida y bien organizada. Comunicación directa en todo momento.', 'A completely new website built from scratch, fast and well organised. Direct communication throughout.')],
-    ['Á', 'Ágora Sotogrande', t('Restaurante y discoteca', 'Restaurant & nightclub'), t('Entendieron el negocio desde el primer día. La web refleja exactamente lo que queríamos, y las reservas han subido.', 'They understood the business from day one. The site reflects exactly what we wanted, and bookings are up.')],
-    ['R', 'Racket Breaks', t('Viajes y reservas de pádel', 'Padel travel & bookings'), t('El flujo de reservas era justo lo que necesitábamos para un público del Reino Unido. Los cambios se resuelven rápido.', 'The booking flow was exactly what we needed for a UK audience. Changes get sorted fast.')],
+  const reviews: GReview[] = [
+    { name: 'Sotovet', role: t('Clínica veterinaria · Sotogrande', 'Veterinary clinic · Sotogrande'), text: t('Web totalmente nueva construida desde cero, rápida y bien organizada. Comunicación directa en todo momento.', 'A completely new website built from scratch, fast and well organised. Direct communication throughout.') },
+    { name: 'Ágora Sotogrande', role: t('Restaurante y discoteca', 'Restaurant & nightclub'), text: t('Entendieron el negocio desde el primer día. La web refleja exactamente lo que queríamos, y las reservas han subido.', 'They understood the business from day one. The site reflects exactly what we wanted, and bookings are up.') },
+    { name: 'Racket Breaks', role: t('Viajes y reservas de pádel', 'Padel travel & bookings'), text: t('El flujo de reservas era justo lo que necesitábamos para un público del Reino Unido. Los cambios se resuelven rápido.', 'The booking flow was exactly what we needed for a UK audience. Changes get sorted fast.') },
   ]
   return (
     <section className="section" id="opiniones" style={{ background: 'var(--paper2)' }}>
       <div className="wrap">
         <Reveal><div className="eyebrow">{t('Lo que dicen nuestros clientes', 'What our clients say')}</div></Reveal>
-        <Reveal><h2>{t('Opiniones verificadas en Google', 'Verified Google reviews')}</h2></Reveal>
-        <div className="quotes">
-          {quotes.map(([i, name, role, text]) => (
-            <Reveal key={name} as="blockquote" className="q">
-              <div className="stars">★★★★★</div>
-              <p>“{text}”</p>
-              <div className="who"><i>{i}</i><span><b>{name}</b>{role}</span></div>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal><div style={{ marginTop: 32 }}><Link href={href(en, '/opiniones')} className="btn ghost">{t('Leer todas las opiniones', 'Read all reviews')}</Link></div></Reveal>
+        <Reveal><h2>{t('Opiniones de clientes', 'Client reviews')}</h2></Reveal>
+        <GReviews reviews={reviews} es={!en} />
+        <Reveal><div style={{ marginTop: 28 }}><Link href={href(en, '/opiniones')} className="btn ghost">{t('Leer todas las opiniones', 'Read all reviews')}</Link></div></Reveal>
       </div>
     </section>
   )

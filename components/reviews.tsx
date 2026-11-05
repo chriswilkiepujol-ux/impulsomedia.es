@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { PageHero, SectionHead } from "@/components/v2/page"
-import { Reveal } from "@/components/v2/shared"
+import { GReviews } from "@/components/v2/greviews"
 
 export function Reviews({ primary = false }: { primary?: boolean } = {}) {
   const { language } = useLanguage()
@@ -86,19 +86,7 @@ export function Reviews({ primary = false }: { primary?: boolean } = {}) {
 
   const t = content[language]
   const es = language === 'es'
-  const initials = (n: string) => n.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ0-9]/g, '').slice(0, 1).toUpperCase()
-
-  const grid = (
-    <div className="quotes">
-      {t.reviews.map((r) => (
-        <Reveal key={r.author} as="blockquote" className="q">
-          <div className="stars">★★★★★</div>
-          <p>“{r.quote}”</p>
-          <div className="who"><i>{initials(r.author)}</i><span><b>{r.author}</b>{r.role}</span></div>
-        </Reveal>
-      ))}
-    </div>
-  )
+  const grid = <GReviews es={es} reviews={t.reviews.map((r) => ({ name: r.author, role: r.role, text: r.quote }))} />
 
   if (primary) {
     return (
@@ -143,7 +131,6 @@ export function Reviews({ primary = false }: { primary?: boolean } = {}) {
       <div className="wrap">
         <SectionHead eyebrow={t.tag} title={t.headline} />
         {grid}
-        <Reveal><div style={{ marginTop: 32 }}><a className="btn ghost" href="https://g.page/r/Cart50OPlmevEBE/review" target="_blank" rel="noopener noreferrer">{t.googleLabel}</a></div></Reveal>
       </div>
     </section>
   )

@@ -46,17 +46,19 @@ export function HeroV2() {
         <div className="stage rise d4" aria-label={t('Una web de cliente en monitor y móvil, con métricas flotantes', 'A client website on desktop and phone, with floating metrics')}>
           <div className="plate" />
           <div className="widget w1">
-            <div className="k">{t('Velocidad de carga', 'Load time')}</div>
-            <div className="v">&lt; 1 s<small>Next.js + Vercel</small></div>
-            <svg viewBox="0 0 160 36" preserveAspectRatio="none"><path d="M0 30 L20 28 L40 24 L60 26 L80 18 L100 16 L120 10 L140 8 L160 3" fill="none" stroke="#C9A04A" strokeWidth="2" /></svg>
+            <div className="k">{t('Crecimiento SEO', 'SEO growth')}</div>
+            <div className="v">×8<small>{t('impresiones', 'impressions')}</small></div>
+            <svg viewBox="0 0 160 36" preserveAspectRatio="none" aria-hidden="true"><path d="M0 33 L20 32 L40 31 L60 27 L80 22 L100 19 L120 14 L140 9 L160 2" fill="none" stroke="#C9A04A" strokeWidth="2" /></svg>
+            <div className="foot">{t('Google · 4 semanas · impulsomedia.es', 'Google · 4 weeks · impulsomedia.es')}</div>
           </div>
           <div className="widget w2">
             <div className="k">{t('Reseñas en Google', 'Google reviews')}</div>
-            <div className="v">{t('5,0', '5.0')}<small style={{ color: '#c9a04a' }}>★★★★★</small></div>
+            <div className="v">{t('5,0', '5.0')}<small style={{ color: '#fbbc04' }}>★★★★★</small></div>
           </div>
-          <div className="widget w3 wa">
-            <div className="ic">W</div>
-            <div className="msg"><b>{t('Nueva reserva', 'New booking')}</b>{t('Mesa VIP · sábado 23:00 · 8 pax', 'VIP table · Saturday 11pm · 8 pax')}</div>
+          <div className="widget w3 svcs">
+            <div className="k">{t('Un solo equipo', 'One team')}</div>
+            <div className="chips"><span>Web</span><span>SEO</span><span>Ads</span><span>{t('IA', 'AI')}</span></div>
+            <div className="foot">{t('10+ años en performance marketing', '10+ years in performance marketing')}</div>
           </div>
           <div className="monitor"><div className="screen">
             {/* eslint-disable-next-line @next/next/no-img-element */}
