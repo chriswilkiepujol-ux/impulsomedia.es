@@ -62,7 +62,7 @@ export function Paths() {
   const t = content[language]
 
   return (
-    <section id="paths" className="relative py-14 md:py-20 bg-[#ffffff]">
+    <section id="paths" className="relative py-10 md:py-14 bg-[#ffffff]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12">
         <Reveal className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
           <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">

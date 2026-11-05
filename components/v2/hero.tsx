@@ -24,8 +24,7 @@ export function HeroV2() {
             <h1 className="rise d1">
               {en ? <>Websites that <em>convert.</em><br />Campaigns that scale.</> : <>Webs que <em>convierten.</em><br />Campañas que escalan.</>}
             </h1>
-          </div>
-          <div className="side">
+            <div className="side">
             <p className="sub rise d2">
               {t(
                 'Diseño web a medida, SEO, Google y Meta Ads y automatización con IA para negocios que quieren crecer. Sin plantillas ni intermediarios: hablas con quien construye tu web y gestiona tus campañas.',
@@ -41,8 +40,8 @@ export function HeroV2() {
               <span className="avatars"><i /><i /><i /></span>
               <span>{t('7 negocios confían en nosotros', '7 businesses trust us')}</span>
             </div>
+            </div>
           </div>
-        </div>
 
         <div className="stage rise d4" aria-label={t('Una web de cliente en monitor y móvil, con métricas flotantes', 'A client website on desktop and phone, with floating metrics')}>
           <div className="plate" />
@@ -67,6 +66,7 @@ export function HeroV2() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/pujolwilkie-scroll-mobile-2x.webp" alt="" width={260} height={5276} style={{ ['--scroll-to' as string]: 'calc(-100% + 100%/9.6)' }} loading="eager" />
           </div></div>
+        </div>
         </div>
       </div>
     </header>

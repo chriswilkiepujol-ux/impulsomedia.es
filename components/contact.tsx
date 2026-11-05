@@ -60,18 +60,18 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
     <section id="contact" className="phero">
       <Mesh colors={[GOLD, GOLD2, INK, GOLD]} alpha={0.2} />
       <div className="gridlines" aria-hidden="true" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6 py-[clamp(52px,8vw,104px)]">
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6 py-[clamp(28px,4.2vw,60px)]">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column - Info */}
           <div>
             <span className="eyebrow mb-5">
               {t('Contacto', 'Contact')}
             </span>
-            <Heading className="font-display font-extrabold text-[clamp(38px,5.6vw,74px)] leading-[0.98] tracking-[-0.025em] mb-6">
+            <Heading className="font-display font-extrabold text-[clamp(34px,4.4vw,62px)] leading-[1] tracking-[-0.025em] mb-6">
               {t('Hablemos de tu ', "Let's talk about your ")}
               <em className="text-[#c9a04a] not-italic">{t('proyecto', 'project')}</em>
             </Heading>
-            <p className="text-[rgba(17,20,24,0.84)] text-base font-light leading-[1.7] mb-10 max-w-md">
+            <p className="text-[rgba(17,20,24,0.84)] text-base font-light leading-[1.6] mb-6 max-w-md">
               {t(
                 'Cuéntanos sobre tu negocio y tus objetivos. Te responderemos en menos de 24 horas.',
                 'Tell us about your business and goals. We\'ll respond within 24 hours.'
@@ -121,7 +121,7 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
 
           {/* Right Column - Form */}
           <div className="p-[clamp(1.5rem,4vw,2.5rem)] rounded-[22px] border border-[rgba(17,20,24,0.1)] bg-[#ffffff] shadow-[0_30px_60px_rgba(17,20,24,0.1)]">
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-x-4 gap-y-4">
               {/* Honeypot field - hidden from real visitors, bots that auto-fill every field will trip it */}
               <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }} aria-hidden="true">
                 <label htmlFor="website">Website</label>
@@ -197,7 +197,7 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
               </div>
 
               {/* Message */}
-              <div>
+              <div className="sm:col-span-2">
                 <label htmlFor="message" className="block text-[0.72rem] tracking-[0.1em] uppercase text-[rgba(17,20,24,0.7)] mb-2">
                   {t('Mensaje', 'Message')} *
                 </label>
@@ -205,7 +205,7 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
                   id="message"
                   name="message"
                   required
-                  rows={4}
+                  rows={3}
                   className="w-full px-4 py-3 rounded-2xl bg-[#f6f4ef] border border-[rgba(17,20,24,0.1)] text-[#111418] placeholder:text-[rgba(17,20,24,0.58)] focus:outline-none focus:border-[#c9a04a] transition-colors resize-none"
                   placeholder={t('Cuéntanos sobre tu proyecto...', 'Tell us about your project...')}
                 />
@@ -213,14 +213,14 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
 
               {/* Error Message */}
               {error && (
-                <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                <div className="sm:col-span-2 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
                   {error}
                 </div>
               )}
 
               {/* Success Message */}
               {isSuccess && (
-                <div className="p-4 rounded-2xl bg-[#c9a04a]/10 border border-[#c9a04a]/20 text-[#a67c2e] text-sm">
+                <div className="sm:col-span-2 p-4 rounded-2xl bg-[#c9a04a]/10 border border-[#c9a04a]/20 text-[#a67c2e] text-sm">
                   {t(
                     'Mensaje enviado correctamente. Te responderemos pronto.',
                     'Message sent successfully. We\'ll respond soon.'
@@ -232,7 +232,7 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full inline-flex items-center justify-center gap-[0.65rem] bg-[#111418] text-white px-8 py-4 rounded-full font-sans font-semibold text-[0.92rem] transition-all duration-200 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="sm:col-span-2 w-full inline-flex items-center justify-center gap-[0.65rem] bg-[#111418] text-white px-8 py-4 rounded-full font-sans font-semibold text-[0.92rem] transition-all duration-200 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>

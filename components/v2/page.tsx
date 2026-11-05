@@ -40,7 +40,7 @@ export function SectionHead({ eyebrow, title, lead, as: H = 'h2' }: { eyebrow: s
     <Reveal className="shead">
       <div>
         <div className="eyebrow">{eyebrow}</div>
-        <H style={{ fontSize: 'clamp(32px, 4.6vw, 58px)', marginTop: 18, maxWidth: '18ch' }}>{title}</H>
+        <H style={{ fontSize: 'clamp(28px, 3.6vw, 48px)', marginTop: 14, maxWidth: '18ch' }}>{title}</H>
       </div>
       {lead && <p className="lead">{lead}</p>}
     </Reveal>

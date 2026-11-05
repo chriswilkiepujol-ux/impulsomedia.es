@@ -72,7 +72,7 @@ export function FAQ() {
   const t = content[language]
 
   return (
-    <section id="faq" className="relative py-14 md:py-20 bg-[#f6f4ef]">
+    <section id="faq" className="relative py-10 md:py-14 bg-[#f6f4ef]">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">

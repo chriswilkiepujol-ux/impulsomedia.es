@@ -84,7 +84,7 @@ export function Why() {
       <div className="wrap">
         <Reveal>
           <div className="eyebrow">{t.tag}</div>
-          <h2 style={{ fontSize: 'clamp(32px, 4.6vw, 58px)', marginTop: 18, maxWidth: '18ch' }}>{t.headline}</h2>
+          <h2 style={{ fontSize: 'clamp(28px, 3.6vw, 48px)', marginTop: 14, maxWidth: '18ch' }}>{t.headline}</h2>
           <p className="lead">{t.description}</p>
         </Reveal>
         <div className="reasons">

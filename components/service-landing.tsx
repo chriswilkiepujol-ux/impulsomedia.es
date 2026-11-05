@@ -63,7 +63,7 @@ export function ServiceLanding({ path }: { path: string }) {
           />
 
           {/* Problem / context */}
-          <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
+          <section className="py-[clamp(2.5rem,4.8vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
             <div className="max-w-[1200px] mx-auto grid md:grid-cols-[1fr_2fr] gap-5 md:gap-16">
               <Reveal>
                 <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em]">
@@ -81,7 +81,7 @@ export function ServiceLanding({ path }: { path: string }) {
           </section>
 
           {/* Services */}
-          <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
+          <section className="py-[clamp(2.5rem,4.8vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
             <div className="max-w-[1200px] mx-auto">
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.servicesTitle}
@@ -105,7 +105,7 @@ export function ServiceLanding({ path }: { path: string }) {
           </section>
 
           {/* Process */}
-          <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
+          <section className="py-[clamp(2.5rem,4.8vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
             <div className="max-w-[1200px] mx-auto">
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.processTitle}
@@ -125,7 +125,7 @@ export function ServiceLanding({ path }: { path: string }) {
           </section>
 
           {/* Cases */}
-          <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
+          <section className="py-[clamp(2.5rem,4.8vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
             <div className="max-w-[1200px] mx-auto">
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.casesTitle}
@@ -157,7 +157,7 @@ export function ServiceLanding({ path }: { path: string }) {
           </section>
 
           {/* FAQ */}
-          <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
+          <section className="py-[clamp(2.5rem,4.8vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
             <div className="max-w-[1200px] mx-auto">
               <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-10">
                 {page.faqTitle}
