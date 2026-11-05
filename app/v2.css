@@ -265,3 +265,6 @@
   .v2 *, .v2 *::before, .v2 *::after { animation: none !important; transition: none !important; }
   .v2 .reveal.pre { opacity: 1; transform: none; }
 }
+
+/* mobile menu: language toggle keeps its pill shape */
+.v2 .mobile .lang a { padding: 8px 16px; border-bottom: 0; font-weight: 500; }
