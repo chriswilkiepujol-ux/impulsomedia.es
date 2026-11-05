@@ -9,6 +9,7 @@ export const esToEn: Record<string, string> = {
   '/servicios/seo': '/en/services/seo',
   '/servicios/publicidad': '/en/services/paid-media',
   '/servicios/automatizacion-ia': '/en/services/ai-automation',
+  '/servicios/branding': '/en/services/branding',
   '/precios': '/en/pricing',
   '/proyectos': '/en/work',
   '/nosotros': '/en/about',

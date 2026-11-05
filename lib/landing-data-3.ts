@@ -199,6 +199,8 @@ export const landingPages3: LandingPage[] = [
       { q: '¿Necesito la web en inglés?', a: 'En Estepona, casi seguro. Más del 30 % de los residentes son extranjeros y la mayoría de compradores de vivienda también. Escribimos la versión en inglés nativa, no con un plugin.' },
       { q: '¿Hacéis WordPress?', a: 'No. Construimos desde cero en Next.js: más rápido, más seguro y sin plugins que actualizar. Si tienes una web antigua, la rehacemos y migramos lo que valga.' },
       { q: '¿Tengo que pagar una cuota mensual?', a: 'No. La web es tuya y el hosting es gratuito para casi todas las webs corporativas. El mantenimiento y el SEO mensual son opcionales.' },
+      { q: '¿Hacéis webs para Manilva, Sabinillas y Casares?', a: 'Sí. Trabajamos en toda la franja de Manilva a Estepona, incluidos Sabinillas, Casares y Benahavís. Son mercados con mucho cliente extranjero, así que casi siempre planteamos la web en español y en inglés desde el principio.' },
+      { q: '¿Por qué elegir una agencia de la zona y no una de Marbella o Málaga?', a: 'Porque conocemos cómo busca tu cliente de esta franja, hablamos con negocios como el tuyo a diario y nos tienes a 20 minutos. Construimos la web con tu competencia real en mente, no con una plantilla de "diseño web + ciudad" repetida por toda la costa.' },
       { q: '¿Venís a Estepona?', a: 'Sí. Estamos en Sotogrande, a 20 minutos por la autovía. Nos reunimos en Estepona cuando hace falta y el día a día va por WhatsApp.' },
     ],
     cta: {
@@ -206,6 +208,17 @@ export const landingPages3: LandingPage[] = [
       sub: 'Mándanosla por WhatsApp y te decimos las tres cosas que la frenan frente a la competencia de la costa. Sin formularios.',
       whatsappText: 'Hola, quiero presupuesto para una web en Estepona',
       heroLabel: 'Pedir propuesta por WhatsApp',
+    },
+    related: {
+      title: 'Más sobre lo que hacemos en la costa',
+      links: [
+        { href: '/servicios/diseno-web', label: 'Diseño web a medida', desc: 'Cómo construimos webs desde cero: rápidas, bilingües y preparadas para Google.' },
+        { href: '/servicios/branding', label: 'Branding en Sotogrande', desc: 'Logotipo, identidad visual y tono de marca para negocios que compiten con la Costa del Sol.' },
+        { href: '/servicios/seo', label: 'SEO local', desc: 'Para aparecer cuando buscan tu servicio en Estepona, Manilva o Sabinillas, en español y en inglés.' },
+        { href: '/diseno-web-san-roque', label: 'Diseño web en San Roque y Sotogrande', desc: 'Nuestra base: cómo trabajamos con negocios del municipio.' },
+        { href: '/blog/seo-local-sotogrande-campo-gibraltar', label: 'Guía de SEO local en la zona', desc: 'Qué mueve la visibilidad local entre Sotogrande y la Costa del Sol.' },
+        { href: '/proyectos', label: 'Proyectos', desc: 'Webs reales para negocios de la costa, con enlace para verlas.' },
+      ],
     },
   },
 ]

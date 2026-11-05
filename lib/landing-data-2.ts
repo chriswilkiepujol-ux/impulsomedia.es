@@ -267,6 +267,8 @@ export const landingPages2: LandingPage[] = [
       { q: '¿Necesito la web en inglés?', a: 'Si estás en la zona de Sotogrande, Guadiaro o Torreguadiaro, sí: una parte grande de tus clientes vive aquí y busca en inglés. En San Roque pueblo depende del negocio. Lo vemos en la llamada y lo incluimos si aporta.' },
       { q: '¿Hacéis reservas online?', a: 'Sí. Para restaurantes, clínicas, actividades y alquileres montamos reservas conectadas a la herramienta que ya uses (o te ayudamos a elegir una). Se presupuesta aparte de la web.' },
       { q: '¿Tengo que pagar una cuota mensual?', a: 'No. La web es tuya y el hosting es gratuito para casi todas las webs corporativas. El mantenimiento y el SEO mensual son opcionales.' },
+      { q: '¿Cuánto tarda en estar lista una web en San Roque?', a: 'Una web corporativa de pocas páginas suele estar lista en unas semanas; una con reservas, listados o muchas páginas lleva algo más. El plazo exacto va en la propuesta cerrada, antes de empezar.' },
+      { q: '¿Cómo salgo en Google Maps en San Roque o Sotogrande?', a: 'Con una ficha de Google Business Profile completa y cuidada: categoría correcta, dirección o zona de servicio, fotos reales, horarios y reseñas de clientes. La configuramos al lanzar la web y, si quieres, la mantenemos.' },
       { q: '¿Me ayudáis a salir en Google en Sotogrande?', a: 'La web sale con el SEO on page hecho. Si quieres posicionar en serio ("tu servicio + Sotogrande / San Roque") tenemos un servicio de SEO local mensual, y conocemos las búsquedas de la zona mejor que nadie: es nuestro propio mercado.' },
     ],
     cta: {
@@ -274,6 +276,17 @@ export const landingPages2: LandingPage[] = [
       sub: 'Mándanos tu web (o la de tu competencia) por WhatsApp y te decimos qué haríamos distinto. Sin formularios ni reuniones de venta.',
       whatsappText: 'Hola, quiero presupuesto para una web en San Roque / Sotogrande',
       heroLabel: 'Pedir propuesta por WhatsApp',
+    },
+    related: {
+      title: 'Lo que suele ir de la mano de una web local',
+      links: [
+        { href: '/servicios/seo', label: 'SEO local', desc: 'Para que tu negocio aparezca cuando alguien busca tu servicio en San Roque, Guadiaro o Sotogrande.' },
+        { href: '/servicios/branding', label: 'Branding en Sotogrande', desc: 'Una identidad coherente en tu web, tus redes y tu fachada, a la altura del cliente de la zona.' },
+        { href: '/blog/seo-local-sotogrande-campo-gibraltar', label: 'Guía de SEO local en Sotogrande y el Campo', desc: 'Qué mueve de verdad la visibilidad local en la zona y por dónde empezar.' },
+        { href: '/blog/cuanto-cuesta-una-pagina-web-2026', label: 'Cuánto cuesta una página web en 2026', desc: 'Qué determina el precio de una web y qué esperar según lo que necesites.' },
+        { href: '/proyectos', label: 'Proyectos', desc: 'Webs que hemos construido para negocios de Sotogrande, San Roque y el Campo de Gibraltar.' },
+        { href: '/diseno-web-estepona', label: 'Diseño web en Estepona', desc: 'Si tu negocio también trabaja hacia la Costa del Sol, así enfocamos las webs de Estepona y Manilva.' },
+      ],
     },
   },
   // ---------------------------------------------------------------- 7

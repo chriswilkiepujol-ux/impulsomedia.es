@@ -29,6 +29,7 @@ export const servicePillars: { es: string; en: string; labelEs: string; labelEn:
   { es: '/servicios/diseno-web', en: '/en/services/web-design', labelEs: 'Diseño web', labelEn: 'Web design' },
   { es: '/servicios/seo', en: '/en/services/seo', labelEs: 'SEO', labelEn: 'SEO' },
   { es: '/servicios/publicidad', en: '/en/services/paid-media', labelEs: 'Google Ads y redes', labelEn: 'Google Ads & paid social' },
+  { es: '/servicios/branding', en: '/en/services/branding', labelEs: 'Branding', labelEn: 'Branding' },
   { es: '/servicios/automatizacion-ia', en: '/en/services/ai-automation', labelEs: 'Automatización e IA', labelEn: 'AI automation' },
   { es: '/servicios/performance', en: '/en/services/performance', labelEs: 'Performance a escala', labelEn: 'Performance at scale' },
 ]

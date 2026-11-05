@@ -168,6 +168,31 @@ export function ServiceLanding({ path }: { path: string }) {
             </div>
           </section>
 
+          {page.related && (
+            <section className="py-[clamp(2.5rem,4.8vw,4rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff] border-t border-[rgba(17,20,24,0.1)]">
+              <div className="max-w-[1200px] mx-auto">
+                <h2 className="font-display font-extrabold text-[clamp(1.4rem,2.8vw,2rem)] leading-[1.2] tracking-[-0.015em] mb-8">
+                  {page.related.title}
+                </h2>
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 md:gap-5">
+                  {page.related.links.map((l) => (
+                    <a
+                      key={l.href}
+                      href={l.href}
+                      className="group block rounded-2xl border border-[#ece8e0] hover:border-[#c9a04a]/60 transition-colors no-underline p-3.5 md:p-6"
+                    >
+                      <h3 className="font-display font-extrabold text-[0.9rem] md:text-[1.05rem] leading-[1.25] text-[#111418] mb-2 flex items-start gap-1.5">
+                        {l.label}
+                        <ArrowUpRight className="w-4 h-4 text-[#a67c2e] opacity-60 group-hover:opacity-100 transition-opacity" />
+                      </h3>
+                      <p className="text-[0.76rem] md:text-[0.85rem] text-[rgba(17,20,24,0.7)] leading-[1.5] md:leading-[1.6]">{l.desc}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
           <AreasStrip exclude={page.path} />
 
           {/* CTA */}

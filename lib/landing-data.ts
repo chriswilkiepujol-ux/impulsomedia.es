@@ -66,6 +66,8 @@ export interface LandingPage {
   faqTitle: string
   faqs: LandingFaq[]
   cta: { headline: string; sub: string; whatsappText: string; heroLabel?: string }
+  /** Contextual internal links shown above the footer strip (title + cards). */
+  related?: { title: string; links: { href: string; label: string; desc: string }[] }
 }
 
 export const landingPages: LandingPage[] = [
@@ -127,12 +129,25 @@ export const landingPages: LandingPage[] = [
       { q: 'How long does SEO take?', a: 'Local terms on google.com.gi are not very competitive: most local businesses see movement in 6 to 8 weeks and page one for their main terms within 3 to 5 months. International terms in iGaming, finance or insurance are a different league: expect 6 to 12 months, a real content and link programme, and a budget to match. We tell you which case you are in before you commit.' },
       { q: 'Can you work with iGaming operators, affiliates and financial firms?', a: 'Yes, and it is most of what we do for Gibraltar. Our background is performance marketing inside licensed operators: PPC, affiliates, programmatic and SEO under regulatory restrictions. We understand brand-term protection, affiliate and comparison SERPs and content that compliance will sign off. See our dedicated iGaming marketing page.' },
       { q: 'How much does SEO cost?', a: 'It depends on the markets, the competition and what the site needs. Local SEO for a business on the Rock and international SEO for a regulated brand are very different programmes. After the audit you get a written proposal with a fixed scope and fee, not an estimate that grows.' },
+      { q: 'Can one site rank on google.com.gi, google.co.uk and google.es?', a: 'Yes, if it is structured for it. The audit maps which pages target which market and language, how hreflang and geo-targeting are set up and where content must differ rather than be duplicated. A company selling into several countries from Gibraltar usually needs one well-organised site, not three copies.' },
+      { q: 'What is the first thing you would check on our site?', a: 'Whether Google can crawl and index the pages that matter, then whether those pages match what your customers actually search. Many Gibraltar sites have the right services but pages that answer none of the searches in their markets. Send us your URL and we will tell you which case you are in.' },
       { q: 'Do you come to Gibraltar?', a: 'Yes. We are in Sotogrande, 15 minutes away, and we meet clients in their Gibraltar offices regularly. Day to day we work over WhatsApp and video calls so you are not paying for travel time.' },
     ],
     cta: {
       headline: 'Want to know where your site stands in its markets?',
       sub: 'Send us your URL on WhatsApp and we will reply with the three things holding it back. No forms, no sales deck.',
       whatsappText: "Hi, I'd like a free SEO check for my Gibraltar business",
+    },
+    related: {
+      title: 'Related services and reading',
+      links: [
+        { href: '/en/services/seo', label: 'SEO services', desc: 'How we approach technical SEO, content and links for local and international sites.' },
+        { href: '/en/digital-marketing-gibraltar', label: 'Digital marketing in Gibraltar', desc: 'Paid search, paid social and performance marketing alongside SEO.' },
+        { href: '/en/web-design-gibraltar', label: 'Web design in Gibraltar', desc: 'Fast, bilingual sites built to rank, for international and local businesses.' },
+        { href: '/en/igaming-marketing', label: 'iGaming marketing', desc: 'Operator-level SEO, affiliates and performance marketing for regulated brands.' },
+        { href: '/en/blog/local-seo-sotogrande-campo-gibraltar', label: 'Local SEO guide: Sotogrande and Campo de Gibraltar', desc: 'What moves local visibility on this side of the bay, and where to start.' },
+        { href: '/en/services/branding', label: 'Branding in Sotogrande', desc: 'Brand identity, tone of voice and design applied to your website and social.' },
+      ],
     },
   },
   {
@@ -275,8 +290,9 @@ import { landingPages2 } from './landing-data-2'
 import { landingPages3 } from './landing-data-3'
 import { servicePages } from './service-pages'
 import { servicePages2 } from './service-pages-2'
+import { servicePages3 } from './service-pages-3'
 
-export const allLandingPages: LandingPage[] = [...landingPages, ...landingPages2, ...landingPages3, ...servicePages, ...servicePages2]
+export const allLandingPages: LandingPage[] = [...landingPages, ...landingPages2, ...landingPages3, ...servicePages, ...servicePages2, ...servicePages3]
 
 export function getLandingByPath(path: string): LandingPage | undefined {
   return allLandingPages.find((p) => p.path === path)

@@ -55,6 +55,7 @@ export function Footer() {
                 {[
                   ['/servicios/diseno-web', 'Diseño web', 'Web design'],
                   ['/servicios/seo', 'SEO', 'SEO'],
+                  ['/servicios/branding', 'Branding', 'Branding'],
                   ['/servicios/publicidad', 'Google Ads y redes', 'Google Ads & paid social'],
                   ['/servicios/automatizacion-ia', 'Automatización e IA', 'AI automation'],
                   ['/servicios/performance', 'Performance a escala', 'Performance at scale'],

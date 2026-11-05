@@ -206,7 +206,7 @@ export function FooterV2() {
   const { t, language } = useLanguage()
   const en = language === 'en'
   const year = new Date().getFullYear()
-  const services = [['/servicios/diseno-web', 'Diseño web', 'Web design'], ['/servicios/seo', 'SEO', 'SEO'], ['/servicios/publicidad', 'Google Ads y redes', 'Google Ads & paid social'], ['/servicios/automatizacion-ia', 'Automatización e IA', 'AI automation'], ['/servicios/performance', 'Performance a escala', 'Performance at scale']]
+  const services = [['/servicios/diseno-web', 'Diseño web', 'Web design'], ['/servicios/seo', 'SEO', 'SEO'], ['/servicios/branding', 'Branding', 'Branding'], ['/servicios/publicidad', 'Google Ads y redes', 'Google Ads & paid social'], ['/servicios/automatizacion-ia', 'Automatización e IA', 'AI automation'], ['/servicios/performance', 'Performance a escala', 'Performance at scale']]
   const company = [['/precios', 'Precios', 'Pricing'], ['/proyectos', 'Proyectos', 'Work'], ['/nosotros', 'Nosotros', 'About'], ['/opiniones', 'Opiniones', 'Reviews'], ['/blog', 'Blog', 'Blog'], ['/contacto', 'Contacto', 'Contact']]
   const areas = en
     ? [['/en/web-design-sotogrande', 'Web design Sotogrande'], ['/en/web-design-gibraltar', 'Web design Gibraltar'], ['/en/seo-gibraltar', 'SEO Gibraltar'], ['/en/digital-marketing-gibraltar', 'Digital marketing Gibraltar'], ['/en/igaming-marketing', 'iGaming marketing']]

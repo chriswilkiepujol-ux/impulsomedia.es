@@ -1,4 +1,4 @@
-import { Globe, Smartphone, TrendingUp, Wrench, Package, MessageCircle, Target, Share2, BarChart3, Handshake, Store, Instagram, Megaphone, Briefcase, Sparkles, LucideIcon } from 'lucide-react'
+import { Globe, Smartphone, TrendingUp, Wrench, Package, MessageCircle, Target, Share2, BarChart3, Handshake, Store, Instagram, Megaphone, Briefcase, Sparkles, Palette, LucideIcon } from 'lucide-react'
 
 export interface ServiceItem {
   num: string
@@ -11,7 +11,7 @@ export interface ServiceItem {
   tagsEs: string[]
   tagsEn: string[]
   /** Pillar page this service belongs to (ES path; EN resolved via route map) */
-  pillar: '/servicios/diseno-web' | '/servicios/seo' | '/servicios/publicidad' | '/servicios/automatizacion-ia' | '/servicios/performance'
+  pillar: '/servicios/diseno-web' | '/servicios/branding' | '/servicios/seo' | '/servicios/publicidad' | '/servicios/automatizacion-ia' | '/servicios/performance'
 }
 
 export const services: ServiceItem[] = [
@@ -170,6 +170,18 @@ export const services: ServiceItem[] = [
     tagsEs: ['Automatización', 'IA', 'Integraciones', 'Contenido'],
     tagsEn: ['Automation', 'AI', 'Integrations', 'Content'],
     pillar: '/servicios/automatizacion-ia',
+  },
+  {
+    num: '14',
+    icon: Palette,
+    category: 'local',
+    titleEs: 'Branding',
+    titleEn: 'Branding',
+    descEs: 'Logotipo, identidad visual y tono de marca aplicados a tu web, tus redes y tu documentación. Una marca coherente en todas partes.',
+    descEn: 'Logo, visual identity and tone of voice applied to your website, social and documents. One consistent brand everywhere.',
+    tagsEs: ['Logotipo', 'Identidad visual', 'Tono de marca', 'Guía de marca'],
+    tagsEn: ['Logo', 'Visual identity', 'Tone of voice', 'Brand guide'],
+    pillar: '/servicios/branding',
   },
 ]
 
