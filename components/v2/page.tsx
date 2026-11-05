@@ -6,12 +6,14 @@ import { Mesh, Reveal, GOLD, GOLD2, INK } from './shared'
 const MESH = [GOLD, GOLD2, INK, GOLD]
 
 /** Inner-page hero: cream band with drifting gold artwork, h1 on the left, visual on the right. */
-export function PageHero({ eyebrow, title, sub, note, actions, aside, asideFirstOnMobile = false }: {
+export function PageHero({ eyebrow, title, sub, note, actions, extra, aside, asideFirstOnMobile = false }: {
   eyebrow: string
   title: ReactNode
   sub?: ReactNode
   note?: ReactNode
   actions?: ReactNode
+  /** Extra block under the buttons (e.g. a stats row). */
+  extra?: ReactNode
   aside?: ReactNode
   /** On phones, show the visual straight after the title instead of after the buttons. */
   asideFirstOnMobile?: boolean
@@ -27,6 +29,7 @@ export function PageHero({ eyebrow, title, sub, note, actions, aside, asideFirst
           {sub && <p className="sub rise d2">{sub}</p>}
           {note && <p className="sub rise d2">{note}</p>}
           {actions && <div className="actions rise d3">{actions}</div>}
+          {extra && <div className="rise d3">{extra}</div>}
         </div>
         {aside && <div className="aside rise d4">{aside}</div>}
       </div>

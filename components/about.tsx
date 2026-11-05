@@ -87,6 +87,14 @@ export function About({ primary = false }: { primary?: boolean } = {}) {
           <a className="btn" href="https://wa.me/34680863229" target="_blank" rel="noopener noreferrer">{es ? 'Hablemos' : "Let's talk"} <span className="arr">→</span></a>
           <a className="btn ghost" href={es ? '/proyectos' : '/en/work'}>{es ? 'Ver proyectos' : 'See our work'}</a>
         </>}
+        extra={
+          <div className="hstats">
+            <div className="stat"><div className="n"><CountUp end={7} gold /></div><div className="l">{es ? 'Clientes activos' : 'Active clients'}</div></div>
+            <div className="stat"><div className="n"><CountUp end={10} suffix="+" /></div><div className="l">{es ? 'Años en marketing de resultados' : 'Years in performance marketing'}</div></div>
+            <div className="stat"><div className="n">ES + EN</div><div className="l">{es ? 'Bilingües por defecto' : 'Bilingual by default'}</div></div>
+            <div className="stat"><div className="n"><CountUp end={5} suffix={es ? ',0' : '.0'} /></div><div className="l">{es ? 'Valoración en Google' : 'Google rating'}</div></div>
+          </div>
+        }
         aside={
           <div className="photo" style={{ maxWidth: 440, marginLeft: 'auto' }}>
             <Image src="/images/chris-wilkie.jpg" alt={es ? 'Chris Wilkie, fundador de ImpulsoMedia' : 'Chris Wilkie, founder of ImpulsoMedia'} width={1200} height={1500} sizes="(max-width: 960px) 90vw, 440px" priority />
@@ -100,12 +108,6 @@ export function About({ primary = false }: { primary?: boolean } = {}) {
           <div className="story">
             <Reveal><div className="eyebrow">{es ? 'Nuestra historia' : 'Our story'}</div><h2 style={{ fontSize: 'clamp(30px, 4vw, 48px)', marginTop: 18 }}>{es ? 'Por qué existe ImpulsoMedia' : 'Why ImpulsoMedia exists'}</h2></Reveal>
             <Reveal className="txt">{t.story.slice(1).map((p, i) => <p key={i}>{p}</p>)}</Reveal>
-          </div>
-          <div className="band" style={{ marginTop: 56 }}>
-            <Reveal className="stat"><div className="n"><CountUp end={7} gold /></div><div className="l">{es ? 'Clientes activos' : 'Active clients'}</div></Reveal>
-            <Reveal className="stat"><div className="n"><CountUp end={10} suffix="+" /></div><div className="l">{es ? 'Años en marketing de resultados' : 'Years in performance marketing'}</div></Reveal>
-            <Reveal className="stat"><div className="n">ES + EN</div><div className="l">{es ? 'Bilingües por defecto' : 'Bilingual by default'}</div></Reveal>
-            <Reveal className="stat"><div className="n"><CountUp end={5} suffix={es ? ',0' : '.0'} /></div><div className="l">{es ? 'Valoración en Google' : 'Google rating'}</div></Reveal>
           </div>
           <div className="tiles">
             {t.values.map((v, i) => (
