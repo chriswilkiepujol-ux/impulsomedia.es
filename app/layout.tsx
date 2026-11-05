@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Syne, DM_Sans } from 'next/font/google'
+import { Syne, DM_Sans, Bricolage_Grotesque, Manrope, DM_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { GoogleAnalytics } from '@/components/google-analytics'
 import { headers } from 'next/headers'
@@ -16,6 +16,27 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ['300', '400', '500'],
   variable: '--font-sans',
+  display: 'swap',
+})
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  weight: ['500', '700', '800'],
+  variable: '--font-v2-display',
+  display: 'swap',
+})
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-v2-body',
+  display: 'swap',
+})
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-v2-mono',
   display: 'swap',
 })
 
@@ -175,7 +196,7 @@ export default async function RootLayout({
   const locale = headersList.get('x-locale') === 'en' ? 'en' : 'es'
 
   return (
-    <html lang={locale} className={`${syne.variable} ${dmSans.variable}`}>
+    <html lang={locale} className={`${syne.variable} ${dmSans.variable} ${bricolage.variable} ${manrope.variable} ${dmMono.variable}`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <script

@@ -1,34 +1,28 @@
 "use client"
 
 import { LanguageProvider } from '@/lib/language-context'
-import { Header } from '@/components/header'
-import { Hero } from '@/components/hero'
-import { Marquee } from '@/components/marquee'
-import { ServicesOverview } from '@/components/services-overview'
-import { PlatformStrip } from '@/components/platform-strip'
-import { WorkCarousel } from '@/components/work-carousel'
-import { Paths } from '@/components/paths'
-import { Reviews } from '@/components/reviews'
-import { CtaBand } from '@/components/cta-band'
-import { Footer } from '@/components/footer'
+import { HeaderV2 } from '@/components/v2/header'
+import { HeroV2, StripV2 } from '@/components/v2/hero'
+import { FounderV2, ServicesV2, WorkV2, ProcessV2, ReviewsV2, CtaV2, FooterV2 } from '@/components/v2/sections'
 import { WhatsAppButton } from '@/components/whatsapp-button'
+import './v2.css'
 
 export function HomeContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
     <LanguageProvider initialLanguage={lang}>
-      <div className="min-h-screen bg-[#262C37]">
-        <Header />
+      <div className="v2 min-h-screen">
+        <HeaderV2 />
         <main>
-          <Hero />
-          <Marquee />
-          <Paths />
-          <ServicesOverview />
-          <PlatformStrip />
-          <WorkCarousel />
-          <Reviews />
-          <CtaBand />
+          <HeroV2 />
+          <StripV2 />
+          <FounderV2 />
+          <ServicesV2 />
+          <WorkV2 />
+          <ProcessV2 />
+          <ReviewsV2 />
+          <CtaV2 />
         </main>
-        <Footer />
+        <FooterV2 />
         <WhatsAppButton />
       </div>
     </LanguageProvider>
