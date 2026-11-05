@@ -15,8 +15,8 @@ export function Why() {
       reasons: [
         {
           icon: Hammer,
-          title: "Built from scratch only",
-          description: "We don't work on existing websites or inherited code. Every project starts from zero."
+          title: "New or existing sites",
+          description: "We build from scratch or work on the site you already have. If we see room to improve, we suggest it; you decide."
         },
         {
           icon: Users,
@@ -49,8 +49,8 @@ export function Why() {
       reasons: [
         {
           icon: Hammer,
-          title: "Construido desde cero",
-          description: "No trabajamos en sitios web existentes o código heredado. Cada proyecto empieza desde cero."
+          title: "Webs nuevas o existentes",
+          description: "Construimos desde cero o trabajamos sobre la web que ya tienes. Si vemos margen de mejora, te lo sugerimos; tú decides."
         },
         {
           icon: Users,

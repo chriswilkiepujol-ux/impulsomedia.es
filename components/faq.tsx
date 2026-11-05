@@ -13,7 +13,7 @@ export function FAQ() {
       faqs: [
         {
           question: "Do you work on existing websites?",
-          answer: "No. We only build from scratch. If you have an existing site that needs fixing or updating, we're not the right fit. Our model is based on clean foundations — not patching someone else's code."
+          answer: "Yes. We work on new sites and on the one you already have: updates, improvements, SEO, speed or new sections. If we spot something worth improving we will propose it with numbers, but the decision is always yours."
         },
         {
           question: "How do I get started?",
@@ -43,7 +43,7 @@ export function FAQ() {
       faqs: [
         {
           question: "¿Trabajan en sitios web existentes?",
-          answer: "No. Solo construimos desde cero. Si tienes un sitio existente que necesita arreglos o actualizaciones, no somos la opción correcta. Nuestro modelo se basa en fundamentos limpios — no en parchear código ajeno."
+          answer: "Sí. Trabajamos con webs nuevas y con las que ya tienes: actualizaciones, mejoras, SEO, velocidad o nuevas secciones. Si vemos algo que se puede mejorar, te lo proponemos con números, pero la decisión siempre es tuya."
         },
         {
           question: "¿Cómo empiezo?",

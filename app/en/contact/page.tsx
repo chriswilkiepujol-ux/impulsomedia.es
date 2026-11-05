@@ -30,7 +30,7 @@ const faqSchema = {
       name: 'Do you work on existing websites?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "No. We only build from scratch. If you have an existing site that needs fixing or updating, we're not the right fit. Our model is based on clean foundations, not patching someone else's code.",
+        text: "Yes. We work on new sites and on the one you already have: updates, improvements, SEO, speed or new sections. If we spot something worth improving we will propose it with numbers, but the decision is always yours.",
       },
     },
     {

@@ -5,7 +5,8 @@ import { Package, MessageCircle } from 'lucide-react'
 import { services } from '@/lib/services-data'
 import { esToEn } from '@/lib/route-map'
 import Link from 'next/link'
-import { PageHero, SectionHead, WidgetStack, Spark } from '@/components/v2/page'
+import { PageHero, SectionHead } from '@/components/v2/page'
+import { ServiceOrbit } from '@/components/v2/orbit'
 import { Reveal } from '@/components/v2/shared'
 
 
@@ -29,23 +30,8 @@ export function Services({ primary = false }: { primary?: boolean } = {}) {
             <a className="btn" href={wa} target="_blank" rel="noopener noreferrer">{t('Cuéntanos tu proyecto', 'Tell us about your project')} <span className="arr">→</span></a>
             <Link className="btn ghost" href={es ? '/precios' : '/en/pricing'}>{t('Cómo presupuestamos', 'How we price')}</Link>
           </>}
-          aside={
-            <WidgetStack kicker={t('Web · SEO · Ads · IA', 'Web · SEO · Ads · AI')} label={t('13 servicios, una sola persona de contacto', '13 services, one point of contact')}>
-              <div className="widget" style={{ left: 0, top: 0 }}>
-                <div className="k">{t('Velocidad de carga', 'Load time')}</div>
-                <div className="v">&lt; 1 s<small>Next.js</small></div>
-                <Spark />
-              </div>
-              <div className="widget" style={{ right: 0, top: '38%', animationDelay: '-2s' }}>
-                <div className="k">{t('Idiomas', 'Languages')}</div>
-                <div className="v">ES + EN<small>{t('nativos', 'native')}</small></div>
-              </div>
-              <div className="widget wa" style={{ left: '8%', bottom: 0, animationDelay: '-4s' }}>
-                <div className="ic">IA</div>
-                <div className="msg"><b>{t('Lead creado en tu CRM', 'Lead created in your CRM')}</b>{t('Formulario web · hace 2 min', 'Website form · 2 min ago')}</div>
-              </div>
-            </WidgetStack>
-          }
+          aside={<ServiceOrbit />}
+          asideFirstOnMobile
         />
       )}
       <section id="services" className="section dark">

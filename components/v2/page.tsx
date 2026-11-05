@@ -6,20 +6,22 @@ import { Mesh, Reveal, GOLD, GOLD2, INK } from './shared'
 const MESH = [GOLD, GOLD2, INK, GOLD]
 
 /** Inner-page hero: cream band with drifting gold artwork, h1 on the left, visual on the right. */
-export function PageHero({ eyebrow, title, sub, note, actions, aside }: {
+export function PageHero({ eyebrow, title, sub, note, actions, aside, asideFirstOnMobile = false }: {
   eyebrow: string
   title: ReactNode
   sub?: ReactNode
   note?: ReactNode
   actions?: ReactNode
   aside?: ReactNode
+  /** On phones, show the visual straight after the title instead of after the buttons. */
+  asideFirstOnMobile?: boolean
 }) {
   return (
-    <header className="phero">
+    <header className={`phero${asideFirstOnMobile ? ' flip' : ''}`}>
       <Mesh colors={MESH} alpha={0.2} />
       <div className="gridlines" aria-hidden="true" />
       <div className="wrap">
-        <div>
+        <div className="txt">
           <div className="eyebrow rise">{eyebrow}</div>
           <h1 className="rise d1">{title}</h1>
           {sub && <p className="sub rise d2">{sub}</p>}

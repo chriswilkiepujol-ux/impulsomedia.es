@@ -69,7 +69,7 @@ export const servicePages2: LandingPage[] = [
       { q: '¿La web es mía?', a: 'Sí. Dominio, código (en GitHub) y hosting (en Vercel) a tu nombre. Si un día cambias de agencia, te la llevas entera.' },
       { q: '¿Tengo que pagar una cuota mensual?', a: 'No. El hosting es gratuito para casi todas las webs corporativas. El mantenimiento, el SEO y el contenido mensual son servicios opcionales que se contratan aparte.' },
       { q: '¿Cuánto tarda?', a: 'Entre 2 y 4 semanas para una web corporativa desde que tenemos los textos y las fotos; más para tiendas, reservas o plataformas. Lo fijamos en la propuesta.' },
-      { q: '¿Trabajáis con webs existentes?', a: 'Las vemos. Si la base es buena, trabajamos sobre ella; si es una plantilla lenta, suele salir más barato rehacerla migrando el contenido y el posicionamiento, y te lo decimos con números.' },
+      { q: '¿Trabajáis con webs existentes?', a: 'Sí. Trabajamos sobre tu web actual: mejoras, nuevas páginas, SEO o velocidad. Si vemos que rehacer algo compensa, te lo proponemos con números y tú decides.' },
     ],
     cta: {
       headline: '¿Hablamos de tu web?',
@@ -134,7 +134,7 @@ export const servicePages2: LandingPage[] = [
       { q: 'Do I own the site?', a: 'Yes. Domain, code (on GitHub) and hosting (on Vercel) in your name. If you ever change agency, you take all of it.' },
       { q: 'Is there a monthly fee?', a: 'No. Hosting is free for almost all business sites. Maintenance, SEO and monthly content are optional services contracted separately.' },
       { q: 'How long does it take?', a: 'Two to four weeks for a corporate site once we have copy and photos; longer for shops, bookings or platforms. Fixed in the proposal.' },
-      { q: 'Do you work on existing sites?', a: 'We look at them. If the foundations are good we build on them; if it is a slow template, rebuilding while migrating content and rankings is usually cheaper, and we show you the numbers.' },
+      { q: 'Do you work on existing sites?', a: 'Yes. We work on your current site: improvements, new pages, SEO or speed. If we think rebuilding something pays off, we propose it with numbers and you decide.' },
     ],
     cta: {
       headline: 'Shall we talk about your site?',

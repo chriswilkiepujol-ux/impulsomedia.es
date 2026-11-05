@@ -29,7 +29,7 @@ const faqSchema = {
       name: '¿Trabajan en sitios web existentes?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. Solo construimos desde cero. Si tienes un sitio existente que necesita arreglos o actualizaciones, no somos la opción correcta. Nuestro modelo se basa en fundamentos limpios, no en parchear código ajeno.',
+        text: 'Sí. Trabajamos con webs nuevas y con las que ya tienes: actualizaciones, mejoras, SEO, velocidad o nuevas secciones. Si vemos algo que se puede mejorar, te lo proponemos con números, pero la decisión siempre es tuya.',
       },
     },
     {

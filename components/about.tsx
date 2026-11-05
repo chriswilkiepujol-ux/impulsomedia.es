@@ -21,8 +21,8 @@ export function About({ primary = false }: { primary?: boolean } = {}) {
       values: [
         {
           icon: Hammer,
-          title: "From Scratch Only",
-          description: "No templates. No page builders. Every site is hand-coded for performance and flexibility."
+          title: "Made to Measure",
+          description: "New builds or improvements to the site you already have, always tailored to your business and built for performance."
         },
         {
           icon: Target,
@@ -52,8 +52,8 @@ export function About({ primary = false }: { primary?: boolean } = {}) {
       values: [
         {
           icon: Hammer,
-          title: "Desde Cero Siempre",
-          description: "Sin plantillas. Sin constructores. Cada sitio está codificado a mano para rendimiento y flexibilidad."
+          title: "Hecho a Medida",
+          description: "Webs nuevas o mejoras sobre la que ya tienes, siempre adaptadas a tu negocio y pensadas para rendir."
         },
         {
           icon: Target,
