@@ -63,6 +63,8 @@
   .v2 .nav .logo svg { width: 26px; height: 26px; }
   .v2 .nav .right { flex: none; gap: 10px; }
   .v2 .burger { display: grid; flex: none; }
+  .v2 .nav .right .lang { display: none; }
+  .v2 .mobile .lang { display: inline-flex; justify-self: start; margin-top: 10px; }
   .v2 .mobile.open { display: grid; gap: 4px; padding: 10px 20px 22px; border-top: 1px solid var(--line); background: #fff; }
   .v2 .mobile a { padding: 12px 0; font-weight: 600; border-bottom: 1px solid var(--line); }
   .v2 .mobile .btn { margin-top: 12px; justify-content: center; }

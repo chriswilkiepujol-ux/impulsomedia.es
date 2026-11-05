@@ -38,6 +38,10 @@ export function HeaderV2() {
       <div className={`mobile ${open ? 'open' : ''}`}>
         {links.map(([h, l]) => <Link key={h} href={h} onClick={() => setOpen(false)}>{l}</Link>)}
         <Link href={contact} className="btn">{isEn ? "Let's talk" : 'Hablemos'} <span className="arr">→</span></Link>
+        <span className="lang">
+          <Link href={isEn ? pathname : altHref} className={isEn ? 'on' : ''}>EN</Link>
+          <Link href={isEn ? altHref : pathname} className={!isEn ? 'on' : ''}>ES</Link>
+        </span>
       </div>
     </nav>
   )
