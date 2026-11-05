@@ -4,6 +4,7 @@ import { LanguageProvider } from '@/lib/language-context'
 import { HeaderV2 as Header } from '@/components/v2/header'
 import { FooterV2 as Footer } from '@/components/v2/sections'
 import { CtaCard } from '@/components/v2/cta-card'
+import { PageHero } from '@/components/v2/page'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { Reveal } from '@/components/reveal'
 import Image from 'next/image'
@@ -34,51 +35,32 @@ export function ServiceLanding({ path }: { path: string }) {
         <Header />
         <main>
           {/* Hero */}
-          <section className="py-[clamp(3.5rem,8vw,6.5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
-            <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-14 items-center">
-              <div className="max-w-3xl">
-                <span className="section-label mb-4 block">{page.label}</span>
-                <h1 className="font-display font-extrabold text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.12] tracking-[-0.02em] mb-6">
-                  {page.h1}
-                </h1>
-                <p className="text-[rgba(17,20,24,0.84)] text-[0.95rem] md:text-lg leading-[1.65] md:leading-[1.7] mb-6 md:mb-8">
-                  {page.lead}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={waHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 bg-[#25d366] text-white px-7 py-4 rounded-full font-sans font-semibold text-[0.92rem] no-underline transition-all duration-200 hover:-translate-y-[2px]"
-                  >
-                    <MessageCircle className="w-[18px] h-[18px]" />
-                    {page.cta.heroLabel ?? (isEn ? 'Free SEO check on WhatsApp' : 'Revisión gratis por WhatsApp')}
-                  </a>
-                  <a
-                    href={contactHref}
-                    className="inline-flex items-center gap-3 border border-[rgba(17,20,24,0.58)] text-[#111418] px-7 py-4 rounded-full font-sans font-semibold text-[0.92rem] no-underline transition-all duration-200 hover:border-[#c9a04a] hover:text-[#a67c2e]"
-                  >
-                    <Calendar className="w-[18px] h-[18px]" />
-                    {isEn ? 'Book a call' : 'Reservar una llamada'}
-                  </a>
+          <PageHero
+            eyebrow={page.label}
+            title={page.h1}
+            sub={page.lead}
+            actions={<>
+              <a href={waHref} target="_blank" rel="noopener noreferrer" className="btn">
+                {page.cta.heroLabel ?? (isEn ? 'Free SEO check on WhatsApp' : 'Revisión gratis por WhatsApp')} <span className="arr">→</span>
+              </a>
+              <a href={contactHref} className="btn ghost">{isEn ? 'Book a call' : 'Reservar una llamada'}</a>
+            </>}
+            aside={
+              <div style={{ position: 'relative' }}>
+                <div className="relative w-full aspect-[16/10] rounded-[20px] overflow-hidden border border-[rgba(17,20,24,0.12)] shadow-[0_40px_80px_rgba(17,20,24,0.22)]">
+                  <Image src={page.heroImage} alt={page.heroAlt} fill className="object-cover" sizes="(min-width: 1024px) 520px, 100vw" priority />
                 </div>
-              </div>
-
-              <div className="flex flex-col gap-5 md:gap-6">
-                <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-[rgba(17,20,24,0.12)]">
-                  <Image src={page.heroImage} alt={page.heroAlt} fill className="object-cover" sizes="(min-width: 1024px) 560px, 100vw" priority />
-                </div>
-                <div className="grid grid-cols-3 gap-[1.5px] bg-[rgba(17,20,24,0.13)]">
+                <div className="grid grid-cols-3 gap-3 mt-4">
                   {page.stats.map((s) => (
-                    <div key={s.label} className="bg-[#ffffff] p-3 md:p-5">
-                      <div className="font-display font-extrabold text-[clamp(1.05rem,2.4vw,1.6rem)] text-[#a67c2e] leading-none mb-2 break-words">{s.value}</div>
-                      <div className="text-[0.7rem] md:text-[0.78rem] text-[rgba(17,20,24,0.7)] leading-[1.4]">{s.label}</div>
+                    <div key={s.label} className="widget" style={{ position: 'static', minWidth: 0, animation: 'none' }}>
+                      <div className="v" style={{ fontSize: 'clamp(18px, 2.2vw, 26px)', marginTop: 0, overflowWrap: 'anywhere' }}>{s.value}</div>
+                      <div className="k" style={{ marginTop: 6, textTransform: 'none', letterSpacing: 0, fontFamily: 'var(--body)', fontSize: 12.5, lineHeight: 1.35 }}>{s.label}</div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
-          </section>
+            }
+          />
 
           {/* Problem / context */}
           <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">

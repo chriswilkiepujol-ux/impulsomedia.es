@@ -1,7 +1,8 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { Check, Zap, Users, Globe2, MessageSquare, Hammer } from "lucide-react"
+import { Zap, Users, Globe2, MessageSquare, Hammer } from "lucide-react"
+import { Reveal } from "@/components/v2/shared"
 
 export function Why() {
   const { language } = useLanguage()
@@ -78,77 +79,28 @@ export function Why() {
   }
 
   const t = content[language]
-
   return (
-    <section id="why" className="relative py-14 md:py-20 bg-[#f6f4ef]">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        {/* Header */}
-        <div className="max-w-3xl mb-10 md:mb-14">
-          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">
-            {t.tag}
-          </span>
-          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#111418] mb-6">
-            {t.headline}
-          </h2>
-          <p className="text-[#111418]/60 text-lg md:text-xl leading-relaxed font-sans">
-            {t.description}
-          </p>
-        </div>
-
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16">
-          {/* Reasons List - 2 columns on mobile */}
-          <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 md:gap-6">
-            {t.reasons.map((reason, index) => (
-              <div 
-                key={index}
-                className="flex flex-col md:flex-row gap-3 md:gap-6 p-4 md:p-6 rounded-xl bg-[#ffffff] border border-[#ece8e0] hover:border-[#c9a04a]/30 transition-colors duration-300"
-              >
-                <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#c9a04a]/10 flex items-center justify-center">
-                  <reason.icon className="w-4 h-4 md:w-5 md:h-5 text-[#a67c2e]" />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-sm md:text-lg text-[#111418] mb-1 md:mb-2">
-                    {reason.title}
-                  </h3>
-                  <p className="text-[#111418]/60 text-xs md:text-base leading-relaxed font-sans">
-                    {reason.description}
-                  </p>
-                </div>
-              </div>
+    <section id="why" className="section dark">
+      <div className="wrap">
+        <Reveal>
+          <div className="eyebrow">{t.tag}</div>
+          <h2 style={{ fontSize: 'clamp(32px, 4.6vw, 58px)', marginTop: 18, maxWidth: '18ch' }}>{t.headline}</h2>
+          <p className="lead">{t.description}</p>
+        </Reveal>
+        <div className="reasons">
+          <ul>
+            {t.reasons.map((r) => (
+              <Reveal key={r.title} as="li">
+                <span className="ic"><r.icon strokeWidth={1.6} /></span>
+                <div><b>{r.title}</b><span>{r.description}</span></div>
+              </Reveal>
             ))}
-          </div>
-
-          {/* Quote Card */}
-          <div className="lg:sticky lg:top-32 h-fit">
-            <div className="relative p-8 md:p-10 rounded-2xl bg-gradient-to-br from-[#c9a04a]/20 to-[#c9a04a]/5 border border-[#c9a04a]/30">
-              {/* Quote mark */}
-              <svg 
-                className="absolute top-6 left-6 w-10 h-10 text-[#a67c2e]/30"
-                viewBox="0 0 24 24" 
-                fill="currentColor"
-              >
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-              </svg>
-              
-              <blockquote className="relative z-10 pt-8">
-                <p className="font-display font-semibold text-xl md:text-2xl text-[#111418] leading-snug mb-6">
-                  {t.quote}
-                </p>
-                <footer className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#c9a04a] flex items-center justify-center">
-                    <svg className="w-5 h-5 text-[#111418]" viewBox="0 0 32 32" fill="none">
-                      <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2" fill="none"/>
-                      <path d="M6 16 L10 16 L12 10 L16 22 L20 8 L22 16 L26 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                    </svg>
-                  </div>
-                  <span className="text-[#a67c2e] font-semibold text-sm tracking-wide">
-                    {t.quoteAuthor}
-                  </span>
-                </footer>
-              </blockquote>
-            </div>
-          </div>
+          </ul>
+          <Reveal className="quote">
+            <div className="q-mark">“</div>
+            <p>{t.quote}</p>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: 12, letterSpacing: '.14em', textTransform: 'uppercase' }}>— {t.quoteAuthor}</span>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 "use client"
 
+import { Mesh, GOLD, GOLD2, INK } from '@/components/v2/shared'
 import { useState } from 'react'
 import { useLanguage } from '@/lib/language-context'
 import { Send, Loader2 } from 'lucide-react'
@@ -56,17 +57,19 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
   }
 
   return (
-    <section id="contact" className="py-[clamp(3.5rem,7vw,5.5rem)] px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="contact" className="phero">
+      <Mesh colors={[GOLD, GOLD2, INK, GOLD]} alpha={0.2} />
+      <div className="gridlines" aria-hidden="true" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6 py-[clamp(52px,8vw,104px)]">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column - Info */}
           <div>
-            <span className="section-label mb-5 block">
+            <span className="eyebrow mb-5">
               {t('Contacto', 'Contact')}
             </span>
-            <Heading className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em] mb-6">
+            <Heading className="font-display font-extrabold text-[clamp(38px,5.6vw,74px)] leading-[0.98] tracking-[-0.025em] mb-6">
               {t('Hablemos de tu ', "Let's talk about your ")}
-              <em className="text-[#a67c2e] not-italic">{t('proyecto', 'project')}</em>
+              <em className="text-[#c9a04a] not-italic">{t('proyecto', 'project')}</em>
             </Heading>
             <p className="text-[rgba(17,20,24,0.84)] text-base font-light leading-[1.7] mb-10 max-w-md">
               {t(
@@ -117,7 +120,7 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
           </div>
 
           {/* Right Column - Form */}
-          <div className="p-[clamp(1.5rem,4vw,2.5rem)] rounded-2xl border border-[rgba(17,20,24,0.1)] bg-[#ffffff]">
+          <div className="p-[clamp(1.5rem,4vw,2.5rem)] rounded-[22px] border border-[rgba(17,20,24,0.1)] bg-[#ffffff] shadow-[0_30px_60px_rgba(17,20,24,0.1)]">
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Honeypot field - hidden from real visitors, bots that auto-fill every field will trip it */}
               <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }} aria-hidden="true">

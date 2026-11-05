@@ -2,8 +2,11 @@
 
 import { useLanguage } from "@/lib/language-context"
 import Image from "next/image"
+import { ArrowUpRight } from "lucide-react"
+import { PageHero, SectionHead } from "@/components/v2/page"
+import { Reveal } from "@/components/v2/shared"
 
-const projects = [
+export const projects = [
   {
     id: "sotovet",
     name: "Sotovet",
@@ -91,105 +94,60 @@ const projects = [
 ]
 
 export function Work({ primary = false }: { primary?: boolean } = {}) {
-  const Heading = primary ? 'h1' : 'h2'
   const { language } = useLanguage()
 
+
+  const es = language === 'es'
+  const [a, b, c] = [projects[1], projects[2], projects[4]]
   return (
-    <section id="work" className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
-      <div className="max-w-[1200px] mx-auto">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-[clamp(2rem,4vw,3.5rem)] gap-6 md:gap-8">
-          <div>
-            <span className="inline-flex items-center gap-2.5 text-[0.7rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4 md:mb-5">
-              <span className="w-5 h-[1px] bg-[#c9a04a]" />
-              {language === "en" ? "Our Work" : "Nuestro Trabajo"}
-            </span>
-            <Heading className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
-              {language === "en" ? "Clients we work with" : "Clientes con los que trabajamos"}
-            </Heading>
+    <>
+      {primary && (
+        <PageHero
+          eyebrow={es ? 'Nuestro trabajo' : 'Our work'}
+          title={es ? <>Clientes con los que <em>trabajamos</em></> : <>Clients we <em>work with</em></>}
+          sub={es
+            ? 'Cada proyecto fue construido desde cero. Distintos sectores, distintos retos, el mismo nivel de exigencia: webs rápidas, bilingües y pensadas para convertir.'
+            : 'Every project was built from scratch. Different sectors, different challenges, the same standard: fast, bilingual websites built to convert.'}
+          actions={<>
+            <a className="btn" href="https://wa.me/34680863229" target="_blank" rel="noopener noreferrer">{es ? 'Quiero una web así' : 'I want a site like this'} <span className="arr">→</span></a>
+            <a className="btn ghost" href={es ? '/opiniones' : '/en/reviews'}>{es ? 'Ver opiniones' : 'Read reviews'}</a>
+          </>}
+          aside={
+            <div className="collage" aria-hidden="true">
+              {[a, b, c].map((p, i) => (
+                <div key={p.id} className={`shot ${['a', 'b', 'c'][i]}`}>
+                  <Image src={p.image} alt="" width={1116} height={800} sizes="(max-width: 960px) 60vw, 30vw" priority={i === 1} />
+                </div>
+              ))}
+            </div>
+          }
+        />
+      )}
+      <section id="work" className="section">
+        <div className="wrap">
+          <SectionHead
+            eyebrow={es ? 'Casos' : 'Case studies'}
+            title={es ? `${projects.length} webs, ${projects.length} retos distintos` : `${projects.length} sites, ${projects.length} different challenges`}
+            lead={es ? 'Pasa el ratón por cada captura para recorrer la web. Haz clic para visitarla.' : 'Hover over each screenshot to scroll through the site. Click to visit it.'}
+          />
+          <div className="cases">
+            {projects.map((p, i) => (
+              <Reveal key={p.id} as="article" className="case">
+                <div className="visual" style={{ background: ['linear-gradient(135deg,#e6ece3,#b9c7b0)', 'linear-gradient(135deg,#1c2026,#3a3f47)', 'linear-gradient(135deg,#f0e6cf,#d9c48f)', 'linear-gradient(135deg,#e4e4ee,#b4b4cc)', 'linear-gradient(135deg,#dfe7ec,#b7c6d1)', 'linear-gradient(135deg,#f1e2e0,#cfa9a4)', 'linear-gradient(135deg,#1c2026,#4a3f5a)'][i % 7] }}>
+                  <div className="frame"><Image src={p.image} alt={`${p.name} – ${es ? p.industryEs : p.industryEn}`} width={1116} height={800} sizes="(max-width: 900px) 100vw, 55vw" /></div>
+                </div>
+                <div className="body">
+                  <span className="ind">{es ? p.industryEs : p.industryEn}</span>
+                  <h3>{p.name}</h3>
+                  <p>{es ? p.descEs : p.descEn}</p>
+                  <div className="tags">{p.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                  <a className="visit" href={p.href} target="_blank" rel="noopener noreferrer">{p.url} <ArrowUpRight className="w-4 h-4" /></a>
+                </div>
+              </Reveal>
+            ))}
           </div>
-          <p className="max-w-[38ch] text-[rgba(17,20,24,0.84)] text-base font-light leading-[1.7]">
-            {language === "en" 
-              ? "Every project here was built from scratch. Different industries, different challenges — same standard of work."
-              : "Cada proyecto fue construido desde cero. Distintos sectores, distintos retos — el mismo nivel de exigencia."
-            }
-          </p>
         </div>
-
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-          {projects.map((project) => (
-            <a
-              key={project.id}
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-[#f6f4ef] rounded-[4px] overflow-hidden relative flex flex-col transition-all duration-300 hover:bg-[#ece8e0] no-underline text-[#111418] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
-            >
-              {/* Image Preview Area */}
-              <div className="relative w-full aspect-[16/10] bg-[#ffffff] overflow-hidden">
-                {/* Actual Screenshot */}
-                <Image
-                  src={project.image}
-                  alt={`${project.name} website screenshot`}
-                  fill
-                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                
-                {/* Gradient overlay for better text contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#f6f4ef] via-transparent to-transparent opacity-60" />
-                
-                {/* View site indicator */}
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-[#111418] text-[#111418] px-4 py-2 rounded-full font-sans font-semibold text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                  {language === "en" ? "View Site" : "Ver Web"}
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                  </svg>
-                </div>
-              </div>
-              
-              {/* Content */}
-              <div className="p-6 flex flex-col flex-1">
-                {/* Industry */}
-                <span className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-[#a67c2e] mb-3">
-                  {language === "es" ? project.industryEs : project.industryEn}
-                </span>
-
-                {/* Title & URL */}
-                <div className="mb-3">
-                  <h3 className="font-display font-extrabold text-[clamp(1.3rem,2.5vw,1.8rem)] tracking-[-0.01em] leading-[1.1]">
-                    {project.name}
-                  </h3>
-                  <span className="text-[0.75rem] text-[rgba(17,20,24,0.7)]">
-                    {project.url}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p className="text-[0.88rem] text-[rgba(17,20,24,0.84)] leading-[1.65] mb-5 flex-1">
-                  {language === "es" ? project.descEs : project.descEn}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[0.65rem] font-medium tracking-[0.08em] uppercase px-3 py-1 border border-[rgba(17,20,24,0.17)] rounded-full text-[rgba(17,20,24,0.7)] transition-colors duration-200 group-hover:border-[rgba(212,168,83,0.3)] group-hover:text-[rgba(17,20,24,0.7)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Gold bottom line on hover */}
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#c9a04a] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

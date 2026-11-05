@@ -1,12 +1,10 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { useRef, useEffect, useState } from "react"
-import { Star, ArrowLeft, ArrowRight } from "lucide-react"
-import { Reveal } from "@/components/reveal"
+import { PageHero, SectionHead } from "@/components/v2/page"
+import { Reveal } from "@/components/v2/shared"
 
 export function Reviews({ primary = false }: { primary?: boolean } = {}) {
-  const Heading = primary ? 'h1' : 'h2'
   const { language } = useLanguage()
 
   const content = {
@@ -87,118 +85,65 @@ export function Reviews({ primary = false }: { primary?: boolean } = {}) {
   }
 
   const t = content[language]
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const sectionRef = useRef<HTMLElement>(null)
-  const [isPaused, setIsPaused] = useState(false)
-  const [hasEntered, setHasEntered] = useState(false)
+  const es = language === 'es'
+  const initials = (n: string) => n.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ0-9]/g, '').slice(0, 1).toUpperCase()
 
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return
-    const el = scrollRef.current
-    const cardWidth = el.clientWidth / (window.innerWidth >= 768 ? 3 : 1)
-    const atEnd = Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth
-    const atStart = el.scrollLeft <= 0
+  const grid = (
+    <div className="quotes">
+      {t.reviews.map((r) => (
+        <Reveal key={r.author} as="blockquote" className="q">
+          <div className="stars">★★★★★</div>
+          <p>“{r.quote}”</p>
+          <div className="who"><i>{initials(r.author)}</i><span><b>{r.author}</b>{r.role}</span></div>
+        </Reveal>
+      ))}
+    </div>
+  )
 
-    if (direction === "right" && atEnd) {
-      el.scrollTo({ left: 0, behavior: "smooth" })
-    } else if (direction === "left" && atStart) {
-      el.scrollTo({ left: el.scrollWidth, behavior: "smooth" })
-    } else {
-      el.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" })
-    }
-  }
-
-  // Only start autoscrolling once the section actually scrolls into view.
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasEntered(true)
-          observer.unobserve(el)
-        }
-      },
-      { threshold: 0.3 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!hasEntered || isPaused) return
-    const interval = setInterval(() => scroll("right"), 4800)
-    return () => clearInterval(interval)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasEntered, isPaused])
-
-  return (
-    <section ref={sectionRef} id="reviews" className="relative py-14 md:py-20 bg-[#f6f4ef]">
-      <div className="max-w-[1100px] mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-8 md:mb-10 gap-6 text-center md:text-left">
-          <Reveal className="max-w-2xl mx-auto md:mx-0">
-            <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">
-              {t.tag}
-            </span>
-            <Heading className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#111418]">
-              {t.headline}
-            </Heading>
-          </Reveal>
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              onClick={() => scroll("left")}
-              aria-label={language === "es" ? "Anterior" : "Previous"}
-              className="w-10 h-10 rounded-full border border-[rgba(17,20,24,0.17)] flex items-center justify-center hover:border-[#c9a04a] hover:text-[#a67c2e] transition-colors duration-200"
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              aria-label={language === "es" ? "Siguiente" : "Next"}
-              className="w-10 h-10 rounded-full border border-[rgba(17,20,24,0.17)] flex items-center justify-center hover:border-[#c9a04a] hover:text-[#a67c2e] transition-colors duration-200"
-            >
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-
-        <div
-          ref={scrollRef}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onTouchStart={() => setIsPaused(true)}
-          onTouchEnd={() => setTimeout(() => setIsPaused(false), 3000)}
-          className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth mb-10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-        >
-          {t.reviews.map((review, index) => (
-            <div
-              key={index}
-              className="snap-start shrink-0 w-[85%] md:w-[calc(33.333%-16px)] bg-[#ffffff] border border-[rgba(17,20,24,0.13)] rounded-xl p-6 md:p-8"
-            >
-              <div className="flex gap-1 mb-5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#a67c2e] text-[#a67c2e]" />
+  if (primary) {
+    return (
+      <>
+        <PageHero
+          eyebrow={t.tag}
+          title={es ? <>Opiniones reales, <em>resultados reales</em></> : <>Real reviews, <em>real results</em></>}
+          sub={es
+            ? 'Lo que dicen los negocios con los que trabajamos. Las reseñas están publicadas y verificadas en nuestro perfil de Google.'
+            : 'What the businesses we work with say. The reviews are published and verified on our Google profile.'}
+          actions={<>
+            <a className="btn" href="https://g.page/r/Cart50OPlmevEBE/review" target="_blank" rel="noopener noreferrer">{es ? 'Ver en Google' : 'See them on Google'} <span className="arr">→</span></a>
+            <a className="btn ghost" href={es ? '/proyectos' : '/en/work'}>{es ? 'Ver los proyectos' : 'See the projects'}</a>
+          </>}
+          aside={
+            <div className="rating">
+              <div className="eyebrow">{es ? 'Valoración en Google' : 'Google rating'}</div>
+              <div className="big" style={{ marginTop: 18 }}>{es ? '5,0' : '5.0'}</div>
+              <span className="stars">★★★★★</span>
+              <div className="meta">{es ? 'Media de todas las reseñas' : 'Average across all reviews'}</div>
+              <div className="bars">
+                {[5, 4, 3, 2, 1].map((n) => (
+                  <div key={n}><span>{n}</span><i>{n === 5 && <b />}</i><span>{n === 5 ? '100%' : '0%'}</span></div>
                 ))}
               </div>
-              <p className="text-[#111418]/[0.82] text-sm leading-relaxed mb-6">
-                {review.quote}
-              </p>
-              <div>
-                <p className="text-[#111418] font-semibold text-sm">{review.author}</p>
-                <p className="text-[#111418]/60 text-xs mt-0.5">{review.role}</p>
-              </div>
+              <a className="btn ghost" href="https://g.page/r/Cart50OPlmevEBE/review" target="_blank" rel="noopener noreferrer">{t.googleLabel}</a>
             </div>
-          ))}
-        </div>
+          }
+        />
+        <section className="section">
+          <div className="wrap">
+            <SectionHead eyebrow={es ? 'Clientes' : 'Clients'} title={es ? 'En sus palabras' : 'In their words'} />
+            {grid}
+          </div>
+        </section>
+      </>
+    )
+  }
 
-        <a
-          href="https://g.page/r/Cart50OPlmevEBE/review"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block text-center text-[#111418]/60 text-sm no-underline hover:text-[#a67c2e] transition-colors duration-200"
-        >
-          {t.googleLabel}
-        </a>
+  return (
+    <section className="section" style={{ background: 'var(--paper2)' }}>
+      <div className="wrap">
+        <SectionHead eyebrow={t.tag} title={t.headline} />
+        {grid}
+        <Reveal><div style={{ marginTop: 32 }}><a className="btn ghost" href="https://g.page/r/Cart50OPlmevEBE/review" target="_blank" rel="noopener noreferrer">{t.googleLabel}</a></div></Reveal>
       </div>
     </section>
   )

@@ -6,6 +6,7 @@ import { ServicesByAudience } from '@/components/services-by-audience'
 import { Reviews } from '@/components/reviews'
 import { FooterV2 as Footer } from '@/components/v2/sections'
 import { AreasStrip } from '@/components/areas-strip'
+import { CtaBand } from '@/components/cta-band'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function NegocioLocalContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
@@ -17,6 +18,7 @@ export function NegocioLocalContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}
           <ServicesByAudience category="local" />
           <AreasStrip services={['web', 'seo', 'marketing']} />
           <Reviews />
+          <CtaBand />
         </main>
         <Footer />
         <WhatsAppButton />

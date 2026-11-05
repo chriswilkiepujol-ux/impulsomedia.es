@@ -2,9 +2,11 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { Hammer, Target, Handshake, Languages } from "lucide-react"
+import Image from "next/image"
+import { PageHero } from "@/components/v2/page"
+import { Reveal, CountUp } from "@/components/v2/shared"
 
 export function About({ primary = false }: { primary?: boolean } = {}) {
-  const Heading = primary ? 'h1' : 'h2'
   const { language } = useLanguage()
 
   const content = {
@@ -73,54 +75,52 @@ export function About({ primary = false }: { primary?: boolean } = {}) {
   }
 
   const t = content[language]
-
+  const es = language === 'es'
+  const [title1, title2] = t.headline.split('. ')
   return (
-    <section id="about" className="relative py-14 md:py-20 bg-[#ffffff]">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        {/* Header */}
-        <div className="max-w-3xl mb-10 md:mb-14">
-          <span className="inline-block text-[0.72rem] font-medium tracking-[0.2em] uppercase text-[#a67c2e] mb-4">
-            {t.tag}
-          </span>
-          <Heading className="font-display font-extrabold text-[clamp(1.8rem,3.8vw,2.6rem)] leading-[1.22] text-[#111418] mb-8">
-            {t.headline}
-          </Heading>
-          
-          {/* Story paragraphs */}
-          <div className="space-y-4">
-            {t.story.map((paragraph, index) => (
-              <p key={index} className="text-[#111418]/60 text-lg leading-relaxed font-sans">
-                {paragraph}
-              </p>
+    <>
+      <PageHero
+        eyebrow={t.tag}
+        title={<>{title1}. <em>{title2}</em></>}
+        sub={t.story[0]}
+        actions={<>
+          <a className="btn" href="https://wa.me/34680863229" target="_blank" rel="noopener noreferrer">{es ? 'Hablemos' : "Let's talk"} <span className="arr">→</span></a>
+          <a className="btn ghost" href={es ? '/proyectos' : '/en/work'}>{es ? 'Ver proyectos' : 'See our work'}</a>
+        </>}
+        aside={
+          <div className="photo" style={{ maxWidth: 440, marginLeft: 'auto' }}>
+            <Image src="/images/chris-wilkie.jpg" alt={es ? 'Chris Wilkie, fundador de ImpulsoMedia' : 'Chris Wilkie, founder of ImpulsoMedia'} width={1200} height={1500} sizes="(max-width: 960px) 90vw, 440px" priority />
+            <span className="tag">{es ? 'Fundador' : 'Founder'}</span>
+            <div className="cap"><b>Chris Wilkie</b>{es ? 'Más de 10 años comprando medios para operadores de iGaming. Ahora al servicio de negocios locales y marcas que quieren escalar.' : '10+ years buying media for iGaming operators. Now working for local businesses and brands that want to scale.'}</div>
+          </div>
+        }
+      />
+      <section id="about" className="section">
+        <div className="wrap">
+          <div className="story">
+            <Reveal><div className="eyebrow">{es ? 'Nuestra historia' : 'Our story'}</div><h2 style={{ fontSize: 'clamp(30px, 4vw, 48px)', marginTop: 18 }}>{es ? 'Por qué existe ImpulsoMedia' : 'Why ImpulsoMedia exists'}</h2></Reveal>
+            <Reveal className="txt">{t.story.slice(1).map((p, i) => <p key={i}>{p}</p>)}</Reveal>
+          </div>
+          <div className="band" style={{ marginTop: 56 }}>
+            <Reveal className="stat"><div className="n"><CountUp end={7} gold /></div><div className="l">{es ? 'Clientes activos' : 'Active clients'}</div></Reveal>
+            <Reveal className="stat"><div className="n"><CountUp end={10} suffix="+" /></div><div className="l">{es ? 'Años en marketing de resultados' : 'Years in performance marketing'}</div></Reveal>
+            <Reveal className="stat"><div className="n">ES + EN</div><div className="l">{es ? 'Bilingües por defecto' : 'Bilingual by default'}</div></Reveal>
+            <Reveal className="stat"><div className="n"><CountUp end={5} suffix={es ? ',0' : '.0'} /></div><div className="l">{es ? 'Valoración en Google' : 'Google rating'}</div></Reveal>
+          </div>
+          <div className="tiles">
+            {t.values.map((v, i) => (
+              <Reveal key={v.title} as="div">
+                <div className="tile" style={{ height: '100%' }}>
+                  <span className="n">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="ic"><v.icon strokeWidth={1.6} /></span>
+                  <h3>{v.title}</h3>
+                  <p>{v.description}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
-
-        {/* Value Cards Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-          {t.values.map((value, index) => (
-            <div 
-              key={index}
-              className="group relative p-4 md:p-8 rounded-xl bg-[#f6f4ef] border border-[#ece8e0] hover:border-[#c9a04a]/40 transition-all duration-300"
-            >
-              {/* Top gold line on hover */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c9a04a] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-xl" />
-              
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#c9a04a]/10 flex items-center justify-center mb-3 md:mb-5">
-                <value.icon className="w-4 h-4 md:w-5 md:h-5 text-[#a67c2e]" />
-              </div>
-              
-              <h3 className="font-display font-bold text-sm md:text-lg text-[#111418] mb-2 md:mb-3">
-                {value.title}
-              </h3>
-              
-              <p className="text-[#111418]/50 text-xs md:text-sm leading-relaxed font-sans">
-                {value.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

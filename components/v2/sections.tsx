@@ -147,7 +147,7 @@ export function ProcessV2() {
     [t('MES 2+', 'MONTH 2+'), t('Lanzamiento y crecimiento', 'Launch & growth'), t('SEO técnico perfecto el día uno. Luego campañas, contenido y mejoras mensuales.', 'Flawless technical SEO on day one. Then campaigns, content and monthly improvements.')],
   ]
   return (
-    <section className="section" id="proceso" style={{ paddingTop: 0 }}>
+    <section className="section" id="proceso">
       <div className="wrap">
         <Reveal><div className="eyebrow">{t('Cómo trabajamos', 'How we work')}</div></Reveal>
         <Reveal><h2>{t('De la primera llamada al lanzamiento', 'From the first call to launch')}</h2></Reveal>

@@ -4,119 +4,88 @@ import { useLanguage } from '@/lib/language-context'
 import { Package, MessageCircle } from 'lucide-react'
 import { services } from '@/lib/services-data'
 import { esToEn } from '@/lib/route-map'
+import Link from 'next/link'
+import { PageHero, SectionHead, WidgetStack, Spark } from '@/components/v2/page'
+import { Reveal } from '@/components/v2/shared'
 
 
 export function Services({ primary = false }: { primary?: boolean } = {}) {
-  const Heading = primary ? 'h1' : 'h2'
   const { t, language } = useLanguage()
 
+
+  const wa = 'https://wa.me/34680863229'
+  const es = language === 'es'
   return (
-    <section id="services" className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
-      <div className="max-w-[1200px] mx-auto">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-[clamp(2rem,4vw,3.5rem)] gap-6 md:gap-8">
-          <div>
-            <span className="section-label mb-4 md:mb-5 block">
-              {t('Lo que hacemos', 'What we do')}
-            </span>
-            <Heading className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em]">
-              {t('Servicios que ', 'Services that ')}
-              <em className="text-[#a67c2e] not-italic">{t('funcionan', 'work')}</em>
-            </Heading>
-          </div>
-          <p className="max-w-[36ch] text-[rgba(17,20,24,0.84)] text-base font-light leading-[1.7]">
-            {t(
-              'Soluciones digitales completas para hacer crecer tu negocio.',
-              'Complete digital solutions to grow your business.'
-            )}
-          </p>
-        </div>
-
-        {/* Services Grid - 5 cards */}
-        <div className="mobile-dense grid grid-cols-2 lg:grid-cols-3 gap-[1.5px] bg-[rgba(17,20,24,0.1)] mb-6">
-          {services.map((service) => {
-            const IconComponent = service.icon
-            return (
-              <a
-                key={service.num}
-                href={language === 'en' ? esToEn[service.pillar] : service.pillar}
-                className="group bg-[#f6f4ef] p-6 md:p-[clamp(2rem,4vw,3rem)] relative overflow-hidden transition-colors duration-300 hover:bg-[#ece8e0] no-underline text-[#111418] block"
-              >
-                {/* Gold top line on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#c9a04a] to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
-
-                {/* Number */}
-                <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#a67c2e] mb-4 md:mb-6 block">
-                  {service.num}
-                </span>
-
-                {/* Icon */}
-                <div className="mb-4 md:mb-5">
-                  <IconComponent className="w-8 h-8 text-[#a67c2e]" strokeWidth={1.5} />
-                </div>
-
-                {/* Title */}
-                <h3 className="font-display font-extrabold text-[clamp(1.2rem,2.5vw,1.8rem)] tracking-[-0.01em] mb-3 leading-[1.1]">
-                  {language === 'es' ? service.titleEs : service.titleEn}
-                </h3>
-
-                {/* Description */}
-                <p className="text-[0.9rem] text-[rgba(17,20,24,0.7)] leading-[1.7] mb-5 md:mb-6">
-                  {language === 'es' ? service.descEs : service.descEn}
-                </p>
-
-                {/* Tags */}
-                <div className="hidden md:flex flex-wrap gap-2">
-                  {(language === 'es' ? service.tagsEs : service.tagsEn).map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[0.68rem] font-medium tracking-[0.08em] uppercase px-3 py-1 border border-[rgba(17,20,24,0.17)] rounded-full text-[rgba(17,20,24,0.7)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </a>
-            )
-          })}
-          
-          {/* Highlighted Package Card */}
-          <div className="group bg-gradient-to-br from-[#c9a04a] to-[#b8923f] p-6 md:p-[clamp(2rem,4vw,3rem)] relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-[#c9a04a]/20">
-            {/* Number */}
-            <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#111418]/60 mb-4 md:mb-6 block">
-              PACK
-            </span>
-
-            {/* Icon */}
-            <div className="mb-4 md:mb-5">
-              <Package className="w-8 h-8 text-[#111418]" strokeWidth={1.5} />
-            </div>
-
-            {/* Title */}
-            <h3 className="font-display font-extrabold text-[clamp(1.2rem,2.5vw,1.8rem)] tracking-[-0.01em] mb-3 leading-[1.1] text-[#111418]">
-              {language === 'es' ? 'Paquete Digital Completo' : 'Full Digital Package'}
-            </h3>
-
-            {/* Description */}
-            <p className="text-[0.9rem] text-[#111418]/70 leading-[1.7] mb-5 md:mb-6">
-              {language === 'es' 
-                ? 'Todo incluido: web, branding, redes sociales y mantenimiento. La solución completa para lanzar o renovar tu presencia digital.' 
-                : 'All-inclusive: web, branding, social media and maintenance. The complete solution to launch or renew your digital presence.'}
-            </p>
-
-            {/* CTA Button */}
-            <a
-              href="https://wa.me/34680863229"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 bg-[#ffffff] text-[#111418] font-semibold text-sm tracking-wide rounded-full hover:bg-[#ece8e0] transition-colors duration-300"
-            >
-              <MessageCircle className="w-4 h-4" />
-              {language === 'es' ? 'Solicitar info' : 'Request info'}
-            </a>
+    <>
+      {primary && (
+        <PageHero
+          eyebrow={t('Servicios · Sotogrande · Gibraltar · Costa del Sol', 'Services · Sotogrande · Gibraltar · Costa del Sol')}
+          title={<>{t('Servicios que ', 'Services that ')}<em>{t('funcionan', 'work')}</em></>}
+          sub={t(
+            'Soluciones digitales completas para hacer crecer tu negocio: diseño web, SEO, publicidad y automatización con IA bajo un mismo techo. Hablas siempre con la persona que hace el trabajo.',
+            'Complete digital solutions to grow your business: web design, SEO, paid media and AI automation under one roof. You always talk to the person doing the work.'
+          )}
+          actions={<>
+            <a className="btn" href={wa} target="_blank" rel="noopener noreferrer">{t('Cuéntanos tu proyecto', 'Tell us about your project')} <span className="arr">→</span></a>
+            <Link className="btn ghost" href={es ? '/precios' : '/en/pricing'}>{t('Cómo presupuestamos', 'How we price')}</Link>
+          </>}
+          aside={
+            <WidgetStack kicker={t('Web · SEO · Ads · IA', 'Web · SEO · Ads · AI')} label={t('13 servicios, una sola persona de contacto', '13 services, one point of contact')}>
+              <div className="widget" style={{ left: 0, top: 0 }}>
+                <div className="k">{t('Velocidad de carga', 'Load time')}</div>
+                <div className="v">&lt; 1 s<small>Next.js</small></div>
+                <Spark />
+              </div>
+              <div className="widget" style={{ right: 0, top: '38%', animationDelay: '-2s' }}>
+                <div className="k">{t('Idiomas', 'Languages')}</div>
+                <div className="v">ES + EN<small>{t('nativos', 'native')}</small></div>
+              </div>
+              <div className="widget wa" style={{ left: '8%', bottom: 0, animationDelay: '-4s' }}>
+                <div className="ic">IA</div>
+                <div className="msg"><b>{t('Lead creado en tu CRM', 'Lead created in your CRM')}</b>{t('Formulario web · hace 2 min', 'Website form · 2 min ago')}</div>
+              </div>
+            </WidgetStack>
+          }
+        />
+      )}
+      <section id="services" className="section dark">
+        <div className="wrap">
+          <SectionHead
+            eyebrow={t('Lo que hacemos', 'What we do')}
+            title={t('Todo el rango de servicios', 'The full range of services')}
+            lead={t('Cada tarjeta lleva a la página del servicio con detalles, casos y preguntas frecuentes.', 'Each card leads to the service page with details, case studies and FAQs.')}
+          />
+          <div className="tiles c3">
+            {services.map((service) => {
+              const Icon = service.icon
+              return (
+                <Reveal key={service.num} as="div">
+                  <a className="tile" href={es ? service.pillar : esToEn[service.pillar]} style={{ height: '100%' }}>
+                    <span className="n">{service.num}</span>
+                    <span className="ic"><Icon strokeWidth={1.6} /></span>
+                    <h3>{es ? service.titleEs : service.titleEn}</h3>
+                    <p>{es ? service.descEs : service.descEn}</p>
+                    <div className="tags">{(es ? service.tagsEs : service.tagsEn).map((tag) => <span key={tag}>{tag}</span>)}</div>
+                  </a>
+                </Reveal>
+              )
+            })}
+            <Reveal as="div">
+              <div className="tile feat" style={{ height: '100%' }}>
+                <span className="n">PACK</span>
+                <span className="ic"><Package strokeWidth={1.6} /></span>
+                <h3>{es ? 'Paquete Digital Completo' : 'Full Digital Package'}</h3>
+                <p>{es
+                  ? 'Todo incluido: web, branding, redes sociales y mantenimiento. La solución completa para lanzar o renovar tu presencia digital.'
+                  : 'All-inclusive: web, branding, social media and maintenance. The complete solution to launch or renew your digital presence.'}</p>
+                <a className="btn" href={wa} target="_blank" rel="noopener noreferrer" style={{ marginTop: 'auto', alignSelf: 'flex-start' }}>
+                  <MessageCircle className="w-4 h-4" /> {es ? 'Solicitar info' : 'Request info'}
+                </a>
+              </div>
+            </Reveal>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

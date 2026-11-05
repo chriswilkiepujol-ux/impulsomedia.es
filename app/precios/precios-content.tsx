@@ -3,9 +3,8 @@
 import { LanguageProvider } from '@/lib/language-context'
 import { HeaderV2 as Header } from '@/components/v2/header'
 import { PricingGuide } from '@/components/pricing-guide'
-import { Process } from '@/components/process'
 import { CtaBand } from '@/components/cta-band'
-import { FooterV2 as Footer } from '@/components/v2/sections'
+import { FooterV2 as Footer, ProcessV2 } from '@/components/v2/sections'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function PreciosContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
@@ -15,7 +14,7 @@ export function PreciosContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
         <Header />
         <main>
           <PricingGuide />
-          <Process />
+          <ProcessV2 />
           <CtaBand />
         </main>
         <Footer />

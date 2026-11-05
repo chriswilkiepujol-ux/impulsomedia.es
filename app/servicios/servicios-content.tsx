@@ -3,9 +3,8 @@
 import { LanguageProvider } from '@/lib/language-context'
 import { HeaderV2 as Header } from '@/components/v2/header'
 import { Services } from '@/components/services'
-import { Process } from '@/components/process'
 import { CtaBand } from '@/components/cta-band'
-import { FooterV2 as Footer } from '@/components/v2/sections'
+import { FooterV2 as Footer, ProcessV2 } from '@/components/v2/sections'
 import { AreasStrip } from '@/components/areas-strip'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
@@ -16,7 +15,7 @@ export function ServiciosContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
         <Header />
         <main>
           <Services primary />
-          <Process />
+          <ProcessV2 />
           <AreasStrip />
           <CtaBand />
         </main>

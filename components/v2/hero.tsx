@@ -16,7 +16,7 @@ export function HeroV2() {
   return (
     <header className="hero">
       <Mesh colors={MESH} alpha={0.22} />
-      <div className="grid" aria-hidden="true" />
+      <div className="gridlines" aria-hidden="true" />
       <div className="wrap">
         <div className="top">
           <div>
@@ -47,13 +47,13 @@ export function HeroV2() {
         <div className="stage rise d4" aria-label={t('Una web de cliente en monitor y móvil, con métricas flotantes', 'A client website on desktop and phone, with floating metrics')}>
           <div className="plate" />
           <div className="widget w1">
-            <div className="k">{t('Tráfico orgánico', 'Organic traffic')}</div>
-            <div className="v">+312%<small>↑ {t('6 meses', '6 months')}</small></div>
+            <div className="k">{t('Velocidad de carga', 'Load time')}</div>
+            <div className="v">&lt; 1 s<small>Next.js + Vercel</small></div>
             <svg viewBox="0 0 160 36" preserveAspectRatio="none"><path d="M0 30 L20 28 L40 24 L60 26 L80 18 L100 16 L120 10 L140 8 L160 3" fill="none" stroke="#C9A04A" strokeWidth="2" /></svg>
           </div>
           <div className="widget w2">
-            <div className="k">{t('Google Ads · coste por lead', 'Google Ads · cost per lead')}</div>
-            <div className="v">9,40 €<small>↓ 41%</small></div>
+            <div className="k">{t('Reseñas en Google', 'Google reviews')}</div>
+            <div className="v">{t('5,0', '5.0')}<small style={{ color: '#c9a04a' }}>★★★★★</small></div>
           </div>
           <div className="widget w3 wa">
             <div className="ic">W</div>

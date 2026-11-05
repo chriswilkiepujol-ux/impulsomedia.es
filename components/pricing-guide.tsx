@@ -2,7 +2,9 @@
 
 import { useLanguage } from '@/lib/language-context'
 import { FaqAccordion } from '@/components/faq-accordion'
-import { MessageCircle, Layers, PenTool, Cog, Workflow, RefreshCw, Languages, Search, Calendar } from 'lucide-react'
+import { PageHero, SectionHead, WidgetStack } from '@/components/v2/page'
+import { Reveal } from '@/components/v2/shared'
+import { Layers, PenTool, Cog, Workflow, RefreshCw, Languages, Search, Calendar } from 'lucide-react'
 
 /**
  * /precios · /en/pricing
@@ -54,101 +56,89 @@ export function PricingGuide() {
         { q: 'What does the discovery call include?', a: 'Thirty free minutes on WhatsApp, video or in person. We talk through your business and what the site needs; within 48 hours you receive a proposal with scope, price and timeline.' },
       ]
 
+  const featIdx = 3
   return (
     <>
-      {/* Intro */}
-      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="max-w-[64ch]">
-            <span className="section-label mb-4 block">{t('Precios', 'Pricing')}</span>
-            <h1 className="font-display font-extrabold text-[clamp(1.9rem,4vw,2.9rem)] leading-[1.18] tracking-[-0.015em] mb-5">
-              {t('Cada proyecto se presupuesta ', 'Every project is priced ')}
-              <em className="text-[#a67c2e] not-italic">{t('según lo que necesita.', 'on what it needs.')}</em>
-            </h1>
-            <p className="text-[rgba(17,20,24,0.84)] text-base leading-[1.7] mb-4">
-              {t(
-                'No trabajamos con tarifas fijas porque dos negocios nunca necesitan lo mismo. El precio depende del diseño, del número de páginas, de las funcionalidades y automatizaciones, de si partimos de cero o de una web existente, de los idiomas y del plazo. Más abajo tienes qué pesa en el presupuesto y unos ejemplos orientativos para situarte.',
-                "We don't work with fixed rates because no two businesses need the same thing. The price depends on the design, the number of pages, the functionality and automations, whether we start from scratch or from an existing site, the languages and the timeline. Below you'll find what drives the budget and some indicative examples to place yourself."
-              )}
-            </p>
-            <p className="text-[rgba(17,20,24,0.7)] text-sm leading-[1.7] mb-7">
-              {t(
-                'El precio definitivo siempre va por escrito en una propuesta cerrada, después de una llamada de descubrimiento gratuita.',
-                'The final price always goes in a written, fixed proposal after a free discovery call.'
-              )}
-            </p>
-            <a
-              href="https://wa.me/34680863229?text=Hola%2C%20quiero%20una%20propuesta%20para%20mi%20proyecto"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#25d366] text-white px-7 py-4 rounded-full font-sans font-semibold text-[0.92rem] no-underline transition-all duration-200 hover:-translate-y-[2px]"
-            >
-              <MessageCircle className="w-[18px] h-[18px]" />
-              {t('Pedir propuesta por WhatsApp', 'Request a proposal on WhatsApp')}
-            </a>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={t('Precios', 'Pricing')}
+        title={<>{t('Cada proyecto se presupuesta ', 'Every project is priced ')}<em>{t('según lo que necesita.', 'on what it needs.')}</em></>}
+        sub={t(
+          'No trabajamos con tarifas fijas porque dos negocios nunca necesitan lo mismo. El precio depende del diseño, del número de páginas, de las funcionalidades y automatizaciones, de si partimos de cero o de una web existente, de los idiomas y del plazo. Más abajo tienes qué pesa en el presupuesto y unos ejemplos orientativos para situarte.',
+          "We don't work with fixed rates because no two businesses need the same thing. The price depends on the design, the number of pages, the functionality and automations, whether we start from scratch or from an existing site, the languages and the timeline. Below you'll find what drives the budget and some indicative examples to place yourself."
+        )}
+        note={t(
+          'El precio definitivo siempre va por escrito en una propuesta cerrada, después de una llamada de descubrimiento gratuita.',
+          'The final price always goes in a written, fixed proposal after a free discovery call.'
+        )}
+        actions={<>
+          <a className="btn" href="https://wa.me/34680863229?text=Hola%2C%20quiero%20una%20propuesta%20para%20mi%20proyecto" target="_blank" rel="noopener noreferrer">{t('Pedir propuesta por WhatsApp', 'Request a proposal on WhatsApp')} <span className="arr">→</span></a>
+          <a className="btn ghost" href={contactHref}>{t('Reservar llamada', 'Book a call')}</a>
+        </>}
+        aside={
+          <WidgetStack kicker={t('Propuesta cerrada', 'Fixed proposal')} label={t('Alcance, precio y plazo por escrito en 48 horas', 'Scope, price and timeline in writing within 48 hours')}>
+            <div className="widget" style={{ left: 0, top: 0 }}>
+              <div className="k">{t('Web de presentación', 'Presentation site')}</div>
+              <div className="v">{t('desde 950 €', 'from €950')}</div>
+            </div>
+            <div className="widget" style={{ right: 0, top: '34%', animationDelay: '-2s' }}>
+              <div className="k">{t('Pago', 'Payment')}</div>
+              <div className="v">50 / 50<small>{t('inicio · lanzamiento', 'start · launch')}</small></div>
+            </div>
+            <div className="widget wa" style={{ left: '6%', bottom: 0, animationDelay: '-4s' }}>
+              <div className="ic">48h</div>
+              <div className="msg"><b>{t('Propuesta enviada', 'Proposal sent')}</b>{t('Tras la llamada de descubrimiento', 'After the discovery call')}</div>
+            </div>
+          </WidgetStack>
+        }
+      />
 
-      {/* Factors */}
-      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
-        <div className="max-w-[1200px] mx-auto">
-          <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-3">
-            {t('Qué determina el precio', 'What determines the price')}
-          </h2>
-          <p className="text-[rgba(17,20,24,0.7)] text-sm md:text-base mb-8 md:mb-10 max-w-[60ch]">
-            {t('Ocho cosas que miramos antes de poner un número.', 'Eight things we look at before putting a number down.')}
-          </p>
-          <div className="mobile-dense grid grid-cols-2 lg:grid-cols-4 gap-[1.5px] bg-[rgba(17,20,24,0.13)]">
+      <section className="section">
+        <div className="wrap">
+          <SectionHead
+            eyebrow={t('Factores', 'Factors')}
+            title={t('Qué determina el precio', 'What determines the price')}
+            lead={t('Ocho cosas que miramos antes de poner un número.', 'Eight things we look at before putting a number down.')}
+          />
+          <div className="tiles">
             {factors.map((f, i) => {
               const Icon = f.icon
               const [title, desc] = es ? f.es : f.en
               return (
-                <div key={title} className="bg-[#f6f4ef] p-6 md:p-7">
-                  <span className="font-display text-[0.65rem] font-bold tracking-[0.2em] text-[#a67c2e] mb-4 block">{String(i + 1).padStart(2, '0')}</span>
-                  <Icon className="w-7 h-7 text-[#a67c2e] mb-4" strokeWidth={1.5} />
-                  <h3 className="font-display font-extrabold text-lg mb-2">{title}</h3>
-                  <p className="text-[0.85rem] text-[rgba(17,20,24,0.7)] leading-[1.6]">{desc}</p>
-                </div>
+                <Reveal key={title} as="div">
+                  <div className="tile" style={{ height: '100%' }}>
+                    <span className="n">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="ic"><Icon strokeWidth={1.6} /></span>
+                    <h3>{title}</h3>
+                    <p>{desc}</p>
+                  </div>
+                </Reveal>
               )
             })}
           </div>
         </div>
       </section>
 
-      {/* Examples */}
-      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#ffffff]">
-        <div className="max-w-[1200px] mx-auto">
-          <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-3">
-            {t('Ejemplos orientativos', 'Indicative examples')}
-          </h2>
-          <p className="text-[rgba(17,20,24,0.7)] text-sm md:text-base mb-8 md:mb-10 max-w-[64ch]">
-            {t(
-              'Para que sepas en qué orden de magnitud se mueve cada tipo de proyecto. Son puntos de partida, no presupuestos.',
-              'So you know the order of magnitude for each type of project. Starting points, not quotes.'
-            )}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
-            {examples.map((ex) => {
+      <section className="section" style={{ background: 'var(--paper2)' }}>
+        <div className="wrap">
+          <SectionHead
+            eyebrow={t('Ejemplos', 'Examples')}
+            title={t('Ejemplos orientativos', 'Indicative examples')}
+            lead={t('Para que sepas en qué orden de magnitud se mueve cada tipo de proyecto. Son puntos de partida, no presupuestos.', 'So you know the order of magnitude for each type of project. Starting points, not quotes.')}
+          />
+          <div className="prices">
+            {examples.map((ex, i) => {
               const e = es ? ex.es : ex.en
               return (
-                <div key={e.name} className="rounded-2xl border border-[#ece8e0] p-5 md:p-6 flex flex-col">
-                  <h3 className="font-display font-extrabold text-lg mb-1">{e.name}</h3>
-                  <div className="font-display font-extrabold text-[1.35rem] text-[#a67c2e] leading-none mb-2">{e.from}</div>
-                  <p className="text-[0.78rem] text-[rgba(17,20,24,0.7)] mb-4">{e.who}</p>
-                  <ul className="flex flex-col gap-1.5 mt-auto">
-                    {e.scope.map((s) => (
-                      <li key={s} className="flex items-start gap-2 text-[0.82rem] text-[rgba(17,20,24,0.84)]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c9a04a] shrink-0 mt-[7px]" />
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <Reveal key={e.name} as="div" className={`price ${i === featIdx ? 'feat' : ''}`}>
+                  <span className="who">{e.who}</span>
+                  <h3>{e.name}</h3>
+                  <div className="from">{e.from}</div>
+                  <ul>{e.scope.map((sc) => <li key={sc}>{sc}</li>)}</ul>
+                </Reveal>
               )
             })}
           </div>
-          <p className="text-[rgba(17,20,24,0.7)] text-xs md:text-sm mt-6 max-w-[70ch]">
+          <p className="note" style={{ maxWidth: '80ch', marginTop: 22 }}>
             {t(
               'Precios sin IVA, orientativos y sujetos al alcance final de cada propuesta. Los servicios mensuales (SEO, anuncios, contenido) se presupuestan por canales, sector e inversión.',
               'Prices exclude VAT, are indicative and subject to the final scope of each proposal. Monthly services (SEO, ads, content) are scoped by channels, sector and media budget.'
@@ -157,22 +147,11 @@ export function PricingGuide() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-[clamp(3rem,6.5vw,5rem)] px-6 md:px-[clamp(1.5rem,5vw,4rem)] bg-[#f6f4ef]">
-        <div className="max-w-[1200px] mx-auto">
-          <h2 className="font-display font-extrabold text-[clamp(1.6rem,3.2vw,2.3rem)] leading-[1.2] tracking-[-0.015em] mb-8">
-            {t('Preguntas sobre precios', 'Questions about pricing')}
-          </h2>
-          <div className="max-w-[820px]">
-            <FaqAccordion items={faqs} />
-          </div>
-          <a
-            href={contactHref}
-            className="inline-flex items-center gap-3 mt-8 border border-[rgba(17,20,24,0.58)] text-[#111418] px-7 py-4 rounded-full font-sans font-semibold text-[0.92rem] no-underline transition-all duration-200 hover:border-[#c9a04a] hover:text-[#a67c2e]"
-          >
-            <Calendar className="w-[18px] h-[18px]" />
-            {t('Reservar llamada de descubrimiento', 'Book a discovery call')}
-          </a>
+      <section className="section">
+        <div className="wrap">
+          <SectionHead eyebrow="FAQ" title={t('Preguntas sobre precios', 'Questions about pricing')} />
+          <Reveal className="faqbox"><FaqAccordion items={faqs} /></Reveal>
+          <Reveal><div style={{ marginTop: 28 }}><a className="btn ghost" href={contactHref}>{t('Reservar llamada de descubrimiento', 'Book a discovery call')}</a></div></Reveal>
         </div>
       </section>
     </>

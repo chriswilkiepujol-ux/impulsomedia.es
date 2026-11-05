@@ -5,6 +5,7 @@ import { HeaderV2 as Header } from '@/components/v2/header'
 import { ServicesByAudience } from '@/components/services-by-audience'
 import { FooterV2 as Footer } from '@/components/v2/sections'
 import { AreasStrip } from '@/components/areas-strip'
+import { CtaBand } from '@/components/cta-band'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function PerformanceContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
@@ -15,6 +16,7 @@ export function PerformanceContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {})
         <main>
           <ServicesByAudience category="performance" />
           <AreasStrip services={['performance', 'marketing']} />
+          <CtaBand />
         </main>
         <Footer />
         <WhatsAppButton />
