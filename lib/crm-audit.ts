@@ -121,7 +121,7 @@ export function classify(a: A | null, f: F, lead: L) {
 async function pageSpeed(url: string) {
   try {
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 28000);
-    const r = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?strategy=mobile&category=performance&url=${encodeURIComponent(url)}`, { signal: ctl.signal });
+    const r = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?strategy=mobile&category=performance&url=${encodeURIComponent(url)}${process.env.PAGESPEED_API_KEY ? '&key=' + process.env.PAGESPEED_API_KEY : ''}`, { signal: ctl.signal });
     clearTimeout(t); if (!r.ok) return null;
     const j: any = await r.json(); const lh = j.lighthouseResult;
     const sc = lh?.categories?.performance?.score; if (sc == null) return null;
