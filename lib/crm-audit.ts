@@ -332,7 +332,8 @@ async function resolves(d: string) {
   for (const h of [d, 'www.' + d]) { try { const r = await Promise.race([dns.resolve4(h), new Promise<never>((_, j) => setTimeout(() => j(new Error('t')), 2500))]); if (r.length) return true; } catch {} }
   return false;
 }
-export async function findWebsite(lead: { name: string; phone?: string | null; area?: string | null }) {
+export async function findWebsite(lead: { name: string; phone?: string | null; area?: string | null; address?: string | null }) {
+  const places = [strip(lead.address?.match(/\d{5}\s+([^,]+)/)?.[1] || ''), strip((lead.area || '').split(/[ ,y]/)[0] || '')].filter(x => x.length >= 4);
   const { cands, distinct } = domainCandidates(lead.name); if (!cands.length) return null;
   const ok: string[] = []; for (let i = 0; i < cands.length; i += 10) { const chunk = cands.slice(i, i + 10); const r = await Promise.all(chunk.map(async d => (await resolves(d)) ? d : null)); ok.push(...(r.filter(Boolean) as string[])); if (ok.length >= 8) break; }
   const tel = (lead.phone || '').replace(/\D/g, '').slice(-9);
@@ -342,18 +343,19 @@ export async function findWebsite(lead: { name: string; phone?: string | null; a
     const phoneHit = tel.length === 9 && (text.replace(/\D/g, '').includes(tel) || strip(r.html).replace(/\D/g, '').includes(tel));
     const head = strip((r.html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '') + ' ' + (r.html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '').replace(/<[^>]+>/g, ' ') + ' ' + (r.html.match(/og:site_name"[^>]*content="([^"]*)"/i)?.[1] || ''));
     const hits = distinct.filter(t => head.includes(t)).length;
-    const nameHit = distinct.length >= 2 ? hits >= 2 : distinct.length === 1 ? hits === 1 && (/(sotogrande|estepona|san roque|manilva|campo de gibraltar|cadiz|malaga)/.test(text)) : false;
+    const here = places.length === 0 || places.some(p => text.includes(p));
+    const nameHit = here && (distinct.length >= 2 ? hits >= 2 : distinct.length === 1 ? hits === 1 : false);
     const parked = /domain (is )?for sale|dominio en venta|buy this domain|this domain may be for sale|godaddy|sedoparking/.test(text.slice(0, 3000)) && text.length < 4000;
     return !parked && (phoneHit || nameHit) ? { url: r.finalUrl, phoneHit } : null;
   }));
   const best = checks.filter(Boolean).sort((a: any, b: any) => Number(b.phoneHit) - Number(a.phoneHit))[0] as any;
-  return best ? (best.url as string) : null;
+  return best ? { url: best.url as string, phone: !!best.phoneHit } : null;
 }
 
 export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { psi: true }) {
   if (!lead.website && lead.name && (!lead.relationship || lead.relationship === 'lead')) {
     const w = await findWebsite(lead);
-    if (w) { lead.website = w; await sb.from('crm_leads').update({ website: w }).eq('id', lead.id); await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Website found automatically: ${w}` }); }
+    if (w) { lead.website = w.url; await sb.from('crm_leads').update({ website: w.url }).eq('id', lead.id); await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Website found automatically: ${w.url} (${w.phone ? 'phone number matches' : 'name and location match: verify it is them'})` }); }
   }
   if (!lead.website) {
     // Sin web registrada: candidato a página sencilla (verificar antes que de verdad no tiene)
