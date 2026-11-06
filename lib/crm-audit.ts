@@ -2,7 +2,7 @@
 // Los "pixels" indican que anuncian o han anunciado; NO prueban que haya campañas activas hoy.
 export type Reason = { label: string; points: number };
 export type Fit = { web: number; seo: number; ppc: number; social: number };
-export const PITCH_LABEL: Record<string, string> = { web: 'Web nueva', seo: 'SEO mensual', ppc: 'Google Ads mensual', social: 'Meta/Social Ads mensual' };
+export const PITCH_LABEL: Record<string, string> = { verificar: 'Verificar web',  web: 'Web nueva', seo: 'SEO mensual', ppc: 'Google Ads mensual', social: 'Meta/Social Ads mensual' };
 const YEAR = new Date().getFullYear();
 
 async function get(url: string, ms = 15000) {
@@ -67,12 +67,14 @@ export function classify(a: A | null, f: F, lead: L) {
   const established = (lead.google_reviews || 0) >= 50;
 
   if (!f.ok || !a) {
-    add('web', `Web no accesible (${f.error})`, 60);
+    if (f.status === 0) add('web', `No responde desde el servidor (${f.error}): verificar el dominio a mano, puede estar caído o mal listado`, 0);
+    else add('web', `Web con error (${f.error})`, 60);
   } else {
     // WEB NUEVA (pago único; puerta de entrada a retainer)
     if (!f.finalUrl.startsWith('https://')) add('web', 'Sin HTTPS', 20);
     if (!a.has_viewport) add('web', 'No adaptada a móvil (sin viewport)', 35);
     if (a.copyright_year && a.copyright_year <= YEAR - 3) add('web', `Aspecto abandonado: copyright ${a.copyright_year}`, 20);
+    if (/Drupal 7|Joomla! ?(1|2|3)\./i.test(a.platform)) add('web', `Plataforma sin soporte de seguridad (${a.platform})`, 35);
     if (f.ms > 3000) add('web', `Respuesta lenta (${(f.ms / 1000).toFixed(1)} s)`, 15);
     if (!a.has_whatsapp && !a.has_contact_form) add('web', 'Sin forma de contacto directa (ni formulario ni WhatsApp)', 15);
     // SEO MENSUAL
@@ -82,7 +84,8 @@ export function classify(a: A | null, f: F, lead: L) {
     if (!a.has_schema) add('seo', 'Sin datos estructurados (schema)', 15);
     if (!a.has_canonical) add('seo', 'Sin etiqueta canonical', 6);
     if (!f.sitemap) add('seo', 'Sin sitemap.xml', 15);
-    if (a.word_count < 300) add('seo', `Poco contenido en portada (${a.word_count} palabras)`, 12);
+    if (a.word_count >= 50 && a.word_count < 300) add('seo', `Poco contenido en portada (${a.word_count} palabras)`, 12);
+    if (a.word_count < 50) add('seo', `Portada casi sin texto en el HTML (${a.word_count} palabras): puede cargar con JavaScript, revisar a mano`, 0);
     if (!a.has_blog) add('seo', 'Sin blog/noticias', 6);
     if (!a.has_hreflang && highIntent) add('seo', 'Sin versiones de idioma en zona con clientela internacional', 10);
     if (!a.has_gsc_verification) add('seo', 'Sin verificación de Search Console visible', 5);
@@ -107,10 +110,11 @@ export function classify(a: A | null, f: F, lead: L) {
   // Ads sobre una web rota o no móvil rinden mal: se limita y primero se vende la web
   if (!f.ok || (a && !a.has_viewport)) { fit.ppc = Math.min(fit.ppc, 40); fit.social = Math.min(fit.social, 40); }
   if (!f.ok || !a) { fit.seo = 0; }
+  const unreachable = !f.ok && f.status === 0;
   const recurring = Math.max(fit.seo, fit.ppc, fit.social);
   const total = Math.max(recurring, Math.round(fit.web * 0.7));
   // Web rota/obsoleta: primero la web (puerta de entrada) y luego el retainer
-  const primary = fit.web >= 55 ? 'web' : (Object.entries({ seo: fit.seo, ppc: fit.ppc, social: fit.social }).sort((x, y) => y[1] - x[1])[0][0]);
+  const primary = unreachable ? 'verificar' : fit.web >= 55 ? 'web' : (Object.entries({ seo: fit.seo, ppc: fit.ppc, social: fit.social }).sort((x, y) => y[1] - x[1])[0][0]);
   return { fit, reasons, recurring, total, primary };
 }
 
@@ -138,6 +142,6 @@ export async function auditLead(sb: any, lead: any) {
       .map(r => ({ ...r, lead_id: lead.id, source_url: f.finalUrl }));
     if (rows.length) await sb.from('crm_contacts').upsert(rows, { onConflict: 'lead_id,kind,value', ignoreDuplicates: true });
   }
-  await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Auditoría: ${PITCH_LABEL[c.primary]} (${c.fit[c.primary as keyof Fit]}/100) · recurrente ${c.recurring}` });
+  await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Auditoría: ${PITCH_LABEL[c.primary]}${c.primary === 'verificar' ? '' : ` (${c.fit[c.primary as keyof Fit]}/100)`} · recurrente ${c.recurring}` });
   return c;
 }
