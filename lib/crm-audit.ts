@@ -2,7 +2,7 @@
 // Los "pixels" indican que anuncian o han anunciado; NO prueban que haya campañas activas hoy.
 export type Reason = { label: string; points: number };
 export type Fit = { web: number; seo: number; ppc: number; social: number };
-export const PITCH_LABEL: Record<string, string> = { verificar: 'Verificar web',  onepager: 'Web 1 página (400–500 €)', web: 'Web nueva', seo: 'SEO mensual', ppc: 'Google Ads mensual', social: 'Meta/Social Ads mensual' };
+export const PITCH_LABEL: Record<string, string> = { verificar: 'Check website',  onepager: 'One-page website (€400–500)', web: 'New website', seo: 'Monthly SEO', ppc: 'Monthly Google Ads', social: 'Monthly Meta/Social Ads' };
 const YEAR = new Date().getFullYear();
 
 async function get(url: string, ms = 15000) {
@@ -79,44 +79,44 @@ export function classify(a: A | null, f: F, lead: L) {
   const established = (lead.google_reviews || 0) >= 50;
 
   if (!f.ok || !a) {
-    if (f.status === 0) add('web', `No responde desde el servidor (${f.error}): verificar el dominio a mano, puede estar caído o mal listado`, 0);
-    else add('web', `Web con error (${f.error})`, 60);
+    if (f.status === 0) add('web', `Server could not reach the site (${f.error}): check the domain by hand, it may be down or listed wrongly`, 0);
+    else add('web', `Website error (${f.error})`, 60);
   } else {
     // WEB NUEVA (pago único; puerta de entrada a retainer)
-    if (!f.finalUrl.startsWith('https://')) add('web', 'Sin HTTPS', 20);
-    if (!a.has_viewport) add('web', 'No adaptada a móvil (sin viewport)', 35);
-    if (a.copyright_year && a.copyright_year <= YEAR - 3) add('web', `Aspecto abandonado: copyright ${a.copyright_year}`, 20);
-    if (/Drupal 7|Joomla! ?(1|2|3)\./i.test(a.platform)) add('web', `Plataforma sin soporte de seguridad (${a.platform})`, 35);
-    if (f.ms > 3000) add('web', `Respuesta lenta (${(f.ms / 1000).toFixed(1)} s)`, 15);
-    if (!a.has_whatsapp && !a.has_contact_form) add('web', 'Sin forma de contacto directa (ni formulario ni WhatsApp)', 15);
+    if (!f.finalUrl.startsWith('https://')) add('web', 'No HTTPS', 20);
+    if (!a.has_viewport) add('web', 'Not mobile-friendly (no viewport)', 35);
+    if (a.copyright_year && a.copyright_year <= YEAR - 3) add('web', `Looks abandoned: copyright ${a.copyright_year}`, 20);
+    if (/Drupal 7|Joomla! ?(1|2|3)\./i.test(a.platform)) add('web', `Platform without security support (${a.platform})`, 35);
+    if (f.ms > 3000) add('web', `Slow response (${(f.ms / 1000).toFixed(1)} s)`, 15);
+    if (!a.has_whatsapp && !a.has_contact_form) add('web', 'No direct contact option (no form or WhatsApp)', 15);
     // SEO MENSUAL
-    if (a.title.length < 15) add('seo', 'Título SEO ausente o muy corto', 12);
-    if (!a.meta_description) add('seo', 'Sin meta descripción', 12);
-    if (!a.has_h1) add('seo', 'Sin H1', 8);
-    if (!a.has_schema) add('seo', 'Sin datos estructurados (schema)', 15);
-    if (!a.has_canonical) add('seo', 'Sin etiqueta canonical', 6);
-    if (!f.sitemap) add('seo', 'Sin sitemap.xml', 15);
-    if (a.word_count >= 50 && a.word_count < 300) add('seo', `Poco contenido en portada (${a.word_count} palabras)`, 12);
-    if (a.word_count < 50) add('seo', `Portada casi sin texto en el HTML (${a.word_count} palabras): puede cargar con JavaScript, revisar a mano`, 0);
-    if (!a.has_blog) add('seo', 'Sin blog/noticias', 6);
-    if (!a.has_hreflang && highIntent) add('seo', 'Sin versiones de idioma en zona con clientela internacional', 10);
-    if (!a.has_gsc_verification) add('seo', 'Sin verificación de Search Console visible', 5);
-    if (highIntent) add('seo', 'Sector donde la gente busca en Google', 10);
-    if (established) add('seo', 'Negocio consolidado (50+ reseñas)', 10);
+    if (a.title.length < 15) add('seo', 'SEO title missing or too short', 12);
+    if (!a.meta_description) add('seo', 'No meta description', 12);
+    if (!a.has_h1) add('seo', 'No H1', 8);
+    if (!a.has_schema) add('seo', 'No structured data (schema)', 15);
+    if (!a.has_canonical) add('seo', 'No canonical tag', 6);
+    if (!f.sitemap) add('seo', 'No sitemap.xml', 15);
+    if (a.word_count >= 50 && a.word_count < 300) add('seo', `Thin homepage content (${a.word_count} words)`, 12);
+    if (a.word_count < 50) add('seo', `Homepage has almost no text in the HTML (${a.word_count} words): may load with JavaScript, check by hand`, 0);
+    if (!a.has_blog) add('seo', 'No blog/news', 6);
+    if (!a.has_hreflang && highIntent) add('seo', 'No language versions in an area with international clients', 10);
+    if (!a.has_gsc_verification) add('seo', 'No visible Search Console verification', 5);
+    if (highIntent) add('seo', 'Sector where people search on Google', 10);
+    if (established) add('seo', 'Established business (50+ reviews)', 10);
     // GOOGLE ADS MENSUAL
-    if (highIntent) add('ppc', 'Sector de búsqueda con intención de compra', 30);
-    if (a.has_google_ads_tag) add('ppc', 'Ya usa etiquetas de Google Ads: mercado ya educado, entrar con auditoría/optimización', 25);
-    else add('ppc', 'Sin etiquetas de Google Ads: oportunidad de arrancar campañas', 20);
-    if (a.has_viewport && (a.has_contact_form || a.has_whatsapp)) add('ppc', 'La web ya puede convertir tráfico (móvil + contacto)', 15);
-    else add('ppc', 'Necesitaría mejorar la web antes de invertir en anuncios', 0);
-    if (!a.has_analytics) add('ppc', 'Sin analítica/conversiones medidas', 10);
-    if (established) add('ppc', 'Negocio consolidado: probable capacidad de inversión', 15);
+    if (highIntent) add('ppc', 'Search sector with buying intent', 30);
+    if (a.has_google_ads_tag) add('ppc', 'Already uses Google Ads tags: educated market, enter with an audit/optimisation', 25);
+    else add('ppc', 'No Google Ads tags: opportunity to start campaigns', 20);
+    if (a.has_viewport && (a.has_contact_form || a.has_whatsapp)) add('ppc', 'The site can already convert traffic (mobile + contact)', 15);
+    else add('ppc', 'Would need to improve the site before investing in ads', 0);
+    if (!a.has_analytics) add('ppc', 'No analytics/conversion tracking', 10);
+    if (established) add('ppc', 'Established business: likely able to invest', 15);
     // META / SOCIAL ADS MENSUAL
-    if (consumer) add('social', 'Negocio de cliente final: encaja con Meta Ads', 25);
-    if (a.has_meta_pixel) add('social', 'Ya tiene Meta Pixel instalado', 15);
-    else add('social', 'Sin Meta Pixel: sin remarketing', 25);
-    if (a.has_social_links) add('social', 'Perfiles sociales activos enlazados', 15);
-    if (established) add('social', 'Negocio consolidado: probable capacidad de inversión', 15);
+    if (consumer) add('social', 'Consumer-facing business: fits Meta Ads', 25);
+    if (a.has_meta_pixel) add('social', 'Meta Pixel already installed', 15);
+    else add('social', 'No Meta Pixel: no remarketing', 25);
+    if (a.has_social_links) add('social', 'Active social profiles linked', 15);
+    if (established) add('social', 'Established business: likely able to invest', 15);
   }
   const fit = {} as Fit; (Object.keys(reasons) as (keyof Fit)[]).forEach(k => { fit[k] = Math.min(100, reasons[k].reduce((s, r) => s + r.points, 0)); });
   // Ads sobre una web rota o no móvil rinden mal: se limita y primero se vende la web
@@ -144,13 +144,13 @@ export function scoreV2(a: A | null, f: F, lead: L & { phone?: string | null; em
   const out: any = { staleness: null, staleness_why: [] as string[], site_age_years: x.wbFirst ? YEAR - x.wbFirst : null, simple_site: null, ad_google: 0, ad_meta: 0, ad_prob: 0, ad_confidence: 'baja', ad_evidence: { google: { p: 0, ev: [] }, meta: { p: 0, ev: [] } }, budget_score: 0, knowledge_score: 0 };
   // ---------- Presupuesto (capacidad de pago) ----------
   const why: string[] = []; let b = 0;
-  if (rev >= 200) { b += 30; why.push(`${rev} reseñas en Google (negocio muy activo)`); } else if (rev >= 50) { b += 20; why.push(`${rev} reseñas en Google`); } else if (rev >= 10) b += 8;
-  if (HIGH_AD.test(cat)) { b += 20; why.push('Sector con ticket alto y cliente que busca en Google'); } else b += 8;
-  if (x.wbFirst && YEAR - x.wbFirst >= 5) { b += 8; why.push(`Dominio con histórico (${YEAR - x.wbFirst}+ años online)`); }
+  if (rev >= 200) { b += 30; why.push(`${rev} Google reviews (very active business)`); } else if (rev >= 50) { b += 20; why.push(`${rev} Google reviews`); } else if (rev >= 10) b += 8;
+  if (HIGH_AD.test(cat)) { b += 20; why.push('High-ticket sector with clients who search on Google'); } else b += 8;
+  if (x.wbFirst && YEAR - x.wbFirst >= 5) { b += 8; why.push(`Domain with history (${YEAR - x.wbFirst}+ years online)`); }
   if (a) {
-    if (a.has_hreflang) { b += 8; why.push('Web multilingüe: apunta a clientela internacional'); }
+    if (a.has_hreflang) { b += 8; why.push('Multilingual site: targets international clients'); }
     if (a.has_gtm || a.has_analytics) b += 8;
-    if (a.has_google_ads_tag || a.has_meta_pixel) { b += 15; why.push('Ya paga por publicidad (etiquetas instaladas)'); }
+    if (a.has_google_ads_tag || a.has_meta_pixel) { b += 15; why.push('Already pays for advertising (tags installed)'); }
     if (a.has_social_links) b += 4;
     if (a.has_schema) b += 5;
     if (a.is_complex) b += 5;
@@ -162,39 +162,39 @@ export function scoreV2(a: A | null, f: F, lead: L & { phone?: string | null; em
   }
   // ---------- Obsolescencia ----------
   let st = 0; const sw: string[] = []; const S = (n: number, t: string) => { st += n; sw.push(t); };
-  if (!a.has_viewport) S(30, 'No adaptada a móvil');
-  if (!f.finalUrl.startsWith('https://')) S(10, 'Sin HTTPS');
+  if (!a.has_viewport) S(30, 'Not mobile-friendly');
+  if (!f.finalUrl.startsWith('https://')) S(10, 'No HTTPS');
   if (a.copyright_year) { if (a.copyright_year <= YEAR - 5) S(25, `Copyright ${a.copyright_year}`); else if (a.copyright_year <= YEAR - 3) S(18, `Copyright ${a.copyright_year}`); }
   const jq = a.jquery_ver ? Number(a.jquery_ver.split('.')[0]) : null;
-  if (jq != null && jq < 3) S(jq < 2 ? 18 : 12, `jQuery ${a.jquery_ver} (versión antigua)`);
+  if (jq != null && jq < 3) S(jq < 2 ? 18 : 12, `jQuery ${a.jquery_ver} (old version)`);
   const bs = a.bootstrap_ver ? Number(a.bootstrap_ver.split('.')[0]) : null;
-  if (bs != null && bs <= 3) S(10, `Bootstrap ${a.bootstrap_ver} (plantilla de hace años)`);
-  if (/Drupal 7|Joomla! ?(1|2|3)\./i.test(a.platform)) S(20, `Plataforma sin soporte (${a.platform})`);
-  const wpv = /WordPress\s+(\d+)/i.exec(a.generator || '')?.[1]; if (wpv && Number(wpv) < 5) S(15, `WordPress ${wpv}.x desactualizado`);
-  if (a.legacy_markup) S(15, 'Maquetación antigua (tablas/flash/font)');
+  if (bs != null && bs <= 3) S(10, `Bootstrap ${a.bootstrap_ver} (template from years ago)`);
+  if (/Drupal 7|Joomla! ?(1|2|3)\./i.test(a.platform)) S(20, `Unsupported platform (${a.platform})`);
+  const wpv = /WordPress\s+(\d+)/i.exec(a.generator || '')?.[1]; if (wpv && Number(wpv) < 5) S(15, `WordPress ${wpv}.x out of date`);
+  if (a.legacy_markup) S(15, 'Old-style layout (tables/flash/font)');
   const stale = [x.lastModified, x.sitemapLastmod].filter(Boolean).map(d => yearsAgo(d as string)).filter((v): v is number => v != null);
-  if (stale.length) { const y = Math.min(...stale); if (y > 2) S(20, `Última modificación detectada hace ${y.toFixed(1)} años`); else if (y > 1) S(10, `Última modificación detectada hace ${y.toFixed(1)} años`); }
-  if (x.wbFirst && x.wbChanges != null && x.wbChanges <= 1 && YEAR - x.wbFirst >= 3) S(15, 'Sin cambios en portada en los últimos 2 años (Wayback)');
-  if (f.ms > 3000) S(5, `Lenta (${(f.ms / 1000).toFixed(1)} s)`);
-  if (a.word_count >= 50 && a.word_count < 250) S(5, 'Muy poco contenido');
+  if (stale.length) { const y = Math.min(...stale); if (y > 2) S(20, `Last modification detected ${y.toFixed(1)} years ago`); else if (y > 1) S(10, `Last modification detected ${y.toFixed(1)} years ago`); }
+  if (x.wbFirst && x.wbChanges != null && x.wbChanges <= 1 && YEAR - x.wbFirst >= 3) S(15, 'No homepage changes in the last 2 years (Wayback)');
+  if (f.ms > 3000) S(5, `Slow (${(f.ms / 1000).toFixed(1)} s)`);
+  if (a.word_count >= 50 && a.word_count < 250) S(5, 'Very little content');
   out.staleness = Math.min(100, st); out.staleness_why = sw;
   // ---------- Web sencilla ----------
   const pages = x.pageCount;
   out.simple_site = !a.is_complex && a.internal_links <= 30 && (pages == null || pages <= 25);
   // ---------- Probabilidad de anuncios (con evidencia) ----------
   const ev: Ev[] = []; const E = (p: Ev['p'], t: string, w: number, strong = false) => ev.push({ p, t, w, strong });
-  const vg = a.via_gtm ? ' (dentro de Tag Manager)' : '';
-  if (a.gads_conversion) E('google', `Etiqueta de conversión de Google Ads${a.gtm_conv > 1 ? ` (${a.gtm_conv} conversiones configuradas)` : ''}${vg}`, a.gtm_conv >= 3 ? 55 : 45, true);
-  else if (a.has_aw_id) E('google', `ID de Google Ads (AW-…) instalado${vg}`, 30);
-  else if (a.has_google_ads_tag) E('google', 'Código de Google Ads/DoubleClick presente', 15);
-  if (a.meta_events) E('meta', `Meta Pixel con eventos de conversión (Lead/Contact/Purchase…)${vg}`, 38, true);
-  else if (a.has_meta_pixel) E('meta', `Meta Pixel instalado (sin eventos de conversión detectados)${vg}`, 18);
-  if (a.utm_links) E('ambos', 'Enlaces con parámetros UTM de pago (cpc/paid/fb)', 12);
-  if (a.call_tracking) E('google', 'Seguimiento de llamadas (típico de campañas)', 12);
-  if ((a.has_aw_id || a.has_meta_pixel) && a.has_gtm) E('ambos', 'Tag Manager gestionando etiquetas de marketing', 6);
-  if (a.has_bing) E('google', 'Microsoft Ads (Bing UET) instalado: invierte en búsqueda de pago', 10);
-  if (a.gtm_ids.length && !a.gtm_scanned) E('ambos', 'Usa Tag Manager pero no se pudo leer el contenedor: puede haber etiquetas ocultas', 5);
-  if (a.has_other_pixel) E('ambos', 'Otros píxeles publicitarios (TikTok/LinkedIn)', 6);
+  const vg = a.via_gtm ? ' (inside Tag Manager)' : '';
+  if (a.gads_conversion) E('google', `Google Ads conversion tag${a.gtm_conv > 1 ? ` (${a.gtm_conv} conversions configured)` : ''}${vg}`, a.gtm_conv >= 3 ? 55 : 45, true);
+  else if (a.has_aw_id) E('google', `Google Ads ID (AW-…) installed${vg}`, 30);
+  else if (a.has_google_ads_tag) E('google', 'Google Ads/DoubleClick code present', 15);
+  if (a.meta_events) E('meta', `Meta Pixel with conversion events (Lead/Contact/Purchase…)${vg}`, 38, true);
+  else if (a.has_meta_pixel) E('meta', `Meta Pixel installed (no conversion events detected)${vg}`, 18);
+  if (a.utm_links) E('ambos', 'Links with paid UTM parameters (cpc/paid/fb)', 12);
+  if (a.call_tracking) E('google', 'Call tracking (typical of campaigns)', 12);
+  if ((a.has_aw_id || a.has_meta_pixel) && a.has_gtm) E('ambos', 'Tag Manager managing marketing tags', 6);
+  if (a.has_bing) E('google', 'Microsoft Ads (Bing UET) installed: invests in paid search', 10);
+  if (a.gtm_ids.length && !a.gtm_scanned) E('ambos', 'Uses Tag Manager but the container could not be read: hidden tags possible', 5);
+  if (a.has_other_pixel) E('ambos', 'Other ad pixels (TikTok/LinkedIn)', 6);
   const tagged = ev.length > 0;
   const prior = (plat: 'google' | 'meta') => { let n = 0; if (plat === 'google' && HIGH_AD.test(cat)) n += 10; if (plat === 'meta' && consumer) n += 8; if (rev >= 200) n += 10; else if (rev >= 50) n += 6; return n; };
   const sum = (plat: 'google' | 'meta') => ev.filter(e => e.p === plat || e.p === 'ambos').reduce((s, e) => s + e.w, 0);
@@ -219,24 +219,24 @@ export function prioritise(pitch: string, fit: Fit, s: any, lead: any) {
   if (lead.lead_type === 'warm') pr = Math.min(100, pr + 10);
   if (pitch === 'verificar') pr = Math.min(pr, 30);
   const why: string[] = [];
-  if (pitch === 'onepager') { why.push(s.simple_site === false ? 'Web antigua pero compleja: valorar rediseño más amplio' : 'Web sencilla: una página moderna (≈450 €) y enseñarla ya hecha'); }
-  if (s.staleness != null && s.staleness >= 40) why.push(`Web obsoleta (${s.staleness}/100): ${(s.staleness_why || []).slice(0, 3).join(', ')}`);
-  if (s.site_age_years != null) why.push(`Dominio con ~${s.site_age_years} años`);
-  if (s.ad_prob >= 40) why.push(`Probable inversión en anuncios (${s.ad_prob}%, confianza ${s.ad_confidence})`);
+  if (pitch === 'onepager') { why.push(s.simple_site === false ? 'Old but complex site: consider a broader redesign' : 'Simple site: a modern one-pager (≈€450), shown already built'); }
+  if (s.staleness != null && s.staleness >= 40) why.push(`Outdated website (${s.staleness}/100): ${(s.staleness_why || []).slice(0, 3).join(', ')}`);
+  if (s.site_age_years != null) why.push(`Domain about ${s.site_age_years} years old`);
+  if (s.ad_prob >= 40) why.push(`Likely spends on ads (${s.ad_prob}%, confidence ${s.ad_confidence})`);
   why.push(...(s.budget_why || []));
-  if (reach === 100) why.push('Tiene teléfono/email para contactar');
+  if (reach === 100) why.push('Has a phone/email to contact');
   return { priority: Math.max(0, Math.min(100, pr)), why: why.slice(0, 6) };
 }
 
 export function pitchAngle(pitch: string, s: any, lead: any) {
   const p = s.ad_prob ?? 0; const hi = (s.budget_score ?? 0) >= 45;
-  if (pitch === 'verificar') return 'Comprobar a mano que la web existe antes de ofrecer nada';
-  if (pitch === 'onepager') return 'Preparar una página sencilla y funcional, enviarla ya hecha y ofrecer mantenimiento/SEO después';
-  if (p >= 60) return 'Ya invierte en anuncios: ofrecer auditoría gratuita de campañas (gasto, conversiones, página de destino) y optimización mensual';
-  if (p >= 30) return 'Señales de que prueba anuncios: auditoría de lo instalado y mejora de conversión';
-  if (pitch === 'web') return 'Web obsoleta: renovarla (pago único) y después retainer de SEO/anuncios';
-  if (hi && (lead.google_reviews || 0) >= 20) return 'Negocio con capacidad y sin señales de anuncios: propuesta de arranque de Google Ads con página de destino';
-  return 'Auditoría SEO local con mejoras rápidas como gancho';
+  if (pitch === 'verificar') return 'Check by hand that the website exists before offering anything';
+  if (pitch === 'onepager') return 'Build a simple working page, send it already built, and offer maintenance/SEO afterwards';
+  if (p >= 60) return 'Already invests in ads: offer a free campaign audit (spend, conversions, landing page) and monthly optimisation';
+  if (p >= 30) return 'Signs they try ads: audit what is installed and improve conversion';
+  if (pitch === 'web') return 'Outdated website: renew it (one-off fee), then an SEO/ads retainer';
+  if (hi && (lead.google_reviews || 0) >= 20) return 'Business with capacity and no ad signals: propose starting Google Ads with a landing page';
+  return 'Local SEO audit with quick wins as the hook';
 }
 
 async function pageSpeed(url: string) {
@@ -253,14 +253,14 @@ async function pageSpeed(url: string) {
 function diffAudits(prev: any, cur: any) {
   const out: string[] = [];
   if (!prev) return out;
-  if (prev.http_status && prev.http_status < 400 && cur.http_status >= 400) out.push('la web ya no responde');
-  if (prev.platform !== cur.platform && (prev.platform || cur.platform)) out.push(`plataforma: ${prev.platform || '—'} → ${cur.platform || '—'}`);
-  if (prev.has_google_ads_tag === false && cur.has_google_ads_tag === true) out.push('nueva etiqueta de Google Ads');
-  if (prev.has_meta_pixel === false && cur.has_meta_pixel === true) out.push('nuevo Meta Pixel');
-  if (prev.copyright_year && cur.copyright_year && cur.copyright_year > prev.copyright_year) out.push(`copyright ${prev.copyright_year} → ${cur.copyright_year} (web actualizada)`);
-  if (prev.title && cur.title && prev.title !== cur.title) out.push('cambió el título de la portada');
-  if (prev.has_viewport === false && cur.has_viewport === true) out.push('ahora adaptada a móvil');
-  if (prev.has_whatsapp === false && cur.has_whatsapp === true) out.push('añadido WhatsApp');
+  if (prev.http_status && prev.http_status < 400 && cur.http_status >= 400) out.push('the website no longer responds');
+  if (prev.platform !== cur.platform && (prev.platform || cur.platform)) out.push(`platform: ${prev.platform || '—'} → ${cur.platform || '—'}`);
+  if (prev.has_google_ads_tag === false && cur.has_google_ads_tag === true) out.push('new Google Ads tag');
+  if (prev.has_meta_pixel === false && cur.has_meta_pixel === true) out.push('new Meta Pixel');
+  if (prev.copyright_year && cur.copyright_year && cur.copyright_year > prev.copyright_year) out.push(`copyright ${prev.copyright_year} → ${cur.copyright_year} (site updated)`);
+  if (prev.title && cur.title && prev.title !== cur.title) out.push('homepage title changed');
+  if (prev.has_viewport === false && cur.has_viewport === true) out.push('now mobile-friendly');
+  if (prev.has_whatsapp === false && cur.has_whatsapp === true) out.push('WhatsApp added');
   return out;
 }
 
@@ -312,7 +312,7 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
     s0.staleness = 100; s0.simple_site = true; s0.ad_prob = 5; s0.ad_confidence = 'baja';
     const fit0 = { web: 0, seo: 0, ppc: 0, social: 0 } as Fit; const pr0 = prioritise('onepager', { ...fit0, web: 100 }, s0, lead);
     if ((lead.relationship && lead.relationship !== 'lead') || !['nuevo', 'revisado'].includes(lead.status || 'nuevo')) return { skipped: true };
-    await sb.from('crm_leads').update({ primary_pitch: 'onepager', staleness: 100, simple_site: true, ad_prob: 5, ad_confidence: 'baja', ad_evidence: s0.ad_evidence, budget_score: s0.budget_score, knowledge_score: 0, priority: Math.min(pr0.priority, 62), priority_why: ['Sin web encontrada (sin confirmar): comprobar en Google; si de verdad no tiene, página sencilla (≈450 €) ya hecha', ...pr0.why.slice(1)], pitch_angle: 'Sin web encontrada: verificar y, si no tiene, enseñarle una página lista', staleness_why: ['Sin web registrada'], last_audit_at: new Date().toISOString() }).eq('id', lead.id);
+    await sb.from('crm_leads').update({ primary_pitch: 'onepager', staleness: 100, simple_site: true, ad_prob: 5, ad_confidence: 'baja', ad_evidence: s0.ad_evidence, budget_score: s0.budget_score, knowledge_score: 0, priority: Math.min(pr0.priority, 62), priority_why: ['No website found (unconfirmed): check on Google; if they really have none, a simple page (≈€450), already built', ...pr0.why.slice(1)], pitch_angle: 'No website found: verify and, if none, show them a ready-made page', staleness_why: ['No website registered'], last_audit_at: new Date().toISOString() }).eq('id', lead.id);
     return { skipped: true };
   }
   const f = await fetchSite(lead.website);
@@ -356,7 +356,7 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
       .map(r => ({ ...r, lead_id: lead.id, source_url: f.finalUrl }));
     if (rows.length) await sb.from('crm_contacts').upsert(rows, { onConflict: 'lead_id,kind,value', ignoreDuplicates: true });
   }
-  await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Auditoría: ${PITCH_LABEL[primary]} · prioridad ${pr.priority} · anuncios ${s2.ad_prob}% (${s2.ad_confidence}) · obsolescencia ${s2.staleness ?? '—'}` });
-  if (changes.length) await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Cambio detectado: ${changes.join(' · ')}` });
+  await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Audit: ${PITCH_LABEL[primary]} · priority ${pr.priority} · ads ${s2.ad_prob}% (${s2.ad_confidence}) · obsolescence ${s2.staleness ?? '—'}` });
+  if (changes.length) await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Change detected: ${changes.join(' · ')}` });
   return { ...c, primary, priority: pr.priority };
 }

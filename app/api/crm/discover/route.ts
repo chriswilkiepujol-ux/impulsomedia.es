@@ -8,7 +8,7 @@ const hostOf = (u?: string | null) => { try { return new URL(u!).hostname.replac
 export async function GET(req: Request) {
   if (!process.env.CRON_SECRET || req.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) return NextResponse.json({ error: 'no auth' }, { status: 401 })
   const key = process.env.GOOGLE_PLACES_API_KEY
-  if (!key) return NextResponse.json({ error: 'Falta GOOGLE_PLACES_API_KEY en Vercel (Places API activada en Google Cloud)' }, { status: 200 })
+  if (!key) return NextResponse.json({ error: 'GOOGLE_PLACES_API_KEY is missing in Vercel (Places API must be enabled in Google Cloud)' }, { status: 200 })
   const sb = crmAnonClient()
   const { error: e } = await sb.auth.signInWithPassword({ email: process.env.CRM_BOT_EMAIL!, password: process.env.CRM_BOT_PASSWORD! })
   if (e) return NextResponse.json({ error: e.message }, { status: 500 })
