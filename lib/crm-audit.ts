@@ -60,6 +60,8 @@ export function analyse(h: string) {
     bootstrap_ver: h.match(/bootstrap[^"'\s>]*?[-\/@.v](\d+\.\d+(?:\.\d+)?)/i)?.[1] || null,
     internal_links: new Set([...h.matchAll(/<a[^>]+href=["']((?:\/(?!\/)|(?![a-z]+:|#|\/\/))[^"'#?]*)/gi)].map(m => m[1])).size,
     is_complex: /woocommerce|add[-_]to[-_]cart|carrito|shopping[-_]cart|\/checkout|motor de reservas|reservar online|cloudbeds|simplebooking|resengo|fresha\.|doctoralia\.|booking-engine|\/reservas?[\/"']/i.test(h),
+    gtm_ids: [...new Set([...h.matchAll(/GTM-[A-Z0-9]{4,9}/g)].map(m => m[0]))].slice(0, 2),
+    via_gtm: false as boolean, gtm_conv: 0, has_bing: false as boolean, gtm_scanned: false as boolean,
     legacy_markup: /<font[\s>]|<center[\s>]|<frameset|swfobject|\.swf["']/i.test(h) || (h.match(/<table[\s>]/gi) || []).length > 8,
   };
 }
@@ -181,14 +183,17 @@ export function scoreV2(a: A | null, f: F, lead: L & { phone?: string | null; em
   out.simple_site = !a.is_complex && a.internal_links <= 30 && (pages == null || pages <= 25);
   // ---------- Probabilidad de anuncios (con evidencia) ----------
   const ev: Ev[] = []; const E = (p: Ev['p'], t: string, w: number, strong = false) => ev.push({ p, t, w, strong });
-  if (a.gads_conversion) E('google', 'Etiqueta de conversión de Google Ads (mide resultados de campañas)', 45, true);
-  else if (a.has_aw_id) E('google', 'ID de Google Ads (AW-…) instalado', 30);
+  const vg = a.via_gtm ? ' (dentro de Tag Manager)' : '';
+  if (a.gads_conversion) E('google', `Etiqueta de conversión de Google Ads${a.gtm_conv > 1 ? ` (${a.gtm_conv} conversiones configuradas)` : ''}${vg}`, a.gtm_conv >= 3 ? 55 : 45, true);
+  else if (a.has_aw_id) E('google', `ID de Google Ads (AW-…) instalado${vg}`, 30);
   else if (a.has_google_ads_tag) E('google', 'Código de Google Ads/DoubleClick presente', 15);
-  if (a.meta_events) E('meta', 'Meta Pixel con eventos de conversión (Lead/Contact/Purchase…)', 38, true);
-  else if (a.has_meta_pixel) E('meta', 'Meta Pixel instalado (sin eventos de conversión detectados)', 18);
+  if (a.meta_events) E('meta', `Meta Pixel con eventos de conversión (Lead/Contact/Purchase…)${vg}`, 38, true);
+  else if (a.has_meta_pixel) E('meta', `Meta Pixel instalado (sin eventos de conversión detectados)${vg}`, 18);
   if (a.utm_links) E('ambos', 'Enlaces con parámetros UTM de pago (cpc/paid/fb)', 12);
   if (a.call_tracking) E('google', 'Seguimiento de llamadas (típico de campañas)', 12);
   if ((a.has_aw_id || a.has_meta_pixel) && a.has_gtm) E('ambos', 'Tag Manager gestionando etiquetas de marketing', 6);
+  if (a.has_bing) E('google', 'Microsoft Ads (Bing UET) instalado: invierte en búsqueda de pago', 10);
+  if (a.gtm_ids.length && !a.gtm_scanned) E('ambos', 'Usa Tag Manager pero no se pudo leer el contenedor: puede haber etiquetas ocultas', 5);
   if (a.has_other_pixel) E('ambos', 'Otros píxeles publicitarios (TikTok/LinkedIn)', 6);
   const tagged = ev.length > 0;
   const prior = (plat: 'google' | 'meta') => { let n = 0; if (plat === 'google' && HIGH_AD.test(cat)) n += 10; if (plat === 'meta' && consumer) n += 8; if (rev >= 200) n += 10; else if (rev >= 50) n += 6; return n; };
@@ -260,6 +265,26 @@ function diffAudits(prev: any, cur: any) {
 }
 
 
+
+// Los contenedores de Tag Manager son públicos (gtm.js): ahí viven la mayoría de etiquetas de Ads/Meta.
+async function gtmScan(a: A) {
+  for (const id of a.gtm_ids) {
+    try {
+      const c = new AbortController(); const t = setTimeout(() => c.abort(), 8000);
+      const r = await fetch(`https://www.googletagmanager.com/gtm.js?id=${id}`, { signal: c.signal }); clearTimeout(t);
+      if (!r.ok) continue; const j = (await r.text()).slice(0, 1_500_000); a.gtm_scanned = true;
+      const aw = j.match(/AW-\d{6,}/g) || []; const conv = (j.match(/AW-\d{6,}\/[\w-]{6,}/g) || []).length + (j.match(/__awct/g) || []).length;
+      if (aw.length || /__awct|__sp\b|__gclidw|googleadservices/.test(j)) { a.has_google_ads_tag = true; a.via_gtm = true; }
+      if (aw.length) a.has_aw_id = true;
+      if (conv > 0) { a.gads_conversion = true; a.gtm_conv += conv; }
+      if (/fbq\(|connect\.facebook\.net|__fbq/.test(j)) { a.has_meta_pixel = true; a.via_gtm = true; }
+      if (/fbq\(\s*['"]track['"]\s*,\s*['"](Lead|Contact|Purchase|Schedule|CompleteRegistration|InitiateCheckout|SubmitApplication|AddToCart)/.test(j)) a.meta_events = true;
+      if (/bat\.bing\.com|__bing/.test(j)) a.has_bing = true;
+      if (/analytics\.tiktok\.com|ttq\.load|snap\.licdn\.com|_linkedin_partner_id/.test(j)) a.has_other_pixel = true;
+    } catch {}
+  }
+}
+
 async function waybackInfo(url: string) {
   try {
     const host = new URL(url).hostname.replace(/^www\./, '');
@@ -286,12 +311,13 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
     const s0 = scoreV2(null, { ok: false, ms: 0, bytes: 0, finalUrl: '', error: 'sin web', sitemap: false, status: -1 } as any, lead, { pageCount: null, sitemapLastmod: null, lastModified: null, wbFirst: null, wbChanges: null, wbLast: null });
     s0.staleness = 100; s0.simple_site = true; s0.ad_prob = 5; s0.ad_confidence = 'baja';
     const fit0 = { web: 0, seo: 0, ppc: 0, social: 0 } as Fit; const pr0 = prioritise('onepager', { ...fit0, web: 100 }, s0, lead);
-    if (lead.relationship && lead.relationship !== 'lead') return { skipped: true };
-    await sb.from('crm_leads').update({ primary_pitch: 'onepager', staleness: 100, simple_site: true, ad_prob: 5, ad_confidence: 'baja', ad_evidence: s0.ad_evidence, budget_score: s0.budget_score, knowledge_score: 0, priority: pr0.priority, priority_why: ['Sin web encontrada: comprobar en Google; si de verdad no tiene, página sencilla (≈450 €) ya hecha', ...pr0.why.slice(1)], pitch_angle: 'Sin web encontrada: verificar y, si no tiene, enseñarle una página lista', staleness_why: ['Sin web registrada'], last_audit_at: new Date().toISOString() }).eq('id', lead.id);
+    if ((lead.relationship && lead.relationship !== 'lead') || !['nuevo', 'revisado'].includes(lead.status || 'nuevo')) return { skipped: true };
+    await sb.from('crm_leads').update({ primary_pitch: 'onepager', staleness: 100, simple_site: true, ad_prob: 5, ad_confidence: 'baja', ad_evidence: s0.ad_evidence, budget_score: s0.budget_score, knowledge_score: 0, priority: Math.min(pr0.priority, 62), priority_why: ['Sin web encontrada (sin confirmar): comprobar en Google; si de verdad no tiene, página sencilla (≈450 €) ya hecha', ...pr0.why.slice(1)], pitch_angle: 'Sin web encontrada: verificar y, si no tiene, enseñarle una página lista', staleness_why: ['Sin web registrada'], last_audit_at: new Date().toISOString() }).eq('id', lead.id);
     return { skipped: true };
   }
   const f = await fetchSite(lead.website);
   const a = f.ok ? analyse(f.html) : null;
+  if (a && a.gtm_ids.length) await gtmScan(a);
   let sitemap = false; let ext: Ext = { pageCount: null, sitemapLastmod: null, lastModified: f.lastModified ? new Date(f.lastModified).toISOString().slice(0, 10) : null, wbFirst: null, wbChanges: null, wbLast: null };
   if (f.ok) { try { const o = new URL(f.finalUrl).origin; const [sm, wb] = await Promise.all([sitemapInfo(o), waybackInfo(f.finalUrl)]); sitemap = sm.ok; ext = { ...ext, pageCount: sm.pageCount, sitemapLastmod: sm.lastmod, ...wb }; } catch {} }
   if (ext.lastModified && Number.isNaN(Date.parse(ext.lastModified))) ext.lastModified = null;
@@ -300,7 +326,7 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
   // Web sencilla y envejecida (o sin contenido útil): oferta de página única por mucho menos
   const unreachable = !f.ok && f.status === 0;
   let primary = c.primary;
-  if (!unreachable && s2.simple_site && (s2.staleness ?? 0) >= 45 && (primary === 'web' || primary === 'seo')) primary = 'onepager';
+  if (!unreachable && s2.simple_site && (s2.staleness ?? 0) >= 35 && (primary === 'web' || primary === 'seo')) primary = 'onepager';
   else if (!unreachable && !f.ok && f.status >= 400) primary = 'web';
   const pr = prioritise(primary, c.fit, s2, lead);
   const angle = pitchAngle(primary, s2, lead);
