@@ -2,7 +2,7 @@
 // Los "pixels" indican que anuncian o han anunciado; NO prueban que haya campañas activas hoy.
 export type Reason = { label: string; points: number };
 export type Fit = { web: number; seo: number; ppc: number; social: number };
-export const PITCH_LABEL: Record<string, string> = { verificar: 'Verificar web',  web: 'Web nueva', seo: 'SEO mensual', ppc: 'Google Ads mensual', social: 'Meta/Social Ads mensual' };
+export const PITCH_LABEL: Record<string, string> = { verificar: 'Verificar web',  onepager: 'Web 1 página (400–500 €)', web: 'Web nueva', seo: 'SEO mensual', ppc: 'Google Ads mensual', social: 'Meta/Social Ads mensual' };
 const YEAR = new Date().getFullYear();
 
 async function get(url: string, ms = 15000) {
@@ -10,9 +10,9 @@ async function get(url: string, ms = 15000) {
   try {
     const res = await fetch(url, { signal: ctrl.signal, redirect: 'follow', headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ImpulsoMediaAudit/1.0; +https://impulsomedia.es)' } });
     const html = await res.text();
-    return { ok: res.ok, status: res.status, finalUrl: res.url, ms: Date.now() - t0, html: html.slice(0, 2_000_000), bytes: html.length, error: res.ok ? null : `HTTP ${res.status}` };
+    return { ok: res.ok, status: res.status, finalUrl: res.url, ms: Date.now() - t0, html: html.slice(0, 2_000_000), bytes: html.length, error: res.ok ? null : `HTTP ${res.status}`, lastModified: res.headers.get('last-modified') };
   } catch (e: any) {
-    return { ok: false, status: 0, finalUrl: url, ms: Date.now() - t0, html: '', bytes: 0, error: e?.name === 'AbortError' ? 'Timeout' : String(e?.message || e) };
+    return { ok: false, status: 0, finalUrl: url, ms: Date.now() - t0, html: '', bytes: 0, error: e?.name === 'AbortError' ? 'Timeout' : String(e?.message || e), lastModified: null as string | null };
   } finally { clearTimeout(timer); }
 }
 export const fetchSite = (url: string) => get(url, 15000);
@@ -51,11 +51,21 @@ export function analyse(h: string) {
     has_blog: /href=["'][^"']*(\/blog|\/noticias|\/news|\/articulos|\/articles)[\/"']/i.test(h),
     has_social_links: socials.length > 0,
     emails, tels, socials,
+    has_aw_id: /AW-\d{6,}/i.test(h),
+    gads_conversion: /AW-\d{6,}\/[\w-]{6,}|gtag\(\s*['"]event['"]\s*,\s*['"]conversion['"]/i.test(h),
+    meta_events: /fbq\(\s*['"]track['"]\s*,\s*['"](Lead|Contact|Purchase|Schedule|CompleteRegistration|InitiateCheckout|SubmitApplication|AddToCart)/i.test(h),
+    utm_links: /utm_(?:source|medium)=(?:cpc|paid|ppc|facebook|fb|ig|google)/i.test(h),
+    call_tracking: /callrail|calltrackingmetrics|whatconverts|calltracking|ctm\.js|dynamicnumber/i.test(h),
+    jquery_ver: (h.match(/jquery[^"'\s>]*?[-\/.](\d+\.\d+(?:\.\d+)?)(?:\.min)?\.js/i) || h.match(/jquery(?:\.min)?\.js\?ver=(\d+\.\d+(?:\.\d+)?)/i))?.[1] || null,
+    bootstrap_ver: h.match(/bootstrap[^"'\s>]*?[-\/@.v](\d+\.\d+(?:\.\d+)?)/i)?.[1] || null,
+    internal_links: new Set([...h.matchAll(/<a[^>]+href=["']((?:\/(?!\/)|(?![a-z]+:|#|\/\/))[^"'#?]*)/gi)].map(m => m[1])).size,
+    is_complex: /woocommerce|add[-_]to[-_]cart|carrito|shopping[-_]cart|\/checkout|motor de reservas|reservar online|cloudbeds|simplebooking|resengo|fresha\.|doctoralia\.|booking-engine|\/reservas?[\/"']/i.test(h),
+    legacy_markup: /<font[\s>]|<center[\s>]|<frameset|swfobject|\.swf["']/i.test(h) || (h.match(/<table[\s>]/gi) || []).length > 8,
   };
 }
 
 type A = ReturnType<typeof analyse>;
-type F = { ok: boolean; ms: number; bytes: number; finalUrl: string; error: string | null; sitemap: boolean };
+type F = { ok: boolean; status?: number; ms: number; bytes: number; finalUrl: string; error: string | null; sitemap: boolean };
 type L = { category?: string | null; google_reviews?: number | null };
 
 export function classify(a: A | null, f: F, lead: L) {
@@ -118,6 +128,112 @@ export function classify(a: A | null, f: F, lead: L) {
   return { fit, reasons, recurring, total, primary };
 }
 
+
+// ---- Scoring v2: obsolescencia, web sencilla, probabilidad de anuncios, presupuesto y preparación ----
+export type Ev = { p: 'google' | 'meta' | 'ambos'; t: string; w: number; strong?: boolean };
+export type Ext = { pageCount: number | null; sitemapLastmod: string | null; lastModified: string | null; wbFirst: number | null; wbChanges: number | null; wbLast: string | null };
+const HIGH_AD = /funerari|inmobiliaria|dental|cl[ií]nica|abogad|reformas|piscina|cerrajer|veterin|est[eé]tica|hotel|alquiler|golf|seguros/;
+const yearsAgo = (d: string | null) => d ? (Date.now() - new Date(d).getTime()) / 31557600000 : null;
+
+export function scoreV2(a: A | null, f: F, lead: L & { phone?: string | null; email?: string | null }, x: Ext) {
+  const cat = (lead.category || '').toLowerCase(); const rev = lead.google_reviews || 0;
+  const highIntent = /inmobiliaria|dental|cl[ií]nica|abogad|gestor|reformas|veterin|est[eé]tica|hotel|alquiler/.test(cat);
+  const consumer = /restaurante|dental|cl[ií]nica|est[eé]tica|hotel|bar|tienda|gimnasio|funerari/.test(cat);
+  const out: any = { staleness: null, staleness_why: [] as string[], site_age_years: x.wbFirst ? YEAR - x.wbFirst : null, simple_site: null, ad_google: 0, ad_meta: 0, ad_prob: 0, ad_confidence: 'baja', ad_evidence: { google: { p: 0, ev: [] }, meta: { p: 0, ev: [] } }, budget_score: 0, knowledge_score: 0 };
+  // ---------- Presupuesto (capacidad de pago) ----------
+  const why: string[] = []; let b = 0;
+  if (rev >= 200) { b += 30; why.push(`${rev} reseñas en Google (negocio muy activo)`); } else if (rev >= 50) { b += 20; why.push(`${rev} reseñas en Google`); } else if (rev >= 10) b += 8;
+  if (HIGH_AD.test(cat)) { b += 20; why.push('Sector con ticket alto y cliente que busca en Google'); } else b += 8;
+  if (x.wbFirst && YEAR - x.wbFirst >= 5) { b += 8; why.push(`Dominio con histórico (${YEAR - x.wbFirst}+ años online)`); }
+  if (a) {
+    if (a.has_hreflang) { b += 8; why.push('Web multilingüe: apunta a clientela internacional'); }
+    if (a.has_gtm || a.has_analytics) b += 8;
+    if (a.has_google_ads_tag || a.has_meta_pixel) { b += 15; why.push('Ya paga por publicidad (etiquetas instaladas)'); }
+    if (a.has_social_links) b += 4;
+    if (a.has_schema) b += 5;
+    if (a.is_complex) b += 5;
+  }
+  out.budget_score = Math.min(100, b); out.budget_why = why;
+  if (!f.ok || !a) {
+    out.staleness = f.status === 0 ? null : 80;
+    return out;
+  }
+  // ---------- Obsolescencia ----------
+  let st = 0; const sw: string[] = []; const S = (n: number, t: string) => { st += n; sw.push(t); };
+  if (!a.has_viewport) S(30, 'No adaptada a móvil');
+  if (!f.finalUrl.startsWith('https://')) S(10, 'Sin HTTPS');
+  if (a.copyright_year) { if (a.copyright_year <= YEAR - 5) S(25, `Copyright ${a.copyright_year}`); else if (a.copyright_year <= YEAR - 3) S(18, `Copyright ${a.copyright_year}`); }
+  const jq = a.jquery_ver ? Number(a.jquery_ver.split('.')[0]) : null;
+  if (jq != null && jq < 3) S(jq < 2 ? 18 : 12, `jQuery ${a.jquery_ver} (versión antigua)`);
+  const bs = a.bootstrap_ver ? Number(a.bootstrap_ver.split('.')[0]) : null;
+  if (bs != null && bs <= 3) S(10, `Bootstrap ${a.bootstrap_ver} (plantilla de hace años)`);
+  if (/Drupal 7|Joomla! ?(1|2|3)\./i.test(a.platform)) S(20, `Plataforma sin soporte (${a.platform})`);
+  const wpv = /WordPress\s+(\d+)/i.exec(a.generator || '')?.[1]; if (wpv && Number(wpv) < 5) S(15, `WordPress ${wpv}.x desactualizado`);
+  if (a.legacy_markup) S(15, 'Maquetación antigua (tablas/flash/font)');
+  const stale = [x.lastModified, x.sitemapLastmod].filter(Boolean).map(d => yearsAgo(d as string)).filter((v): v is number => v != null);
+  if (stale.length) { const y = Math.min(...stale); if (y > 2) S(20, `Última modificación detectada hace ${y.toFixed(1)} años`); else if (y > 1) S(10, `Última modificación detectada hace ${y.toFixed(1)} años`); }
+  if (x.wbFirst && x.wbChanges != null && x.wbChanges <= 1 && YEAR - x.wbFirst >= 3) S(15, 'Sin cambios en portada en los últimos 2 años (Wayback)');
+  if (f.ms > 3000) S(5, `Lenta (${(f.ms / 1000).toFixed(1)} s)`);
+  if (a.word_count >= 50 && a.word_count < 250) S(5, 'Muy poco contenido');
+  out.staleness = Math.min(100, st); out.staleness_why = sw;
+  // ---------- Web sencilla ----------
+  const pages = x.pageCount;
+  out.simple_site = !a.is_complex && a.internal_links <= 30 && (pages == null || pages <= 25);
+  // ---------- Probabilidad de anuncios (con evidencia) ----------
+  const ev: Ev[] = []; const E = (p: Ev['p'], t: string, w: number, strong = false) => ev.push({ p, t, w, strong });
+  if (a.gads_conversion) E('google', 'Etiqueta de conversión de Google Ads (mide resultados de campañas)', 45, true);
+  else if (a.has_aw_id) E('google', 'ID de Google Ads (AW-…) instalado', 30);
+  else if (a.has_google_ads_tag) E('google', 'Código de Google Ads/DoubleClick presente', 15);
+  if (a.meta_events) E('meta', 'Meta Pixel con eventos de conversión (Lead/Contact/Purchase…)', 38, true);
+  else if (a.has_meta_pixel) E('meta', 'Meta Pixel instalado (sin eventos de conversión detectados)', 18);
+  if (a.utm_links) E('ambos', 'Enlaces con parámetros UTM de pago (cpc/paid/fb)', 12);
+  if (a.call_tracking) E('google', 'Seguimiento de llamadas (típico de campañas)', 12);
+  if ((a.has_aw_id || a.has_meta_pixel) && a.has_gtm) E('ambos', 'Tag Manager gestionando etiquetas de marketing', 6);
+  if (a.has_other_pixel) E('ambos', 'Otros píxeles publicitarios (TikTok/LinkedIn)', 6);
+  const tagged = ev.length > 0;
+  const prior = (plat: 'google' | 'meta') => { let n = 0; if (plat === 'google' && HIGH_AD.test(cat)) n += 10; if (plat === 'meta' && consumer) n += 8; if (rev >= 200) n += 10; else if (rev >= 50) n += 6; return n; };
+  const sum = (plat: 'google' | 'meta') => ev.filter(e => e.p === plat || e.p === 'ambos').reduce((s, e) => s + e.w, 0);
+  let g = sum('google') + prior('google'); let m = sum('meta') + prior('meta');
+  if (!tagged) { g = Math.min(g, 28); m = Math.min(m, 28); }
+  g = Math.min(100, g); m = Math.min(100, m);
+  out.ad_google = g; out.ad_meta = m; out.ad_prob = Math.min(100, Math.max(g, m) + Math.round(Math.min(g, m) * 0.3));
+  out.ad_evidence = { google: { p: g, ev: ev.filter(e => e.p !== 'meta').map(e => e.t) }, meta: { p: m, ev: ev.filter(e => e.p !== 'google').map(e => e.t) }, prior_only: !tagged };
+  out.ad_confidence = ev.some(e => e.strong) || ev.length >= 3 ? 'alta' : tagged ? 'media' : 'baja';
+  // ---------- Preparación (conocimiento de marketing) ----------
+  let k = 0; if (a.has_analytics) k += 20; if (a.has_gtm) k += 15; if (a.has_meta_pixel) k += 15; if (a.has_google_ads_tag) k += 20; if (a.has_gsc_verification) k += 10; if (a.has_schema) k += 10; if (a.has_blog) k += 5; if (a.has_hreflang) k += 5;
+  out.knowledge_score = Math.min(100, k);
+  void highIntent; return out;
+}
+
+// Prioridad = dónde puedes aportar valor inmediato con una propuesta difícil de rechazar
+export function prioritise(pitch: string, fit: Fit, s: any, lead: any) {
+  const opp = pitch === 'onepager' ? Math.max(s.staleness ?? 0, fit.web) : pitch === 'web' ? fit.web : pitch === 'verificar' ? 0 : (fit as any)[pitch] ?? 0;
+  const reach = (lead.phone || lead.email) ? 100 : 40;
+  const quick = pitch === 'onepager' ? (s.simple_site || s.simple_site == null ? 100 : 40) : s.ad_prob >= 60 ? 90 : 50;
+  let pr = Math.round(0.40 * opp + 0.25 * s.budget_score + 0.20 * reach + 0.15 * quick);
+  if (lead.lead_type === 'warm') pr = Math.min(100, pr + 10);
+  if (pitch === 'verificar') pr = Math.min(pr, 30);
+  const why: string[] = [];
+  if (pitch === 'onepager') { why.push(s.simple_site === false ? 'Web antigua pero compleja: valorar rediseño más amplio' : 'Web sencilla: una página moderna (≈450 €) y enseñarla ya hecha'); }
+  if (s.staleness != null && s.staleness >= 40) why.push(`Web obsoleta (${s.staleness}/100): ${(s.staleness_why || []).slice(0, 3).join(', ')}`);
+  if (s.site_age_years != null) why.push(`Dominio con ~${s.site_age_years} años`);
+  if (s.ad_prob >= 40) why.push(`Probable inversión en anuncios (${s.ad_prob}%, confianza ${s.ad_confidence})`);
+  why.push(...(s.budget_why || []));
+  if (reach === 100) why.push('Tiene teléfono/email para contactar');
+  return { priority: Math.max(0, Math.min(100, pr)), why: why.slice(0, 6) };
+}
+
+export function pitchAngle(pitch: string, s: any, lead: any) {
+  const p = s.ad_prob ?? 0; const hi = (s.budget_score ?? 0) >= 45;
+  if (pitch === 'verificar') return 'Comprobar a mano que la web existe antes de ofrecer nada';
+  if (pitch === 'onepager') return 'Preparar una página sencilla y funcional, enviarla ya hecha y ofrecer mantenimiento/SEO después';
+  if (p >= 60) return 'Ya invierte en anuncios: ofrecer auditoría gratuita de campañas (gasto, conversiones, página de destino) y optimización mensual';
+  if (p >= 30) return 'Señales de que prueba anuncios: auditoría de lo instalado y mejora de conversión';
+  if (pitch === 'web') return 'Web obsoleta: renovarla (pago único) y después retainer de SEO/anuncios';
+  if (hi && (lead.google_reviews || 0) >= 20) return 'Negocio con capacidad y sin señales de anuncios: propuesta de arranque de Google Ads con página de destino';
+  return 'Auditoría SEO local con mejoras rápidas como gancho';
+}
+
 async function pageSpeed(url: string) {
   try {
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 28000);
@@ -143,13 +259,51 @@ function diffAudits(prev: any, cur: any) {
   return out;
 }
 
+
+async function waybackInfo(url: string) {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, '');
+    const j = async (q: string) => { const c = new AbortController(); const t = setTimeout(() => c.abort(), 8000); try { const r = await fetch(`https://web.archive.org/cdx/search/cdx?output=json&filter=statuscode:200&url=${host}&${q}`, { signal: c.signal }); return r.ok ? await r.json() : null; } catch { return null; } finally { clearTimeout(t); } };
+    const [first, recent] = await Promise.all([j('fl=timestamp&limit=1'), j(`fl=timestamp,digest&collapse=digest&from=${YEAR - 2}0101&limit=40`)]);
+    const fy = Array.isArray(first) && first.length > 1 ? Number(String(first[1][0]).slice(0, 4)) : null;
+    const rows = Array.isArray(recent) ? recent.length - 1 : null;
+    const last = Array.isArray(recent) && recent.length > 1 ? String(recent[recent.length - 1][0]) : null;
+    return { wbFirst: fy, wbChanges: rows != null && rows >= 0 ? rows : null, wbLast: last ? `${last.slice(0, 4)}-${last.slice(4, 6)}-${last.slice(6, 8)}` : null };
+  } catch { return { wbFirst: null, wbChanges: null, wbLast: null }; }
+}
+
+async function sitemapInfo(origin: string) {
+  const s = await get(origin + '/sitemap.xml', 6000);
+  if (!(s.ok && /<urlset|<sitemapindex/i.test(s.html))) return { ok: false, pageCount: null as number | null, lastmod: null as string | null };
+  const locs = (s.html.match(/<loc>/gi) || []).length; const isIndex = /<sitemapindex/i.test(s.html);
+  const dates = [...s.html.matchAll(/<lastmod>\s*(\d{4}-\d{2}-\d{2})/gi)].map(m => m[1]).sort();
+  return { ok: true, pageCount: isIndex ? null : locs, lastmod: dates.length ? dates[dates.length - 1] : null };
+}
+
 export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { psi: true }) {
-  if (!lead.website) return { skipped: true };
+  if (!lead.website) {
+    // Sin web registrada: candidato a página sencilla (verificar antes que de verdad no tiene)
+    const s0 = scoreV2(null, { ok: false, ms: 0, bytes: 0, finalUrl: '', error: 'sin web', sitemap: false, status: -1 } as any, lead, { pageCount: null, sitemapLastmod: null, lastModified: null, wbFirst: null, wbChanges: null, wbLast: null });
+    s0.staleness = 100; s0.simple_site = true; s0.ad_prob = 5; s0.ad_confidence = 'baja';
+    const fit0 = { web: 0, seo: 0, ppc: 0, social: 0 } as Fit; const pr0 = prioritise('onepager', { ...fit0, web: 100 }, s0, lead);
+    if (lead.relationship && lead.relationship !== 'lead') return { skipped: true };
+    await sb.from('crm_leads').update({ primary_pitch: 'onepager', staleness: 100, simple_site: true, ad_prob: 5, ad_confidence: 'baja', ad_evidence: s0.ad_evidence, budget_score: s0.budget_score, knowledge_score: 0, priority: pr0.priority, priority_why: ['Sin web encontrada: comprobar en Google; si de verdad no tiene, página sencilla (≈450 €) ya hecha', ...pr0.why.slice(1)], pitch_angle: 'Sin web encontrada: verificar y, si no tiene, enseñarle una página lista', staleness_why: ['Sin web registrada'], last_audit_at: new Date().toISOString() }).eq('id', lead.id);
+    return { skipped: true };
+  }
   const f = await fetchSite(lead.website);
   const a = f.ok ? analyse(f.html) : null;
-  let sitemap = false;
-  if (f.ok) { try { const o = new URL(f.finalUrl).origin; const s = await get(o + '/sitemap.xml', 6000); sitemap = s.ok && /<urlset|<sitemapindex/i.test(s.html); } catch {} }
+  let sitemap = false; let ext: Ext = { pageCount: null, sitemapLastmod: null, lastModified: f.lastModified ? new Date(f.lastModified).toISOString().slice(0, 10) : null, wbFirst: null, wbChanges: null, wbLast: null };
+  if (f.ok) { try { const o = new URL(f.finalUrl).origin; const [sm, wb] = await Promise.all([sitemapInfo(o), waybackInfo(f.finalUrl)]); sitemap = sm.ok; ext = { ...ext, pageCount: sm.pageCount, sitemapLastmod: sm.lastmod, ...wb }; } catch {} }
+  if (ext.lastModified && Number.isNaN(Date.parse(ext.lastModified))) ext.lastModified = null;
   const c = classify(a, { ...f, sitemap }, lead);
+  const s2 = scoreV2(a, { ...f, sitemap } as any, lead, ext);
+  // Web sencilla y envejecida (o sin contenido útil): oferta de página única por mucho menos
+  const unreachable = !f.ok && f.status === 0;
+  let primary = c.primary;
+  if (!unreachable && s2.simple_site && (s2.staleness ?? 0) >= 45 && (primary === 'web' || primary === 'seo')) primary = 'onepager';
+  else if (!unreachable && !f.ok && f.status >= 400) primary = 'web';
+  const pr = prioritise(primary, c.fit, s2, lead);
+  const angle = pitchAngle(primary, s2, lead);
   const psi = f.ok && opts.psi !== false ? await pageSpeed(f.finalUrl) : null;
   const { data: prevRows } = await sb.from('crm_audits').select('*').eq('lead_id', lead.id).order('audited_at', { ascending: false }).limit(1);
   const row = {
@@ -161,10 +315,13 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
     has_sitemap: f.ok ? sitemap : null, has_canonical: a?.has_canonical ?? null, has_h1: a?.has_h1 ?? null, word_count: a?.word_count ?? null,
     has_gsc_verification: a?.has_gsc_verification ?? null, has_blog: a?.has_blog ?? null, platform: a?.platform || null, has_social_links: a?.has_social_links ?? null,
     pagespeed_mobile: psi?.score ?? null, lcp_ms: psi?.lcp ?? null,
+    jquery_ver: a?.jquery_ver ?? null, bootstrap_ver: a?.bootstrap_ver ?? null, internal_links: a?.internal_links ?? null, page_count: ext.pageCount,
+    sitemap_lastmod: ext.sitemapLastmod, last_modified: ext.lastModified, is_complex: a?.is_complex ?? null, gads_conversion: a?.gads_conversion ?? null,
+    meta_events: a?.meta_events ?? null, utm_links: a?.utm_links ?? null, wb_first_year: ext.wbFirst, wb_changes_2y: ext.wbChanges, wb_last_capture: ext.wbLast,
   };
   await sb.from('crm_audits').insert(row);
   const changes = diffAudits(prevRows?.[0], row);
-  const patch: any = { score: c.total, recurring_score: c.recurring, service_fit: c.fit, fit_reasons: c.reasons, primary_pitch: c.primary, last_audit_at: new Date().toISOString() };
+  const patch: any = { score: c.total, recurring_score: c.recurring, service_fit: c.fit, fit_reasons: c.reasons, primary_pitch: primary, staleness: s2.staleness, staleness_why: s2.staleness_why, site_age_years: s2.site_age_years, simple_site: s2.simple_site, ad_prob: s2.ad_prob, ad_confidence: s2.ad_confidence, ad_evidence: s2.ad_evidence, budget_score: s2.budget_score, knowledge_score: s2.knowledge_score, priority: pr.priority, priority_why: pr.why, pitch_angle: angle, last_audit_at: new Date().toISOString() };
   if (lead.status === 'nuevo') patch.status = 'revisado';
   if (changes.length) { patch.changed_at = new Date().toISOString(); patch.change_note = changes.join(' · '); }
   await sb.from('crm_leads').update(patch).eq('id', lead.id);
@@ -173,7 +330,7 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
       .map(r => ({ ...r, lead_id: lead.id, source_url: f.finalUrl }));
     if (rows.length) await sb.from('crm_contacts').upsert(rows, { onConflict: 'lead_id,kind,value', ignoreDuplicates: true });
   }
-  await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Auditoría: ${PITCH_LABEL[c.primary]}${c.primary === 'verificar' ? '' : ` (${c.fit[c.primary as keyof Fit]}/100)`} · recurrente ${c.recurring}` });
+  await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Auditoría: ${PITCH_LABEL[primary]} · prioridad ${pr.priority} · anuncios ${s2.ad_prob}% (${s2.ad_confidence}) · obsolescencia ${s2.staleness ?? '—'}` });
   if (changes.length) await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Cambio detectado: ${changes.join(' · ')}` });
-  return c;
+  return { ...c, primary, priority: pr.priority };
 }
