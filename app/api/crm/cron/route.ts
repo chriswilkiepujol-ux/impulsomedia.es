@@ -11,6 +11,6 @@ export async function GET(req: Request) {
   const { data: leads } = await sb.from('crm_leads').select('*').not('website', 'is', null).eq('do_not_contact', false).eq('relationship', 'lead')
     .or(`last_audit_at.is.null,last_audit_at.lt.${cutoff}`).order('last_audit_at', { ascending: true, nullsFirst: true }).limit(3)
   const results: any[] = []
-  for (const l of leads || []) results.push({ name: l.name, ...(await auditLead(sb, l)) })
+  for (const l of leads || []) results.push({ name: l.name, ...(await auditLead(sb, l, { psi: false })) })
   return NextResponse.json({ audited: results.length, results })
 }

@@ -118,14 +118,41 @@ export function classify(a: A | null, f: F, lead: L) {
   return { fit, reasons, recurring, total, primary };
 }
 
-export async function auditLead(sb: any, lead: any) {
+async function pageSpeed(url: string) {
+  try {
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 28000);
+    const r = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?strategy=mobile&category=performance&url=${encodeURIComponent(url)}`, { signal: ctl.signal });
+    clearTimeout(t); if (!r.ok) return null;
+    const j: any = await r.json(); const lh = j.lighthouseResult;
+    const sc = lh?.categories?.performance?.score; if (sc == null) return null;
+    return { score: Math.round(sc * 100), lcp: Math.round(lh.audits?.['largest-contentful-paint']?.numericValue || 0) || null };
+  } catch { return null; }
+}
+
+function diffAudits(prev: any, cur: any) {
+  const out: string[] = [];
+  if (!prev) return out;
+  if (prev.http_status && prev.http_status < 400 && cur.http_status >= 400) out.push('la web ya no responde');
+  if (prev.platform !== cur.platform && (prev.platform || cur.platform)) out.push(`plataforma: ${prev.platform || '—'} → ${cur.platform || '—'}`);
+  if (prev.has_google_ads_tag === false && cur.has_google_ads_tag === true) out.push('nueva etiqueta de Google Ads');
+  if (prev.has_meta_pixel === false && cur.has_meta_pixel === true) out.push('nuevo Meta Pixel');
+  if (prev.copyright_year && cur.copyright_year && cur.copyright_year > prev.copyright_year) out.push(`copyright ${prev.copyright_year} → ${cur.copyright_year} (web actualizada)`);
+  if (prev.title && cur.title && prev.title !== cur.title) out.push('cambió el título de la portada');
+  if (prev.has_viewport === false && cur.has_viewport === true) out.push('ahora adaptada a móvil');
+  if (prev.has_whatsapp === false && cur.has_whatsapp === true) out.push('añadido WhatsApp');
+  return out;
+}
+
+export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { psi: true }) {
   if (!lead.website) return { skipped: true };
   const f = await fetchSite(lead.website);
   const a = f.ok ? analyse(f.html) : null;
   let sitemap = false;
   if (f.ok) { try { const o = new URL(f.finalUrl).origin; const s = await get(o + '/sitemap.xml', 6000); sitemap = s.ok && /<urlset|<sitemapindex/i.test(s.html); } catch {} }
   const c = classify(a, { ...f, sitemap }, lead);
-  await sb.from('crm_audits').insert({
+  const psi = f.ok && opts.psi !== false ? await pageSpeed(f.finalUrl) : null;
+  const { data: prevRows } = await sb.from('crm_audits').select('*').eq('lead_id', lead.id).order('audited_at', { ascending: false }).limit(1);
+  const row = {
     lead_id: lead.id, final_url: f.finalUrl, http_status: f.status, https: f.finalUrl.startsWith('https://'), load_ms: f.ms, html_kb: Math.round(f.bytes / 1024),
     title: a?.title || null, meta_description: a?.meta_description || null, has_viewport: a?.has_viewport ?? null, has_whatsapp: a?.has_whatsapp ?? null,
     has_contact_form: a?.has_contact_form ?? null, has_tel_link: a?.has_tel_link ?? null, has_schema: a?.has_schema ?? null, has_analytics: a?.has_analytics ?? null,
@@ -133,9 +160,13 @@ export async function auditLead(sb: any, lead: any) {
     has_google_ads_tag: a?.has_google_ads_tag ?? null, has_meta_pixel: a?.has_meta_pixel ?? null, has_other_pixel: a?.has_other_pixel ?? null, has_gtm: a?.has_gtm ?? null,
     has_sitemap: f.ok ? sitemap : null, has_canonical: a?.has_canonical ?? null, has_h1: a?.has_h1 ?? null, word_count: a?.word_count ?? null,
     has_gsc_verification: a?.has_gsc_verification ?? null, has_blog: a?.has_blog ?? null, platform: a?.platform || null, has_social_links: a?.has_social_links ?? null,
-  });
+    pagespeed_mobile: psi?.score ?? null, lcp_ms: psi?.lcp ?? null,
+  };
+  await sb.from('crm_audits').insert(row);
+  const changes = diffAudits(prevRows?.[0], row);
   const patch: any = { score: c.total, recurring_score: c.recurring, service_fit: c.fit, fit_reasons: c.reasons, primary_pitch: c.primary, last_audit_at: new Date().toISOString() };
   if (lead.status === 'nuevo') patch.status = 'revisado';
+  if (changes.length) { patch.changed_at = new Date().toISOString(); patch.change_note = changes.join(' · '); }
   await sb.from('crm_leads').update(patch).eq('id', lead.id);
   if (a) {
     const rows = [...a.emails.map(v => ({ kind: 'email', value: v })), ...a.tels.map(v => ({ kind: 'phone', value: v })), ...a.socials.map(v => ({ kind: 'social', value: v }))]
@@ -143,5 +174,6 @@ export async function auditLead(sb: any, lead: any) {
     if (rows.length) await sb.from('crm_contacts').upsert(rows, { onConflict: 'lead_id,kind,value', ignoreDuplicates: true });
   }
   await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Auditoría: ${PITCH_LABEL[c.primary]}${c.primary === 'verificar' ? '' : ` (${c.fit[c.primary as keyof Fit]}/100)`} · recurrente ${c.recurring}` });
+  if (changes.length) await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Cambio detectado: ${changes.join(' · ')}` });
   return c;
 }
