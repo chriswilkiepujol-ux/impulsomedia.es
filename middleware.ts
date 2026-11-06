@@ -25,6 +25,22 @@ function isAuthorized(request: NextRequest) {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  // --- CRM privado: crm.impulsomedia.es sirve la app estática de /crm-app (sin cabecera, pie ni analítica de la web) ---
+  const rawHost = (request.headers.get('x-forwarded-host') || request.headers.get('host') || '').toLowerCase()
+  const isCrmHost = rawHost.startsWith('crm.')
+  const isPublicSite = rawHost === 'impulsomedia.es' || rawHost === 'www.impulsomedia.es'
+  if (isCrmHost) {
+    const noindex = { 'x-robots-tag': 'noindex, nofollow, noarchive', 'cache-control': 'no-store' }
+    if (pathname === '/robots.txt') return new NextResponse('User-agent: *\nDisallow: /\n', { headers: { 'content-type': 'text/plain', ...noindex } })
+    const res = pathname.startsWith('/crm-app/') || pathname.startsWith('/api/crm/')
+      ? NextResponse.next()
+      : NextResponse.rewrite(new URL('/crm-app/index.html', request.url))
+    Object.entries(noindex).forEach(([k, v]) => res.headers.set(k, v))
+    return res
+  }
+  if (isPublicSite && pathname.startsWith('/crm-app')) return new NextResponse('Not found', { status: 404 })
+  // --- fin CRM ---
   const staging = isStaging(request)
 
   if (staging) {
