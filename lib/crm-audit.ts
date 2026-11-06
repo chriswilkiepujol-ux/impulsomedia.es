@@ -222,7 +222,7 @@ export function prioritise(pitch: string, fit: Fit, s: any, lead: any) {
   if (pitch === 'onepager') { why.push(s.simple_site === false ? 'Old but complex site: consider a broader redesign' : 'Simple site: a modern one-pager (≈€450), shown already built'); }
   if (s.staleness != null && s.staleness >= 40) why.push(`Outdated website (${s.staleness}/100): ${(s.staleness_why || []).slice(0, 3).join(', ')}`);
   if (s.site_age_years != null) why.push(`Domain about ${s.site_age_years} years old`);
-  if (s.ad_prob >= 40) why.push(`Likely spends on ads (${s.ad_prob}%, confidence ${s.ad_confidence})`);
+  if (s.ad_prob >= 40) why.push(`Likely spends on ads (${s.ad_prob}%, confidence ${({ alta: 'high', media: 'medium', baja: 'low' } as any)[s.ad_confidence] || s.ad_confidence})`);
   why.push(...(s.budget_why || []));
   if (reach === 100) why.push('Has a phone/email to contact');
   return { priority: Math.max(0, Math.min(100, pr)), why: why.slice(0, 6) };
@@ -305,7 +305,56 @@ async function sitemapInfo(origin: string) {
   return { ok: true, pageCount: isIndex ? null : locs, lastmod: dates.length ? dates[dates.length - 1] : null };
 }
 
+
+// ---- Buscador de web: muchos negocios no tienen la web en su ficha de Google. Se prueban dominios derivados del nombre
+// (con DNS previo) y solo se acepta si la página coincide por teléfono o por nombre. ----
+const strip = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const LEGAL = new Set(['sl', 'slu', 'sa', 'ltd', 'the', 'de', 'del', 'la', 'el', 'los', 'las', 'y', 'and', 'e', 'en']);
+const GENERIC = new Set(['real', 'estate', 'estates', 'agency', 'agent', 'agents', 'clinica', 'clinic', 'veterinaria', 'veterinario', 'abogados', 'abogado', 'lawyers', 'solicitors', 'asesoria', 'fiscal', 'laboral', 'beauty', 'salon', 'inmobiliaria', 'properties', 'property', 'dental', 'centro', 'estetica', 'peluqueria', 'urgencias', 'consultorio', 'group', 'grupo', 'spain', 'espana', 'costa', 'sol', 'puerto']);
+const AREAS = new Set(['sotogrande', 'estepona', 'manilva', 'sanroque', 'roque', 'san', 'algeciras', 'gibraltar', 'marbella', 'palmones', 'torreguadiaro']);
+export function domainCandidates(name: string) {
+  const first = strip(name).replace(/\(.*?\)/g, ' ').split(/\s[|–-]\s|\|/)[0];
+  const toks = first.replace(/['’`´]/g, '').replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(t => t && !LEGAL.has(t));
+  if (!toks.length) return { cands: [] as string[], distinct: [] as string[] };
+  const noArea = toks.filter(t => !AREAS.has(t)); const distinct = noArea.filter(t => !GENERIC.has(t));
+  const bases = new Set<string>();
+  const add = (a: string[], sep = '') => { const b = a.join(sep); if (b.length >= 4) bases.add(b); };
+  add(toks); add(toks, '-'); add(noArea); add(noArea, '-'); add(distinct); add(distinct, '-');
+  if (distinct.length) { add([...distinct, 'sotogrande']); add([...distinct, 'estepona']); add([...distinct, 'es']); }
+  if (toks.length > 2) add(toks.slice(0, 2));
+  // si el primer token es una sola letra (L' essenza) ya queda unido: lessenza...
+  const raw = first.replace(/['’`´]\s*/g, '').replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(t => t && !LEGAL.has(t)); add(raw);
+  const cands: string[] = []; for (const b of bases) for (const t of ['com', 'es', 'net', 'eu']) cands.push(`${b}.${t}`);
+  return { cands: cands.slice(0, 40), distinct };
+}
+async function resolves(d: string) {
+  const dns = await import('node:dns/promises');
+  for (const h of [d, 'www.' + d]) { try { const r = await Promise.race([dns.resolve4(h), new Promise<never>((_, j) => setTimeout(() => j(new Error('t')), 2500))]); if (r.length) return true; } catch {} }
+  return false;
+}
+export async function findWebsite(lead: { name: string; phone?: string | null; area?: string | null }) {
+  const { cands, distinct } = domainCandidates(lead.name); if (!cands.length) return null;
+  const ok: string[] = []; for (let i = 0; i < cands.length; i += 10) { const chunk = cands.slice(i, i + 10); const r = await Promise.all(chunk.map(async d => (await resolves(d)) ? d : null)); ok.push(...(r.filter(Boolean) as string[])); if (ok.length >= 8) break; }
+  const tel = (lead.phone || '').replace(/\D/g, '').slice(-9);
+  const checks = await Promise.all(ok.slice(0, 8).map(async d => {
+    let r = await get('https://' + d, 7000); if (!r.ok) r = await get('https://www.' + d, 7000); if (!r.ok || r.html.length < 500) return null;
+    const text = strip(r.html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' '));
+    const phoneHit = tel.length === 9 && (text.replace(/\D/g, '').includes(tel) || strip(r.html).replace(/\D/g, '').includes(tel));
+    const head = strip((r.html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '') + ' ' + (r.html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '').replace(/<[^>]+>/g, ' ') + ' ' + (r.html.match(/og:site_name"[^>]*content="([^"]*)"/i)?.[1] || ''));
+    const hits = distinct.filter(t => head.includes(t)).length;
+    const nameHit = distinct.length >= 2 ? hits >= 2 : distinct.length === 1 ? hits === 1 && (/(sotogrande|estepona|san roque|manilva|campo de gibraltar|cadiz|malaga)/.test(text)) : false;
+    const parked = /domain (is )?for sale|dominio en venta|buy this domain|this domain may be for sale|godaddy|sedoparking/.test(text.slice(0, 3000)) && text.length < 4000;
+    return !parked && (phoneHit || nameHit) ? { url: r.finalUrl, phoneHit } : null;
+  }));
+  const best = checks.filter(Boolean).sort((a: any, b: any) => Number(b.phoneHit) - Number(a.phoneHit))[0] as any;
+  return best ? (best.url as string) : null;
+}
+
 export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { psi: true }) {
+  if (!lead.website && lead.name && (!lead.relationship || lead.relationship === 'lead')) {
+    const w = await findWebsite(lead);
+    if (w) { lead.website = w; await sb.from('crm_leads').update({ website: w }).eq('id', lead.id); await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Website found automatically: ${w}` }); }
+  }
   if (!lead.website) {
     // Sin web registrada: candidato a página sencilla (verificar antes que de verdad no tiene)
     const s0 = scoreV2(null, { ok: false, ms: 0, bytes: 0, finalUrl: '', error: 'sin web', sitemap: false, status: -1 } as any, lead, { pageCount: null, sitemapLastmod: null, lastModified: null, wbFirst: null, wbChanges: null, wbLast: null });
