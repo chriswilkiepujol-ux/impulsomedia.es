@@ -191,7 +191,11 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
     await Promise.allSettled([psiP, wbP])
     return { ok: false, error: f.status === 0 ? 'unreachable' : f.status === 403 || f.status === 429 ? 'blocked' : `http_${f.status}` }
   }
+  // Old sites sometimes serve a frameset or a meta-refresh shell: follow it once so we read the real page.
+  const hop = f.html.match(/<meta[^>]+http-equiv=["']refresh["'][^>]+url=([^"'>\s]+)/i)?.[1] || f.html.match(/<(?:frame|iframe)\b[^>]+src=["']([^"']+)["']/i)?.[1]
+  if (hop && f.bytes < 4000) { try { const h2 = await fetchSite(new URL(hop, f.finalUrl).toString()); if (h2.ok && h2.bytes > f.bytes) f = h2 } catch {} }
   const a = analyse(f.html); const af = aboveFold(f.html)
+  const unreadable = a.word_count < 40
   const links = internalLinks(f.html, f.finalUrl)
   const [pagesS, gtm, ai, psi, wbFirst] = await Promise.all([
     Promise.all(links.map(async u => { const r = await fetchSite(u); return r.html ? pageFacts(u, r.html, r.status) : { url: u, status: r.status, title: '', title_len: 0, desc_len: 0, h1: 0, canonical: false, viewport: false, words: 0, img_no_alt: 0 } })),
@@ -207,6 +211,7 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
   }
   if (!psi) limits.push(t('La medición de velocidad con Lighthouse no estaba disponible; usamos el tiempo de respuesta del servidor.', 'Lighthouse speed measurement was not available; we used the server response time instead.'))
   if (!ai) limits.push(t('La lectura de la primera impresión se hizo con reglas, no con revisión asistida.', 'The first-impression read used rules only, not the assisted review.'))
+  if (unreadable) limits.push(t('La portada apenas tiene texto en el HTML (se construye con JavaScript o con marcos), así que no hemos podido valorar la primera impresión ni los botones de contacto.', 'The homepage has almost no text in its HTML (it is built with JavaScript or frames), so we could not judge the first impression or the contact buttons.'))
   if (a.gtm_ids.length && !gtm.scanned) limits.push(t('No se pudo leer el contenedor de Tag Manager, así que puede haber etiquetas que no vemos.', 'The Tag Manager container could not be read, so there may be tags we cannot see.'))
 
   const cards: Card[] = []
@@ -222,9 +227,10 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
       fnd.push({ ok: a.title.length > 10, text: a.title ? t(`Título de la pestaña: “${a.title.slice(0, 80)}”`, `Tab title: “${a.title.slice(0, 80)}”`) : t('Falta el título de la página.', 'The page title is missing.') })
       fnd.push({ ok: a.word_count >= 150, text: a.word_count >= 150 ? t(`La portada tiene ${a.word_count} palabras de texto.`, `The homepage has ${a.word_count} words of text.`) : t(`La portada tiene muy poco texto (${a.word_count} palabras): cuesta saber qué ofreces y Google tiene poco que leer.`, `The homepage has very little text (${a.word_count} words): it is hard to tell what you offer and Google has little to read.`) })
     }
-    const score = clamp(clarity * 10)
+    const score = unreadable ? null : clamp(clarity * 10)
+    if (unreadable) fnd.splice(0, fnd.length, { ok: null, text: t('No hemos podido leer el contenido de la portada: el HTML casi no tiene texto. Suele pasar con webs hechas solo con JavaScript o con marcos antiguos, y también le pasa a Google.', 'We could not read the homepage content: the HTML has almost no text. This happens with sites built only with JavaScript or old frames, and it happens to Google too.') })
     cards.push({ key: 'impression', title: t('Primera impresión', 'First impression'), score, findings: fnd,
-      summary: score >= 75 ? t('Se entiende rápido qué haces y para quién.', 'It is quickly clear what you do and for whom.') : score >= 50 ? t('Se entiende, pero cuesta más de lo que debería.', 'It can be understood, but it takes more effort than it should.') : t('Un visitante nuevo no tiene claro qué ofreces ni por qué elegirte.', 'A new visitor is not clear on what you offer or why to choose you.'),
+      summary: score == null ? t('Sin valorar: no se pudo leer la portada.', 'Not rated: the homepage could not be read.') : score >= 75 ? t('Se entiende rápido qué haces y para quién.', 'It is quickly clear what you do and for whom.') : score >= 50 ? t('Se entiende, pero cuesta más de lo que debería.', 'It can be understood, but it takes more effort than it should.') : t('Un visitante nuevo no tiene claro qué ofreces ni por qué elegirte.', 'A new visitor is not clear on what you offer or why to choose you.'),
       action: ai?.quick_wins[0] || (af.h1 ? t('Debajo del titular, añade una frase con para quién es y en qué zona, y pon el botón de contacto al lado.', 'Under the headline, add one line saying who it is for and where, and put the contact button next to it.') : t('Pon en la parte alta un titular que diga qué haces, dónde y para quién, y un botón para contactar.', 'Put a headline at the top saying what you do, where and for whom, plus a contact button.')) })
   }
   // 2. Calls to action
@@ -237,9 +243,10 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
     fnd.push({ ok: hasWa, text: hasWa ? t('Hay botón de WhatsApp.', 'There is a WhatsApp button.') : t('No hay WhatsApp. En tu zona es el canal que más usan los clientes para preguntar.', 'No WhatsApp. In your area it is the channel customers use most to ask questions.') })
     fnd.push({ ok: hasForm, text: hasForm ? t('Hay un formulario de contacto.', 'There is a contact form.') : t('No hay formulario de contacto.', 'There is no contact form.') })
     fnd.push({ ok: top >= 1, text: top >= 1 ? t(`Hay llamadas a la acción visibles al entrar (${af.ctas.slice(0, 3).map(c => `“${c}”`).join(', ') || t('teléfono/WhatsApp', 'phone/WhatsApp')}).`, `There are visible calls to action on arrival (${af.ctas.slice(0, 3).map(c => `“${c}”`).join(', ') || 'phone/WhatsApp'}).`) : t('Al entrar no se ve ningún botón claro de “contactar”, “llamar” o “reservar”: el visitante tiene que buscarlo.', 'On arrival there is no clear “contact”, “call” or “book” button: the visitor has to look for it.') })
-    const score = clamp(channels * 15 + Math.min(top, 3) * 12 + (ai ? ai.cta * 2 : 8))
+    const score = unreadable && channels === 0 ? null : clamp(channels * 15 + Math.min(top, 3) * 12 + (ai ? ai.cta * 2 : 8))
+    if (score == null) fnd.splice(0, fnd.length, { ok: null, text: t('No hemos encontrado teléfono, WhatsApp ni formulario en el HTML, pero la portada no se pudo leer bien, así que no lo puntuamos.', 'We found no phone, WhatsApp or form in the HTML, but the homepage could not be read properly, so we do not score it.') })
     cards.push({ key: 'cta', title: t('Llamadas a la acción', 'Calls to action'), score, findings: fnd,
-      summary: score >= 75 ? t('Contactar es fácil desde cualquier dispositivo.', 'Getting in touch is easy from any device.') : score >= 50 ? t('Se puede contactar, pero no es inmediato.', 'Contact is possible, but not immediate.') : t('A un cliente interesado le cuesta dar el siguiente paso.', 'An interested customer struggles to take the next step.'),
+      summary: score == null ? t('Sin valorar: no se pudo leer la portada.', 'Not rated: the homepage could not be read.') : score >= 75 ? t('Contactar es fácil desde cualquier dispositivo.', 'Getting in touch is easy from any device.') : score >= 50 ? t('Se puede contactar, pero no es inmediato.', 'Contact is possible, but not immediate.') : t('A un cliente interesado le cuesta dar el siguiente paso.', 'An interested customer struggles to take the next step.'),
       action: ai?.quick_wins[1] || (!hasWa ? t('Añade un botón de WhatsApp fijo y un teléfono tocable en la cabecera.', 'Add a sticky WhatsApp button and a tappable phone number in the header.') : t('Pon una sola acción principal arriba (llamar, WhatsApp o reservar) y repítela al final de cada sección.', 'Put one main action at the top (call, WhatsApp or book) and repeat it at the end of each section.')) })
   }
   // 3. Speed
@@ -253,9 +260,9 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
       if (psi.cls != null) fnd.push({ ok: psi.cls <= 0.1, text: psi.cls <= 0.1 ? t('La página no “salta” mientras carga.', 'The page does not jump around while loading.') : t('La página se mueve mientras carga (los elementos saltan), lo que provoca clics erróneos.', 'The page shifts while loading (elements jump), which causes wrong taps.') })
       if (psi.tbt_ms != null) fnd.push({ ok: psi.tbt_ms <= 300, text: psi.tbt_ms <= 300 ? t('La página responde rápido al toque.', 'The page responds quickly to taps.') : t(`La página se queda “congelada” ${Math.round(psi.tbt_ms)} ms por scripts pesados.`, `The page freezes for ${Math.round(psi.tbt_ms)} ms because of heavy scripts.`) })
     } else {
-      score = clamp(100 - Math.max(0, f.ms - 600) / 40 - Math.max(0, f.bytes - 400_000) / 20_000)
+      score = Math.min(85, clamp(100 - Math.max(0, f.ms - 800) / 60 - Math.max(0, f.bytes - 400_000) / 25_000))
       fnd.push({ ok: f.ms <= 1500, text: t(`El servidor entregó la portada en ${(f.ms / 1000).toFixed(1)} s.`, `The server delivered the homepage in ${(f.ms / 1000).toFixed(1)} s.`) })
-      fnd.push({ ok: f.bytes <= 400_000, text: t(`El HTML de la portada pesa ${Math.round(f.bytes / 1024)} KB.`, `The homepage HTML weighs ${Math.round(f.bytes / 1024)} KB.`) })
+      fnd.push({ ok: f.bytes <= 400_000 ? (f.bytes > 2000 ? true : null) : false, text: t(`El HTML de la portada pesa ${Math.max(1, Math.round(f.bytes / 1024))} KB.`, `The homepage HTML weighs ${Math.max(1, Math.round(f.bytes / 1024))} KB.`) })
       fnd.push({ ok: null, text: t('Medida orientativa: la auditoría completa mide la carga real en móvil con Lighthouse.', 'Indicative measure: the full audit measures real mobile load with Lighthouse.') })
     }
     fnd.push({ ok: https, text: https ? t('La web usa HTTPS.', 'The site uses HTTPS.') : t('La web no carga por HTTPS: el navegador la marca como “no segura”.', 'The site does not load over HTTPS: browsers mark it “not secure”.') })
@@ -287,7 +294,8 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
     if (alt > 5) fnd.push({ ok: false, text: t(`${alt} imágenes sin texto alternativo (accesibilidad y SEO de imágenes).`, `${alt} images without alt text (accessibility and image SEO).`) })
     const multi = /href=["'][^"']*\/(en|es|de|fr|it|ru|nl|sv)(?:\/|["'?#])/i.test(f.html) || /[?&]lang=(en|es|de|fr)\b/i.test(f.html) || /\b(english|español|deutsch|français)\b/i.test(af.nav.join(' '))
     fnd.push({ ok: a.has_hreflang || !multi, text: a.has_hreflang ? t('Idiomas bien señalizados para Google (hreflang).', 'Languages are flagged correctly for Google (hreflang).') : multi ? t('La web tiene varios idiomas pero no lo indica a Google (hreflang).', 'The site has several languages but does not tell Google (hreflang).') : t('Un solo idioma: no hace falta hreflang.', 'Single language: hreflang not needed.') })
-    let score = 100 - noTitle * 12 - dupT * 10 - longTitle * 3 - noDesc * 8 - noH1 * 8 - multiH1 * 3 - noView * 15 - noCanon * 4 - (a.has_schema ? 0 : 10) - broken * 10 - thin * 5 - (alt > 5 ? 5 : 0)
+    const pr = (n: number) => (N ? n / N : 0)
+    let score = 100 - pr(noTitle) * 30 - pr(dupT) * 20 - pr(longTitle) * 6 - pr(noDesc) * 20 - pr(noH1) * 18 - pr(multiH1) * 6 - pr(noView) * 30 - pr(noCanon) * 8 - (a.has_schema ? 0 : 10) - Math.min(20, broken * 7) - pr(thin) * 10 - (alt > 5 ? 5 : 0)
     if (psi?.seo != null) score = Math.round(score * 0.7 + psi.seo * 0.3)
     score = clamp(score)
     cards.push({ key: 'seo', title: t('SEO técnico', 'Technical SEO'), score, findings: fnd,
