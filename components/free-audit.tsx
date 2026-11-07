@@ -56,7 +56,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
   const [f, setF] = useState({ url: '', name: '', email: '', role: 'owner', consent: false, company_website: '', ads: '' })
   const [err, setErr] = useState<string | null>(null); const [res, setRes] = useState<Result | null>(null); const [host, setHost] = useState('')
   const [step, setStep] = useState(0); const [ans, setAns] = useState<any>({ maintainer: '', cost: '', agency_name: '', ads: '', frustration: '' }); const [ansSent, setAnsSent] = useState(false)
-  const [copied, setCopied] = useState(false); const [savedAns, setSavedAns] = useState<any>({})
+  const [copied, setCopied] = useState(false); const [savedAns, setSavedAns] = useState<any>({}); const [gated, setGated] = useState(false); const [hint, setHint] = useState(''); const key = useRef('')
   const utm = useRef<Record<string, string>>({})
   const otherLang = lang === 'es' ? '/en/free-website-audit' : '/auditoria-web-gratis'
 
@@ -64,6 +64,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     const q = new URLSearchParams(location.search)
     for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref']) { const v = q.get(k); if (v) utm.current[k] = v }
     try { const s = sessionStorage.getItem('fa-utm'); if (s && !Object.keys(utm.current).length) utm.current = JSON.parse(s); else if (Object.keys(utm.current).length) sessionStorage.setItem('fa-utm', JSON.stringify(utm.current)) } catch {}
+    key.current = q.get('k') || ''
     const rid = q.get('id'); if (rid) { setId(rid); setStatus('running'); track('free_audit_view', { lang }) } else track('free_audit_land', { lang })
   }, [lang])
 
@@ -73,10 +74,10 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     let alive = true; let n = 0
     const tick = async () => {
       try {
-        const r = await fetch(`/api/free-audit?id=${id}`, { cache: 'no-store' }); const j = await r.json()
+        const r = await fetch(`/api/free-audit?id=${id}${key.current ? `&k=${key.current}` : ''}`, { cache: 'no-store' }); const j = await r.json()
         if (!alive) return
         if (j.host) setHost(j.host); if (j.answers) setSavedAns(j.answers)
-        if (j.status === 'done' && j.result) { setRes(j.result); setStatus('done'); track('free_audit_done', { score: j.result.overall, lang }); return }
+        if (j.status === 'done' && j.result) { setRes(j.result); setGated(!!j.gated); setHint(j.email_hint || ''); setStatus('done'); track('free_audit_done', { score: j.result.overall, lang }); return }
         if (j.status === 'failed' || j.error === 'not_found') { setErr(j.error || 'timeout'); setStatus('failed'); track('free_audit_failed', { reason: j.error }); return }
       } catch {}
       n++; setStep(Math.min(STEPS[lang].length - 1, Math.floor(n / 2)))
@@ -238,14 +239,19 @@ export function FreeAudit({ lang }: { lang: Lang }) {
           {status === 'done' && res && <>
             <section className="section" style={{ paddingTop: 40 }}>
               <div className="wrap">
-                <div className="fa-grid">{res.cards.map(c => <CardView key={c.key} c={c} t={t} />)}</div>
+                {gated ? <Reveal className="fa-gate">
+                  <h3>{t('El informe completo está en tu email', 'The full report is in your email')}</h3>
+                  <p>{t(`Te lo hemos enviado a ${hint || 'tu dirección'}. Abre el enlace del correo para ver qué falla en cada apartado, por qué y qué hacer. Así nos aseguramos de que el informe llega a quien lo ha pedido.`, `We sent it to ${hint || 'your address'}. Open the link in the email to see what fails in each area, why, and what to do. This is how we make sure the report reaches the person who asked for it.`)}</p>
+                  <p className="note">{t('¿No lo ves? Mira en spam o promociones. Si sigue sin llegar, escríbenos por WhatsApp.', 'Can’t see it? Check spam or promotions. If it still has not arrived, message us on WhatsApp.')}</p>
+                  <div className="fa-grid fa-blur" aria-hidden="true">{res.cards.map(c => <div key={c.key} className="fa-card"><div className="fa-ch"><h3>{c.title}</h3><Pill v={c.score} /></div><p className="fa-sum">{c.summary}</p></div>)}</div>
+                </Reveal> : <div className="fa-grid">{res.cards.map(c => <CardView key={c.key} c={c} t={t} />)}</div>}
                 {res.ai?.quick_wins?.length ? <Reveal className="fa-wins"><h3>{t('Tres cambios rápidos', 'Three quick changes')}</h3><ol>{res.ai.quick_wins.map((w, i) => <li key={i}>{w}</li>)}</ol></Reveal> : null}
                 {(savedAns.ads || savedAns.maintainer) && <p className="note">{t('Hemos tenido en cuenta tus respuestas al preparar el apartado de medición.', 'Your answers were taken into account in the tracking section.')}</p>}
-                <div className="fa-limits">
+                {!gated && <div className="fa-limits">
                   <b>{t('Lo que esta revisión no ve', 'What this review does not see')}</b>
                   <p>{t('Tráfico, posiciones en Google, resultados de campañas, diseño visual y textos página a página. Para eso está la auditoría completa.', 'Traffic, Google rankings, campaign results, visual design and copy page by page. That is what the full audit is for.')}{res.limits.length ? ' ' + res.limits.join(' ') : ''}</p>
                   <div className="fa-share"><span>{t('Enlace a este resultado:', 'Link to this result:')}</span><code>{typeof location !== 'undefined' ? location.href : ''}</code><button type="button" className="btn ghost" onClick={() => { navigator.clipboard?.writeText(location.href); setCopied(true); track('free_audit_share') }}>{copied ? t('Copiado', 'Copied') : t('Copiar', 'Copy')}</button></div>
-                </div>
+                </div>}
               </div>
             </section>
             {offers}

@@ -1,5 +1,6 @@
 import { NextResponse, after } from 'next/server'
-import { createHash } from 'crypto'
+import { createHash, randomBytes } from 'crypto'
+import { resolveMx } from 'dns/promises'
 import { crmAnonClient } from '@/lib/crm-supabase'
 import { runFreeAudit, normaliseUrl, type Lang, type Result } from '@/lib/free-audit'
 
@@ -7,6 +8,14 @@ export const maxDuration = 60
 export const dynamic = 'force-dynamic'
 
 const ROLES = new Set(['owner', 'director', 'marketing', 'other'])
+const GATE = process.env.FREE_AUDIT_GATE !== 'off' // full report only via the emailed link
+const FREE_MAIL = /^(gmail|googlemail|hotmail|outlook|live|msn|yahoo|icloud|me|mac|aol|proton|protonmail|pm|gmx|mail|yandex|zoho|telefonica|movistar|orange|ono|terra|hispavista|wanadoo)\.(com|es|net|org|me|ch|co\.uk|fr|de|it)$/
+const DISPOSABLE = /(mailinator|guerrillamail|10minutemail|tempmail|temp-mail|yopmail|trashmail|throwam|getnada|dispostable|fakeinbox|maildrop|sharklasers|spamgourmet|mohmal|emailondeck|burnermail|tempr\.email|minuteinbox|mytemp|moakt|tmpmail|mailnesia|mailsac|inboxkitten|33mail|discard\.email|harakirimail|luxusmail|tempail|crazymailing|mailtemp|anonbox|dropmail|tmail|instantemail)/i
+async function mailDomainOk(domain: string) {
+  try { const mx = await Promise.race([resolveMx(domain), new Promise<never>((_, rej) => setTimeout(() => rej(new Error('t')), 3000))]); return Array.isArray(mx) && mx.length > 0 }
+  catch (e: any) { return e?.code === 'ETIMEOUT' || e?.message === 't' || e?.code === 'ESERVFAIL' } // cannot tell: do not punish the visitor for our DNS
+}
+const teaser = (r: Result): Result => ({ ...r, cards: r.cards.map(c => ({ ...c, findings: [], action: '' })), ai: null, pages: [], limits: [], psi: r.psi ? { ...r.psi, screenshot: null } : null })
 const json = (b: any, s = 200) => NextResponse.json(b, { status: s, headers: { 'cache-control': 'no-store' } })
 
 async function bot() {
@@ -67,7 +76,7 @@ async function syncLead(sb: any, row: any, result: Result | null) {
   }
   const score = result?.overall != null ? `score ${result.overall}/100` : 'site could not be analysed'
   const cards = result ? result.cards.map(c => `${c.key} ${c.score ?? '—'}`).join(', ') : ''
-  await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Free audit requested by ${row.name || '—'} (${ANS_LABEL.role[row.role] || row.role || 'role unknown'}, ${row.email || 'no email'}) · ${score}${cards ? ` · ${cards}` : ''} · ${answersText(row.answers || {}) || 'no extra answers'} · result: https://impulsomedia.es/${row.lang === 'en' ? 'en/free-website-audit' : 'auditoria-web-gratis'}?id=${row.id}` })
+  await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Free audit requested by ${row.name || '—'} (${ANS_LABEL.role[row.role] || row.role || 'role unknown'}, ${row.email || 'no email'}) · ${score}${cards ? ` · ${cards}` : ''} · ${answersText(row.answers || {}) || 'no extra answers'} · ${row.flags?.email_matches_site ? 'email domain matches the site (owner confirmed)' : row.flags?.free_email ? 'free email (unconfirmed)' : 'EMAIL FROM ANOTHER BUSINESS DOMAIN: possible competitor or agency, check before contacting'} · result: https://impulsomedia.es/${row.lang === 'en' ? 'en/free-website-audit' : 'auditoria-web-gratis'}?id=${row.id}` })
   if (row.email) await sb.from('crm_contacts').upsert({ lead_id: lead.id, kind: 'email', value: row.email, label: `${row.name || ''} ${row.role ? `(${ANS_LABEL.role[row.role] || row.role})` : ''}`.trim(), source_url: 'free audit' }, { onConflict: 'lead_id,kind,value', ignoreDuplicates: true })
   return lead.id
 }
@@ -77,7 +86,7 @@ async function sendEmails(row: any, result: Result | null) {
   if (!key || !row.email) return false
   const { Resend } = await import('resend'); const resend = new Resend(key)
   const en = row.lang === 'en'
-  const link = `https://impulsomedia.es/${en ? 'en/free-website-audit' : 'auditoria-web-gratis'}?id=${row.id}`
+  const link = `https://impulsomedia.es/${en ? 'en/free-website-audit' : 'auditoria-web-gratis'}?id=${row.id}&k=${row.key}`
   const rows = result ? result.cards.map(c => `<tr><td style="padding:8px 0;border-bottom:1px solid #eee">${c.title}</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700">${c.score ?? '—'}/100</td></tr>`).join('') : ''
   const html = `<div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#111418">
     <p style="color:#7a7f87;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px">ImpulsoMedia · ${en ? 'Free website review' : 'Auditoría web gratis'}</p>
@@ -99,6 +108,7 @@ async function process_(id: string) {
   const sb = await bot()
   const { data: row } = await sb.from('free_audits').select('*').eq('id', id).single()
   if (!row || row.status === 'done') return
+  if (!row.key) { row.key = randomBytes(9).toString('base64url'); await sb.from('free_audits').update({ key: row.key }).eq('id', id) }
   await sb.from('free_audits').update({ status: 'running', started_at: new Date().toISOString(), attempts: (row.attempts || 0) + 1 }).eq('id', id)
   let result: Result | null = null; let error: string | null = null
   try {
@@ -137,7 +147,9 @@ export async function POST(req: Request) {
   if (body.company_website) return json({ ok: true, id: '00000000-0000-4000-8000-000000000000' })
   const n = normaliseUrl(clean(body.url, 300)); if ('error' in n) return json({ error: 'url_' + n.error }, 400)
   const email = clean(body.email, 120).toLowerCase(); if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) return json({ error: 'email' }, 400)
-  const name = clean(body.name, 80); if (name.length < 2) return json({ error: 'name' }, 400)
+  const name = clean(body.name, 80); if (name.length < 2 || !/[a-záéíóúñü]{2,}/i.test(name) || /https?:|www\.|@|\d{4,}/i.test(name)) return json({ error: 'name' }, 400)
+  const mailDomain = email.split('@')[1]
+  if (DISPOSABLE.test(mailDomain) || !(await mailDomainOk(mailDomain))) return json({ error: 'email' }, 400)
   const role = ROLES.has(body.role) ? body.role : 'other'
   const lang: Lang = body.lang === 'en' ? 'en' : 'es'
   if (!body.consent) return json({ error: 'consent' }, 400)
@@ -149,25 +161,36 @@ export async function POST(req: Request) {
   if ((perIp || 0) >= 5) return json({ error: 'rate' }, 429)
   const { count: perDay } = await sb.from('free_audits').select('id', { count: 'exact', head: true }).gte('created_at', day)
   if ((perDay || 0) >= 150) return json({ error: 'busy' }, 429)
+  const { count: perMail } = await sb.from('free_audits').select('id', { count: 'exact', head: true }).eq('email', email).gte('created_at', new Date(Date.now() - 30 * 86400000).toISOString())
+  if ((perMail || 0) >= 3) return json({ error: 'rate' }, 429)
+  const root = (h: string) => h.split('.').slice(-2).join('.')
+  const flags: Record<string, any> = { free_email: FREE_MAIL.test(mailDomain), email_matches_site: root(mailDomain) === root(n.host) }
+  flags.competitor_risk = !flags.free_email && !flags.email_matches_site
   const utm: Record<string, string> = {}
   for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref']) if (body.utm?.[k]) utm[k] = clean(body.utm[k], 80)
   const answers: Record<string, string> = {}
   if (body.answers?.ads) answers.ads = clean(body.answers.ads, 20)
-  const { data: row, error } = await sb.from('free_audits').insert({ url: n.url, host: n.host, lang, name, email, role, answers, utm, ip_hash: iph, user_agent: clean(req.headers.get('user-agent'), 200), consent: true }).select('id').single()
+  const { data: row, error } = await sb.from('free_audits').insert({ url: n.url, host: n.host, lang, name, email, role, answers, utm, ip_hash: iph, user_agent: clean(req.headers.get('user-agent'), 200), consent: true, flags, key: randomBytes(9).toString('base64url') }).select('id').single()
   if (error || !row) return json({ error: 'db' }, 500)
   after(() => process_(row.id).catch(() => {}))
   return json({ ok: true, id: row.id })
 }
 
 export async function GET(req: Request) {
-  const id = new URL(req.url).searchParams.get('id') || ''
+  const q = new URL(req.url).searchParams; const id = q.get('id') || ''; const k = q.get('k') || ''
   if (!/^[0-9a-f-]{36}$/.test(id)) return json({ error: 'bad_id' }, 400)
   const sb = await bot()
-  const { data: row } = await sb.from('free_audits').select('id,url,host,lang,status,result,error,answers,started_at,attempts,created_at').eq('id', id).single()
+  const { data: row } = await sb.from('free_audits').select('id,url,host,lang,status,result,error,answers,started_at,attempts,created_at,key,verified_at,lead_id,email').eq('id', id).single()
   if (!row) return json({ error: 'not_found' }, 404)
   // If the background job died (timeout, cold start), pick it up again, at most twice.
   const stale = (row.status === 'queued' && Date.now() - new Date(row.created_at).getTime() > 20000) || (row.status === 'running' && row.started_at && Date.now() - new Date(row.started_at).getTime() > 75000)
   if (stale && (row.attempts || 0) < 2) { after(() => process_(id).catch(() => {})); row.status = 'running' }
   else if (stale) { await sb.from('free_audits').update({ status: 'failed', error: 'gave up after retries' }).eq('id', id); row.status = 'failed'; row.error = 'timeout' }
-  return json({ id: row.id, url: row.url, host: row.host, lang: row.lang, status: row.status, result: row.result, error: row.error, answers: row.answers })
+  const unlocked = !GATE || (!!k && k === row.key)
+  if (unlocked && k && !row.verified_at && row.status === 'done') {
+    await sb.from('free_audits').update({ verified_at: new Date().toISOString() }).eq('id', id)
+    if (row.lead_id) await sb.from('crm_activities').insert({ lead_id: row.lead_id, type: 'nota', body: `Opened the full free-audit report from the email link: ${row.email} is a real, working address.` })
+  }
+  const mask = (e: string) => e.replace(/^(.{2}).*(@.*)$/, '$1…$2')
+  return json({ id: row.id, url: row.url, host: row.host, lang: row.lang, status: row.status, result: row.result ? (unlocked ? row.result : teaser(row.result)) : null, gated: !unlocked, email_hint: unlocked ? null : mask(row.email || ''), error: row.error, answers: row.answers })
 }

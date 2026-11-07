@@ -607,3 +607,5 @@
 .v2 .fa-limits { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 18px; color: var(--ink2); font-size: 14px; } .v2 .fa-limits b { color: var(--ink); } .v2 .fa-limits p { margin: 6px 0 0; }
 .v2 .fa-share { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; font-size: 13px; } .v2 .fa-share code { font-family: var(--mono); font-size: 12px; background: var(--paper2); padding: 6px 10px; border-radius: 8px; overflow-wrap: anywhere; } .v2 .fa-share .btn { padding: 8px 14px; font-size: 13px; }
 @media (max-width: 800px) { .v2 .fa-grid { grid-template-columns: 1fr } .v2 .fa-2 { grid-template-columns: 1fr } .v2 .fa-score { flex-direction: column; align-items: flex-start } .v2 .fa-form { padding: 20px } }
+.v2 .fa-gate { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 26px; } .v2 .fa-gate h3 { font-size: 24px; } .v2 .fa-gate > p { margin: 10px 0 0; color: var(--ink2); max-width: 64ch; }
+.v2 .fa-blur { margin-top: 18px; filter: blur(2px); opacity: .55; pointer-events: none; user-select: none; }
