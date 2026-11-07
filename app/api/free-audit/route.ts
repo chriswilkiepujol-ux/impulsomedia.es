@@ -217,7 +217,7 @@ async function handleRequest(body: any, req: Request) {
     if (lead_id) {
       await sb.from('crm_activities').insert({ lead_id, type: 'nota', body: `REQUEST: ${KIND[kind].internal} from ${r.name || '—'} (${r.email || 'no email'}${r.phone ? `, ${r.phone}` : ''})${r.message ? ` · message: “${r.message}”` : ''}${audit ? ` · audit score ${audit.result?.overall ?? 'failed'}` : ''}` })
       const { data: l } = await sb.from('crm_leads').select('relationship').eq('id', lead_id).single()
-      if (l?.relationship === 'lead') await sb.from('crm_leads').update({ next_action_at: new Date().toISOString(), lead_type: 'warm' }).eq('id', lead_id)
+      if (l?.relationship === 'lead') await sb.from('crm_leads').update({ next_action_at: new Date().toISOString(), lead_type: 'warm', origin: 'inbound' }).eq('id', lead_id)
     }
   } catch {}
   let email_sent = false
