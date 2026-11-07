@@ -68,10 +68,11 @@ async function syncLead(sb: any, row: any, result: Result | null) {
     if (error) throw new Error('lead insert: ' + error.message)
     lead = data
   } else {
-    const patch: any = { ...base }
-    if (lead.relationship !== 'lead') { delete patch.lead_type; delete patch.origin; delete patch.next_action_at }
-    if (lead.contact_name && !row.name) delete patch.contact_name
-    if (lead.email && !row.email) delete patch.email
+    // Never overwrite what is already known about an existing lead or client: only fill blanks.
+    const patch: any = { contact_role: row.role || null }
+    if (!lead.contact_name && row.name) patch.contact_name = row.name
+    if (!lead.email && row.email) patch.email = row.email
+    if (lead.relationship === 'lead') { patch.origin = 'inbound'; patch.lead_type = 'warm'; patch.next_action_at = base.next_action_at }
     await sb.from('crm_leads').update(patch).eq('id', lead.id)
   }
   const score = result?.overall != null ? `score ${result.overall}/100` : 'site could not be analysed'

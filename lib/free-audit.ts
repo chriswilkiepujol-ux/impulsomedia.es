@@ -121,11 +121,19 @@ async function gtmTags(ids: string[]) {
 function aboveFold(html: string) {
   const body = html.split(/<body[^>]*>/i)[1] || html
   const head = body.slice(0, Math.min(body.length, Math.max(12000, Math.floor(body.length * 0.3))))
-  const ctas = [...head.matchAll(/<(?:a|button)\b[^>]*>([\s\S]{0,120}?)<\/(?:a|button)>/gi)].map(m => strip(m[1])).filter(s => s && s.length < 60)
-  const actionWords = /contact|contáct|llama|llámanos|call|whatsapp|reserva|book|pide|solicita|presupuesto|quote|cita|appointment|empieza|start|comprar|buy|cotiza|get|descubre|ver|más info|more|escr[ií]be/i
+  const actionWords = /contact|contáct|llama|llámanos|call|whatsapp|reserva|book|pide|solicita|presupuesto|quote|cita|appointment|empieza|start|comprar|buy|cotiza|get |descubre|más info|more|escr[ií]be|hablamos|contratar|info|enquir|demo|ver /i
+  const grab = (h: string) => [...h.matchAll(/<(a|button)\b([^>]*)>([\s\S]{0,160}?)<\/\1>/gi)]
+    .map(m => ({ attrs: m[2], text: strip(m[3]) }))
+    .filter(x => x.text && x.text.length < 60 && (actionWords.test(x.text) || /\b(btn|button|cta)\b/i.test(x.attrs) || /role=["']button/i.test(x.attrs)))
+    .map(x => x.text)
+  const tel = (h: string) => /href=["']?(tel|callto):/i.test(h) || /onclick=["'][^"']*tel:/i.test(h)
+  const wa = (h: string) => /wa\.me\/|api\.whatsapp\.com|whatsapp:\/\//i.test(h)
+  const form = (h: string) => /<form[\s>]/i.test(h) || /typeform\.com|hsforms\.net|jotform\.com|calendly\.com|tally\.so|docs\.google\.com\/forms|wpcf7|elementor-form|wpforms|gform_|hs-form|ninja-form/i.test(h)
   return {
-    tel: /href=["']tel:/i.test(head), wa: /wa\.me\/|api\.whatsapp\.com/i.test(head), form: /<form[\s>]/i.test(head), mail: /mailto:/i.test(head),
-    ctas: ctas.filter(c => actionWords.test(c)).slice(0, 8), h1: strip(pick(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i)),
+    tel: tel(head), wa: wa(head), form: form(head), mail: /mailto:/i.test(head),
+    telAny: tel(html), waAny: wa(html), formAny: form(html),
+    ctas: [...new Set(grab(head))].slice(0, 8), ctasAny: [...new Set(grab(body))].length,
+    h1: strip(pick(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i)),
     h2s: [...html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/gi)].map(m => strip(m[1])).filter(Boolean).slice(0, 8),
     nav: [...(html.match(/<nav[\s\S]*?<\/nav>/i)?.[0] || '').matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/gi)].map(m => strip(m[1])).filter(s => s && s.length < 40).slice(0, 14),
     text: strip(head).slice(0, 1800),
@@ -217,21 +225,22 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
     const score = clamp(clarity * 10)
     cards.push({ key: 'impression', title: t('Primera impresión', 'First impression'), score, findings: fnd,
       summary: score >= 75 ? t('Se entiende rápido qué haces y para quién.', 'It is quickly clear what you do and for whom.') : score >= 50 ? t('Se entiende, pero cuesta más de lo que debería.', 'It can be understood, but it takes more effort than it should.') : t('Un visitante nuevo no tiene claro qué ofreces ni por qué elegirte.', 'A new visitor is not clear on what you offer or why to choose you.'),
-      action: ai?.quick_wins[0] || t('Pon en la parte alta un titular que diga qué haces, dónde y para quién, y un botón para contactar.', 'Put a headline at the top saying what you do, where and for whom, plus a contact button.') })
+      action: ai?.quick_wins[0] || (af.h1 ? t('Debajo del titular, añade una frase con para quién es y en qué zona, y pon el botón de contacto al lado.', 'Under the headline, add one line saying who it is for and where, and put the contact button next to it.') : t('Pon en la parte alta un titular que diga qué haces, dónde y para quién, y un botón para contactar.', 'Put a headline at the top saying what you do, where and for whom, plus a contact button.')) })
   }
   // 2. Calls to action
   {
     const fnd: Finding[] = []
-    const channels = [a.has_tel_link, a.has_whatsapp, a.has_contact_form, a.emails.length > 0].filter(Boolean).length
-    const top = [af.tel, af.wa, af.form].filter(Boolean).length + (af.ctas.length ? 1 : 0)
-    fnd.push({ ok: a.has_tel_link, text: a.has_tel_link ? t('El teléfono se puede tocar para llamar desde el móvil.', 'The phone number is tappable to call from a phone.') : t('El teléfono no es un enlace: en el móvil hay que copiarlo a mano.', 'The phone number is not a link: on a phone it has to be copied by hand.') })
-    fnd.push({ ok: a.has_whatsapp, text: a.has_whatsapp ? t('Hay botón de WhatsApp.', 'There is a WhatsApp button.') : t('No hay WhatsApp. En tu zona es el canal que más usan los clientes para preguntar.', 'No WhatsApp. In your area it is the channel customers use most to ask questions.') })
-    fnd.push({ ok: a.has_contact_form, text: a.has_contact_form ? t('Hay un formulario de contacto.', 'There is a contact form.') : t('No hay formulario de contacto.', 'There is no contact form.') })
-    fnd.push({ ok: top >= 2, text: top >= 2 ? t(`Hay llamadas a la acción visibles al entrar (${af.ctas.slice(0, 3).map(c => `“${c}”`).join(', ') || t('teléfono/WhatsApp', 'phone/WhatsApp')}).`, `There are visible calls to action on arrival (${af.ctas.slice(0, 3).map(c => `“${c}”`).join(', ') || 'phone/WhatsApp'}).`) : t('Al entrar no se ve ningún botón claro de “contactar”, “llamar” o “reservar”: el visitante tiene que buscarlo.', 'On arrival there is no clear “contact”, “call” or “book” button: the visitor has to look for it.') })
-    const score = clamp(channels * 15 + top * 15 + (ai ? ai.cta * 2.5 : 10))
+    const hasTel = a.has_tel_link || af.telAny, hasWa = a.has_whatsapp || af.waAny, hasForm = a.has_contact_form || af.formAny
+    const channels = [hasTel, hasWa, hasForm, a.emails.length > 0].filter(Boolean).length
+    const top = [af.tel, af.wa, af.form, af.mail].filter(Boolean).length + (af.ctas.length ? 1 : 0)
+    fnd.push({ ok: hasTel, text: hasTel ? t('El teléfono se puede tocar para llamar desde el móvil.', 'The phone number is tappable to call from a phone.') : t('El teléfono no es un enlace: en el móvil hay que copiarlo a mano.', 'The phone number is not a link: on a phone it has to be copied by hand.') })
+    fnd.push({ ok: hasWa, text: hasWa ? t('Hay botón de WhatsApp.', 'There is a WhatsApp button.') : t('No hay WhatsApp. En tu zona es el canal que más usan los clientes para preguntar.', 'No WhatsApp. In your area it is the channel customers use most to ask questions.') })
+    fnd.push({ ok: hasForm, text: hasForm ? t('Hay un formulario de contacto.', 'There is a contact form.') : t('No hay formulario de contacto.', 'There is no contact form.') })
+    fnd.push({ ok: top >= 1, text: top >= 1 ? t(`Hay llamadas a la acción visibles al entrar (${af.ctas.slice(0, 3).map(c => `“${c}”`).join(', ') || t('teléfono/WhatsApp', 'phone/WhatsApp')}).`, `There are visible calls to action on arrival (${af.ctas.slice(0, 3).map(c => `“${c}”`).join(', ') || 'phone/WhatsApp'}).`) : t('Al entrar no se ve ningún botón claro de “contactar”, “llamar” o “reservar”: el visitante tiene que buscarlo.', 'On arrival there is no clear “contact”, “call” or “book” button: the visitor has to look for it.') })
+    const score = clamp(channels * 15 + Math.min(top, 3) * 12 + (ai ? ai.cta * 2 : 8))
     cards.push({ key: 'cta', title: t('Llamadas a la acción', 'Calls to action'), score, findings: fnd,
       summary: score >= 75 ? t('Contactar es fácil desde cualquier dispositivo.', 'Getting in touch is easy from any device.') : score >= 50 ? t('Se puede contactar, pero no es inmediato.', 'Contact is possible, but not immediate.') : t('A un cliente interesado le cuesta dar el siguiente paso.', 'An interested customer struggles to take the next step.'),
-      action: ai?.quick_wins[1] || (!a.has_whatsapp ? t('Añade un botón de WhatsApp fijo y un teléfono tocable en la cabecera.', 'Add a sticky WhatsApp button and a tappable phone number in the header.') : t('Pon una sola acción principal arriba (llamar, WhatsApp o reservar) y repítela al final de cada sección.', 'Put one main action at the top (call, WhatsApp or book) and repeat it at the end of each section.')) })
+      action: ai?.quick_wins[1] || (!hasWa ? t('Añade un botón de WhatsApp fijo y un teléfono tocable en la cabecera.', 'Add a sticky WhatsApp button and a tappable phone number in the header.') : t('Pon una sola acción principal arriba (llamar, WhatsApp o reservar) y repítela al final de cada sección.', 'Put one main action at the top (call, WhatsApp or book) and repeat it at the end of each section.')) })
   }
   // 3. Speed
   {
