@@ -30,6 +30,9 @@ export function middleware(request: NextRequest) {
   const rawHost = (request.headers.get('x-forwarded-host') || request.headers.get('host') || '').toLowerCase()
   const isCrmHost = rawHost.startsWith('crm.')
   const isPublicSite = rawHost === 'impulsomedia.es' || rawHost === 'www.impulsomedia.es'
+  // --- Free website audit: staging only (qa.impulsomedia.es) until launch. On the public site it does not exist. ---
+  const isFreeAudit = pathname === '/auditoria-web-gratis' || pathname === '/en/free-website-audit' || pathname.startsWith('/api/free-audit')
+  if (isFreeAudit && isPublicSite) return new NextResponse('Not found', { status: 404, headers: { 'x-robots-tag': 'noindex' } })
   if (isCrmHost) {
     const noindex = { 'x-robots-tag': 'noindex, nofollow, noarchive', 'cache-control': 'no-store' }
     if (pathname === '/robots.txt') return new NextResponse('User-agent: *\nDisallow: /\n', { headers: { 'content-type': 'text/plain', ...noindex } })
