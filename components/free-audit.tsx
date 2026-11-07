@@ -12,7 +12,6 @@ import type { Result, Card } from '@/lib/free-audit'
 
 type Lang = 'es' | 'en'
 type Status = 'idle' | 'submitting' | 'running' | 'done' | 'failed'
-const WA = 'https://wa.me/34680863229'
 const TS_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 function Turnstile({ onToken }: { onToken: (t: string) => void }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -66,12 +65,64 @@ function CardView({ c, t, extra = [] }: { c: Card; t: (a: string, b: string) => 
   </Reveal>
 }
 
+type ReqKind = 'web_audit' | 'ads_audit' | 'discuss' | 'manual'
+const REQ_TITLE: Record<ReqKind, [string, string]> = {
+  web_audit: ['Solicitar la auditoría web completa', 'Request the full website audit'],
+  ads_audit: ['Solicitar la auditoría de anuncios', 'Request the ad-account audit'],
+  discuss: ['Comentar el resultado', 'Discuss the result'],
+  manual: ['Pedir una revisión manual', 'Ask for a manual review'],
+}
+// In-page request: emails the team the full audit data and logs it in the CRM, instead of a blank WhatsApp chat.
+function RequestPanel({ kind, lang, auditId, onClose }: { kind: ReqKind; lang: Lang; auditId: string | null; onClose: () => void }) {
+  const t = (es: string, en: string) => (lang === 'es' ? es : en)
+  const [r, setR] = useState({ name: '', email: '', url: '', phone: '', message: '', consent: false, xq_field: '' })
+  const [st, setSt] = useState<'idle' | 'sending' | 'sent'>('idle'); const [e, setE] = useState<string | null>(null)
+  const needContact = !auditId
+  const send = async (ev: React.FormEvent) => {
+    ev.preventDefault(); setE(null)
+    if (needContact && !r.consent) { setE('consent'); return }
+    setSt('sending'); track('free_audit_request', { kind, lang, with_audit: !!auditId })
+    try {
+      const res = await fetch('/api/free-audit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'request', kind, lang, id: auditId, ...r }) })
+      const j = await res.json(); if (!res.ok || !j.ok) { setE(j.error || 'db'); setSt('idle'); return }
+      setSt('sent')
+    } catch { setE('db'); setSt('idle') }
+  }
+  return (
+    <div className="fa-req" role="dialog" aria-modal="true" aria-label={REQ_TITLE[kind][lang === 'es' ? 0 : 1]} onClick={ev => { if (ev.target === ev.currentTarget) onClose() }}>
+      <form className="fa-form" onSubmit={send} noValidate>
+        <div className="fa-ch"><div className="fa-ft">{REQ_TITLE[kind][lang === 'es' ? 0 : 1]}</div><button type="button" className="x" aria-label={t('Cerrar', 'Close')} onClick={onClose}>×</button></div>
+        {st === 'sent' ? <>
+          <p className="fa-sum">{t('Recibido. Un miembro del equipo de ImpulsoMedia revisará tu web y te escribirá en 1 o 2 días laborables.', 'Received. A member of the ImpulsoMedia team will review your site and get back to you within 1 to 2 working days.')}</p>
+          <button type="button" className="btn ghost" onClick={onClose}>{t('Cerrar', 'Close')}</button>
+        </> : <>
+          <p className="fa-sum" style={{ fontSize: 14.5 }}>{auditId ? t('Te contactamos con la revisión ya estudiada. Añade lo que quieras que sepamos.', 'We will get back to you having already studied your review. Add anything you want us to know.') : t('Déjanos tus datos y te contactamos con una propuesta.', 'Leave your details and we will get back to you with a proposal.')}</p>
+          {needContact && <>
+            <div className="fa-2">
+              <label><span>{t('Tu nombre', 'Your name')}</span><input autoComplete="name" value={r.name} onChange={ev => setR({ ...r, name: ev.target.value })} required /></label>
+              <label><span>{t('Email', 'Email')}</span><input type="email" autoComplete="email" value={r.email} onChange={ev => setR({ ...r, email: ev.target.value })} required /></label>
+            </div>
+            <label><span>{t('Tu web', 'Your website')}</span><input inputMode="url" placeholder="minegocio.com" value={r.url} onChange={ev => setR({ ...r, url: ev.target.value })} /></label>
+          </>}
+          <label><span>{t('Teléfono (opcional, si prefieres que te llamemos)', 'Phone (optional, if you prefer a call)')}</span><input type="tel" autoComplete="tel" value={r.phone} onChange={ev => setR({ ...r, phone: ev.target.value })} /></label>
+          <label><span>{kind === 'ads_audit' ? t('¿En qué plataformas anuncias y cuánto inviertes al mes, aproximadamente? (opcional)', 'Which platforms do you advertise on and roughly how much a month? (optional)') : t('¿Qué te gustaría mejorar? (opcional)', 'What would you like to improve? (optional)')}</span><textarea className="fa-in" rows={3} maxLength={1000} value={r.message} onChange={ev => setR({ ...r, message: ev.target.value })} /></label>
+          <label className="fa-hp" aria-hidden="true"><span>Leave empty</span><input tabIndex={-1} autoComplete="off" value={r.xq_field} onChange={ev => setR({ ...r, xq_field: ev.target.value })} /></label>
+          {needContact && <label className="fa-chk"><input type="checkbox" checked={r.consent} onChange={ev => setR({ ...r, consent: ev.target.checked })} /><span>{t('Acepto que ImpulsoMedia guarde estos datos para responder a mi solicitud. ', 'I agree that ImpulsoMedia stores these details to answer my request. ')}<a href={lang === 'es' ? '/privacidad' : '/en/privacy'} target="_blank" rel="noreferrer">{t('Política de privacidad', 'Privacy policy')}</a></span></label>}
+          {e && <div className="fa-err">{errText(e, lang)}</div>}
+          <button className="btn gold" type="submit" disabled={st === 'sending'}>{st === 'sending' ? t('Enviando…', 'Sending…') : t('Enviar solicitud', 'Send request')} <span className="arr" style={{ background: '#fff' }}>→</span></button>
+        </>}
+      </form>
+    </div>
+  )
+}
+
 export function FreeAudit({ lang }: { lang: Lang }) {
   const t = (es: string, en: string) => (lang === 'es' ? es : en)
   const [status, setStatus] = useState<Status>('idle'); const [id, setId] = useState<string | null>(null)
   const [f, setF] = useState({ url: '', name: '', email: '', role: 'owner', consent: false, xq_field: '', ads: '', turnstile: '' })
   const [err, setErr] = useState<string | null>(null); const [res, setRes] = useState<Result | null>(null); const [host, setHost] = useState('')
   const [step, setStep] = useState(0); const [ans, setAns] = useState<any>({ maintainer: '', cost: '', agency_name: '', ads: '', frustration: '' }); const [ansSent, setAnsSent] = useState(false)
+  const [reqKind, setReqKind] = useState<ReqKind | null>(null); const openReq = (k: ReqKind) => { setReqKind(k); track('free_audit_offer_click', { which: k, lang }) }
   const [copied, setCopied] = useState(false); const [savedAns, setSavedAns] = useState<any>({}); const [gated, setGated] = useState(false); const [hint, setHint] = useState(''); const key = useRef('')
   const utm = useRef<Record<string, string>>({})
   const otherLang = lang === 'es' ? '/en/free-website-audit' : '/auditoria-web-gratis'
@@ -124,7 +175,6 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     setAnsSent(true); track('free_audit_answers', { keys: Object.keys(a).join(',') })
     try { await fetch('/api/free-audit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'answers', id, answers: a }) }) } catch {}
   }
-  const waText = encodeURIComponent(t(`Hola, he hecho la revisión web gratuita de ${host || 'mi web'}${res?.overall != null ? ` (${res.overall}/100)` : ''} y me gustaría comentarla.`, `Hi, I ran the free website review of ${host || 'my site'}${res?.overall != null ? ` (${res.overall}/100)` : ''} and would like to go through it.`))
   // The "are you running ads?" answer arrives after the audit started, so the comparison is drawn here.
   const adsAns = savedAns.ads || ans.ads
   const adsCheck: { ok: boolean | null; text: string }[] = !res || !adsAns || adsAns === 'unsure' ? [] : [
@@ -181,7 +231,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     <div className="fa-form">
       <div className="fa-ft">{t('No hemos podido completar la revisión', 'We could not complete the review')}</div>
       <p className="fa-sum">{errText(err, lang)}</p>
-      <a className="btn wa" href={`${WA}?text=${waText}`} target="_blank" rel="noreferrer" onClick={() => offerClick('manual')}>{t('Pedir revisión manual por WhatsApp', 'Ask for a manual review on WhatsApp')}</a>
+      <button type="button" className="btn gold" onClick={() => openReq('manual')}>{t('Pedir una revisión manual', 'Ask for a manual review')} <span className="arr" style={{ background: '#fff' }}>→</span></button>
       <button type="button" className="btn ghost" style={{ marginTop: 10 }} onClick={() => { setStatus('idle'); setErr(null); history.replaceState(null, '', location.pathname) }}>{t('Probar con otra dirección', 'Try another address')}</button>
     </div>
   )
@@ -208,12 +258,12 @@ export function FreeAudit({ lang }: { lang: Lang }) {
           <Reveal className="tile hov" as="article">
             <h3>{t('Auditoría web completa', 'Full website audit')}</h3>
             <p>{t('Diseño y textos página a página, velocidad real, SEO técnico y de contenido, comparación con tus competidores de la zona y una lista priorizada de cambios con su impacto esperado.', 'Design and copy page by page, real speed, technical and content SEO, a comparison with your local competitors and a prioritised list of changes with their expected impact.')}</p>
-            <a className="btn" href={`${WA}?text=${encodeURIComponent(t(`Hola, me interesa la auditoría web completa de ${host || 'mi web'}.`, `Hi, I'm interested in the full website audit of ${host || 'my site'}.`))}`} target="_blank" rel="noreferrer" onClick={() => offerClick('web')}>{t('Solicitar', 'Request')} <span className="arr">→</span></a>
+            <button type="button" className="btn" onClick={() => openReq('web_audit')}>{t('Solicitar', 'Request')} <span className="arr">→</span></button>
           </Reveal>
           <Reveal className="tile hov" as="article">
             <h3>{t('Auditoría de cuentas de anuncios', 'Ad-account audit')}</h3>
             <p>{t('Google Ads y Meta: estructura, palabras clave negativas, medición de conversiones, páginas de destino y dónde se va el presupuesto. Te decimos qué ahorrarías y qué dejarías de perder.', 'Google Ads and Meta: structure, negative keywords, conversion tracking, landing pages and where the budget leaks. We tell you what you would save and what you would stop losing.')}</p>
-            <a className="btn" href={`${WA}?text=${encodeURIComponent(t('Hola, me interesa la auditoría de mis cuentas de anuncios.', "Hi, I'm interested in the ad-account audit."))}`} target="_blank" rel="noreferrer" onClick={() => offerClick('ads')}>{t('Solicitar', 'Request')} <span className="arr">→</span></a>
+            <button type="button" className="btn" onClick={() => openReq('ads_audit')}>{t('Solicitar', 'Request')} <span className="arr">→</span></button>
           </Reveal>
         </div>
       </div>
@@ -245,7 +295,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
                     <p className="sub">{res.cards.filter(c => c.score != null && c.score < 60).slice(0, 2).map(c => c.summary).join(' ') || t('Todas las áreas están en buen estado. Abajo tienes el detalle y qué pulir.', 'All areas are in good shape. The detail and what to polish is below.')}</p>
                   </div></div>
                   <div className="actions rise d2">
-                    <a className="btn wa" href={`${WA}?text=${waText}`} target="_blank" rel="noreferrer" onClick={() => offerClick('talk')}>{t('Comentar el resultado', 'Discuss the result')} <span className="arr">→</span></a>
+                    <button type="button" className="btn gold" onClick={() => openReq('discuss')}>{t('Comentar el resultado', 'Discuss the result')} <span className="arr" style={{ background: '#fff' }}>→</span></button>
                     <a className="btn ghost" href="#auditorias" onClick={() => offerClick('scroll')}>{t('Ver auditorías completas', 'See full audits')}</a>
                   </div>
                   <div className="fa-facts rise d3">
@@ -326,6 +376,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
         </main>
         <Footer />
         <WhatsAppButton />
+        {reqKind && <RequestPanel kind={reqKind} lang={lang} auditId={status === 'done' || status === 'failed' ? id : null} onClose={() => setReqKind(null)} />}
       </div>
     </LanguageProvider>
   )

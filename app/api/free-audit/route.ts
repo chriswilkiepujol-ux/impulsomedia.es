@@ -146,11 +146,101 @@ async function process_(id: string) {
   await sb.from('free_audits').update({ lead_id, email_sent, error: [error, crmErr].filter(Boolean).join(' · ') || null }).eq('id', id)
 }
 
+// ---------- "Request" buttons on the audit page: full audit, ad-account audit, discuss the result, manual review ----------
+const KIND: Record<string, { es: string; en: string; internal: string }> = {
+  web_audit: { es: 'Auditoría web completa', en: 'Full website audit', internal: 'FULL WEBSITE AUDIT' },
+  ads_audit: { es: 'Auditoría de cuentas de anuncios', en: 'Ad-account audit', internal: 'AD-ACCOUNT AUDIT' },
+  discuss: { es: 'Comentar el resultado', en: 'Discuss the result', internal: 'DISCUSS THE RESULT' },
+  manual: { es: 'Revisión manual', en: 'Manual review', internal: 'MANUAL REVIEW (automatic audit failed)' },
+}
+function internalReport(audit: any, r: any, k: string) {
+  const res = audit?.result
+  const scoreCol = (v: any) => (v == null ? '#7a7f87' : v >= 75 ? '#1f9d55' : v >= 50 ? '#8a6a1e' : '#b91c1c')
+  const flags = audit?.flags || {}
+  const who = flags.email_matches_site ? '✅ Email domain matches the site: owner/staff confirmed' : flags.free_email ? '⚠️ Free email address (Gmail etc.): unconfirmed' : flags.competitor_risk ? '🚩 Email from ANOTHER business domain: possible competitor or agency, check first' : ''
+  const cards = res ? res.cards.map((c: any) => {
+    const bad = (c.findings || []).filter((f: any) => f.ok === false).map((f: any) => `<li style="margin:2px 0">✗ ${esc(f.text)}</li>`).join('')
+    const good = (c.findings || []).filter((f: any) => f.ok === true).length
+    return `<tr><td style="padding:10px 0;border-top:1px solid #ece8e0;vertical-align:top;width:170px"><b>${esc(c.title)}</b><br><span style="font-size:20px;font-weight:800;color:${scoreCol(c.score)}">${c.score ?? '—'}</span><span style="color:#7a7f87">/100</span></td><td style="padding:10px 0 10px 12px;border-top:1px solid #ece8e0;vertical-align:top;font-size:13.5px;line-height:1.45"><i>${esc(c.summary)}</i>${bad ? `<ul style="margin:6px 0 0;padding-left:16px">${bad}</ul>` : ''}<div style="color:#7a7f87;margin-top:4px">${good} check(s) passed · Suggested fix: ${esc(c.action)}</div></td></tr>`
+  }).join('') : ''
+  const t = res?.tags || {}
+  const tagLine = res ? ['GA4/GTM ' + (t.ga4 || t.gtm ? '✓' : '✗'), 'Google Ads ' + (t.google_ads ? (t.google_ads_conversion ? '✓ +conv' : '✓ no conv') : '✗'), 'Meta pixel ' + (t.meta ? (t.meta_events ? '✓ +events' : '✓ no events') : '✗'), t.bing ? 'Bing ✓' : '', t.call_tracking ? 'Call tracking ✓' : ''].filter(Boolean).join(' · ') : ''
+  const f = res?.facts || {}
+  const facts = res ? [f.platform && `Platform: ${f.platform}`, f.first_year && `Online since ${f.first_year}`, `Pages checked: ${f.pages_checked}`, res.psi?.score != null ? `PageSpeed mobile ${res.psi.score}` : f.load_ms != null ? `Server response ${(f.load_ms / 1000).toFixed(1)} s` : '', `HTTPS ${f.https ? 'yes' : 'NO'}`].filter(Boolean).join(' · ') : ''
+  const link = audit ? `${SITE}${resultPath(audit)}&k=${audit.key}` : ''
+  return `<div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:680px;color:#111418">
+  <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7a7f87;margin:0">Free audit · new request</p>
+  <h2 style="margin:6px 0 4px">${esc(KIND[k].internal)}: ${esc(audit?.host || r.url || '')}</h2>
+  <table style="font-size:14px;line-height:1.6;margin:10px 0 14px"><tr><td style="color:#7a7f87;padding-right:12px">Name</td><td><b>${esc(r.name || audit?.name || '—')}</b>${audit?.role ? ` (${esc(lab('role', audit.role))})` : ''}</td></tr><tr><td style="color:#7a7f87;padding-right:12px">Email</td><td><a href="mailto:${esc(r.email || audit?.email || '')}">${esc(r.email || audit?.email || '—')}</a></td></tr>${r.phone ? `<tr><td style="color:#7a7f87;padding-right:12px">Phone</td><td><a href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td></tr>` : ''}<tr><td style="color:#7a7f87;padding-right:12px">Website</td><td><a href="${esc(audit?.url || r.url || '')}">${esc(audit?.url || r.url || '—')}</a></td></tr><tr><td style="color:#7a7f87;padding-right:12px">Language</td><td>${esc(r.lang === 'en' ? 'English' : 'Spanish')}</td></tr>${audit?.utm && Object.keys(audit.utm).length ? `<tr><td style="color:#7a7f87;padding-right:12px">Came from</td><td>${esc(Object.entries(audit.utm).map(([a, b]) => `${a}=${b}`).join(' · '))}</td></tr>` : ''}</table>
+  ${r.message ? `<div style="background:#f6f4ef;border-radius:10px;padding:12px 14px;margin-bottom:14px"><b>Their message</b><br>${esc(r.message)}</div>` : ''}
+  ${who ? `<p style="margin:0 0 6px">${who}</p>` : ''}
+  ${audit && Object.keys(audit.answers || {}).length ? `<p style="margin:0 0 14px">Their answers: ${esc(answersText(audit.answers))}</p>` : ''}
+  ${res ? `<h3 style="margin:18px 0 4px">Audit: <span style="color:${scoreCol(res.overall)}">${res.overall ?? '—'}/100</span></h3><p style="margin:0 0 6px;color:#3a3f47;font-size:13.5px">${esc(facts)}</p><p style="margin:0 0 6px;color:#3a3f47;font-size:13.5px">Tags: ${esc(tagLine)}</p>${res.ai?.business ? `<p style="margin:0 0 6px;color:#3a3f47;font-size:13.5px">What a visitor understands: ${esc(res.ai.business)}</p>` : ''}<table style="width:100%;border-collapse:collapse;margin-top:8px">${cards}</table>` : audit ? `<p><b>The automatic audit failed:</b> ${esc(audit.error || 'unknown')}. Review the site by hand.</p>` : '<p>No automatic audit was run (request made before running one).</p>'}
+  <p style="margin:18px 0 0">${link ? `<a href="${esc(link)}">Open the full report</a> · ` : ''}<a href="https://crm.impulsomedia.es/">Open the CRM</a></p>
+  <p style="color:#7a7f87;font-size:12px;margin-top:14px">Reply to this email goes to the requester.</p></div>`
+}
+
+async function handleRequest(body: any, req: Request) {
+  const kind = Object.hasOwn(KIND, String(body.kind)) ? String(body.kind) : null
+  if (!kind) return json({ error: 'bad_kind' }, 400)
+  if (body.xq_field) return json({ ok: true })
+  const lang: Lang = body.lang === 'en' ? 'en' : 'es'
+  const sb = await bot()
+  const iph = hash(ipOf(req))
+  const { count } = await sb.from('free_audit_requests').select('id', { count: 'exact', head: true }).eq('ip_hash', iph).gte('created_at', new Date(Date.now() - 3600000).toISOString())
+  if ((count || 0) >= 5) return json({ error: 'rate' }, 429)
+  let audit: any = null
+  const id = clean(body.id, 40)
+  if (/^[0-9a-f-]{36}$/.test(id)) audit = (await sb.from('free_audits').select('*').eq('id', id).single()).data
+  const r: any = { kind, lang, name: clean(body.name, 80) || audit?.name || '', email: clean(body.email, 120).toLowerCase() || audit?.email || '', phone: clean(body.phone, 30).replace(/[^\d+ ()-]/g, ''), url: '', message: clean(body.message, 1000) }
+  if (!audit) {
+    // Request made without an audit (from the landing page): needs real contact details and consent.
+    if (!body.consent) return json({ error: 'consent' }, 400)
+    if (r.name.length < 2 || !/\p{L}{2,}/u.test(r.name)) return json({ error: 'name' }, 400)
+    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(r.email) || DISPOSABLE.test(r.email.split('@')[1]) || !(await mailDomainOk(r.email.split('@')[1]))) return json({ error: 'email' }, 400)
+    if (body.url) { const n = normaliseUrl(clean(body.url, 300)); if ('error' in n) return json({ error: 'url_invalid' }, 400); r.url = n.url }
+  }
+  // CRM: log the request on the lead (create one if needed) and make it today's follow-up.
+  let lead_id: string | null = audit?.lead_id || null
+  try {
+    if (!lead_id) {
+      const host = audit?.host || (r.url ? new URL(r.url).hostname.replace(/^www\./, '') : '')
+      if (host) {
+        const pats = [`%://${host}`, `%://${host}/%`, `%://www.${host}`, `%://www.${host}/%`]
+        lead_id = (await sb.from('crm_leads').select('id').or(pats.map(p => `website.ilike.${p}`).join(',')).limit(1)).data?.[0]?.id || null
+      }
+      if (!lead_id) {
+        const { data } = await sb.from('crm_leads').insert({ name: host || r.name, website: r.url || audit?.url || null, source: 'Audit request', source_url: `${SITE}/auditoria-web-gratis`, status: 'nuevo', relationship: 'lead', origin: 'inbound', lead_type: 'warm', contact_name: r.name || null, email: r.email || null, notes: `Requested: ${KIND[kind].internal}.` }).select('id').single()
+        lead_id = data?.id || null
+      }
+    }
+    if (lead_id) {
+      await sb.from('crm_activities').insert({ lead_id, type: 'nota', body: `REQUEST: ${KIND[kind].internal} from ${r.name || '—'} (${r.email || 'no email'}${r.phone ? `, ${r.phone}` : ''})${r.message ? ` · message: “${r.message}”` : ''}${audit ? ` · audit score ${audit.result?.overall ?? 'failed'}` : ''}` })
+      const { data: l } = await sb.from('crm_leads').select('relationship').eq('id', lead_id).single()
+      if (l?.relationship === 'lead') await sb.from('crm_leads').update({ next_action_at: new Date().toISOString(), lead_type: 'warm' }).eq('id', lead_id)
+    }
+  } catch {}
+  let email_sent = false
+  const key = process.env.RESEND_API_KEY
+  if (key) {
+    try {
+      const { Resend } = await import('resend'); const resend = new Resend(key)
+      await withTimeout(resend.emails.send({ from: 'ImpulsoMedia <chris@impulsomedia.es>', to: ['chris@impulsomedia.es'], replyTo: r.email || undefined, subject: `[Request] ${KIND[kind].internal} · ${audit?.host || r.url || r.name}${audit?.role ? ` · ${lab('role', audit.role)}` : ''}${audit?.result?.overall != null ? ` · ${audit.result.overall}/100` : ''}`, html: internalReport(audit, r, kind) }), 8000)
+      email_sent = true
+    } catch {}
+  }
+  await sb.from('free_audit_requests').insert({ audit_id: audit?.id || null, kind, lang, name: r.name || null, email: r.email || null, phone: r.phone || null, url: r.url || audit?.url || null, message: r.message || null, lead_id, ip_hash: iph, email_sent })
+  // Saved in the CRM (bell + follow-up today) is enough to call it received; only fail if neither worked.
+  if (!email_sent && !lead_id) return json({ error: 'db' }, 500)
+  return json({ ok: true })
+}
+
 export async function POST(req: Request) {
   let body: any
   try { body = await req.json() } catch { return json({ error: 'bad_json' }, 400) }
   if (!body || typeof body !== 'object') return json({ error: 'bad_json' }, 400)
   const ip = ipOf(req)
+  if (body.action === 'request') return handleRequest(body, req)
   if (body.action === 'answers') {
     const id = clean(body.id, 40); if (!/^[0-9a-f-]{36}$/.test(id)) return json({ error: 'bad_id' }, 400)
     const a: Record<string, string> = {}

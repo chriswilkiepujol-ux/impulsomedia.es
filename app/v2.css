@@ -631,3 +631,7 @@
 .v2 .ab .chips li span { font-family: var(--mono); font-size: 11px; color: var(--gold2); }
 @media (max-width: 900px) { .v2 .ab .in { grid-template-columns: 1fr } }
 @media (max-width: 480px) { .v2 .aq { flex-direction: column; border-radius: 18px } .v2 .aq .btn { justify-content: center } .v2 .ab .chips { grid-template-columns: 1fr } }
+.v2 .fa-req { position: fixed; inset: 0; z-index: 60; background: rgba(17,20,24,.45); display: grid; place-items: center; padding: 16px; overflow-y: auto; }
+.v2 .fa-req .fa-form { width: min(520px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; }
+.v2 .fa-req .x { border: 0; background: none; font-size: 26px; line-height: 1; color: var(--mute); cursor: pointer; padding: 0 4px; }
+.v2 .fa-req textarea.fa-in { resize: vertical; min-height: 84px; }
