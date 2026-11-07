@@ -226,7 +226,7 @@ export function FooterV2() {
         </div>
         <div className="bottom">
           <span>chris@impulsomedia.es · +34 680 863 229</span>
-          <span className="copy">© {year} ImpulsoMedia. {t('Todos los derechos reservados.', 'All rights reserved.')}</span>
+          <span className="copy">© {year} ImpulsoMedia. {t('Todos los derechos reservados.', 'All rights reserved.')} · <a href={t('/privacidad', '/en/privacy')}>{t('Privacidad', 'Privacy')}</a></span>
         </div>
       </div>
     </footer>

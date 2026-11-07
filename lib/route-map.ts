@@ -17,6 +17,7 @@ export const esToEn: Record<string, string> = {
   '/opiniones': '/en/reviews',
   '/blog': '/en/blog',
   '/auditoria-web-gratis': '/en/free-website-audit',
+  '/privacidad': '/en/privacy',
 }
 
 export const enToEs: Record<string, string> = {

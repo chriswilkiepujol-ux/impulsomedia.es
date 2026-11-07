@@ -246,6 +246,7 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
                   </>
                 )}
               </button>
+              <p className="sm:col-span-2 text-[12.5px] text-[rgba(17,20,24,0.62)] leading-snug">{t('Al enviar aceptas que usemos estos datos para responderte. ', 'By sending you agree that we use these details to reply to you. ')}<a className="underline" href={t('/privacidad', '/en/privacy')} target="_blank" rel="noreferrer">{t('Política de privacidad', 'Privacy policy')}</a></p>
             </form>
           </div>
         </div>
