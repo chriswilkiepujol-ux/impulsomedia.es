@@ -41,11 +41,11 @@ function Ring({ v, size = 132 }: { v: number | null; size?: number }) {
 }
 const Pill = ({ v }: { v: number | null }) => <span className="fa-pill" style={{ background: v == null ? '#eee' : v >= 75 ? '#e6f4ec' : v >= 50 ? '#f7efd9' : '#fde8e8', color: v == null ? '#7a7f87' : v >= 75 ? '#1f9d55' : v >= 50 ? '#8a6a1e' : '#b91c1c' }}>{v ?? '—'}</span>
 
-function CardView({ c, t }: { c: Card; t: (a: string, b: string) => string }) {
+function CardView({ c, t, extra = [] }: { c: Card; t: (a: string, b: string) => string; extra?: { ok: boolean | null; text: string }[] }) {
   return <Reveal className="fa-card" as="article">
     <div className="fa-ch"><h3>{c.title}</h3><Pill v={c.score} /></div>
     <p className="fa-sum">{c.summary}</p>
-    <ul className="fa-f">{c.findings.map((f, i) => <li key={i} className={f.ok === true ? 'ok' : f.ok === false ? 'no' : 'nt'}>{f.text}</li>)}</ul>
+    <ul className="fa-f">{[...c.findings, ...extra].map((f, i) => <li key={i} className={f.ok === true ? 'ok' : f.ok === false ? 'no' : 'nt'}>{f.text}</li>)}</ul>
     <div className="fa-act"><b>{t('Qué hacer', 'What to do')}</b>{c.action}</div>
   </Reveal>
 }
@@ -106,6 +106,13 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     try { await fetch('/api/free-audit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'answers', id, answers: a }) }) } catch {}
   }
   const waText = encodeURIComponent(t(`Hola Chris, he hecho la revisión gratis de ${host || 'mi web'}${res?.overall != null ? ` (${res.overall}/100)` : ''} y me gustaría comentarla.`, `Hi Chris, I ran the free review of ${host || 'my site'}${res?.overall != null ? ` (${res.overall}/100)` : ''} and would like to go through it.`))
+  // The "are you running ads?" answer arrives after the audit started, so the comparison is drawn here.
+  const adsAns = savedAns.ads || ans.ads
+  const adsCheck: { ok: boolean | null; text: string }[] = !res || !adsAns || adsAns === 'unsure' ? [] : [
+    ...(adsAns === 'google' || adsAns === 'both' ? [{ ok: res.tags.google_ads_conversion, text: res.tags.google_ads_conversion ? t('Dices que anuncias en Google y la medición de conversiones está en su sitio.', 'You say you advertise on Google and conversion tracking is in place.') : res.tags.google_ads ? t('Dices que anuncias en Google: hay etiqueta, pero no vemos conversiones. Estás pagando sin saber qué anuncio trae clientes.', 'You say you advertise on Google: the tag is there, but no conversions. You are paying without knowing which ad brings customers.') : t('Dices que anuncias en Google, pero la web no tiene la etiqueta de Google Ads: las campañas no pueden medir nada.', 'You say you advertise on Google, but the site has no Google Ads tag: the campaigns cannot measure anything.') }] : []),
+    ...(adsAns === 'meta' || adsAns === 'both' ? [{ ok: res.tags.meta_events, text: res.tags.meta_events ? t('Dices que anuncias en Meta y los eventos de contacto están configurados.', 'You say you advertise on Meta and the contact events are set up.') : res.tags.meta ? t('Dices que anuncias en Meta: hay píxel, pero sin eventos de contacto el algoritmo no aprende quién te escribe.', 'You say you advertise on Meta: the pixel is there, but without contact events the algorithm cannot learn who contacts you.') : t('Dices que anuncias en Meta, pero la web no tiene el píxel: Facebook e Instagram no saben qué pasa después del clic.', 'You say you advertise on Meta, but the site has no pixel: Facebook and Instagram cannot see what happens after the click.') }] : []),
+    ...(adsAns === 'no' && (res.tags.google_ads || res.tags.meta) ? [{ ok: null, text: t('Dices que no anuncias, pero la web tiene etiquetas de anuncios: o anunciaste antes o alguien las dejó. No pasa nada, pero conviene saberlo.', 'You say you do not advertise, but the site has ad tags: either you did before or someone left them. Harmless, but worth knowing.') }] : []),
+  ]
   const offerClick = (which: string) => track('free_audit_offer_click', { which, lang })
 
   const chips = (key: string, opts: [string, string][]) => <div className="fa-chips">{opts.map(([v, l]) => <button key={v} type="button" className={ans[key] === v ? 'on' : ''} onClick={() => setAns({ ...ans, [key]: ans[key] === v ? '' : v })}>{l}</button>)}</div>
@@ -244,7 +251,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
                   <p>{t(`Te lo hemos enviado a ${hint || 'tu dirección'}. Abre el enlace del correo para ver qué falla en cada apartado, por qué y qué hacer. Así nos aseguramos de que el informe llega a quien lo ha pedido.`, `We sent it to ${hint || 'your address'}. Open the link in the email to see what fails in each area, why, and what to do. This is how we make sure the report reaches the person who asked for it.`)}</p>
                   <p className="note">{t('¿No lo ves? Mira en spam o promociones. Si sigue sin llegar, escríbenos por WhatsApp.', 'Can’t see it? Check spam or promotions. If it still has not arrived, message us on WhatsApp.')}</p>
                   <div className="fa-grid fa-blur" aria-hidden="true">{res.cards.map(c => <div key={c.key} className="fa-card"><div className="fa-ch"><h3>{c.title}</h3><Pill v={c.score} /></div><p className="fa-sum">{c.summary}</p></div>)}</div>
-                </Reveal> : <div className="fa-grid">{res.cards.map(c => <CardView key={c.key} c={c} t={t} />)}</div>}
+                </Reveal> : <div className="fa-grid">{res.cards.map(c => <CardView key={c.key} c={c} t={t} extra={c.key === 'tracking' ? adsCheck : []} />)}</div>}
                 {res.ai?.quick_wins?.length ? <Reveal className="fa-wins"><h3>{t('Tres cambios rápidos', 'Three quick changes')}</h3><ol>{res.ai.quick_wins.map((w, i) => <li key={i}>{w}</li>)}</ol></Reveal> : null}
                 {(savedAns.ads || savedAns.maintainer) && <p className="note">{t('Hemos tenido en cuenta tus respuestas al preparar el apartado de medición.', 'Your answers were taken into account in the tracking section.')}</p>}
                 {!gated && <div className="fa-limits">
