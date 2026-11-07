@@ -22,7 +22,8 @@ export const rootOf = (h: string) => { const p = h.toLowerCase().replace(/^www\.
 const sameSite = (a: string, b: string) => rootOf(new URL(a).hostname) === rootOf(new URL(b).hostname)
 
 export type Fetched = { ok: boolean; status: number; finalUrl: string; ms: number; html: string; bytes: number; error: string | null; lastModified: string | null; notHtml?: boolean }
-export async function fetchHtml(url: string, ms = 12000, hops = 4): Promise<Fetched> {
+// A brand's own redirect to another domain (.com → .es, old name → new name) is normal for the homepage, never for subpages.
+export async function fetchHtml(url: string, ms = 12000, hops = 4, allowOffsite = false): Promise<Fetched> {
   const t0 = Date.now(); let cur = url
   const fail = (status: number, error: string, extra: Partial<Fetched> = {}): Fetched => ({ ok: false, status, finalUrl: cur, ms: Date.now() - t0, html: '', bytes: 0, error, lastModified: null, ...extra })
   for (let i = 0; i <= hops; i++) {
@@ -34,7 +35,7 @@ export async function fetchHtml(url: string, ms = 12000, hops = 4): Promise<Fetc
       if (res.status >= 300 && res.status < 400) {
         const loc = res.headers.get('location'); if (!loc) return fail(res.status, `HTTP ${res.status}`)
         const next = new URL(loc, cur); next.hash = ''
-        if (!/^https?:$/.test(next.protocol) || !sameSite(cur, next.toString())) return fail(res.status, 'redirect_offsite', { finalUrl: next.toString() })
+        if (!/^https?:$/.test(next.protocol) || (!allowOffsite && !sameSite(cur, next.toString()))) return fail(res.status, 'redirect_offsite', { finalUrl: next.toString() })
         cur = next.toString(); continue
       }
       const ct = (res.headers.get('content-type') || '').toLowerCase()
@@ -60,7 +61,8 @@ export type Result = {
   overall: number | null
   cards: Card[]
   facts: { platform: string | null; first_year: number | null; copyright_year: number | null; pages_checked: number; load_ms: number | null; https: boolean; final_url: string; title: string; word_count: number }
-  psi: { score: number | null; lcp_ms: number | null; cls: number | null; tbt_ms: number | null; seo: number | null; screenshot: string | null } | null
+  psi: { score: number | null; lcp_ms: number | null; cls: number | null; tbt_ms: number | null; seo: number | null; screenshot: string | null; a11y?: number | null; crux?: { ok: boolean; lcp: string; inp: string; cls: string } | null } | null
+  og: { title: string; desc: string; image: string | null }
   ai: { business: string; category: string; audience: string; clarity: number; cta: number; strengths: string[]; issues: string[]; quick_wins: string[] } | null
   tags: { ga4: boolean; gtm: boolean; google_ads: boolean; google_ads_conversion: boolean; meta: boolean; meta_events: boolean; bing: boolean; other: boolean; call_tracking: boolean }
   pages: { url: string; status: number; title: string; title_len: number; desc_len: number; h1: number; canonical: boolean; viewport: boolean; words: number; img_no_alt: number }[]
@@ -125,7 +127,7 @@ async function psiRun(url: string) {
   if (!key) return null
   const c = new AbortController(); const t = setTimeout(() => c.abort(), 38000)
   try {
-    const q = new URLSearchParams({ url, key, strategy: 'mobile' }); q.append('category', 'performance'); q.append('category', 'seo')
+    const q = new URLSearchParams({ url, key, strategy: 'mobile' }); q.append('category', 'performance'); q.append('category', 'seo'); q.append('category', 'accessibility')
     const r = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?${q}`, { signal: c.signal })
     if (!r.ok) return null
     const j: any = await r.json(); const lr = j.lighthouseResult; if (!lr) return null
@@ -137,6 +139,8 @@ async function psiRun(url: string) {
       tbt_ms: au['total-blocking-time']?.numericValue != null ? Math.round(au['total-blocking-time'].numericValue) : null,
       seo: lr.categories?.seo?.score != null ? Math.round(lr.categories.seo.score * 100) : null,
       screenshot: au['final-screenshot']?.details?.data || null,
+      a11y: lr.categories?.accessibility?.score != null ? Math.round(lr.categories.accessibility.score * 100) : null,
+      crux: (() => { const le = j.loadingExperience?.metrics ? j.loadingExperience : j.originLoadingExperience; if (!le?.metrics) return null; const m = le.metrics; const cat = (k: string) => (m[k]?.category || '').toLowerCase(); return { ok: le.overall_category === 'FAST', lcp: cat('LARGEST_CONTENTFUL_PAINT_MS'), inp: cat('INTERACTION_TO_NEXT_PAINT'), cls: cat('CUMULATIVE_LAYOUT_SHIFT_SCORE') } })(),
     }
   } catch { return null } finally { clearTimeout(t) }
 }
@@ -241,8 +245,8 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
   const limits: string[] = []
   // Everything that only needs the URL starts at once; the HTML-dependent steps start when the homepage arrives.
   const psiP = psiRun(n.url); const wbP = wayback(n.host)
-  let f = await fetchHtml(n.url, 14000)
-  if (!f.ok && !f.notHtml && f.error !== 'private' && /^https:/.test(n.url)) { const alt = await fetchHtml(n.url.replace(/^https:/, 'http:'), 8000); if (alt.ok) f = alt }
+  let f = await fetchHtml(n.url, 14000, 4, true)
+  if (!f.ok && !f.notHtml && f.error !== 'private' && /^https:/.test(n.url)) { const alt = await fetchHtml(n.url.replace(/^https:/, 'http:'), 8000, 4, true); if (alt.ok) f = alt }
   if (!f.ok || !f.html) {
     await Promise.allSettled([psiP, wbP])
     return { ok: false, error: f.notHtml ? 'not_html' : f.error === 'private' ? 'invalid' : f.error === 'redirect_offsite' ? 'redirect' : f.status === 0 ? (f.error === 'Timeout' ? 'timeout' : 'unreachable') : f.status === 403 || f.status === 429 || f.status === 503 ? 'blocked' : `http_${f.status}` }
@@ -398,11 +402,56 @@ export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<s
       summary: score >= 75 ? t('Técnicamente está al día.', 'Technically up to date.') : score >= 50 ? t('Muestra signos de edad que un cliente nota.', 'Shows signs of age that a customer notices.') : t('Transmite abandono: un cliente duda de si el negocio sigue activo.', 'It looks abandoned: a customer doubts the business is still active.'),
       action: score >= 75 ? t('Revisa el diseño una vez al año y actualiza la plataforma.', 'Review the design yearly and keep the platform updated.') : t('Una web nueva de una página, rápida y pensada para móvil, suele ser más barata que parchear la actual.', 'A new one-page site, fast and built for mobile, is often cheaper than patching the current one.') })
   }
+  // 7. Security & legal (Spain-specific: cookie consent and legal pages)
+  {
+    const fnd: Finding[] = []; const h = f.html
+    const mixed = https && /(src|href)=["']http:\/\/[^"']+\.(js|css|png|jpe?g|gif|webp|svg)/i.test(h)
+    const consentTool = /cookieconsent|cookie-law|cookie_notice|cookieyes|complianz|iubenda|onetrust|didomi|cookiebot|quantcast|usercentrics|borlabs|moove_gdpr|gdpr-cookie|cmp\.js|consentmanager|cookie-script|termly|axeptio|klaro/i.test(h)
+    const cookieText = /\b(cookies?)\b[\s\S]{0,300}(aceptar|accept|rechazar|reject|configurar|preferences|permitir)/i.test(strip(h).slice(0, 20000)) || /class=["'][^"']*cookie/i.test(h)
+    const legal = { aviso: /aviso[-_ ]legal|legal[-_ ]notice|terms|condiciones/i.test(h), priv: /privacidad|privacy/i.test(h), cook: /pol[ií]tica[-_ ]de[-_ ]cookies|cookie[-_ ]policy|cookies-policy/i.test(h) }
+    const favicon = /<link[^>]+rel=["'][^"']*icon/i.test(h)
+    fnd.push({ ok: https, text: https ? t('Conexión segura (HTTPS).', 'Secure connection (HTTPS).') : t('Sin HTTPS: el navegador avisa de “sitio no seguro” y Google lo penaliza.', 'No HTTPS: the browser warns “not secure” and Google penalises it.') })
+    if (https) fnd.push({ ok: !mixed, text: mixed ? t('Hay contenido mixto: archivos cargados por http dentro de una página https (el candado puede desaparecer).', 'Mixed content: files loaded over http inside an https page (the padlock can disappear).') : t('Sin contenido mixto.', 'No mixed content.') })
+    const tagsPresent = tags.ga4 || tags.gtm || tags.meta || tags.google_ads
+    fnd.push({ ok: consentTool || cookieText ? true : tagsPresent ? false : null, text: consentTool || cookieText ? t('Hay aviso de cookies.', 'There is a cookie notice.') : tagsPresent ? t('No vemos aviso de cookies y la web carga Google/Meta: la normativa española (AEPD) exige consentimiento previo.', 'No cookie notice and the site loads Google/Meta tags: Spanish rules (AEPD) require prior consent.') : t('No vemos aviso de cookies; si no cargas analítica ni anuncios, no es obligatorio.', 'No cookie notice; if you load no analytics or ads, it is not required.') })
+    const missing = [!legal.aviso && t('aviso legal', 'legal notice'), !legal.priv && t('política de privacidad', 'privacy policy'), !legal.cook && t('política de cookies', 'cookie policy')].filter(Boolean)
+    fnd.push({ ok: missing.length === 0, text: missing.length ? t(`Faltan enlaces a: ${missing.join(', ')} (obligatorios en España para una web con formularios o cookies).`, `Missing links to: ${missing.join(', ')} (required in Spain for a site with forms or cookies).`) : t('Aviso legal, privacidad y cookies enlazados.', 'Legal notice, privacy and cookie policy linked.') })
+    if (!favicon) fnd.push({ ok: false, text: t('Sin favicon: la pestaña del navegador sale en blanco.', 'No favicon: the browser tab shows blank.') })
+    if (a.emails.length) fnd.push({ ok: null, text: t(`${a.emails.length} dirección(es) de email visibles en el código: los robots de spam las recogen.`, `${a.emails.length} email address(es) exposed in the code: spam bots harvest them.`) })
+    const score = clamp((https ? 40 : 0) - (mixed ? 10 : 0) + (consentTool || cookieText ? 25 : tagsPresent ? 0 : 20) + (3 - missing.length) * 10 + (favicon ? 5 : 0))
+    cards.push({ key: 'trust', title: t('Seguridad y legal', 'Security and legal'), score, findings: fnd,
+      summary: score >= 75 ? t('Lo básico de seguridad y normativa está cubierto.', 'The security and compliance basics are covered.') : score >= 50 ? t('Hay huecos que un cliente (o una inspección) puede notar.', 'There are gaps a customer (or an inspection) could notice.') : t('Faltan piezas obligatorias en España.', 'Pieces that are mandatory in Spain are missing.'),
+      action: !https ? t('Activa HTTPS en tu hosting (suele ser gratis con Let’s Encrypt).', 'Enable HTTPS on your hosting (usually free with Let’s Encrypt).') : missing.length || (!(consentTool || cookieText) && tagsPresent) ? t('Añade aviso legal, privacidad y cookies y un banner que pida consentimiento antes de cargar Google o Meta.', 'Add legal notice, privacy and cookie pages and a banner that asks for consent before loading Google or Meta.') : t('Revisa una vez al año que los textos legales sigan al día.', 'Check once a year that the legal texts are still current.') })
+  }
+  // 8. Local presence (what a Campo de Gibraltar customer looks for)
+  {
+    const fnd: Finding[] = []; const h = f.html; const txt = strip(h)
+    const phoneVisible = /(\+34\s?)?[6789]\d{2}[\s.-]?\d{2}[\s.-]?\d{2}[\s.-]?\d{2}\b/.test(txt) || /\+350\s?\d{8}/.test(txt)
+    const address = /\b(calle|c\/|avda\.?|avenida|plaza|paseo|urb\.?|urbanizaci[oó]n|carretera|ctra\.?|pol[ií]gono|road|street|avenue)\b/i.test(txt) && /\b\d{5}\b|sotogrande|san roque|algeciras|estepona|manilva|gibraltar|la l[ií]nea|guadiaro|pueblo nuevo|marbella|c[aá]diz|m[aá]laga/i.test(txt)
+    const hours = /\b(horario|lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|opening hours|monday|tuesday|friday|L-V|L–V|\d{1,2}[:.]\d{2}\s?[-–]\s?\d{1,2}[:.]\d{2})\b/i.test(txt)
+    const maps = /google\.com\/maps|maps\.google|maps\.app\.goo\.gl|g\.page\/|goo\.gl\/maps|openstreetmap/i.test(h)
+    const schemaLocal = /"@type"\s*:\s*"(LocalBusiness|Dentist|Restaurant|RealEstateAgent|LegalService|MedicalBusiness|HealthAndBeautyBusiness|Store|Hotel|VeterinaryCare|Physician|AutoRepair|[A-Za-z]+Business)"/i.test(h)
+    const ig = a.socials.some(u => /instagram\.com/i.test(u)), fb = a.socials.some(u => /facebook\.com/i.test(u))
+    const langs = a.has_hreflang || /\/en\/|\/es\/|hreflang|english|español/i.test(h)
+    fnd.push({ ok: phoneVisible, text: phoneVisible ? t('El teléfono aparece escrito en la página.', 'The phone number appears on the page.') : t('No vemos ningún teléfono escrito en la portada.', 'We see no phone number written on the homepage.') })
+    fnd.push({ ok: address, text: address ? t('La dirección o la zona aparece en la página.', 'The address or area appears on the page.') : t('No vemos dirección ni zona de servicio: Google y el cliente no saben dónde estás.', 'No address or service area visible: neither Google nor the customer knows where you are.') })
+    fnd.push({ ok: hours, text: hours ? t('Se muestra el horario.', 'Opening hours are shown.') : t('No se ve el horario.', 'No opening hours shown.') })
+    fnd.push({ ok: maps, text: maps ? t('Hay mapa o enlace a Google Maps.', 'There is a map or a Google Maps link.') : t('Sin mapa ni enlace a Google Maps / ficha de Google.', 'No map or link to Google Maps / Google profile.') })
+    fnd.push({ ok: schemaLocal, text: schemaLocal ? t('Datos de negocio local marcados para Google (schema LocalBusiness).', 'Local business data marked up for Google (LocalBusiness schema).') : t('Sin datos de negocio local (schema): Google no recibe nombre, dirección, teléfono y horario de forma estructurada.', 'No local-business data (schema): Google is not given name, address, phone and hours in a structured way.') })
+    fnd.push({ ok: ig || fb ? true : null, text: ig || fb ? t(`Enlaces a redes: ${[ig && 'Instagram', fb && 'Facebook'].filter(Boolean).join(', ')}.`, `Social links: ${[ig && 'Instagram', fb && 'Facebook'].filter(Boolean).join(', ')}.`) : t('Sin enlaces a Instagram o Facebook.', 'No Instagram or Facebook links.') })
+    fnd.push({ ok: null, text: langs ? t('La web tiene más de un idioma, útil en la zona.', 'The site has more than one language, useful in the area.') : t('Un solo idioma. En Sotogrande y Gibraltar, una versión en inglés o español suele abrir clientes.', 'One language only. Around Sotogrande and Gibraltar, an English or Spanish version usually opens up customers.') })
+    const score = clamp((phoneVisible ? 20 : 0) + (address ? 20 : 0) + (hours ? 12 : 0) + (maps ? 13 : 0) + (schemaLocal ? 20 : 0) + (ig || fb ? 10 : 0) + (langs ? 5 : 0))
+    cards.push({ key: 'local', title: t('Presencia local', 'Local presence'), score, findings: fnd,
+      summary: score >= 75 ? t('Un cliente de la zona encuentra lo que necesita.', 'A local customer finds what they need.') : score >= 50 ? t('Falta información básica que un cliente local busca.', 'Basic information a local customer looks for is missing.') : t('La web no dice claramente dónde estás ni cómo encontrarte.', 'The site does not say clearly where you are or how to find you.'),
+      action: !schemaLocal ? t('Añade un bloque con dirección, teléfono, horario y mapa en el pie de página y márcalo con schema LocalBusiness.', 'Add a block with address, phone, hours and map in the footer and mark it up with LocalBusiness schema.') : t('Enlaza tu ficha de Google y tus redes desde la cabecera o el pie.', 'Link your Google profile and social accounts from the header or footer.') })
+  }
+  const og = { title: decode(pick(f.html, /<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']*)["']/i) || pick(f.html, /<meta[^>]+content=["']([^"']*)["'][^>]+property=["']og:title["']/i)), desc: decode(pick(f.html, /<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']*)["']/i) || pick(f.html, /<meta[^>]+content=["']([^"']*)["'][^>]+property=["']og:description["']/i)), image: (() => { const i = pick(f.html, /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']*)["']/i) || pick(f.html, /<meta[^>]+content=["']([^"']*)["'][^>]+property=["']og:image["']/i); try { return i ? new URL(i, f.finalUrl).toString() : null } catch { return null } })() }
+  if (psi?.crux) cards.find(c => c.key === 'speed')?.findings.splice(1, 0, { ok: psi.crux.ok, text: psi.crux.ok ? t('Datos reales de visitantes (Google, 28 días): la web pasa las Core Web Vitals.', 'Real-visitor data (Google, 28 days): the site passes Core Web Vitals.') : t('Datos reales de visitantes (Google, 28 días): la web NO pasa las Core Web Vitals.', 'Real-visitor data (Google, 28 days): the site does NOT pass Core Web Vitals.') })
   const scored = cards.filter(c => c.score != null) as (Card & { score: number })[]
-  const weights: Record<string, number> = { impression: 0.22, cta: 0.2, speed: 0.15, seo: 0.18, tracking: 0.13, modern: 0.12 }
+  const weights: Record<string, number> = { impression: 0.18, cta: 0.17, speed: 0.13, seo: 0.15, tracking: 0.11, modern: 0.09, trust: 0.09, local: 0.08 }
   const overall = scored.length ? clamp(scored.reduce((s, c) => s + c.score * weights[c.key], 0) / scored.reduce((s, c) => s + weights[c.key], 0)) : null
   return { ok: true, result: {
-    overall, cards, tags, pages, ai, psi, limits, generated_at: new Date().toISOString(),
+    overall, cards, tags, pages, ai, psi, og, limits, generated_at: new Date().toISOString(),
     facts: { platform: a.platform || null, first_year: wbFirst, copyright_year: a.copyright_year, pages_checked: okPages.length, load_ms: f.ms, https, final_url: f.finalUrl, title: a.title, word_count: a.word_count },
   } }
 }

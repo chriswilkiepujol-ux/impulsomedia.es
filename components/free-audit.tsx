@@ -272,6 +272,18 @@ export function FreeAudit({ lang }: { lang: Lang }) {
                   <p className="note">{t('¿No lo ves? Mira en spam o promociones. Si sigue sin llegar, escríbenos por WhatsApp.', 'Can’t see it? Check spam or promotions. If it still has not arrived, message us on WhatsApp.')}</p>
                   <div className="fa-grid fa-blur" aria-hidden="true">{res.cards.map(c => <div key={c.key} className="fa-card"><div className="fa-ch"><h3>{c.title}</h3><Pill v={c.score} /></div><p className="fa-sum">{c.summary}</p></div>)}</div>
                 </Reveal> : <div className="fa-grid">{res.cards.map(c => <CardView key={c.key} c={c} t={t} extra={c.key === 'tracking' ? adsCheck : []} />)}</div>}
+                {!gated && <Reveal className="fa-prev">
+                  <div>
+                    <h3>{t('Así sales en Google', 'How you appear in Google')}</h3>
+                    <div className="fa-serp"><div className="u">{(res.facts.final_url || '').replace(/^https?:\/\//, '').replace(/\/$/, '')}</div><div className="t">{(res.facts.title || host).slice(0, 60)}{(res.facts.title || '').length > 60 ? '…' : ''}</div><div className="d">{res.pages[0]?.desc_len ? (res.og.desc || t('(descripción presente)', '(description present)')).slice(0, 155) : t('Sin meta descripción: Google elige un trozo de texto al azar.', 'No meta description: Google picks a random snippet.')}</div></div>
+                    <p className="note">{(res.facts.title || '').length > 60 ? t('El título se corta a 60 caracteres.', 'The title is cut at 60 characters.') : (res.facts.title || '').length < 25 ? t('Título corto: añade servicio y zona.', 'Short title: add service and area.') : t('Longitud del título correcta.', 'Title length is fine.')}</p>
+                  </div>
+                  <div>
+                    <h3>{t('Así se ve al compartirla por WhatsApp', 'How it looks when shared on WhatsApp')}</h3>
+                    <div className="fa-wa">{res.og.image ? <img src={res.og.image} alt="" loading="lazy" /> : <div className="noimg">{t('Sin imagen', 'No image')}</div>}<div><b>{(res.og.title || res.facts.title || host).slice(0, 70)}</b><span>{(res.og.desc || '').slice(0, 90)}</span><small>{host}</small></div></div>
+                    <p className="note">{res.og.image ? t('Imagen de vista previa definida.', 'Preview image set.') : t('Sin imagen de vista previa (og:image): el enlace sale “pelado” en WhatsApp e Instagram.', 'No preview image (og:image): the link shows bare on WhatsApp and Instagram.')}</p>
+                  </div>
+                </Reveal>}
                 {res.ai?.quick_wins?.length ? <Reveal className="fa-wins"><h3>{t('Tres cambios rápidos', 'Three quick changes')}</h3><ol>{res.ai.quick_wins.map((w, i) => <li key={i}>{w}</li>)}</ol></Reveal> : null}
                 {!gated && <div className="fa-limits">
                   <b>{t('Lo que esta revisión no ve', 'What this review does not see')}</b>
