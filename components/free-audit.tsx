@@ -13,6 +13,17 @@ import type { Result, Card } from '@/lib/free-audit'
 type Lang = 'es' | 'en'
 type Status = 'idle' | 'submitting' | 'running' | 'done' | 'failed'
 const WA = 'https://wa.me/34680863229'
+const TS_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+function Turnstile({ onToken }: { onToken: (t: string) => void }) {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!TS_KEY || !ref.current) return
+    const render = () => { try { (window as any).turnstile?.render(ref.current, { sitekey: TS_KEY, callback: onToken, 'expired-callback': () => onToken(''), theme: 'light', size: 'flexible' }) } catch {} }
+    if ((window as any).turnstile) render()
+    else { const s = document.createElement('script'); s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'; s.async = true; s.onload = render; document.head.appendChild(s) }
+  }, [onToken])
+  return TS_KEY ? <div ref={ref} style={{ minHeight: 65 }} /> : null
+}
 const track = (name: string, p: Record<string, any> = {}) => { try { (window as any).gtag?.('event', name, p) } catch {} }
 
 const ROLE = { es: [['owner', 'Propietario/a o fundador/a'], ['director', 'Director/a o gerente'], ['marketing', 'Marketing'], ['other', 'Otro']], en: [['owner', 'Owner or founder'], ['director', 'Director or manager'], ['marketing', 'Marketing'], ['other', 'Other']] }
@@ -27,7 +38,12 @@ const ERR: Record<string, [string, string]> = {
   unreachable: ['No hemos podido cargar la web: no responde o el dominio no existe. Comprueba la dirección.', 'We could not load the site: it does not respond or the domain does not exist. Check the address.'],
   blocked: ['La web bloquea las visitas automáticas, así que no podemos leerla desde aquí. Si quieres, la revisamos a mano.', 'The site blocks automated visits, so we cannot read it from here. If you like, we will review it by hand.'],
   timeout: ['La web tardó demasiado en responder. Eso ya dice algo: escríbenos y la miramos a mano.', 'The site took too long to respond. That already says something: message us and we will look by hand.'],
+  not_html: ['Esa dirección no devuelve una página web (es un archivo, una imagen o datos). Prueba con la portada de la web.', 'That address does not return a web page (it is a file, an image or data). Try the site’s homepage.'],
+  redirect: ['Esa dirección redirige a otro dominio. Pon la dirección final de la web.', 'That address redirects to another domain. Enter the site’s final address.'],
+  http: ['La web responde con un error. Si es temporal, prueba en unos minutos; si no, escríbenos y la miramos a mano.', 'The site responds with an error. If it is temporary, try again in a few minutes; otherwise message us and we will look by hand.'],
+  db: ['Ha fallado algo por nuestra parte. Inténtalo de nuevo en un momento o escríbenos por WhatsApp.', 'Something failed on our side. Try again in a moment or message us on WhatsApp.'],
 }
+const errText = (k: string | null, lang: Lang) => { const key = k && k.startsWith('http_') ? 'http' : k || 'db'; return (ERR[key] || ERR.db)[lang === 'es' ? 0 : 1] }
 
 function Ring({ v, size = 132 }: { v: number | null; size?: number }) {
   const r = (size - 14) / 2, c = 2 * Math.PI * r, p = v == null ? 0 : v / 100
@@ -53,7 +69,7 @@ function CardView({ c, t, extra = [] }: { c: Card; t: (a: string, b: string) => 
 export function FreeAudit({ lang }: { lang: Lang }) {
   const t = (es: string, en: string) => (lang === 'es' ? es : en)
   const [status, setStatus] = useState<Status>('idle'); const [id, setId] = useState<string | null>(null)
-  const [f, setF] = useState({ url: '', name: '', email: '', role: 'owner', consent: false, company_website: '', ads: '' })
+  const [f, setF] = useState({ url: '', name: '', email: '', role: 'owner', consent: false, xq_field: '', ads: '', turnstile: '' })
   const [err, setErr] = useState<string | null>(null); const [res, setRes] = useState<Result | null>(null); const [host, setHost] = useState('')
   const [step, setStep] = useState(0); const [ans, setAns] = useState<any>({ maintainer: '', cost: '', agency_name: '', ads: '', frustration: '' }); const [ansSent, setAnsSent] = useState(false)
   const [copied, setCopied] = useState(false); const [savedAns, setSavedAns] = useState<any>({}); const [gated, setGated] = useState(false); const [hint, setHint] = useState(''); const key = useRef('')
@@ -74,8 +90,10 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     let alive = true; let n = 0
     const tick = async () => {
       try {
-        const r = await fetch(`/api/free-audit?id=${id}${key.current ? `&k=${key.current}` : ''}`, { cache: 'no-store' }); const j = await r.json()
+        const r = await fetch(`/api/free-audit?id=${id}${key.current ? `&k=${key.current}` : ''}`, { cache: 'no-store' })
         if (!alive) return
+        if (r.status >= 400 && r.status < 500) { setErr('db'); setStatus('failed'); return }
+        const j = await r.json()
         if (j.host) setHost(j.host); if (j.answers) setSavedAns(j.answers)
         if (j.status === 'done' && j.result) { setRes(j.result); setGated(!!j.gated); setHint(j.email_hint || ''); setStatus('done'); track('free_audit_done', { score: j.result.overall, lang }); return }
         if (j.status === 'failed' || j.error === 'not_found') { setErr(j.error || 'timeout'); setStatus('failed'); track('free_audit_failed', { reason: j.error }); return }
@@ -105,7 +123,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     setAnsSent(true); track('free_audit_answers', { keys: Object.keys(a).join(',') })
     try { await fetch('/api/free-audit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'answers', id, answers: a }) }) } catch {}
   }
-  const waText = encodeURIComponent(t(`Hola Chris, he hecho la revisión gratis de ${host || 'mi web'}${res?.overall != null ? ` (${res.overall}/100)` : ''} y me gustaría comentarla.`, `Hi Chris, I ran the free review of ${host || 'my site'}${res?.overall != null ? ` (${res.overall}/100)` : ''} and would like to go through it.`))
+  const waText = encodeURIComponent(t(`Hola, he hecho la revisión web gratuita de ${host || 'mi web'}${res?.overall != null ? ` (${res.overall}/100)` : ''} y me gustaría comentarla.`, `Hi, I ran the free website review of ${host || 'my site'}${res?.overall != null ? ` (${res.overall}/100)` : ''} and would like to go through it.`))
   // The "are you running ads?" answer arrives after the audit started, so the comparison is drawn here.
   const adsAns = savedAns.ads || ans.ads
   const adsCheck: { ok: boolean | null; text: string }[] = !res || !adsAns || adsAns === 'unsure' ? [] : [
@@ -113,6 +131,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     ...(adsAns === 'meta' || adsAns === 'both' ? [{ ok: res.tags.meta_events, text: res.tags.meta_events ? t('Dices que anuncias en Meta y los eventos de contacto están configurados.', 'You say you advertise on Meta and the contact events are set up.') : res.tags.meta ? t('Dices que anuncias en Meta: hay píxel, pero sin eventos de contacto el algoritmo no aprende quién te escribe.', 'You say you advertise on Meta: the pixel is there, but without contact events the algorithm cannot learn who contacts you.') : t('Dices que anuncias en Meta, pero la web no tiene el píxel: Facebook e Instagram no saben qué pasa después del clic.', 'You say you advertise on Meta, but the site has no pixel: Facebook and Instagram cannot see what happens after the click.') }] : []),
     ...(adsAns === 'no' && (res.tags.google_ads || res.tags.meta) ? [{ ok: null, text: t('Dices que no anuncias, pero la web tiene etiquetas de anuncios: o anunciaste antes o alguien las dejó. No pasa nada, pero conviene saberlo.', 'You say you do not advertise, but the site has ad tags: either you did before or someone left them. Harmless, but worth knowing.') }] : []),
   ]
+  const shareUrl = typeof location !== 'undefined' && id ? `${location.origin}${location.pathname}?id=${id}` : ''
   const offerClick = (which: string) => track('free_audit_offer_click', { which, lang })
 
   const chips = (key: string, opts: [string, string][]) => <div className="fa-chips">{opts.map(([v, l]) => <button key={v} type="button" className={ans[key] === v ? 'on' : ''} onClick={() => setAns({ ...ans, [key]: ans[key] === v ? '' : v })}>{l}</button>)}</div>
@@ -126,9 +145,10 @@ export function FreeAudit({ lang }: { lang: Lang }) {
         <label><span>{t('Email de trabajo', 'Work email')}</span><input type="email" autoComplete="email" placeholder="maria@minegocio.com" value={f.email} onChange={e => setF({ ...f, email: e.target.value })} required /></label>
       </div>
       <label><span>{t('Tu puesto', 'Your role')}</span><select value={f.role} onChange={e => setF({ ...f, role: e.target.value })}>{ROLE[lang].map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></label>
-      <label className="fa-hp" aria-hidden="true"><span>Company website</span><input tabIndex={-1} autoComplete="off" value={f.company_website} onChange={e => setF({ ...f, company_website: e.target.value })} /></label>
+      <label className="fa-hp" aria-hidden="true"><span>Leave empty</span><input tabIndex={-1} autoComplete="off" name="xq_field" value={f.xq_field} onChange={e => setF({ ...f, xq_field: e.target.value })} /></label>
       <label className="fa-chk"><input type="checkbox" checked={f.consent} onChange={e => setF({ ...f, consent: e.target.checked })} /><span>{t('Acepto que ImpulsoMedia guarde estos datos para enviarme el resultado y contactarme sobre él. ', 'I agree that ImpulsoMedia stores these details to send me the result and contact me about it. ')}<a href={lang === 'es' ? '/privacidad' : '/en/privacy'} target="_blank" rel="noreferrer">{t('Política de privacidad', 'Privacy policy')}</a></span></label>
-      {err && <div className="fa-err">{ERR[err]?.[lang === 'es' ? 0 : 1] || t('Algo ha fallado. Inténtalo de nuevo o escríbenos por WhatsApp.', 'Something went wrong. Try again or message us on WhatsApp.')}</div>}
+      <Turnstile onToken={tok => setF(prev => ({ ...prev, turnstile: tok }))} />
+      {err && <div className="fa-err">{errText(err, lang)}</div>}
       <button className="btn gold" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? t('Enviando…', 'Sending…') : t('Analizar mi web', 'Review my website')} <span className="arr" style={{ background: '#fff' }}>→</span></button>
       <div className="fa-note">{t('Gratis · sin instalar nada · resultado en pantalla y por email', 'Free · nothing to install · result on screen and by email')}</div>
     </form>
@@ -152,14 +172,14 @@ export function FreeAudit({ lang }: { lang: Lang }) {
         <p>{t('¿Qué es lo que más te frustra de tu web?', 'What frustrates you most about your site?')}</p>
         <input className="fa-in" placeholder={t('Por ejemplo: no me llama nadie desde la web', 'For example: nobody calls from the website')} value={ans.frustration} onChange={e => setAns({ ...ans, frustration: e.target.value })} maxLength={300} />
         <button type="button" className="btn ghost" onClick={sendAns}>{t('Guardar respuestas', 'Save answers')}</button>
-      </div> : <div className="fa-q"><b>{t('Gracias. Lo tendremos en cuenta en el resultado y si hablamos.', 'Thanks. We will take it into account in the result and if we talk.')}</b></div>}
+      </div> : <div className="fa-q"><b>{t('Gracias. Queda guardado junto a tu revisión.', 'Thanks. Saved alongside your review.')}</b></div>}
     </div>
   )
 
   const failedCard = (
     <div className="fa-form">
       <div className="fa-ft">{t('No hemos podido completar la revisión', 'We could not complete the review')}</div>
-      <p className="fa-sum">{ERR[err || '']?.[lang === 'es' ? 0 : 1] || t('Ha fallado algo por nuestra parte. Escríbenos y la hacemos a mano.', 'Something failed on our side. Message us and we will do it by hand.')}</p>
+      <p className="fa-sum">{errText(err, lang)}</p>
       <a className="btn wa" href={`${WA}?text=${waText}`} target="_blank" rel="noreferrer" onClick={() => offerClick('manual')}>{t('Pedir revisión manual por WhatsApp', 'Ask for a manual review on WhatsApp')}</a>
       <button type="button" className="btn ghost" style={{ marginTop: 10 }} onClick={() => { setStatus('idle'); setErr(null); history.replaceState(null, '', location.pathname) }}>{t('Probar con otra dirección', 'Try another address')}</button>
     </div>
@@ -187,12 +207,12 @@ export function FreeAudit({ lang }: { lang: Lang }) {
           <Reveal className="tile hov" as="article">
             <h3>{t('Auditoría web completa', 'Full website audit')}</h3>
             <p>{t('Diseño y textos página a página, velocidad real, SEO técnico y de contenido, comparación con tus competidores de la zona y una lista priorizada de cambios con su impacto esperado.', 'Design and copy page by page, real speed, technical and content SEO, a comparison with your local competitors and a prioritised list of changes with their expected impact.')}</p>
-            <a className="btn" href={`${WA}?text=${encodeURIComponent(t(`Hola Chris, me interesa la auditoría web completa de ${host || 'mi web'}.`, `Hi Chris, I'm interested in the full website audit of ${host || 'my site'}.`))}`} target="_blank" rel="noreferrer" onClick={() => offerClick('web')}>{t('Pedir por WhatsApp', 'Ask on WhatsApp')} <span className="arr">→</span></a>
+            <a className="btn" href={`${WA}?text=${encodeURIComponent(t(`Hola, me interesa la auditoría web completa de ${host || 'mi web'}.`, `Hi, I'm interested in the full website audit of ${host || 'my site'}.`))}`} target="_blank" rel="noreferrer" onClick={() => offerClick('web')}>{t('Solicitar', 'Request')} <span className="arr">→</span></a>
           </Reveal>
           <Reveal className="tile hov" as="article">
             <h3>{t('Auditoría de cuentas de anuncios', 'Ad-account audit')}</h3>
             <p>{t('Google Ads y Meta: estructura, palabras clave negativas, medición de conversiones, páginas de destino y dónde se va el presupuesto. Te decimos qué ahorrarías y qué dejarías de perder.', 'Google Ads and Meta: structure, negative keywords, conversion tracking, landing pages and where the budget leaks. We tell you what you would save and what you would stop losing.')}</p>
-            <a className="btn" href={`${WA}?text=${encodeURIComponent(t('Hola Chris, me interesa la auditoría de mis cuentas de anuncios.', "Hi Chris, I'm interested in the ad-account audit."))}`} target="_blank" rel="noreferrer" onClick={() => offerClick('ads')}>{t('Pedir por WhatsApp', 'Ask on WhatsApp')} <span className="arr">→</span></a>
+            <a className="btn" href={`${WA}?text=${encodeURIComponent(t('Hola, me interesa la auditoría de mis cuentas de anuncios.', "Hi, I'm interested in the ad-account audit."))}`} target="_blank" rel="noreferrer" onClick={() => offerClick('ads')}>{t('Solicitar', 'Request')} <span className="arr">→</span></a>
           </Reveal>
         </div>
       </div>
@@ -224,7 +244,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
                     <p className="sub">{res.cards.filter(c => c.score != null && c.score < 60).slice(0, 2).map(c => c.summary).join(' ') || t('Las seis áreas están en buen estado. Abajo tienes el detalle y qué pulir.', 'All six areas are in good shape. The detail and what to polish is below.')}</p>
                   </div></div>
                   <div className="actions rise d2">
-                    <a className="btn wa" href={`${WA}?text=${waText}`} target="_blank" rel="noreferrer" onClick={() => offerClick('talk')}>{t('Comentarlo con Chris', 'Go through it with Chris')} <span className="arr">→</span></a>
+                    <a className="btn wa" href={`${WA}?text=${waText}`} target="_blank" rel="noreferrer" onClick={() => offerClick('talk')}>{t('Comentar el resultado', 'Discuss the result')} <span className="arr">→</span></a>
                     <a className="btn ghost" href="#auditorias" onClick={() => offerClick('scroll')}>{t('Ver auditorías completas', 'See full audits')}</a>
                   </div>
                   <div className="fa-facts rise d3">
@@ -248,16 +268,15 @@ export function FreeAudit({ lang }: { lang: Lang }) {
               <div className="wrap">
                 {gated ? <Reveal className="fa-gate">
                   <h3>{t('El informe completo está en tu email', 'The full report is in your email')}</h3>
-                  <p>{t(`Te lo hemos enviado a ${hint || 'tu dirección'}. Abre el enlace del correo para ver qué falla en cada apartado, por qué y qué hacer. Así nos aseguramos de que el informe llega a quien lo ha pedido.`, `We sent it to ${hint || 'your address'}. Open the link in the email to see what fails in each area, why, and what to do. This is how we make sure the report reaches the person who asked for it.`)}</p>
+                  <p>{t(`Te lo hemos enviado a ${hint || 'tu dirección'}. Abre el enlace del correo para ver qué falla en cada apartado, por qué y qué hacer. Así nos aseguramos de que el informe llega a quien lo ha pedido. Un miembro del equipo de ImpulsoMedia se pondrá en contacto contigo en los próximos días por si quieres que te lo expliquemos.`, `We sent it to ${hint || 'your address'}. Open the link in the email to see what fails in each area, why, and what to do. This is how we make sure the report reaches the person who asked for it. A member of the ImpulsoMedia team will be in touch in the next few days in case you would like it explained.`)}</p>
                   <p className="note">{t('¿No lo ves? Mira en spam o promociones. Si sigue sin llegar, escríbenos por WhatsApp.', 'Can’t see it? Check spam or promotions. If it still has not arrived, message us on WhatsApp.')}</p>
                   <div className="fa-grid fa-blur" aria-hidden="true">{res.cards.map(c => <div key={c.key} className="fa-card"><div className="fa-ch"><h3>{c.title}</h3><Pill v={c.score} /></div><p className="fa-sum">{c.summary}</p></div>)}</div>
                 </Reveal> : <div className="fa-grid">{res.cards.map(c => <CardView key={c.key} c={c} t={t} extra={c.key === 'tracking' ? adsCheck : []} />)}</div>}
                 {res.ai?.quick_wins?.length ? <Reveal className="fa-wins"><h3>{t('Tres cambios rápidos', 'Three quick changes')}</h3><ol>{res.ai.quick_wins.map((w, i) => <li key={i}>{w}</li>)}</ol></Reveal> : null}
-                {(savedAns.ads || savedAns.maintainer) && <p className="note">{t('Hemos tenido en cuenta tus respuestas al preparar el apartado de medición.', 'Your answers were taken into account in the tracking section.')}</p>}
                 {!gated && <div className="fa-limits">
                   <b>{t('Lo que esta revisión no ve', 'What this review does not see')}</b>
                   <p>{t('Tráfico, posiciones en Google, resultados de campañas, diseño visual y textos página a página. Para eso está la auditoría completa.', 'Traffic, Google rankings, campaign results, visual design and copy page by page. That is what the full audit is for.')}{res.limits.length ? ' ' + res.limits.join(' ') : ''}</p>
-                  <div className="fa-share"><span>{t('Enlace a este resultado:', 'Link to this result:')}</span><code>{typeof location !== 'undefined' ? location.href : ''}</code><button type="button" className="btn ghost" onClick={() => { navigator.clipboard?.writeText(location.href); setCopied(true); track('free_audit_share') }}>{copied ? t('Copiado', 'Copied') : t('Copiar', 'Copy')}</button></div>
+                  <div className="fa-share"><span>{t('Enlace a este resultado:', 'Link to this result:')}</span><code>{shareUrl}</code><button type="button" className="btn ghost" onClick={() => { navigator.clipboard?.writeText(shareUrl); setCopied(true); track('free_audit_share') }}>{copied ? t('Copiado', 'Copied') : t('Copiar', 'Copy')}</button></div>
                 </div>}
               </div>
             </section>
