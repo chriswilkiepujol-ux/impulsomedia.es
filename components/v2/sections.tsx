@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useLanguage } from '@/lib/language-context'
+import { useFreeAuditLive, auditHref } from '@/lib/free-audit-flag'
 import { esToEn } from '@/lib/route-map'
 import { Reveal, CountUp, Mesh, Logo, GOLD, GOLD2 } from './shared'
 import { GReviews, type GReview } from './greviews'
@@ -183,6 +184,7 @@ export function ReviewsV2() {
 export function CtaV2() {
   const { t, language } = useLanguage()
   const en = language === 'en'
+  const auditLive = useFreeAuditLive()
   return (
     <section className="section" id="contacto" style={{ paddingBottom: 0 }}>
       <div className="wrap">
@@ -193,6 +195,7 @@ export function CtaV2() {
             <div className="side">
               <a className="btn gold" href="https://wa.me/34680863229" target="_blank" rel="noopener noreferrer">{t('Hablemos por WhatsApp', 'Chat on WhatsApp')} <span className="arr" style={{ background: '#fff' }}>→</span></a>
               <Link className="btn ghost" href={href(en, '/contacto')}>{t('Reserva una llamada de 30 min', 'Book a 30-min call')}</Link>
+              {auditLive && <Link className="btn ghost" href={auditHref(en)}>{t('Analiza tu web gratis', 'Review your site free')}</Link>}
               <p className="note">chris@impulsomedia.es · +34 680 863 229</p>
             </div>
           </div>

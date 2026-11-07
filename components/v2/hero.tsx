@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useLanguage } from '@/lib/language-context'
 import { esToEn } from '@/lib/route-map'
 import { Mesh, GOLD, GOLD2, INK } from './shared'
+import { useFreeAuditLive } from '@/lib/free-audit-flag'
+import { AuditQuick } from './audit-band'
 
 const MESH = [GOLD, GOLD2, INK, GOLD]
 
@@ -12,6 +14,7 @@ export function HeroV2() {
   const en = language === 'en'
   const contact = en ? esToEn['/contacto'] : '/contacto'
   const work = en ? esToEn['/proyectos'] : '/proyectos'
+  const auditLive = useFreeAuditLive()
 
   return (
     <header className="hero">
@@ -31,10 +34,14 @@ export function HeroV2() {
                 'Custom web design, SEO, Google and Meta Ads and AI automation for businesses that want to grow. No templates, no middlemen: you talk to the person who builds your site and runs your campaigns.'
               )}
             </p>
-            <div className="actions rise d3">
+            {auditLive ? <div className="rise d3">
+              <div className="aq-label">{t('Analiza tu web gratis en 1 minuto', 'Review your website free in 1 minute')}</div>
+              <AuditQuick where="hero" />
+              <div className="actions" style={{ marginTop: 12 }}><Link href={work} className="btn ghost">{t('Ver proyectos', 'See our work')}</Link><Link href={contact} className="aq-alt">{t('o hablemos de tu proyecto →', 'or talk to us about your project →')}</Link></div>
+            </div> : <div className="actions rise d3">
               <Link href={contact} className="btn">{t('Pide tu auditoría gratuita', 'Get your free audit')} <span className="arr">→</span></Link>
               <Link href={work} className="btn ghost">{t('Ver proyectos', 'See our work')}</Link>
-            </div>
+            </div>}
             <div className="proof rise d3">
               <span className="g"><span className="stars">★★★★★</span> {t('5,0 en Google', '5.0 on Google')}</span>
               <span className="avatars"><i /><i /><i /></span>

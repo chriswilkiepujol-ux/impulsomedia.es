@@ -5,6 +5,7 @@ import { HeaderV2 } from '@/components/v2/header'
 import { HeroV2, StripV2 } from '@/components/v2/hero'
 import { FounderV2, ServicesV2, WorkV2, ProcessV2, ReviewsV2, CtaV2, FooterV2 } from '@/components/v2/sections'
 import { WhatsAppButton } from '@/components/whatsapp-button'
+import { AuditBandV2 } from '@/components/v2/audit-band'
 
 export function HomeContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
   return (
@@ -17,6 +18,7 @@ export function HomeContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
           <FounderV2 />
           <ServicesV2 />
           <WorkV2 />
+          <AuditBandV2 />
           <ProcessV2 />
           <ReviewsV2 />
           <CtaV2 />

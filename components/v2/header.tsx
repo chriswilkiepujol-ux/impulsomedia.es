@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { esToEn, getAlternatePath } from '@/lib/route-map'
 import { Logo } from './shared'
+import { useFreeAuditLive, auditHref } from '@/lib/free-audit-flag'
 
 export function HeaderV2() {
   const pathname = usePathname() || '/'
@@ -13,9 +14,13 @@ export function HeaderV2() {
   const homeHref = isEn ? '/en' : '/'
   const altHref = getAlternatePath(pathname)
   const contact = isEn ? esToEn['/contacto'] : '/contacto'
-  const links = isEn
+  const auditLive = useFreeAuditLive()
+  const base = isEn
     ? [[esToEn['/servicios'], 'Services'], [esToEn['/proyectos'], 'Work'], [esToEn['/precios'], 'Pricing'], [esToEn['/nosotros'], 'About'], [esToEn['/opiniones'], 'Reviews'], [esToEn['/blog'], 'Blog']]
     : [['/servicios', 'Servicios'], ['/proyectos', 'Proyectos'], ['/precios', 'Precios'], ['/nosotros', 'Nosotros'], ['/opiniones', 'Opiniones'], ['/blog', 'Blog']]
+  // Audit link replaces Blog in the bar (the blog stays in the footer and mobile menu) so the nav does not get longer.
+  const links = auditLive ? [...base.slice(0, 5), [auditHref(isEn), isEn ? 'Free audit' : 'Auditoría gratis']] : base
+  const mobileLinks = auditLive ? [...base, [auditHref(isEn), isEn ? 'Free audit' : 'Auditoría gratis']] : base
 
   return (
     <nav className="nav">
@@ -36,7 +41,7 @@ export function HeaderV2() {
         </div>
       </div>
       <div className={`mobile ${open ? 'open' : ''}`}>
-        {links.map(([h, l]) => <Link key={h} href={h} onClick={() => setOpen(false)}>{l}</Link>)}
+        {mobileLinks.map(([h, l]) => <Link key={h} href={h} onClick={() => setOpen(false)}>{l}</Link>)}
         <Link href={contact} className="btn">{isEn ? "Let's talk" : 'Hablemos'} <span className="arr">→</span></Link>
         <span className="lang">
           <Link href={isEn ? pathname : altHref} className={isEn ? 'on' : ''}>EN</Link>

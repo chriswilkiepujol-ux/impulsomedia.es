@@ -81,6 +81,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref']) { const v = q.get(k); if (v) utm.current[k] = v }
     try { const s = sessionStorage.getItem('fa-utm'); if (s && !Object.keys(utm.current).length) utm.current = JSON.parse(s); else if (Object.keys(utm.current).length) sessionStorage.setItem('fa-utm', JSON.stringify(utm.current)) } catch {}
     key.current = q.get('k') || ''
+    const pre = q.get('url'); if (pre && !q.get('id')) setF(prev => ({ ...prev, url: pre.slice(0, 300) }))
     const rid = q.get('id'); if (rid) { setId(rid); setStatus('running'); track('free_audit_view', { lang }) } else track('free_audit_land', { lang })
   }, [lang])
 
@@ -137,7 +138,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
   const chips = (key: string, opts: [string, string][]) => <div className="fa-chips">{opts.map(([v, l]) => <button key={v} type="button" className={ans[key] === v ? 'on' : ''} onClick={() => setAns({ ...ans, [key]: ans[key] === v ? '' : v })}>{l}</button>)}</div>
 
   const formCard = (
-    <form className="fa-form" onSubmit={submit} noValidate>
+    <form className="fa-form" id="form" onSubmit={submit} noValidate>
       <div className="fa-ft">{t('Revisión gratis en 1 minuto', 'Free review in 1 minute')}</div>
       <label><span>{t('Tu web', 'Your website')}</span><input inputMode="url" autoComplete="url" placeholder="minegocio.com" value={f.url} onChange={e => setF({ ...f, url: e.target.value })} onFocus={() => track('free_audit_start', { lang })} required /></label>
       <div className="fa-2">
