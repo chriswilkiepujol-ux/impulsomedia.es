@@ -36,7 +36,7 @@ nwr["leisure"~"fitness_centre|sports_centre"]["name"]${b};
   if (!r.ok) throw new Error('overpass ' + r.status)
   const j: any = await r.json()
   return (j.elements || []).map((el: any): Candidate | null => {
-    const t = el.tags || {}; if (!t.name) return null
+    const t = el.tags || {}; if (!t.name || t.brand || t['brand:wikidata']) return null
     const kind = [t.office, t.amenity, t.healthcare, t.shop, t.craft, t.tourism, t.leisure].filter(Boolean).join(' ')
     const cat = OSM_CATS.find(([re]) => re.test(kind))?.[1] || null
     const site = t.website || t['contact:website'] || t.url || null
@@ -46,7 +46,8 @@ nwr["leisure"~"fitness_centre|sports_centre"]["name"]${b};
       website: site ? (String(site).startsWith('http') ? site : 'https://' + site) : null, phone: t.phone || t['contact:phone'] || null, email: t.email || t['contact:email'] || null,
       extra: { kind, lat: el.lat ?? el.center?.lat, lon: el.lon ?? el.center?.lon, osm: `https://www.openstreetmap.org/${el.type}/${el.id}` },
       // No website is the biggest opening; a known category is worth more than an unknown one.
-      score: (site ? 30 : 60) + (cat ? 20 : 0) + (t.phone || t['contact:phone'] ? 10 : 0),
+      // OpenStreetMap often just lacks the website tag, so a missing site is a hint to check, not a fact.
+      score: (site ? 30 : 45) + (cat && !/Restaurante|Hostelería/.test(cat) ? 25 : cat ? 5 : 0) + (t.phone || t['contact:phone'] ? 10 : 0),
     }
   }).filter(Boolean) as Candidate[]
 }
@@ -63,6 +64,7 @@ export async function fromAds(words = AD_WORDS): Promise<Candidate[]> {
       const j: any = await r.json()
       for (const x of j['1'] || []) {
         const a = x['1']; if (!a?.['2'] || (a['3'] && a['3'] !== 'ES')) continue
+        if (!plain(a['1']).includes(plain(w))) continue
         const lo = Number(a['4']?.['2']?.['1'] || 0), hi = Number(a['4']?.['2']?.['2'] || lo)
         if (!hi) continue
         out.push({ source: 'ads', source_ref: a['2'], name: title(a['1']), area: title(w), extra: { advertiser: a['1'], ads_min: lo, ads_max: hi, word: w, link: `https://adstransparency.google.com/advertiser/${a['2']}?region=ES` }, score: Math.min(100, 40 + Math.round(Math.log10(hi + 1) * 20)) })
@@ -75,8 +77,8 @@ export async function fromAds(words = AD_WORDS): Promise<Candidate[]> {
 // ---------- BORME: new companies (Cádiz + Málaga) with an address in our towns ----------
 const CNAE_CATS: [RegExp, string][] = [
   [/odont|dental/i, 'Clínica dental'], [/fisioter/i, 'Clínica de fisioterapia'], [/veterin/i, 'Veterinaria'], [/m[eé]dic|sanitari|cl[ií]nic|salud/i, 'Clínica médica'],
-  [/est[eé]tic|peluquer|belleza|bienestar|spa\b/i, 'Estética'], [/gimnas|deport|fitness/i, 'Fitness'],
-  [/inmobili|68\.3|compraventa de bienes inmuebles|alquiler de bienes inmuebles/i, 'Inmobiliaria'], [/jur[ií]dic|abogad|69\.1/i, 'Abogados'], [/contab|asesor[ií]a|fiscal|69\.2|seguros/i, 'Gestoría / asesoría'],
+  [/est[eé]tic|peluquer|belleza|centro de bienestar|96\.0[24]/i, 'Estética'], [/gimnas|instalaciones deportivas|fitness|93\.13/i, 'Fitness'],
+  [/inmobili|68\.3|compraventa de bienes inmuebles|alquiler de bienes inmuebles/i, 'Inmobiliaria'], [/servicios jur[ií]dicos|asesoramiento jur[ií]dico|abogac|abogad|69\.10?\b/i, 'Abogados'], [/contab|asesor[ií]a|fiscal|69\.2|seguros/i, 'Gestoría / asesoría'],
   [/construcci|reform|piscin|41\.|43\.|arquitect|instalaci[oó]n|fontaner|electricid|carpinter|jardin/i, 'Reformas y construcción'],
   [/restaur|56\.|bar(es)?\b|hostel|catering/i, 'Restaurante'], [/hotel|alojamiento|55\.|apartamentos tur/i, 'Hostelería'], [/viaje|turis|79\./i, 'Viajes'],
 ]
@@ -105,7 +107,10 @@ export async function fromBorme(days = 5): Promise<Candidate[]> {
         const admin = body.match(/Adm\. (?:Unico|Solid\.|Mancom\.): ([^.]+)\./)?.[1] || null
         const capital = body.match(/Capital: ([\d.,]+) Euros/)?.[1] || null
         const start = body.match(/Comienzo de operaciones: ([\d.]+)/)?.[1] || null
-        const cat = CNAE_CATS.find(([re2]) => re2.test(obj))?.[1] || null
+        // Holding companies are not prospects; classify from the main activity, not the long list of secondary ones.
+        const main = obj.split(/Actividad(?:es)? secundaria|Otras actividades|Actividades complementarias/i)[0]
+        if (/holding|64\.2|tenencia.{0,40}participaciones|adquisici[oó]n.{0,40}participaciones/i.test(main)) continue
+        const cat = CNAE_CATS.find(([re2]) => re2.test(main))?.[1] || null
         out.push({
           source: 'borme', source_ref: `${it.identificador}#${num}`, name: title(rawName.replace(/&amp;/g, '&')), category: cat, area: title(town), address: title(dom),
           extra: { activity: obj.replace(/&amp;/g, '&').slice(0, 400), cnae, admin: admin ? title(admin) : null, capital, start, published: ymd(d), pdf: it.url_pdf?.texto },
