@@ -9,8 +9,10 @@ export const dynamic = 'force-dynamic'
 const json = (b: any, s = 200) => NextResponse.json(b, { status: s, headers: { 'cache-control': 'no-store' } })
 const hostOf = (u: string) => { try { return new URL(u.startsWith('http') ? u : 'https://' + u).hostname.replace(/^www\./, '').toLowerCase() } catch { return '' } }
 
-async function googleAds(domain: string) {
-  const body = new URLSearchParams({ 'f.req': JSON.stringify({ '2': 100, '3': { '8': [2724], '12': { '1': domain, '2': true } }, '7': { '1': 1 } }) })
+const ymd = (d: Date) => Number(d.toISOString().slice(0, 10).replace(/-/g, ''))
+async function googleAds(domain: string, days?: number) {
+  const range = days ? { '6': ymd(new Date(Date.now() - days * 86400000)), '7': ymd(new Date()) } : {}
+  const body = new URLSearchParams({ 'f.req': JSON.stringify({ '2': 100, '3': { ...range, '8': [2724], '12': { '1': domain, '2': true } }, '7': { '1': 1 } }) })
   const r = await fetch('https://adstransparency.google.com/anji/_/rpc/SearchService/SearchCreatives?authuser=0', {
     method: 'POST', body, signal: AbortSignal.timeout(15000),
     headers: { 'content-type': 'application/x-www-form-urlencoded', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36', origin: 'https://adstransparency.google.com', referer: 'https://adstransparency.google.com/' },
@@ -34,6 +36,7 @@ export async function POST(req: Request) {
   const domain = hostOf(lead.website || '')
   if (!domain) return json({ error: 'no_website' }, 400)
   let g: any
+  if (body.debug) { const [all, d30] = await Promise.all([googleAds(domain).catch(e => String(e)), googleAds(domain, 30).catch(e => String(e))]); return json({ all, d30 }) }
   try { g = await googleAds(domain) } catch (e: any) { g = { ok: false, raw: String(e?.message || e).slice(0, 120) } }
   if (!g.ok) return json({ ok: false, domain, google: null, debug: body.debug ? g : undefined })
   const counts = { ...(lead.ads_counts || {}), google: g.count, google_more: g.more, google_advertisers: g.advertisers, google_checked_at: new Date().toISOString() }
