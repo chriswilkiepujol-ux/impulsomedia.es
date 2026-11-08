@@ -27,7 +27,16 @@ export async function POST(req: Request) {
     if (!d) return NextResponse.json({ ok: true, found: false, adv, dbg })
     const url = 'https://' + d
     const { error: e2 } = await sb.from('crm_leads').update({ website: url }).eq('id', lead.id)
-    if (e2) return NextResponse.json({ ok: true, found: d, duplicate: true })
+    if (e2) {
+      // Already a lead under that website: keep that one (it has the audit), add the advertiser note, drop this copy.
+      const { data: same } = await sb.from('crm_leads').select('id,notes').or(`website.ilike.%://${d},website.ilike.%://${d}/%,website.ilike.%://www.${d},website.ilike.%://www.${d}/%`).limit(1)
+      if (same?.[0]) {
+        await sb.from('crm_leads').update({ notes: `${same[0].notes ? same[0].notes + '\n' : ''}On Google's ad register as “${adv}”.` }).eq('id', same[0].id)
+        await sb.from('crm_candidates').update({ lead_id: same[0].id }).eq('lead_id', lead.id)
+        await sb.from('crm_leads').delete().eq('id', lead.id)
+      }
+      return NextResponse.json({ ok: true, found: d, merged: same?.[0]?.id || null })
+    }
     await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Website found on Google's ad register (ads paid by “${adv}”): ${url}` })
     try { await auditLead(sb, { ...lead, website: url }, { psi: false }) } catch {}
     const { data: fin } = await sb.from('crm_leads').select('opp_score,opp_tier').eq('id', lead.id).single()
