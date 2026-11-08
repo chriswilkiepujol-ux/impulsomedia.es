@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { crmAnonClient } from '@/lib/crm-supabase'
+import { fromOsm, fromAds, fromBorme, storeCandidates } from '@/lib/lead-sources'
 export const maxDuration = 60
 const digits = (s?: string | null) => (s || '').replace(/\D/g, '').slice(-9)
 const hostOf = (u?: string | null) => { try { return new URL(u!).hostname.replace(/^www\./, '') } catch { return '' } }
@@ -7,11 +8,17 @@ const hostOf = (u?: string | null) => { try { return new URL(u!).hostname.replac
 // Busca negocios nuevos en Google Places (API nueva) por sector y zona y los añade como leads fríos salientes.
 export async function GET(req: Request) {
   if (!process.env.CRON_SECRET || req.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) return NextResponse.json({ error: 'no auth' }, { status: 401 })
-  const key = process.env.GOOGLE_PLACES_API_KEY
-  if (!key) return NextResponse.json({ error: 'GOOGLE_PLACES_API_KEY is missing in Vercel (Places API must be enabled in Google Cloud)' }, { status: 200 })
   const sb = crmAnonClient()
   const { error: e } = await sb.auth.signInWithPassword({ email: process.env.CRM_BOT_EMAIL!, password: process.env.CRM_BOT_PASSWORD! })
   if (e) return NextResponse.json({ error: e.message }, { status: 500 })
+  // Free sources into the review list: new companies daily, OpenStreetMap on Mondays, local advertisers on Thursdays.
+  const extra: any = {}
+  const dow = new Date().getUTCDay()
+  try { extra.borme = await storeCandidates(sb, await fromBorme(3)) } catch (err: any) { extra.borme = String(err?.message || err) }
+  if (dow === 1) { try { extra.osm = await storeCandidates(sb, await fromOsm()) } catch (err: any) { extra.osm = String(err?.message || err) } }
+  if (dow === 4) { try { extra.ads = await storeCandidates(sb, await fromAds()) } catch (err: any) { extra.ads = String(err?.message || err) } }
+  const key = process.env.GOOGLE_PLACES_API_KEY
+  if (!key) return NextResponse.json({ sources: extra, places: 'GOOGLE_PLACES_API_KEY is missing in Vercel (Places API must be enabled in Google Cloud)' }, { status: 200 })
   const { data: searches } = await sb.from('crm_searches').select('*').eq('active', true).order('last_run_at', { ascending: true, nullsFirst: true }).limit(2)
   const { data: existing } = await sb.from('crm_leads').select('place_id,phone,website')
   const seenPlace = new Set((existing || []).map(l => l.place_id).filter(Boolean))
@@ -40,5 +47,5 @@ export async function GET(req: Request) {
     await sb.from('crm_searches').update({ last_run_at: new Date().toISOString(), last_found: found, total_added: (s.total_added || 0) + added }).eq('id', s.id)
     out.push({ query: s.query, found, added })
   }
-  return NextResponse.json({ ran: out })
+  return NextResponse.json({ sources: extra, ran: out })
 }
