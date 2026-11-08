@@ -17,6 +17,8 @@ export async function runDigest(sb: any): Promise<{ sent: number; parts: string[
   const cold = (leads || []).filter((l: any) => l.relationship === 'lead' && l.status === 'propuesta' && (!l.next_action_at || new Date(l.next_action_at) < now)).length
   const clientIds = new Set((leads || []).filter((l: any) => l.relationship === 'client').map((l: any) => l.id))
   const missing = (deals || []).filter((d: any) => d.kind === 'monthly' && d.status === 'active' && clientIds.has(d.lead_id) && (!d.start_date || d.start_date.slice(0, 7) <= month) && !(pays || []).some((p: any) => p.deal_id === d.id && p.period === month)).length
+  let renewals = 0
+  try { const r = await sb.from('crm_expenses').select('id,renews_on,status,frequency').eq('status', 'active').eq('frequency', 'yearly').gte('renews_on', today).lte('renews_on', iso(new Date(now.getTime() + 7 * 864e5))); if (!r.error) renewals = (r.data || []).length } catch {}
   const parts = [
     overdue && `${overdue} overdue payment${overdue > 1 ? 's' : ''}`,
     dueSoon && `${dueSoon} payment${dueSoon > 1 ? 's' : ''} due in 3 days`,
@@ -24,6 +26,7 @@ export async function runDigest(sb: any): Promise<{ sent: number; parts: string[
     followUps.length && `${followUps.length} follow-up${followUps.length > 1 ? 's' : ''} today${followUps.length <= 3 ? ` (${followUps.map((l: any) => l.name).join(', ')})` : ''}`,
     strongNew && `${strongNew} new strong lead${strongNew > 1 ? 's' : ''}`,
     cold && `${cold} proposal${cold > 1 ? 's' : ''} with no next step`,
+    renewals && `${renewals} yearly renewal${renewals > 1 ? 's' : ''} this week`,
   ].filter(Boolean) as string[]
   if (!parts.length) return { sent: 0, parts }
   const sent = await sendPush(sb, { type: 'digest', title: 'Today in your CRM', body: parts.join(' · '), url: overdue || dueSoon || missing ? '/?tab=billing' : '/?tab=leads', tag: `digest-${today}` })

@@ -12,12 +12,20 @@ self.addEventListener('push', event => {
     badge: '/crm-app/icons/badge-96.png',
     tag: d.tag || undefined,
     renotify: !!d.tag,
-    data: { url: d.url || '/' },
+    data: { url: d.url || '/', snooze: d.snooze || null },
+    actions: d.snooze ? [{ action: 'snooze', title: 'Remind me tomorrow' }, { action: 'open', title: 'Open' }] : [],
   }))
 })
 
 self.addEventListener('notificationclick', event => {
   event.notification.close()
+  const sz = event.notification.data && event.notification.data.snooze
+  if (event.action === 'snooze' && sz) {
+    event.waitUntil(fetch('/api/crm/snooze', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(sz) })
+      .then(r => self.registration.showNotification(r.ok ? 'Moved to tomorrow' : 'Could not snooze', { body: r.ok ? 'The follow-up is set for tomorrow morning.' : 'Open the CRM to change the date.', icon: '/crm-app/icons/icon-192.png', badge: '/crm-app/icons/badge-96.png', tag: 'snooze' }))
+      .catch(() => {}))
+    return
+  }
   const url = new URL((event.notification.data && event.notification.data.url) || '/', self.location.origin).href
   event.waitUntil((async () => {
     const all = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
