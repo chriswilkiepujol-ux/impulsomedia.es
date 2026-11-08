@@ -1,5 +1,6 @@
 // Auditor: mide hechos observables en el HTML público y clasifica el encaje por servicio.
 // Los "pixels" indican que anuncian o han anunciado; NO prueban que haya campañas activas hoy.
+import { refreshOpportunity } from './opportunity'
 export type Reason = { label: string; points: number };
 export type Fit = { web: number; seo: number; ppc: number; social: number };
 export const PITCH_LABEL: Record<string, string> = { verificar: 'Check website',  onepager: 'One-page website (€400–500)', web: 'New website', seo: 'Monthly SEO', ppc: 'Monthly Google Ads', social: 'Monthly Meta/Social Ads' };
@@ -364,6 +365,7 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
     const fit0 = { web: 0, seo: 0, ppc: 0, social: 0 } as Fit; const pr0 = prioritise('onepager', { ...fit0, web: 100 }, s0, lead);
     if ((lead.relationship && lead.relationship !== 'lead') || !['nuevo', 'revisado'].includes(lead.status || 'nuevo')) return { skipped: true };
     await sb.from('crm_leads').update({ primary_pitch: 'onepager', staleness: 100, simple_site: true, ad_prob: 5, ad_confidence: 'baja', ad_evidence: s0.ad_evidence, budget_score: s0.budget_score, knowledge_score: 0, priority: Math.min(pr0.priority, 62), priority_why: ['No website found (unconfirmed): check on Google; if they really have none, a simple page (≈€450), already built', ...pr0.why.slice(1)], pitch_angle: 'No website found: verify and, if none, show them a ready-made page', staleness_why: ['No website registered'], last_audit_at: new Date().toISOString() }).eq('id', lead.id);
+    await refreshOpportunity(sb, { ...lead, website: null }, null, { ads: false });
     return { skipped: true };
   }
   const f = await fetchSite(lead.website);
@@ -402,6 +404,7 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
   if (lead.status === 'nuevo') patch.status = 'revisado';
   if (changes.length) { patch.changed_at = new Date().toISOString(); patch.change_note = changes.join(' · '); }
   await sb.from('crm_leads').update(patch).eq('id', lead.id);
+  await refreshOpportunity(sb, { ...lead, ...patch }, row);
   if (a) {
     const rows = [...a.emails.map(v => ({ kind: 'email', value: v })), ...a.tels.map(v => ({ kind: 'phone', value: v })), ...a.socials.map(v => ({ kind: 'social', value: v }))]
       .map(r => ({ ...r, lead_id: lead.id, source_url: f.finalUrl }));

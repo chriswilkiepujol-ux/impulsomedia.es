@@ -3,35 +3,20 @@
 // Unofficial endpoint (the one the public site uses): if Google changes it, this returns null and the manual link still works.
 import { NextResponse } from 'next/server'
 import { crmTokenClient } from '@/lib/crm-supabase'
+import { googleAdsByDomain as googleAds } from '@/lib/google-ads'
+import { opportunity } from '@/lib/opportunity'
 
 export const maxDuration = 30
 export const dynamic = 'force-dynamic'
 const json = (b: any, s = 200) => NextResponse.json(b, { status: s, headers: { 'cache-control': 'no-store' } })
 const hostOf = (u: string) => { try { return new URL(u.startsWith('http') ? u : 'https://' + u).hostname.replace(/^www\./, '').toLowerCase() } catch { return '' } }
 
-const ymd = (d: Date) => Number(d.toISOString().slice(0, 10).replace(/-/g, ''))
-async function googleAds(domain: string, days?: number) {
-  const range = days ? { '6': ymd(new Date(Date.now() - days * 86400000)), '7': ymd(new Date()) } : {}
-  const body = new URLSearchParams({ 'f.req': JSON.stringify({ '2': 100, '3': { ...range, '8': [2724], '12': { '1': domain, '2': true } }, '7': { '1': 1 } }) })
-  const r = await fetch('https://adstransparency.google.com/anji/_/rpc/SearchService/SearchCreatives?authuser=0', {
-    method: 'POST', body, signal: AbortSignal.timeout(15000),
-    headers: { 'content-type': 'application/x-www-form-urlencoded', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36', origin: 'https://adstransparency.google.com', referer: 'https://adstransparency.google.com/' },
-  })
-  const text = await r.text()
-  if (!r.ok) return { ok: false as const, status: r.status, raw: text.slice(0, 300) }
-  let j: any = {}; try { j = JSON.parse(text) } catch { return { ok: false as const, status: r.status, raw: text.slice(0, 300) } }
-  const list: any[] = Array.isArray(j['1']) ? j['1'] : []
-  const advertisers = Array.from(new Set(list.map(c => c?.['12']).filter(Boolean))).slice(0, 5)
-  const total = Number(j['4'] ?? j['5'] ?? 0) || list.length
-  return { ok: true as const, count: list.length ? Math.max(total, list.length) : 0, advertisers, more: !!j['2'], keys: Object.keys(j), sample: list[0] ? Object.keys(list[0]) : [] }
-}
-
 export async function POST(req: Request) {
   const token = (req.headers.get('authorization') || '').replace('Bearer ', '')
   if (!token) return json({ error: 'no_auth' }, 401)
   const sb = crmTokenClient(token)
   let body: any; try { body = await req.json() } catch { return json({ error: 'bad_json' }, 400) }
-  const { data: lead } = await sb.from('crm_leads').select('id,website,ads_live,ads_counts').eq('id', String(body.lead_id || '')).single()
+  const { data: lead } = await sb.from('crm_leads').select('*').eq('id', String(body.lead_id || '')).single()
   if (!lead) return json({ error: 'not_found' }, 404)
   const domain = hostOf(lead.website || '')
   if (!domain) return json({ error: 'no_website' }, 400)
@@ -44,6 +29,8 @@ export async function POST(req: Request) {
   const meta = lead.ads_counts?.meta_state === 'yes'
   const g = d30.count > 0
   const live = g && meta ? 'both' : g ? 'google' : meta ? 'meta' : lead.ads_counts?.meta_state === 'no' ? 'none' : 'none'
-  await sb.from('crm_leads').update({ ads_counts: counts, ads_live: live, ads_checked_at: now }).eq('id', lead.id)
+  const { data: au } = await sb.from('crm_audits').select('*').eq('lead_id', lead.id).order('audited_at', { ascending: false }).limit(1)
+  const o = opportunity(lead, au?.[0] || null, counts)
+  await sb.from('crm_leads').update({ ads_counts: counts, ads_live: live, ads_checked_at: now, opp_score: o.score, opp_tier: o.tier, opp_why: o.why, opp_value: o.value, opp_at: now }).eq('id', lead.id)
   return json({ ok: true, domain, counts, ads_live: live })
 }
