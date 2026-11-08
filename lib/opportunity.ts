@@ -42,7 +42,9 @@ export function opportunity(lead: any, a: any | null, ads: any | null): Opp {
     if (a.has_viewport === false) { n += 6; gaps.push('not mobile-friendly') }
     if (a.has_analytics === false && !a.has_gtm) { n += 3; gaps.push('no analytics') }
   } else if (lead.website && a?.error) { n += 4 }
-  if ((lead.staleness || 0) >= 60 && !gaps.includes('outdated site')) { n += 4; gaps.push('dated design') }
+  if (lead.website && (lead.staleness || 0) >= 60 && !gaps.includes('outdated site')) { n += 4; gaps.push('dated design') }
+  // Anyone spending on ads every month is worth an ad-account review, even with a decent site.
+  if (g30 >= 1 || meta) { n += g30 >= 20 ? 12 : 8; gaps.push('ad-account review (they spend monthly)') }
   n = Math.min(35, n)
   if (gaps.length) why.push(`🔧 Needs: ${gaps.slice(0, 4).join(', ')}`)
   if (rating >= 4.6 && rev >= 40 && n >= 10) why.push(`Reputation (${rating}★/${rev}) better than the website`)

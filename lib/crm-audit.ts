@@ -403,6 +403,10 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
   const patch: any = { score: c.total, recurring_score: c.recurring, service_fit: c.fit, fit_reasons: c.reasons, primary_pitch: primary, staleness: s2.staleness, staleness_why: s2.staleness_why, site_age_years: s2.site_age_years, simple_site: s2.simple_site, ad_prob: s2.ad_prob, ad_confidence: s2.ad_confidence, ad_evidence: s2.ad_evidence, budget_score: s2.budget_score, knowledge_score: s2.knowledge_score, priority: pr.priority, priority_why: pr.why, pitch_angle: angle, last_audit_at: new Date().toISOString() };
   if (lead.status === 'nuevo') patch.status = 'revisado';
   if (changes.length) { patch.changed_at = new Date().toISOString(); patch.change_note = changes.join(' · '); }
+  // Fill the lead's phone/email from its own website when missing, so it can be contacted (and ranked as reachable).
+  if (a && !lead.phone && a.tels?.length) patch.phone = a.tels[0];
+  if (a && !lead.email && a.emails?.length) patch.email = a.emails.find((e: string) => !/example|sentry|wixpress|domain\.|@2x/i.test(e)) || null;
+  if (patch.email === null) delete patch.email;
   await sb.from('crm_leads').update(patch).eq('id', lead.id);
   await refreshOpportunity(sb, { ...lead, ...patch }, row);
   if (a) {
