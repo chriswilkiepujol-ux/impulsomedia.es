@@ -40,3 +40,28 @@ export async function domainForAdvertiser(advertiser: string, debug?: any[]): Pr
   }
   return null
 }
+
+// Fallback: read the web address shown on the advertiser's own ads (ad previews), then verify it the same way.
+export async function domainFromAdPreviews(advertiserId: string, advertiser: string, debug?: any[]): Promise<string | null> {
+  const key = (x: string) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\b(s\.?l\.?u?|s\.?a\.?u?|s\.?l\.?p|sociedad limitada)\b/g, '').replace(/[^a-z0-9]/g, '')
+  try {
+    const r = await fetch('https://adstransparency.google.com/anji/_/rpc/SearchService/SearchCreatives?authuser=0', { method: 'POST', headers: H, body: new URLSearchParams({ 'f.req': JSON.stringify({ '2': 8, '3': { '8': [2724], '13': { '1': [advertiserId] } }, '7': { '1': 1 } }) }), signal: AbortSignal.timeout(12000) })
+    const j: any = await r.json()
+    const urls = (j['1'] || []).map((c: any) => c?.['3']?.['1']?.['4']).filter(Boolean).slice(0, 5) as string[]
+    const seen = new Map<string, number>()
+    for (const u of urls) {
+      try {
+        const t = await (await fetch(u, { headers: { 'user-agent': UA, referer: 'https://adstransparency.google.com/' }, signal: AbortSignal.timeout(10000) })).text()
+        const txt = t.replace(/\\x([0-9a-f]{2})/gi, (_, h) => String.fromCharCode(parseInt(h, 16))).replace(/\\u002f/gi, '/').replace(/\\\//g, '/')
+        for (const m of txt.matchAll(/(?:https?:\/\/)?(?:www\.)?([a-z0-9][a-z0-9-]{1,60}\.(?:com|es|net|eu|org|info|co\.uk|gi|cat|biz|io))(?![a-z0-9.-])/gi)) {
+          const d = m[1].toLowerCase(); if (/google|gstatic|doubleclick|googleusercontent|youtube|ggpht|w3\.org|schema\.org|googlesyndication|googleadservices/.test(d)) continue
+          seen.set(d, (seen.get(d) || 0) + 1)
+        }
+      } catch { /* next preview */ }
+    }
+    const ranked = [...seen.entries()].sort((a, b) => b[1] - a[1]).map(x => x[0]).slice(0, 4)
+    debug?.push({ previews: urls.length, ranked })
+    for (const d of ranked) { const g = await googleAdsByDomain(d); if (g.ok && g.advertisers.some(a => key(a) === key(advertiser))) return d }
+  } catch { /* give up quietly */ }
+  return null
+}

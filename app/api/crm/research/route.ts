@@ -3,7 +3,7 @@
 import { NextResponse } from 'next/server'
 import { crmTokenClient } from '@/lib/crm-supabase'
 import { findWebsite, auditLead } from '@/lib/crm-audit'
-import { googleAdsByDomain, domainForAdvertiser } from '@/lib/google-ads'
+import { googleAdsByDomain, domainForAdvertiser, domainFromAdPreviews } from '@/lib/google-ads'
 import { opportunity } from '@/lib/opportunity'
 export const maxDuration = 60
 export const dynamic = 'force-dynamic'
@@ -20,10 +20,11 @@ export async function POST(req: Request) {
   if (lead_id) {
     const { data: lead } = await sb.from('crm_leads').select('*').eq('id', String(lead_id)).single()
     if (!lead || lead.website) return NextResponse.json({ ok: true, skipped: true })
-    const { data: cand } = await sb.from('crm_candidates').select('extra').eq('lead_id', lead.id).maybeSingle()
+    const { data: cand } = await sb.from('crm_candidates').select('extra').eq('lead_id', lead.id).limit(1).maybeSingle()
     const adv = cand?.extra?.advertiser
     const dbg: any[] = []
-    const d = adv ? await domainForAdvertiser(adv, dbg) : null
+    const advId = String(cand?.extra?.link || '').match(/advertiser\/(AR\d+)/)?.[1]
+    const d = adv ? (await domainForAdvertiser(adv, dbg)) || (advId ? await domainFromAdPreviews(advId, adv, dbg) : null) : null
     if (!d) return NextResponse.json({ ok: true, found: false, adv, dbg })
     const url = 'https://' + d
     const { error: e2 } = await sb.from('crm_leads').update({ website: url }).eq('id', lead.id)
@@ -46,7 +47,7 @@ export async function POST(req: Request) {
   if (!c) return NextResponse.json({ error: 'not_found' }, { status: 404 })
   if (c.status !== 'new') return NextResponse.json({ ok: true, skipped: c.status })
   let website = c.website as string | null; let found = false
-  if (!website && c.source === 'ads' && c.extra?.advertiser) { try { const d = await domainForAdvertiser(c.extra.advertiser); if (d) { website = 'https://' + d; found = true } } catch {} }
+  if (!website && c.source === 'ads' && c.extra?.advertiser) { try { const advId = String(c.extra.link || '').match(/advertiser\/(AR\d+)/)?.[1]; const d = (await domainForAdvertiser(c.extra.advertiser)) || (advId ? await domainFromAdPreviews(advId, c.extra.advertiser) : null); if (d) { website = 'https://' + d; found = true } } catch {} }
   if (!website && c.source !== 'borme') { try { const w = await findWebsite({ name: c.extra?.advertiser || c.name, phone: c.phone, area: c.area, address: c.address }); if (w) { website = w.url; found = true } } catch {} }
   let ads: any = null
   const h = website ? hostOf(website) : ''
