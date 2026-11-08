@@ -32,7 +32,11 @@ export function middleware(request: NextRequest) {
   const isPublicSite = rawHost === 'impulsomedia.es' || rawHost === 'www.impulsomedia.es'
   // --- Free website audit: staging only (qa.impulsomedia.es) until launch. On the public site it does not exist. ---
   const isFreeAudit = pathname === '/auditoria-web-gratis' || pathname === '/en/free-website-audit' || pathname.startsWith('/api/free-audit')
-  if (isFreeAudit && isPublicSite) return new NextResponse('Not found', { status: 404, headers: { 'x-robots-tag': 'noindex' } })
+  // Exception before launch: a report we shared from the CRM (id + k in the link) opens on the public domain, because QA is password-protected.
+  // The API decides what is allowed (GET of a report, request/answer forms); new audits stay off the public site until launch.
+  const sharedReport = pathname.startsWith('/api/free-audit') || (request.nextUrl.searchParams.has('id') && request.nextUrl.searchParams.has('k'))
+  if (isFreeAudit && isPublicSite && process.env.NEXT_PUBLIC_FREE_AUDIT_LIVE !== '1' && !sharedReport) return new NextResponse('Not found', { status: 404, headers: { 'x-robots-tag': 'noindex' } })
+  if (isFreeAudit && isPublicSite && sharedReport) { const h = new Headers(request.headers); h.set('x-locale', pathname.startsWith('/en/') ? 'en' : 'es'); const r = NextResponse.next({ request: { headers: h } }); r.headers.set('x-robots-tag', 'noindex, nofollow'); r.headers.set('cache-control', 'no-store'); return r }
   if (isCrmHost) {
     const noindex = { 'x-robots-tag': 'noindex, nofollow, noarchive', 'cache-control': 'no-store' }
     if (pathname === '/robots.txt') return new NextResponse('User-agent: *\nDisallow: /\n', { headers: { 'content-type': 'text/plain', ...noindex } })

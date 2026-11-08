@@ -4,7 +4,7 @@ import { sendPush, VAPID_PUBLIC, pushConfigured } from '@/lib/push'
 
 export const dynamic = 'force-dynamic'
 const json = (b: any, s = 200) => NextResponse.json(b, { status: s, headers: { 'cache-control': 'no-store' } })
-const PREF_KEYS = ['audits', 'requests', 'digest', 'weekend_digest']
+const PREF_KEYS = ['audits', 'requests', 'opens', 'digest', 'weekend_digest']
 
 // Signed-in CRM user only (same Bearer token as the rest of the CRM; RLS checks the owner).
 export async function POST(req: Request) {

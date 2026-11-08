@@ -4,7 +4,7 @@ import webpush from 'web-push'
 import { createHmac, timingSafeEqual } from 'crypto'
 
 export const VAPID_PUBLIC = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || 'BLVRTpckbQp9au7eVMNAyYRen5e11WXNzXMqGuw4WsMP660mlg-eB6S2NMwXGk9WYUzvHWQjnzEm0BS74scXL9Y'
-export type PushType = 'audits' | 'requests' | 'digest' | 'test'
+export type PushType = 'audits' | 'requests' | 'opens' | 'digest' | 'test'
 export type PushMsg = { title: string; body: string; url?: string; tag?: string; type: PushType; snoozeLead?: string | null }
 
 // Signed, short-lived token so "Remind me tomorrow" works from the lock screen without logging in.

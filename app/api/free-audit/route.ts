@@ -29,6 +29,7 @@ async function bot() {
   cached = { sb, until: Date.now() + 45 * 60 * 1000 }
   return sb
 }
+const isPublicHost = (req: Request) => /^(www\.)?impulsomedia\.es$/i.test((req.headers.get('x-forwarded-host') || req.headers.get('host') || '').split(':')[0])
 const ipOf = (req: Request) => (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || req.headers.get('x-real-ip') || '0'
 const hash = (s: string) => createHash('sha256').update(s + (process.env.CRON_SECRET || '')).digest('hex').slice(0, 32)
 // name+alias@gmail.com, n.a.m.e@gmail.com and NAME@GMAIL.COM are the same inbox for limit purposes.
@@ -246,6 +247,8 @@ export async function POST(req: Request) {
   try { body = await req.json() } catch { return json({ error: 'bad_json' }, 400) }
   if (!body || typeof body !== 'object') return json({ error: 'bad_json' }, 400)
   const ip = ipOf(req)
+  // Before launch the public domain only serves reports we shared (and their request/answer forms), never new audits.
+  if (isPublicHost(req) && process.env.NEXT_PUBLIC_FREE_AUDIT_LIVE !== '1' && body.action !== 'request' && body.action !== 'answers') return json({ error: 'not_found' }, 404)
   if (body.action === 'request') return handleRequest(body, req)
   if (body.action === 'answers') {
     const id = clean(body.id, 40); if (!/^[0-9a-f-]{36}$/.test(id)) return json({ error: 'bad_id' }, 400)
@@ -299,7 +302,7 @@ export async function GET(req: Request) {
   const q = new URL(req.url).searchParams; const id = q.get('id') || ''; const k = q.get('k') || ''
   if (!/^[0-9a-f-]{36}$/.test(id)) return json({ error: 'bad_id' }, 400)
   const sb = await bot()
-  const { data: row } = await sb.from('free_audits').select('id,url,host,lang,status,result,error,answers,started_at,attempts,created_at,key,verified_at,lead_id,email,email_sent,finished_at').eq('id', id).single()
+  const { data: row } = await sb.from('free_audits').select('id,url,host,lang,status,result,error,answers,started_at,attempts,created_at,key,verified_at,lead_id,email,email_sent,finished_at,flags').eq('id', id).single()
   if (!row) return json({ error: 'not_found' }, 404)
   // If the background job died (timeout, cold start), claim the row atomically and pick it up again, at most twice.
   const now = Date.now()
@@ -312,8 +315,19 @@ export async function GET(req: Request) {
     } else { await sb.from('free_audits').update({ status: 'failed', error: 'gave up after retries' }).eq('id', id); row.status = 'failed'; row.error = 'timeout' }
   }
   // Unlock with the emailed key; also unlock when the email could not be sent, otherwise the visitor has no way in.
-  const unlocked = !GATE || (!!k && k === row.key) || (row.status === 'done' && !!row.finished_at && row.email_sent === false)
-  if (k && k === row.key && !row.verified_at && row.status === 'done') {
+  const unlocked = !GATE || (!!k && k === row.key) || (row.status === 'done' && !!row.finished_at && row.email_sent === false && !row.flags?.internal)
+  // Report we sent from the CRM: tell Chris the first time the prospect opens it (his own preview carries p=1).
+  if (row.flags?.internal && k && k === row.key && row.status === 'done' && !row.flags?.opened_at && q.get('p') !== '1') {
+    const flags = { ...row.flags, opened_at: new Date().toISOString() }
+    const { data: won } = await sb.from('free_audits').update({ flags }).eq('id', id).is('flags->opened_at', null).select('id')
+    if (won?.length && row.lead_id) {
+      await sb.from('crm_activities').insert({ lead_id: row.lead_id, type: 'nota', body: `Opened the website report you sent them (${row.host}).` })
+      const { data: l } = await sb.from('crm_leads').select('name,relationship').eq('id', row.lead_id).single()
+      if (l?.relationship === 'lead') await sb.from('crm_leads').update({ next_action_at: new Date().toISOString() }).eq('id', row.lead_id)
+      try { await withTimeout(sendPush(sb, { type: 'opens', title: `${l?.name || row.host} opened your report`, body: 'Good moment to follow up while it is fresh.', url: `/?lead=${row.lead_id}`, tag: `open-${id}`, snoozeLead: row.lead_id }), 6000) } catch {}
+    }
+  }
+  if (k && k === row.key && !row.verified_at && row.status === 'done' && !row.flags?.internal) {
     await sb.from('free_audits').update({ verified_at: new Date().toISOString() }).eq('id', id)
     if (row.lead_id) await sb.from('crm_activities').insert({ lead_id: row.lead_id, type: 'nota', body: `Opened the full free-audit report from the email link: ${row.email} is a real, working address.` })
   }
