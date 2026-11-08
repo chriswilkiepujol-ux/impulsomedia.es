@@ -35,14 +35,15 @@ export async function POST(req: Request) {
   if (!lead) return json({ error: 'not_found' }, 404)
   const domain = hostOf(lead.website || '')
   if (!domain) return json({ error: 'no_website' }, 400)
-  let g: any
-  if (body.debug) { const [all, d30] = await Promise.all([googleAds(domain).catch(e => String(e)), googleAds(domain, 30).catch(e => String(e))]); return json({ all, d30 }) }
-  try { g = await googleAds(domain) } catch (e: any) { g = { ok: false, raw: String(e?.message || e).slice(0, 120) } }
-  if (!g.ok) return json({ ok: false, domain, google: null, debug: body.debug ? g : undefined })
-  const counts = { ...(lead.ads_counts || {}), google: g.count, google_more: g.more, google_advertisers: g.advertisers, google_checked_at: new Date().toISOString() }
-  // Only Google is known automatically; keep whatever Chris set for Meta.
-  const meta = lead.ads_live === 'meta' || lead.ads_live === 'both'
-  const live = g.count > 0 ? (meta ? 'both' : 'google') : (meta ? 'meta' : (lead.ads_live === 'none' || !lead.ads_live ? 'none' : lead.ads_live))
-  await sb.from('crm_leads').update({ ads_counts: counts, ads_live: live, ads_checked_at: new Date().toISOString() }).eq('id', lead.id)
-  return json({ ok: true, domain, google: g.count, more: g.more, advertisers: g.advertisers, ads_live: live, debug: body.debug ? g : undefined })
+  let all: any, d30: any
+  try { [all, d30] = await Promise.all([googleAds(domain), googleAds(domain, 30)]) } catch (e: any) { all = d30 = { ok: false, raw: String(e?.message || e).slice(0, 120) } }
+  if (!all.ok || !d30.ok) return json({ ok: false, domain, google: null })
+  const now = new Date().toISOString()
+  const counts = { ...(lead.ads_counts || {}), google_30d: d30.count, google_30d_more: d30.more, google_all: all.count, google_all_more: all.more, google_advertisers: all.advertisers, google_checked_at: now }
+  // Google is checked automatically; Meta stays whatever Chris set by hand (no public API without a verified token).
+  const meta = lead.ads_counts?.meta_state === 'yes'
+  const g = d30.count > 0
+  const live = g && meta ? 'both' : g ? 'google' : meta ? 'meta' : lead.ads_counts?.meta_state === 'no' ? 'none' : 'none'
+  await sb.from('crm_leads').update({ ads_counts: counts, ads_live: live, ads_checked_at: now }).eq('id', lead.id)
+  return json({ ok: true, domain, counts, ads_live: live })
 }
