@@ -21,7 +21,8 @@ export async function googleAdsByDomain(domain: string, days?: number): Promise<
 export async function domainForAdvertiser(advertiser: string): Promise<string | null> {
   const q = advertiser.replace(/[,.]?\s*\b(s\.?l\.?u?|s\.?a\.?u?|s\.?l\.?p|sociedad limitada)\b\.?/gi, '').replace(/\s+/g, ' ').trim()
   const words = [q, q.split(' ').slice(0, 2).join(' ')].filter((x, i, a) => x && a.indexOf(x) === i)
-  const want = advertiser.trim().toLowerCase()
+  const key = (x: string) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\b(s\.?l\.?u?|s\.?a\.?u?|s\.?l\.?p|sociedad limitada)\b/g, '').replace(/[^a-z0-9]/g, '')
+  const want = key(advertiser)
   for (const w of words) {
     try {
       const r = await fetch('https://adstransparency.google.com/anji/_/rpc/SearchService/SearchSuggestions?authuser=0', { method: 'POST', headers: H, body: new URLSearchParams({ 'f.req': JSON.stringify({ '1': w, '2': 10, '3': 10 }) }), signal: AbortSignal.timeout(12000) })
@@ -30,7 +31,9 @@ export async function domainForAdvertiser(advertiser: string): Promise<string | 
       const domains = (j['1'] || []).map((x: any) => x?.['2']?.['1']).filter(Boolean).slice(0, 4) as string[]
       for (const d of domains) {
         const g = await googleAdsByDomain(d)
-        if (g.ok && g.advertisers.some(a => a.trim().toLowerCase() === want)) return d
+        if (g.ok && g.advertisers.some(a => key(a) === want)) return d
+        // Same name as the domain itself (clinicadentalestepona.es for "Clínica Dental Estepona S.L.") is good enough.
+        if (want.length >= 8 && key(d.split('.')[0]) === want) return d
       }
     } catch { /* try next */ }
   }
