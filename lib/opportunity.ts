@@ -31,7 +31,9 @@ export function opportunity(lead: any, a: any | null, ads: any | null): Opp {
 
   // ---- Do they need us? (0–35)
   let n = 0; const gaps: string[] = []
-  if (!lead.website) { n += 22; gaps.push('no website found') }
+  const adSourced = /ad register/i.test(lead.source || '')
+  if (!lead.website && adSourced) { gaps.push('website not found yet (search it)') }
+  else if (!lead.website) { n += 22; gaps.push('no website found') }
   else if (a && !a.error) {
     if ((g30 || gAll || a.has_google_ads_tag) && !a.gads_conversion) { n += 12; gaps.push(g30 ? 'paying for ads with no conversion tracking' : 'ads tag without conversions') }
     if (a.load_ms >= 3000 || (a.pagespeed_mobile != null && a.pagespeed_mobile < 50)) { n += 5; gaps.push('slow') }
@@ -60,7 +62,13 @@ export function opportunity(lead: any, a: any | null, ads: any | null): Opp {
   if (!lead.phone && !lead.email) why.push('⚠️ No phone or email yet')
 
   let score = b + n + f + r
-  if (lead.source && /BORME/.test(lead.source)) { score = Math.max(score, high ? 58 : 40); why.unshift('🆕 Brand-new company: needs website, Google profile and launch') }
+  if (lead.source && /BORME/.test(lead.source)) {
+    // New companies: only the ones with real capital behind them make the cut; tiny SLs and investment vehicles stay lower.
+    const floor = high && capital >= 10000 ? 56 : high ? 46 : 38
+    score = Math.max(score, floor)
+    if (/invest|capital|holding|patrimon|wealth|private/i.test(lead.name || '')) score = Math.min(score, 45)
+    why.unshift(lead.website ? '🆕 Brand-new company (already has a website)' : '🆕 Brand-new company: needs website, Google profile and launch')
+  }
   if (lead.do_not_contact) score = 0
   score = Math.max(0, Math.min(100, score))
   const tier = score >= 68 ? 'A' : score >= 52 ? 'B' : 'C'
