@@ -3,6 +3,7 @@ import { createHash, randomBytes } from 'crypto'
 import { resolveMx, resolve4 } from 'dns/promises'
 import { crmAnonClient } from '@/lib/crm-supabase'
 import { runFreeAudit, normaliseUrl, rootOf, type Lang, type Result } from '@/lib/free-audit'
+import { sendPush } from '@/lib/push'
 
 export const maxDuration = 60
 export const dynamic = 'force-dynamic'
@@ -143,6 +144,10 @@ async function process_(id: string) {
     try { lead_id = await withTimeout(syncLead(sb, row, result), 12000) } catch (e: any) { crmErr = 'crm: ' + String(e?.message || e).slice(0, 120) }
   }
   const email_sent = await sendEmails(row, result)
+  try {
+    const who = row.flags?.email_matches_site ? lab('role', row.role) : row.flags?.free_email ? `${lab('role', row.role)} (free email)` : 'possible competitor/agency'
+    await withTimeout(sendPush(sb, { type: 'audits', title: `New free audit · ${row.host}`, body: `${who} · ${result?.overall != null ? `score ${result.overall}/100` : 'audit failed, review by hand'}`, url: lead_id ? `/?lead=${lead_id}` : '/', tag: `audit-${id}` }), 6000)
+  } catch {}
   await sb.from('free_audits').update({ lead_id, email_sent, error: [error, crmErr].filter(Boolean).join(' · ') || null }).eq('id', id)
 }
 
@@ -229,6 +234,7 @@ async function handleRequest(body: any, req: Request) {
       email_sent = true
     } catch {}
   }
+  try { await withTimeout(sendPush(sb, { type: 'requests', title: `Request: ${KIND[kind].en} · ${audit?.host || (r.url ? new URL(r.url).hostname.replace(/^www\./, '') : r.name)}`, body: `${audit?.role ? lab('role', audit.role) + ' · ' : ''}${audit?.result?.overall != null ? `score ${audit.result.overall}/100 · ` : ''}details in your email`, url: lead_id ? `/?lead=${lead_id}` : '/', tag: `req-${Date.now()}` }), 6000) } catch {}
   await sb.from('free_audit_requests').insert({ audit_id: audit?.id || null, kind, lang, name: r.name || null, email: r.email || null, phone: r.phone || null, url: r.url || audit?.url || null, message: r.message || null, lead_id, ip_hash: iph, email_sent })
   // Saved in the CRM (bell + follow-up today) is enough to call it received; only fail if neither worked.
   if (!email_sent && !lead_id) return json({ error: 'db' }, 500)

@@ -36,6 +36,8 @@ export function middleware(request: NextRequest) {
   if (isCrmHost) {
     const noindex = { 'x-robots-tag': 'noindex, nofollow, noarchive', 'cache-control': 'no-store' }
     if (pathname === '/robots.txt') return new NextResponse('User-agent: *\nDisallow: /\n', { headers: { 'content-type': 'text/plain', ...noindex } })
+    // Service worker and manifest must live at the root so the installed app (scope "/") is controlled by them.
+    if (pathname === '/sw.js' || pathname === '/manifest.webmanifest') return NextResponse.rewrite(new URL('/crm-app' + pathname, request.url))
     const res = pathname.startsWith('/crm-app/') || pathname.startsWith('/api/crm/')
       ? NextResponse.next()
       : NextResponse.rewrite(new URL('/crm-app/index.html', request.url))

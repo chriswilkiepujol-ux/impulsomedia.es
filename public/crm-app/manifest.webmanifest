@@ -1,0 +1,21 @@
+{
+  "name": "ImpulsoMedia CRM",
+  "short_name": "Impulso CRM",
+  "description": "Leads, clients, billing and alerts for ImpulsoMedia.",
+  "id": "/",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#111418",
+  "theme_color": "#111418",
+  "icons": [
+    { "src": "/crm-app/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/crm-app/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/crm-app/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Leads", "url": "/?tab=leads", "icons": [{ "src": "/crm-app/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Billing", "url": "/?tab=billing", "icons": [{ "src": "/crm-app/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
