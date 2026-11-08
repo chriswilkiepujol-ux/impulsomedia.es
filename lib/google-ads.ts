@@ -18,8 +18,8 @@ export async function googleAdsByDomain(domain: string, days?: number): Promise<
 
 // Finds an advertiser's website: ask the register for domains matching the company name, then keep only a domain
 // whose ads are paid by that same advertiser (so it's verified, not guessed).
-export async function domainForAdvertiser(advertiser: string): Promise<string | null> {
-  const q = advertiser.replace(/[,.]?\s*\b(s\.?l\.?u?|s\.?a\.?u?|s\.?l\.?p|sociedad limitada)\b\.?/gi, '').replace(/\s+/g, ' ').trim()
+export async function domainForAdvertiser(advertiser: string, debug?: any[]): Promise<string | null> {
+  const q = advertiser.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/&/g, ' ').replace(/[,.]?\s*\b(s\.?l\.?u?|s\.?a\.?u?|s\.?l\.?p|sociedad limitada)\b\.?/gi, '').replace(/\s+/g, ' ').trim()
   const words = [q, q.split(' ').slice(0, 2).join(' ')].filter((x, i, a) => x && a.indexOf(x) === i)
   const key = (x: string) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\b(s\.?l\.?u?|s\.?a\.?u?|s\.?l\.?p|sociedad limitada)\b/g, '').replace(/[^a-z0-9]/g, '')
   const want = key(advertiser)
@@ -29,6 +29,7 @@ export async function domainForAdvertiser(advertiser: string): Promise<string | 
       if (!r.ok) continue
       const j: any = await r.json()
       const domains = (j['1'] || []).map((x: any) => x?.['2']?.['1']).filter(Boolean).slice(0, 4) as string[]
+      debug?.push({ w, domains })
       for (const d of domains) {
         const g = await googleAdsByDomain(d)
         if (g.ok && g.advertisers.some(a => key(a) === want)) return d

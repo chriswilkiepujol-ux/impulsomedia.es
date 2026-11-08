@@ -22,8 +22,9 @@ export async function POST(req: Request) {
     if (!lead || lead.website) return NextResponse.json({ ok: true, skipped: true })
     const { data: cand } = await sb.from('crm_candidates').select('extra').eq('lead_id', lead.id).maybeSingle()
     const adv = cand?.extra?.advertiser
-    const d = adv ? await domainForAdvertiser(adv) : null
-    if (!d) return NextResponse.json({ ok: true, found: false })
+    const dbg: any[] = []
+    const d = adv ? await domainForAdvertiser(adv, dbg) : null
+    if (!d) return NextResponse.json({ ok: true, found: false, adv, dbg })
     const url = 'https://' + d
     const { error: e2 } = await sb.from('crm_leads').update({ website: url }).eq('id', lead.id)
     if (e2) return NextResponse.json({ ok: true, found: d, duplicate: true })
