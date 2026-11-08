@@ -3,7 +3,7 @@
 import { NextResponse } from 'next/server'
 import { crmTokenClient } from '@/lib/crm-supabase'
 import { findWebsite, auditLead } from '@/lib/crm-audit'
-import { googleAdsByDomain } from '@/lib/google-ads'
+import { googleAdsByDomain, domainForAdvertiser } from '@/lib/google-ads'
 import { opportunity } from '@/lib/opportunity'
 export const maxDuration = 60
 export const dynamic = 'force-dynamic'
@@ -15,11 +15,28 @@ export async function POST(req: Request) {
   const token = (req.headers.get('authorization') || '').replace('Bearer ', '')
   if (!token) return NextResponse.json({ error: 'no_auth' }, { status: 401 })
   const sb = crmTokenClient(token)
-  const { id } = await req.json().catch(() => ({}))
+  const { id, lead_id } = await req.json().catch(() => ({}))
+  // Fix-up mode: an advertiser already promoted without a website — find it through the ad register, then audit.
+  if (lead_id) {
+    const { data: lead } = await sb.from('crm_leads').select('*').eq('id', String(lead_id)).single()
+    if (!lead || lead.website) return NextResponse.json({ ok: true, skipped: true })
+    const { data: cand } = await sb.from('crm_candidates').select('extra').eq('lead_id', lead.id).maybeSingle()
+    const adv = cand?.extra?.advertiser
+    const d = adv ? await domainForAdvertiser(adv) : null
+    if (!d) return NextResponse.json({ ok: true, found: false })
+    const url = 'https://' + d
+    const { error: e2 } = await sb.from('crm_leads').update({ website: url }).eq('id', lead.id)
+    if (e2) return NextResponse.json({ ok: true, found: d, duplicate: true })
+    await sb.from('crm_activities').insert({ lead_id: lead.id, type: 'auditoria', body: `Website found on Google's ad register (ads paid by “${adv}”): ${url}` })
+    try { await auditLead(sb, { ...lead, website: url }, { psi: false }) } catch {}
+    const { data: fin } = await sb.from('crm_leads').select('opp_score,opp_tier').eq('id', lead.id).single()
+    return NextResponse.json({ ok: true, found: d, opp: fin })
+  }
   const { data: c } = await sb.from('crm_candidates').select('*').eq('id', String(id || '')).single()
   if (!c) return NextResponse.json({ error: 'not_found' }, { status: 404 })
   if (c.status !== 'new') return NextResponse.json({ ok: true, skipped: c.status })
   let website = c.website as string | null; let found = false
+  if (!website && c.source === 'ads' && c.extra?.advertiser) { try { const d = await domainForAdvertiser(c.extra.advertiser); if (d) { website = 'https://' + d; found = true } } catch {} }
   if (!website && c.source !== 'borme') { try { const w = await findWebsite({ name: c.extra?.advertiser || c.name, phone: c.phone, area: c.area, address: c.address }); if (w) { website = w.url; found = true } } catch {} }
   let ads: any = null
   const h = website ? hostOf(website) : ''

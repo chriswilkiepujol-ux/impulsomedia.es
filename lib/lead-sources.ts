@@ -65,6 +65,8 @@ export async function fromAds(words = AD_WORDS): Promise<Candidate[]> {
       for (const x of j['1'] || []) {
         const a = x['1']; if (!a?.['2'] || (a['3'] && a['3'] !== 'ES')) continue
         if (!plain(a['1']).includes(plain(w))) continue
+        // People whose surname is a place ("Angel Casares Garcia") are not local businesses.
+        if (!/\b(s\.?l\.?u?|s\.?a\.?u?|slp|sociedad|asoc|club|cl[ií]nica|hotel|golf|centro|grupo)\b/i.test(a['1']) && !plain(a['1']).startsWith(plain(w))) continue
         const lo = Number(a['4']?.['2']?.['1'] || 0), hi = Number(a['4']?.['2']?.['2'] || lo)
         if (!hi) continue
         out.push({ source: 'ads', source_ref: a['2'], name: title(a['1']), area: title(w), extra: { advertiser: a['1'], ads_min: lo, ads_max: hi, word: w, link: `https://adstransparency.google.com/advertiser/${a['2']}?region=ES` }, score: Math.min(100, 40 + Math.round(Math.log10(hi + 1) * 20)) })

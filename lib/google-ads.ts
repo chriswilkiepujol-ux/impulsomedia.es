@@ -15,3 +15,24 @@ export async function googleAdsByDomain(domain: string, days?: number): Promise<
   const total = Number(j['4'] ?? 0) || list.length
   return { ok: true, count: list.length ? Math.max(total, list.length) : 0, more: !!j['2'], advertisers }
 }
+
+// Finds an advertiser's website: ask the register for domains matching the company name, then keep only a domain
+// whose ads are paid by that same advertiser (so it's verified, not guessed).
+export async function domainForAdvertiser(advertiser: string): Promise<string | null> {
+  const q = advertiser.replace(/[,.]?\s*\b(s\.?l\.?u?|s\.?a\.?u?|s\.?l\.?p|sociedad limitada)\b\.?/gi, '').replace(/\s+/g, ' ').trim()
+  const words = [q, q.split(' ').slice(0, 2).join(' ')].filter((x, i, a) => x && a.indexOf(x) === i)
+  const want = advertiser.trim().toLowerCase()
+  for (const w of words) {
+    try {
+      const r = await fetch('https://adstransparency.google.com/anji/_/rpc/SearchService/SearchSuggestions?authuser=0', { method: 'POST', headers: H, body: new URLSearchParams({ 'f.req': JSON.stringify({ '1': w, '2': 10, '3': 10 }) }), signal: AbortSignal.timeout(12000) })
+      if (!r.ok) continue
+      const j: any = await r.json()
+      const domains = (j['1'] || []).map((x: any) => x?.['2']?.['1']).filter(Boolean).slice(0, 4) as string[]
+      for (const d of domains) {
+        const g = await googleAdsByDomain(d)
+        if (g.ok && g.advertisers.some(a => a.trim().toLowerCase() === want)) return d
+      }
+    } catch { /* try next */ }
+  }
+  return null
+}
