@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { crmTokenClient } from '@/lib/crm-supabase'
-import { sendPush, VAPID_PUBLIC } from '@/lib/push'
+import { sendPush, VAPID_PUBLIC, pushConfigured } from '@/lib/push'
 
 export const dynamic = 'force-dynamic'
 const json = (b: any, s = 200) => NextResponse.json(b, { status: s, headers: { 'cache-control': 'no-store' } })
@@ -39,7 +39,8 @@ export async function POST(req: Request) {
   }
   if (body.action === 'test') {
     const n = await sendPush(sb, { type: 'test', title: 'ImpulsoMedia CRM', body: 'Notifications are working on this device.', url: '/', tag: 'test' })
-    return json({ ok: true, sent: n })
+    const { count } = await sb.from('crm_push_subs').select('endpoint', { count: 'exact', head: true })
+    return json({ ok: true, sent: n, devices: count || 0, configured: pushConfigured() })
   }
   return json({ error: 'bad_action' }, 400)
 }

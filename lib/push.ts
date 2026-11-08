@@ -16,6 +16,8 @@ function configure() {
   return true
 }
 
+export const pushConfigured = () => configure()
+
 // sb must be an owner/bot client (RLS). Returns how many devices received it.
 export async function sendPush(sb: any, msg: PushMsg): Promise<number> {
   if (!configure()) return 0
