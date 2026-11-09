@@ -8,7 +8,9 @@ const CREDIT = /(dise[ñn]|desarroll|realizad|creado|creada|hecho por|hecha por|
 const AGENCY = /(agencia|agency|marketing|dise[ñn]o web|web design|desarrollo web|web development|p[aá]ginas web|posicionamiento|\bseo\b|\bsem\b|google ads|publicidad|redes sociales|social media|branding|estudio creativo|creative studio|comunicaci[oó]n digital|digital studio|tiendas online|wordpress)/i
 
 export const hostOf = (u: string) => { try { return new URL(u).hostname.replace(/^www\./, '').toLowerCase() } catch { return '' } }
-const strip = (s: string) => s.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
+const ENT: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', ntilde: 'ñ', Ntilde: 'Ñ', aacute: 'á', eacute: 'é', iacute: 'í', oacute: 'ó', uacute: 'ú', Aacute: 'Á', Eacute: 'É', Iacute: 'Í', Oacute: 'Ó', Uacute: 'Ú', uuml: 'ü', middot: '·', ndash: '–', mdash: '—', raquo: '»', laquo: '«' }
+const decode = (s: string) => s.replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n)).replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16))).replace(/&([a-z]+);/gi, (m, n) => ENT[n] ?? m)
+const strip = (s: string) => decode(s.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&')).replace(/\s+/g, ' ').trim()
 
 export type AgencyHit = { domain: string; name: string; evidence: string; credit: boolean; score: number }
 
@@ -60,14 +62,14 @@ export async function describeAgency(domain: string) {
   const html = await getText(`https://${domain}/`)
   if (!html) return null
   const title = strip(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '').slice(0, 160)
-  const desc = (html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)?.[1] || html.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)/i)?.[1] || '').slice(0, 300)
+  const desc = decode(html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)?.[1] || html.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)/i)?.[1] || '').slice(0, 300)
   const heads = strip((html.match(/<h[12][^>]*>[\s\S]*?<\/h[12]>/gi) || []).slice(0, 4).join(' ')).slice(0, 300)
   const text = `${title} ${desc} ${heads}`
   const isAgency = AGENCY.test(text)
   const services = [['Web design', /dise[ñn]o web|web design|p[aá]ginas web|desarrollo web|wordpress/i], ['SEO', /\bseo\b|posicionamiento/i], ['Google Ads', /google ads|\bsem\b|ppc/i], ['Social media', /redes sociales|social media|community manager|social ads/i], ['Branding', /branding|dise[ñn]o gr[aá]fico|identidad/i], ['E-commerce', /tienda online|ecommerce|e-commerce|woocommerce|shopify/i], ['AI / automation', /\bia\b|inteligencia artificial|\bai\b|automatiza/i]]
     .filter(([, r]) => (r as RegExp).test(text + ' ' + strip(html).slice(0, 8000))).map(([n]) => n as string)
   const city = (strip(html).match(/\b(Sotogrande|San Roque|Algeciras|La L[ií]nea|Los Barrios|Tarifa|Estepona|Marbella|M[aá]laga|Manilva|Casares|Gibraltar|Fuengirola|Benalm[aá]dena|C[aá]diz|Jerez|Sevilla|Madrid|Barcelona)\b/) || [])[1] || null
-  const name = (html.match(/<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)/i)?.[1] || title.split(/[|\-–·:]/)[0] || domain).trim().slice(0, 60)
+  const name = decode(html.match(/<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)/i)?.[1] || title.split(/[|\-–·:•]/).map(x => x.trim()).filter(Boolean).pop() || domain).replace(/^[^\p{L}\p{N}]+/u, '').trim().slice(0, 60)
   return { isAgency, title, description: desc, services, city, name, html }
 }
 
@@ -84,7 +86,7 @@ export async function detectAgency(sb: any, html: string, siteUrl: string): Prom
     if ((known || []).some((x: any) => x.domain === c.domain)) continue // ignored
     const d = await describeAgency(c.domain)
     if (d?.isAgency) {
-      await sb.from('crm_competitors').upsert({ domain: c.domain, name: c.name && c.name.length > 1 && c.name.length < 40 ? c.name : d.name, website: `https://${c.domain}/`, title: d.title, description: d.description, services: d.services, city: d.city, source: 'footer credit' }, { onConflict: 'domain', ignoreDuplicates: true })
+      await sb.from('crm_competitors').upsert({ domain: c.domain, name: c.name && c.name.length > 1 && c.name.length <= 24 ? c.name : d.name, website: `https://${c.domain}/`, title: d.title, description: d.description, services: d.services, city: d.city, source: 'footer credit' }, { onConflict: 'domain', ignoreDuplicates: true })
       const { data: row } = await sb.from('crm_competitors').select('name').eq('domain', c.domain).single()
       return { domain: c.domain, name: row?.name || c.name, evidence: c.evidence }
     }
