@@ -229,14 +229,14 @@ quick_wins: array of up to 3 short, specific, cheap changes (wording, button, pl
       headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       body: JSON.stringify({ model: process.env.FREE_AUDIT_MODEL || 'claude-haiku-5-5', max_tokens: 900, messages: [{ role: 'user', content: prompt }] }),
     })
-    if (!r.ok) return null
+    if (!r.ok) { console.warn('[free-audit] ai read failed', r.status, (await r.text()).slice(0, 300)); return null }
     const j: any = await r.json(); const txt: string = j.content?.map((x: any) => x.text || '').join('') || ''
     const m = txt.match(/\{[\s\S]*\}/); if (!m) return null
     const o = JSON.parse(m[0])
     const clean = (x: any, n: number) => String(x ?? '').replace(/[<>]/g, '').replace(/https?:\/\/\S+|\+?\d[\d\s().-]{7,}\d/g, '').replace(/\s+/g, ' ').trim().slice(0, n)
     const arr = (x: any) => (Array.isArray(x) ? x.map(v => clean(v, 220)).filter(Boolean).slice(0, 4) : [])
     return { business: clean(o.business, 200), category: clean(o.category, 40).replace(/[^\p{L}\s/&-]/gu, ''), audience: clean(o.audience, 100), clarity: Math.max(0, Math.min(10, Number(o.clarity) || 0)), cta: Math.max(0, Math.min(10, Number(o.cta) || 0)), strengths: arr(o.strengths), issues: arr(o.issues), quick_wins: arr(o.quick_wins) }
-  } catch { return null } finally { clearTimeout(t) }
+  } catch (e: any) { console.warn('[free-audit] ai read error', String(e?.message || e).slice(0, 200)); return null } finally { clearTimeout(t) }
 }
 
 export async function runFreeAudit(rawUrl: string, lang: Lang, answers: Record<string, any> = {}): Promise<{ ok: true; result: Result } | { ok: false; error: string; result?: Result }> {
