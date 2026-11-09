@@ -36,6 +36,8 @@ export function middleware(request: NextRequest) {
   // The API decides what is allowed (GET of a report, request/answer forms); new audits stay off the public site until launch.
   const sharedReport = pathname.startsWith('/api/free-audit') || (request.nextUrl.searchParams.has('id') && request.nextUrl.searchParams.has('k'))
   if (isFreeAudit && isPublicSite && process.env.NEXT_PUBLIC_FREE_AUDIT_LIVE !== '1' && !sharedReport) return new NextResponse('Not found', { status: 404, headers: { 'x-robots-tag': 'noindex' } })
+  // Personal reports (any ?id=) are never indexable or cached. (QA is password-protected and noindex already.)
+  if (isFreeAudit && isPublicSite && !pathname.startsWith('/api/') && request.nextUrl.searchParams.has('id')) { const h = new Headers(request.headers); h.set('x-locale', pathname.startsWith('/en/') ? 'en' : 'es'); const r = NextResponse.next({ request: { headers: h } }); r.headers.set('x-robots-tag', 'noindex, nofollow, noarchive'); r.headers.set('cache-control', 'private, no-store'); r.headers.set('referrer-policy', 'no-referrer'); return r }
   if (isFreeAudit && isPublicSite && sharedReport) { const h = new Headers(request.headers); h.set('x-locale', pathname.startsWith('/en/') ? 'en' : 'es'); const r = NextResponse.next({ request: { headers: h } }); r.headers.set('x-robots-tag', 'noindex, nofollow'); r.headers.set('cache-control', 'no-store'); return r }
   if (isCrmHost) {
     const noindex = { 'x-robots-tag': 'noindex, nofollow, noarchive', 'cache-control': 'no-store' }

@@ -96,6 +96,46 @@ async function syncLead(sb: any, row: any, result: Result | null) {
   return lead.id
 }
 
+// Internal alert to Chris (never to the visitor). Always English (CRM language), clearly marked as internal.
+const isOwnTest = (row: any) => /@impulsomedia\.es$/i.test(row.email || '')
+function whoLine(row: any) {
+  if (isOwnTest(row)) return 'Internal test (your own email)'
+  return row.flags?.email_matches_site ? 'Owner confirmed (email domain matches the site)' : row.flags?.free_email ? 'Free email address (Gmail, Hotmail…): could be the owner, check' : 'Email from another business domain: possible competitor or agency'
+}
+function internalSubject(row: any, result: Result | null) {
+  return `${isOwnTest(row) ? '[TEST] ' : ''}New audit lead · ${row.host} · ${result?.overall != null ? result.overall + '/100' : 'audit failed'} · ${row.lang === 'en' ? 'EN' : 'ES'} page`
+}
+function internalAlert(row: any, result: Result | null, link: string, lead_id: string | null) {
+  const col = (v: any) => (v == null ? '#7a7f87' : v >= 75 ? '#1f9d55' : v >= 50 ? '#8a6a1e' : '#b91c1c')
+  const td = 'padding:7px 0;border-bottom:1px solid #ece8e0;font-size:14px'
+  const cards = result ? result.cards.map(c => `<tr><td style="${td}">${esc(c.title)}</td><td style="${td};text-align:right;font-weight:700;color:${col(c.score)}">${c.score ?? '—'}</td></tr>`).join('') : ''
+  const ai: any = result?.ai
+  const list = (t: string, a: string[] = []) => a.length ? `<p style="margin:14px 0 4px;font-weight:700;font-size:14px">${t}</p><ul style="margin:0;padding-left:18px;color:#3a3f47;font-size:14px;line-height:1.5">${a.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''
+  const crm = lead_id ? `https://crm.impulsomedia.es/?lead=${lead_id}` : 'https://crm.impulsomedia.es/'
+  const btn = (href: string, label: string, dark = true) => `<a href="${esc(href)}" style="display:inline-block;background:${dark ? '#111418' : '#fff'};color:${dark ? '#fff' : '#111418'};border:1px solid #111418;padding:11px 18px;border-radius:999px;text-decoration:none;font-weight:700;font-size:14px;margin:0 8px 8px 0">${label}</a>`
+  const row2 = (k: string, v: string) => `<tr><td style="color:#7a7f87;padding:3px 14px 3px 0;font-size:14px;vertical-align:top">${k}</td><td style="font-size:14px">${v}</td></tr>`
+  const ans = answersText(row.answers || {})
+  return `<div style="background:#f6f4ef;padding:24px 12px"><div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:600px;margin:0 auto;background:#fff;border-radius:16px;padding:28px 26px;color:#111418">
+  <table style="width:100%;border-collapse:collapse"><tr><td><img src="${SITE}/images/impulsomedia-logo.jpg" alt="ImpulsoMedia" width="120" style="display:block;height:auto"></td><td style="text-align:right"><span style="background:#111418;color:#c9a04a;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px">Internal · CRM alert</span></td></tr></table>
+  <p style="color:#7a7f87;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:22px 0 6px">New free-audit lead</p>
+  <h1 style="font-size:22px;line-height:1.25;margin:0 0 6px">${esc(row.host)}</h1>
+  <p style="font-size:38px;font-weight:800;margin:6px 0 14px;line-height:1;color:${col(result?.overall)}">${result?.overall ?? '—'}<span style="font-size:15px;color:#7a7f87;font-weight:400"> /100</span></p>
+  <table style="border-collapse:collapse;margin:0 0 6px">
+    ${row2('Name', `<b>${esc(row.name || '—')}</b> · ${esc(lab('role', row.role))}`)}
+    ${row2('Email', `<a href="mailto:${esc(row.email)}" style="color:#111418">${esc(row.email || '—')}</a>`)}
+    ${row2('Who', esc(whoLine(row)))}
+    ${row2('Page', row.lang === 'en' ? 'English page — they got the report in English' : 'Spanish page — they got the report in Spanish')}
+    ${ans ? row2('Answers', esc(ans)) : ''}
+  </table>
+  ${ai?.business ? `<p style="margin:14px 0 0;color:#3a3f47;font-size:14px;line-height:1.5"><b style="color:#111418">What a visitor understands:</b> ${esc(ai.business)}</p>` : ''}
+  ${list('Biggest issues', ai?.issues)}
+  ${list('Quick wins to pitch', ai?.quick_wins)}
+  ${cards ? `<table style="width:100%;border-collapse:collapse;margin:16px 0 4px">${cards}</table>` : `<p style="color:#b91c1c">The automatic audit failed: review the site by hand.</p>`}
+  <p style="margin:20px 0 0">${btn(crm, 'Open lead in CRM')}${btn(link, 'Open their report', false)}</p>
+  <p style="color:#7a7f87;font-size:12px;line-height:1.5;margin:14px 0 0">Only you receive this. Replying goes to ${esc(row.email || 'the requester')}. Opening the report from here does not count as them opening it.</p>
+  </div></div>`
+}
+
 async function sendEmails(_sb: any, row: any, result: Result | null, _lead_id: string | null) {
   const key = process.env.RESEND_API_KEY
   if (!row.email) return false
@@ -119,7 +159,7 @@ async function sendEmails(_sb: any, row: any, result: Result | null, _lead_id: s
     if (!key) return false
     const { Resend } = await import('resend'); const resend = new Resend(key)
     await withTimeout(resend.emails.send({ from: 'ImpulsoMedia <chris@impulsomedia.es>', to: [row.email], replyTo: 'chris@impulsomedia.es', subject: en ? `Your website review: ${row.host}` : `Tu revisión web: ${row.host}`, html }), 8000)
-    withTimeout(resend.emails.send({ from: 'ImpulsoMedia <chris@impulsomedia.es>', to: ['chris@impulsomedia.es'], subject: `Free audit: ${row.host} (${row.role || '?'}) · ${result?.overall ?? 'failed'}`, html: `<p><b>${esc(row.name)}</b> (${esc(row.email)}, ${esc(lab('role', row.role))}) requested a free audit of ${esc(row.url)}.</p><p>Score: ${result?.overall ?? 'failed'}. ${esc(answersText(row.answers || {}))}</p><p>${esc(row.flags?.email_matches_site ? 'Owner confirmed (email domain = site).' : row.flags?.free_email ? 'Free email.' : 'Email from another business domain: possible competitor/agency.')}</p><p><a href="${esc(link)}">Result</a> · <a href="https://crm.impulsomedia.es/">CRM</a></p>` }), 8000).catch(() => {})
+    withTimeout(resend.emails.send({ from: 'ImpulsoMedia CRM <chris@impulsomedia.es>', to: ['chris@impulsomedia.es'], replyTo: row.email, subject: internalSubject(row, result), html: internalAlert(row, result, link + '&p=1', _lead_id) }), 8000).catch(() => {})
     return true
   } catch { return false }
 }
@@ -329,7 +369,7 @@ export async function GET(req: Request) {
       try { await withTimeout(sendPush(sb, { type: 'opens', title: `${l?.name || row.host} opened your report`, body: 'Good moment to follow up while it is fresh.', url: `/?lead=${row.lead_id}`, tag: `open-${id}`, snoozeLead: row.lead_id }), 6000) } catch {}
     }
   }
-  if (k && k === row.key && !row.verified_at && row.status === 'done' && !row.flags?.internal) {
+  if (k && k === row.key && !row.verified_at && row.status === 'done' && !row.flags?.internal && q.get('p') !== '1') {
     await sb.from('free_audits').update({ verified_at: new Date().toISOString() }).eq('id', id)
     if (row.lead_id) await sb.from('crm_activities').insert({ lead_id: row.lead_id, type: 'nota', body: `Opened the full free-audit report from the email link: ${row.email} is a real, working address.` })
   }

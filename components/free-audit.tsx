@@ -123,7 +123,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
   const [err, setErr] = useState<string | null>(null); const [res, setRes] = useState<Result | null>(null); const [host, setHost] = useState('')
   const [step, setStep] = useState(0); const [ans, setAns] = useState<any>({ maintainer: '', cost: '', agency_name: '', ads: '', frustration: '' }); const [ansSent, setAnsSent] = useState(false)
   const [reqKind, setReqKind] = useState<ReqKind | null>(null); const openReq = (k: ReqKind) => { setReqKind(k); track('free_audit_offer_click', { which: k, lang }) }
-  const [copied, setCopied] = useState(false); const [savedAns, setSavedAns] = useState<any>({}); const [gated, setGated] = useState(false); const [review, setReview] = useState(false); const [hint, setHint] = useState(''); const key = useRef('')
+  const [copied, setCopied] = useState(false); const [savedAns, setSavedAns] = useState<any>({}); const [gated, setGated] = useState(false); const [review, setReview] = useState(false); const [hint, setHint] = useState(''); const key = useRef(''); const preview = useRef(false)
   const utm = useRef<Record<string, string>>({})
   const otherLang = lang === 'es' ? '/en/free-website-audit' : '/auditoria-web-gratis'
 
@@ -131,7 +131,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     const q = new URLSearchParams(location.search)
     for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref']) { const v = q.get(k); if (v) utm.current[k] = v }
     try { const s = sessionStorage.getItem('fa-utm'); if (s && !Object.keys(utm.current).length) utm.current = JSON.parse(s); else if (Object.keys(utm.current).length) sessionStorage.setItem('fa-utm', JSON.stringify(utm.current)) } catch {}
-    key.current = q.get('k') || ''
+    key.current = q.get('k') || ''; preview.current = q.get('p') === '1'
     const pre = q.get('url'); if (pre && !q.get('id')) setF(prev => ({ ...prev, url: pre.slice(0, 300) }))
     const rid = q.get('id'); if (rid) { setId(rid); setStatus('running'); track('free_audit_view', { lang }) } else track('free_audit_land', { lang })
   }, [lang])
@@ -142,7 +142,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
     let alive = true; let n = 0
     const tick = async () => {
       try {
-        const r = await fetch(`/api/free-audit?id=${id}${key.current ? `&k=${key.current}` : ''}`, { cache: 'no-store' })
+        const r = await fetch(`/api/free-audit?id=${id}${key.current ? `&k=${key.current}` : ''}${preview.current ? '&p=1' : ''}`, { cache: 'no-store' })
         if (!alive) return
         if (r.status >= 400 && r.status < 500) { setErr('db'); setStatus('failed'); return }
         const j = await r.json()
