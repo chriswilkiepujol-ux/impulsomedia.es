@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { BlogListingContent } from './blog-listing-content'
 
 export const metadata: Metadata = {
-  title: 'Blog',
+  title: 'Blog de Marketing Digital y SEO Local',
   description: 'Notas sobre SEO local, campañas de marketing y proyectos reales en Sotogrande, San Roque, Gibraltar y el Campo de Gibraltar.',
   alternates: {
     canonical: '/blog',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     images: [{ url: '/images/og-image-v2.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
-    title: 'Blog | ImpulsoMedia',
+    title: 'Blog de Marketing Digital y SEO Local | ImpulsoMedia',
     description: 'Notas sobre SEO local, campañas de marketing y proyectos reales.',
     url: 'https://impulsomedia.es/blog',
   },
