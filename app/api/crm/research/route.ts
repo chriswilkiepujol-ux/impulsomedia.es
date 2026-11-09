@@ -8,7 +8,7 @@ import { opportunity } from '@/lib/opportunity'
 export const maxDuration = 60
 export const dynamic = 'force-dynamic'
 const HIGH = /inmobil|real estate|dental|cl[ií]nica|m[eé]dic|est[eé]tica|abogad|legal|reformas|construcci|piscina|arquitect|hotel|golf|seguros|asesor|gestor|veterin|viajes/i
-const CORE = /sotogrande|san roque|guadiaro|torreguadiaro|san enrique|pueblo nuevo|l[ií]nea|algeciras|los barrios|estepona|manilva|casares|sabinillas|benahav|tarifa|castellar|jimena|gibraltar/i
+const CORE = /sotogrande|san roque|guadiaro|torreguadiaro|san enrique|pueblo nuevo|la l[ií]nea\b|l[ií]nea de la concepci|algeciras|los barrios|estepona|manilva|casares|sabinillas|benahav|tarifa|castellar|jimena|gibraltar/i
 const hostOf = (u: string) => { try { return new URL(u.startsWith('http') ? u : 'https://' + u).hostname.replace(/^www\./, '') } catch { return '' } }
 
 export async function POST(req: Request) {
