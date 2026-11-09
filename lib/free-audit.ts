@@ -221,17 +221,18 @@ clarity: 0–10, how clearly a stranger understands what is offered and for whom
 cta: 0–10, how clear and easy the next step is (call, WhatsApp, book, quote)
 strengths: array of up to 3 short sentences
 issues: array of up to 4 short sentences, each a specific problem a visitor would feel
-quick_wins: array of up to 3 short, specific, cheap changes (wording, button, placement). No generic advice.`
-  const c = new AbortController(); const t = setTimeout(() => c.abort(), 15000)
+quick_wins: array of up to 3 short, specific, cheap changes (wording, button, placement). No generic advice.
+Keep every sentence under 25 words. Output the JSON object only, with no markdown fences or commentary.`
+  const c = new AbortController(); const t = setTimeout(() => c.abort(), 25000)
   try {
     const r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST', signal: c.signal,
       headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: process.env.FREE_AUDIT_MODEL || 'claude-haiku-5-5', max_tokens: 900, messages: [{ role: 'user', content: prompt }] }),
+      body: JSON.stringify({ model: process.env.FREE_AUDIT_MODEL || 'claude-haiku-5-5', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] }),
     })
     if (!r.ok) { console.warn('[free-audit] ai read failed', r.status, (await r.text()).slice(0, 300)); return null }
     const j: any = await r.json(); const txt: string = j.content?.map((x: any) => x.text || '').join('') || ''
-    const m = txt.match(/\{[\s\S]*\}/); if (!m) { console.warn('[free-audit] ai read: no JSON', txt.slice(0, 200)); return null }
+    const m = txt.match(/\{[\s\S]*\}/); if (!m) { console.warn('[free-audit] ai read: no JSON', j.stop_reason, txt.slice(-200)); return null }
     const o = JSON.parse(m[0])
     const clean = (x: any, n: number) => String(x ?? '').replace(/[<>]/g, '').replace(/https?:\/\/\S+|\+?\d[\d\s().-]{7,}\d/g, '').replace(/\s+/g, ' ').trim().slice(0, n)
     const arr = (x: any) => (Array.isArray(x) ? x.map(v => clean(v, 220)).filter(Boolean).slice(0, 4) : [])
