@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { crmAnonClient } from '@/lib/crm-supabase'
 import { fromOsm, fromAds, fromBorme, storeCandidates } from '@/lib/lead-sources'
+import { fromBdns, fromBoe, storeGrants } from '@/lib/grants'
 export const maxDuration = 60
 const digits = (s?: string | null) => (s || '').replace(/\D/g, '').slice(-9)
 const hostOf = (u?: string | null) => { try { return new URL(u!).hostname.replace(/^www\./, '') } catch { return '' } }
@@ -15,6 +16,7 @@ export async function GET(req: Request) {
   const extra: any = {}
   const dow = new Date().getUTCDay()
   try { extra.borme = await storeCandidates(sb, await fromBorme(3)) } catch (err: any) { extra.borme = String(err?.message || err) }
+  try { const [g1, g2] = await Promise.all([fromBdns(3), fromBoe(2)]); extra.grants = await storeGrants(sb, [...g1, ...g2]) } catch (err: any) { extra.grants = String(err?.message || err) }
   if (dow === 1) { try { extra.osm = await storeCandidates(sb, await fromOsm()) } catch (err: any) { extra.osm = String(err?.message || err) } }
   if (dow === 4) { try { extra.ads = await storeCandidates(sb, await fromAds()) } catch (err: any) { extra.ads = String(err?.message || err) } }
   const key = process.env.GOOGLE_PLACES_API_KEY

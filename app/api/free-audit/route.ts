@@ -3,6 +3,7 @@ import { createHash, randomBytes } from 'crypto'
 import { resolveMx, resolve4 } from 'dns/promises'
 import { crmAnonClient } from '@/lib/crm-supabase'
 import { runFreeAudit, normaliseUrl, rootOf, type Lang, type Result } from '@/lib/free-audit'
+import { queueEmail } from '@/lib/outbox'
 import { sendPush } from '@/lib/push'
 
 export const maxDuration = 60
@@ -96,10 +97,9 @@ async function syncLead(sb: any, row: any, result: Result | null) {
   return lead.id
 }
 
-async function sendEmails(row: any, result: Result | null) {
+async function sendEmails(sb: any, row: any, result: Result | null, lead_id: string | null) {
   const key = process.env.RESEND_API_KEY
-  if (!key || !row.email) return false
-  const { Resend } = await import('resend'); const resend = new Resend(key)
+  if (!row.email) return false
   const en = row.lang === 'en'
   const link = `${SITE}${resultPath(row)}&k=${row.key}`
   const host = esc(row.host)
@@ -116,9 +116,14 @@ async function sendEmails(row: any, result: Result | null) {
     <table style="border-collapse:collapse;border-top:1px solid #ece8e0;width:100%"><tr><td style="padding-top:18px;vertical-align:middle;width:56px"><img src="${SITE}/images/impulsomedia-logo.jpg" alt="" width="44" style="display:block;height:auto;border-radius:10px"></td><td style="padding-top:18px;vertical-align:middle;font-size:13px;line-height:1.5;color:#3a3f47"><b style="color:#111418">ImpulsoMedia</b><br>${en ? 'Web design, SEO and paid media · Sotogrande, Campo de Gibraltar' : 'Diseño web, SEO y publicidad · Sotogrande, Campo de Gibraltar'}<br><a href="${SITE}" style="color:#111418">impulsomedia.es</a> · <a href="mailto:chris@impulsomedia.es" style="color:#111418">chris@impulsomedia.es</a> · <a href="https://wa.me/34680863229" style="color:#111418">WhatsApp</a></td></tr></table>
     <p style="color:#7a7f87;font-size:12px;line-height:1.5;margin:22px 0 0">${en ? 'You receive this email because you requested a review at impulsomedia.es. Reply “unsubscribe” and we will not write again. Privacy: impulsomedia.es/en/privacy' : 'Recibes este correo porque pediste una revisión en impulsomedia.es. Responde “baja” y no volveremos a escribirte. Privacidad: impulsomedia.es/privacidad'}</p></div></div>`
   try {
-    await withTimeout(resend.emails.send({ from: 'ImpulsoMedia <chris@impulsomedia.es>', to: [row.email], replyTo: 'chris@impulsomedia.es', subject: en ? `Your website review: ${row.host}` : `Tu revisión web: ${row.host}`, html }), 8000)
-    withTimeout(resend.emails.send({ from: 'ImpulsoMedia <chris@impulsomedia.es>', to: ['chris@impulsomedia.es'], subject: `Free audit: ${row.host} (${row.role || '?'}) · ${result?.overall ?? 'failed'}`, html: `<p><b>${esc(row.name)}</b> (${esc(row.email)}, ${esc(lab('role', row.role))}) requested a free audit of ${esc(row.url)}.</p><p>Score: ${result?.overall ?? 'failed'}. ${esc(answersText(row.answers || {}))}</p><p>${esc(row.flags?.email_matches_site ? 'Owner confirmed (email domain = site).' : row.flags?.free_email ? 'Free email.' : 'Email from another business domain: possible competitor/agency.')}</p><p><a href="${esc(link)}">Result</a> · <a href="https://crm.impulsomedia.es/">CRM</a></p>` }), 8000).catch(() => {})
-    return true
+    // The visitor's email waits in the CRM Outbox until Chris approves it (no email leaves without his OK).
+    await queueEmail(sb, { kind: 'free_audit', to: row.email, subject: en ? `Your website review: ${row.host}` : `Tu revisión web: ${row.host}`, html, lead_id, ref_id: row.id })
+    await sb.from('free_audits').update({ flags: { ...(row.flags || {}), email_queued: true } }).eq('id', row.id)
+    row.flags = { ...(row.flags || {}), email_queued: true }
+    if (!key) return false
+    const { Resend } = await import('resend'); const resend = new Resend(key)
+    withTimeout(resend.emails.send({ from: 'ImpulsoMedia <chris@impulsomedia.es>', to: ['chris@impulsomedia.es'], subject: `Free audit: ${row.host} (${row.role || '?'}) · ${result?.overall ?? 'failed'}`, html: `<p><b>${esc(row.name)}</b> (${esc(row.email)}, ${esc(lab('role', row.role))}) requested a free audit of ${esc(row.url)}.</p><p>Score: ${result?.overall ?? 'failed'}. ${esc(answersText(row.answers || {}))}</p><p>${esc(row.flags?.email_matches_site ? 'Owner confirmed (email domain = site).' : row.flags?.free_email ? 'Free email.' : 'Email from another business domain: possible competitor/agency.')}</p><p>Their report email is waiting in the CRM Outbox for your approval.</p><p><a href="${esc(link)}">Result</a> · <a href="https://crm.impulsomedia.es/?tab=outbox">Approve in the CRM</a></p>` }), 8000).catch(() => {})
+    return false
   } catch { return false }
 }
 
@@ -144,7 +149,7 @@ async function process_(id: string) {
   if (result || !['unreachable', 'invalid', 'not_html'].includes(error || '')) {
     try { lead_id = await withTimeout(syncLead(sb, row, result), 12000) } catch (e: any) { crmErr = 'crm: ' + String(e?.message || e).slice(0, 120) }
   }
-  const email_sent = await sendEmails(row, result)
+  const email_sent = await sendEmails(sb, row, result, lead_id)
   try {
     const who = row.flags?.email_matches_site ? lab('role', row.role) : row.flags?.free_email ? `${lab('role', row.role)} (free email)` : 'possible competitor/agency'
     await withTimeout(sendPush(sb, { type: 'audits', title: `New free audit · ${row.host}`, body: `${who} · ${result?.overall != null ? `score ${result.overall}/100` : 'audit failed, review by hand'}`, url: lead_id ? `/?lead=${lead_id}` : '/', tag: `audit-${id}`, snoozeLead: lead_id }), 6000)
@@ -315,7 +320,7 @@ export async function GET(req: Request) {
     } else { await sb.from('free_audits').update({ status: 'failed', error: 'gave up after retries' }).eq('id', id); row.status = 'failed'; row.error = 'timeout' }
   }
   // Unlock with the emailed key; also unlock when the email could not be sent, otherwise the visitor has no way in.
-  const unlocked = !GATE || (!!k && k === row.key) || (row.status === 'done' && !!row.finished_at && row.email_sent === false && !row.flags?.internal)
+  const unlocked = !GATE || (!!k && k === row.key) || (row.status === 'done' && !!row.finished_at && row.email_sent === false && !row.flags?.internal && !row.flags?.email_queued)
   // Report we sent from the CRM: tell Chris the first time the prospect opens it (his own preview carries p=1).
   if (row.flags?.internal && k && k === row.key && row.status === 'done' && !row.flags?.opened_at && q.get('p') !== '1') {
     const flags = { ...row.flags, opened_at: new Date().toISOString() }
@@ -333,5 +338,5 @@ export async function GET(req: Request) {
   }
   const mask = (e: string) => e.replace(/^(.{2}).*(@.*)$/, '$1…$2')
   const result = row.result ? (unlocked ? row.result : { ...row.result, cards: row.result.cards.map((c: any) => ({ ...c, findings: [], action: '' })), ai: null, pages: [], limits: [], psi: row.result.psi ? { ...row.result.psi, screenshot: null } : null, facts: { ...row.result.facts, title: '', final_url: '' } }) : null
-  return json({ id: row.id, host: row.host, lang: row.lang, status: row.status, result, gated: !unlocked, email_hint: unlocked ? null : mask(row.email || ''), error: row.error, answers: unlocked ? row.answers : { ads: row.answers?.ads || '' } })
+  return json({ id: row.id, host: row.host, lang: row.lang, status: row.status, result, gated: !unlocked, pending_review: !unlocked && !!row.flags?.email_queued && !row.email_sent, email_hint: unlocked ? null : mask(row.email || ''), error: row.error, answers: unlocked ? row.answers : { ads: row.answers?.ads || '' } })
 }

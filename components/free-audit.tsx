@@ -123,7 +123,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
   const [err, setErr] = useState<string | null>(null); const [res, setRes] = useState<Result | null>(null); const [host, setHost] = useState('')
   const [step, setStep] = useState(0); const [ans, setAns] = useState<any>({ maintainer: '', cost: '', agency_name: '', ads: '', frustration: '' }); const [ansSent, setAnsSent] = useState(false)
   const [reqKind, setReqKind] = useState<ReqKind | null>(null); const openReq = (k: ReqKind) => { setReqKind(k); track('free_audit_offer_click', { which: k, lang }) }
-  const [copied, setCopied] = useState(false); const [savedAns, setSavedAns] = useState<any>({}); const [gated, setGated] = useState(false); const [hint, setHint] = useState(''); const key = useRef('')
+  const [copied, setCopied] = useState(false); const [savedAns, setSavedAns] = useState<any>({}); const [gated, setGated] = useState(false); const [review, setReview] = useState(false); const [hint, setHint] = useState(''); const key = useRef('')
   const utm = useRef<Record<string, string>>({})
   const otherLang = lang === 'es' ? '/en/free-website-audit' : '/auditoria-web-gratis'
 
@@ -147,7 +147,7 @@ export function FreeAudit({ lang }: { lang: Lang }) {
         if (r.status >= 400 && r.status < 500) { setErr('db'); setStatus('failed'); return }
         const j = await r.json()
         if (j.host) setHost(j.host); if (j.answers) setSavedAns(j.answers)
-        if (j.status === 'done' && j.result) { setRes(j.result); setGated(!!j.gated); setHint(j.email_hint || ''); setStatus('done'); track('free_audit_done', { score: j.result.overall, lang }); return }
+        if (j.status === 'done' && j.result) { setRes(j.result); setGated(!!j.gated); setReview(!!j.pending_review); setHint(j.email_hint || ''); setStatus('done'); track('free_audit_done', { score: j.result.overall, lang }); return }
         if (j.status === 'failed' || j.error === 'not_found') { setErr(j.error || 'timeout'); setStatus('failed'); track('free_audit_failed', { reason: j.error }); return }
       } catch {}
       n++; setStep(Math.min(STEPS[lang].length - 1, Math.floor(n / 2)))
@@ -318,9 +318,15 @@ export function FreeAudit({ lang }: { lang: Lang }) {
             <section className="section" style={{ paddingTop: 40 }}>
               <div className="wrap">
                 {gated ? <Reveal className="fa-gate">
+                  {review ? <>
+                  <h3>{t('Tu informe completo te llega por email', 'Your full report is on its way by email')}</h3>
+                  <p>{t(`Un miembro del equipo de ImpulsoMedia revisa cada informe antes de enviarlo, para que lo que te llegue tenga sentido para tu negocio. Lo recibirás en ${hint || 'tu dirección'} en las próximas horas laborables, con el enlace para ver qué falla en cada apartado, por qué y qué hacer.`, `A member of the ImpulsoMedia team checks every report before it is sent, so what you get makes sense for your business. You will receive it at ${hint || 'your address'} within business hours, with the link to see what fails in each area, why, and what to do.`)}</p>
+                  <p className="note">{t('Cuando llegue, mira también en spam o promociones. ¿Prisa? Escríbenos por WhatsApp.', 'When it arrives, check spam or promotions too. In a hurry? Message us on WhatsApp.')}</p>
+                  </> : <>
                   <h3>{t('El informe completo está en tu email', 'The full report is in your email')}</h3>
                   <p>{t(`Te lo hemos enviado a ${hint || 'tu dirección'}. Abre el enlace del correo para ver qué falla en cada apartado, por qué y qué hacer. Así nos aseguramos de que el informe llega a quien lo ha pedido. Un miembro del equipo de ImpulsoMedia se pondrá en contacto contigo en los próximos días por si quieres que te lo expliquemos.`, `We sent it to ${hint || 'your address'}. Open the link in the email to see what fails in each area, why, and what to do. This is how we make sure the report reaches the person who asked for it. A member of the ImpulsoMedia team will be in touch in the next few days in case you would like it explained.`)}</p>
                   <p className="note">{t('¿No lo ves? Mira en spam o promociones. Si sigue sin llegar, escríbenos por WhatsApp.', 'Can’t see it? Check spam or promotions. If it still has not arrived, message us on WhatsApp.')}</p>
+                  </>}
                   <div className="fa-grid fa-blur" aria-hidden="true">{res.cards.map(c => <div key={c.key} className="fa-card"><div className="fa-ch"><h3>{c.title}</h3><Pill v={c.score} /></div><p className="fa-sum">{c.summary}</p></div>)}</div>
                 </Reveal> : <div className="fa-grid">{res.cards.map(c => <CardView key={c.key} c={c} t={t} extra={c.key === 'tracking' ? adsCheck : []} />)}</div>}
                 {!gated && <Reveal className="fa-prev">
