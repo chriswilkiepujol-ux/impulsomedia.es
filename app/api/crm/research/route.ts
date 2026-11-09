@@ -55,14 +55,16 @@ export async function POST(req: Request) {
   // Advertisers found by name keep their ad volume even without a website match.
   if (!ads && c.source === 'ads') ads = { google_all: c.extra?.ads_max || 0, google_all_more: false }
   const where = `${c.area || ''} ${c.address || ''} ${c.name}`
-  const high = HIGH.test(`${c.category || ''} ${c.name} ${c.extra?.activity || ''}`), core = CORE.test(where)
+  const high = HIGH.test(`${c.category || ''} ${c.name} ${c.extra?.activity || ''}`); let core = CORE.test(where)
+  // Competitors' clients come with no address: read their homepage to see whether they are in our area.
+  if (c.source === 'agency' && website && !core) { try { const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 8000); const r = await fetch(website, { signal: ctl.signal, headers: { 'user-agent': 'Mozilla/5.0 (compatible; ImpulsoMediaAudit/1.0)' } }); clearTimeout(tm); if (r.ok) core = CORE.test((await r.text()).slice(0, 400000)) } catch {} }
   const pre = opportunity({ name: c.name, category: c.category, area: c.area, address: c.address, website, phone: c.phone, email: c.email, contact_name: c.extra?.admin, source: c.source === 'borme' ? 'New company (BORME)' : '', capital: c.extra?.capital }, null, ads)
   const g30 = ads?.google_30d || 0, gAll = ads?.google_all || 0
-  const promote = g30 >= 1 || (gAll >= 5 && (high || core)) || (high && core && !!website) || (c.source === 'borme' && high && core)
+  const promote = c.source === 'agency' ? core && (g30 >= 1 || gAll >= 5 || (high && !!website)) : g30 >= 1 || (gAll >= 5 && (high || core)) || (high && core && !!website) || (c.source === 'borme' && high && core)
   const research = { website, website_found: found, ads, high, core, pre: pre.score, at: new Date().toISOString() }
   if (!promote) { await sb.from('crm_candidates').update({ website, extra: { ...c.extra, research }, score: pre.score }).eq('id', c.id); return NextResponse.json({ ok: true, promoted: false, pre: pre.score, website, g30 }) }
-  const src = c.source === 'borme' ? 'New company (BORME)' : c.source === 'ads' ? 'Google ad register' : 'OpenStreetMap'
-  const notes = c.source === 'borme' ? `New company (BORME ${c.extra?.published || ''}). Activity: ${c.extra?.activity || '—'}. Administrator: ${c.extra?.admin || '—'}. Find their phone before contacting.`
+  const src = c.source === 'agency' ? `Client of ${c.extra?.agency || 'a competitor'}` : c.source === 'borme' ? 'New company (BORME)' : c.source === 'ads' ? 'Google ad register' : 'OpenStreetMap'
+  const notes = c.source === 'agency' ? `${c.extra?.note || 'Listed as a client by a competitor'}. Current agency: ${c.extra?.agency || '—'} (${c.extra?.agency_domain || ''}).${found ? ` Website found automatically: ${website} (verify).` : ''}` : c.source === 'borme' ? `New company (BORME ${c.extra?.published || ''}). Activity: ${c.extra?.activity || '—'}. Administrator: ${c.extra?.admin || '—'}. Find their phone before contacting.`
     : c.source === 'ads' ? `On Google's ad register as “${c.extra?.advertiser}” (${c.extra?.ads_min}–${c.extra?.ads_max} ads).${found ? ` Website found automatically: ${website} (verify).` : ''}` : `From OpenStreetMap (${c.extra?.kind || ''}).${found ? ` Website found automatically: ${website} (verify).` : ''}`
   const { data: lead, error } = await sb.from('crm_leads').insert({ name: c.name, category: c.category, area: c.area, address: c.address, website, phone: c.phone, email: c.email, contact_name: c.extra?.admin || null, capital: c.extra?.capital || null, source: `${src} (researched)`, source_url: c.extra?.link || c.extra?.osm || c.extra?.pdf || null, notes, ads_counts: ads, origin: 'outbound', lead_type: 'cold', relationship: 'lead', status: 'nuevo', service_fit: {}, fit_reasons: {} }).select('*').single()
   if (error && /crm_leads_website_uq/.test(error.message)) { await sb.from('crm_candidates').update({ status: 'dismissed', website, extra: { ...c.extra, research, note: 'Already a lead (same website)' } }).eq('id', c.id); return NextResponse.json({ ok: true, promoted: false, duplicate: true }) }

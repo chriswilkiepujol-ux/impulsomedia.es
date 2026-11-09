@@ -1,6 +1,7 @@
 // Auditor: mide hechos observables en el HTML público y clasifica el encaje por servicio.
 // Los "pixels" indican que anuncian o han anunciado; NO prueban que haya campañas activas hoy.
 import { refreshOpportunity } from './opportunity'
+import { detectAgency } from './agency'
 export type Reason = { label: string; points: number };
 export type Fit = { web: number; seo: number; ppc: number; social: number };
 export const PITCH_LABEL: Record<string, string> = { verificar: 'Check website',  onepager: 'One-page website (€400–500)', web: 'New website', seo: 'Monthly SEO', ppc: 'Monthly Google Ads', social: 'Monthly Meta/Social Ads' };
@@ -371,6 +372,8 @@ export async function auditLead(sb: any, lead: any, opts: { psi?: boolean } = { 
   const f = await fetchSite(lead.website);
   const a = f.ok ? analyse(f.html) : null;
   if (a && a.gtm_ids.length) await gtmScan(a);
+  // Which agency built/runs their site (footer credit). Never fatal.
+  if (f.ok) { try { const ag = await detectAgency(sb, f.html, f.finalUrl || lead.website); await sb.from('crm_leads').update({ agency_domain: ag?.domain || null, agency_name: ag?.name || null, agency_evidence: ag?.evidence?.slice(0, 200) || null, agency_checked_at: new Date().toISOString() }).eq('id', lead.id) } catch {} }
   let sitemap = false; let ext: Ext = { pageCount: null, sitemapLastmod: null, lastModified: f.lastModified ? new Date(f.lastModified).toISOString().slice(0, 10) : null, wbFirst: null, wbChanges: null, wbLast: null };
   if (f.ok) { try { const o = new URL(f.finalUrl).origin; const [sm, wb] = await Promise.all([sitemapInfo(o), waybackInfo(f.finalUrl)]); sitemap = sm.ok; ext = { ...ext, pageCount: sm.pageCount, sitemapLastmod: sm.lastmod, ...wb }; } catch {} }
   if (ext.lastModified && Number.isNaN(Date.parse(ext.lastModified))) ext.lastModified = null;
