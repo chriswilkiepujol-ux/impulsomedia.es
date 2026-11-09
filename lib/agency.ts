@@ -99,26 +99,42 @@ const tidy = (s: string) => { let t = s.replace(/\.(png|jpe?g|webp|svg|gif)$/i, 
   for (let i = 0; i < 3; i++) t = t.replace(/^\s*(cropped|logo|logotipo)\s+/i, '').replace(/\s+(logo|logotipo|azul|blanco|negro|portfolio|agente exclusivo|agexclusivo|definitivo|home|web|color|\d+)\s*$/i, '')
   return t.replace(/\s+/g, ' ').trim() }
 
+export type ClientRef = { name: string; domain?: string | null; sector?: string | null }
 export async function competitorClients(domain: string) {
   const home = await getText(`https://${domain}/`, 10000)
-  if (!home) return { names: [] as string[], pages: 0 }
+  if (!home) return { names: [] as ClientRef[], pages: 0 }
   const linkRe = new RegExp(`href=["'](https?://(?:www\\.)?${domain.replace(/\./g, '\\.')}/[^"'#?]*(?:portfolio|proyectos|clientes|trabajos|casos|work|projects|clients|referencias|diseno-web)[^"'#?]*)["']`, 'gi')
-  const pages = [...new Set([...home.matchAll(linkRe)].map(m => m[1]))].slice(0, 6)
+  const pages = [...new Set([...home.matchAll(linkRe)].map(m => m[1]))].slice(0, 8)
   const htmls = [home, ...(await Promise.all(pages.map(p => getText(p, 9000)))).filter(Boolean) as string[]]
-  const names = new Map<string, string>()
+  const out = new Map<string, ClientRef>()
+  const k = (n: string) => n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '')
+  const own = domain.split('.')[0]
+  const put = (r: ClientRef) => { const key = r.domain ? r.domain : k(r.name); if (key.length < 3) return; const byName = [...out.entries()].find(([, v]) => k(v.name) === k(r.name)); if (byName) { if (r.domain && !byName[1].domain) byName[1].domain = r.domain; return } if (!out.has(key)) out.set(key, r) }
   for (const h of htmls) {
+    // 1) Portfolio entries: a text block that is just a domain, with the name in the block before it and
+    //    usually the sector in the block after (e.g. Cinpy: "EIG Education" / "esgerencia.com" / "Educación").
+    const nodes = h.replace(/<(script|style|noscript)[\s\S]*?<\/\1>/gi, ' ').split(/<[^>]+>/).map(x => x.replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()).filter(Boolean)
+    nodes.forEach((n, i) => {
+      const dm = n.match(/^(?:https?:\/\/)?(?:www\.)?((?:[a-z0-9-]+\.)+[a-z]{2,6})\/?$/i)
+      if (!dm) return
+      const d = dm[1].toLowerCase()
+      if (d.includes(own) || NOT_AGENCY.test(d + '.') || /\.(png|jpe?g|svg|webp|php|html)$/.test(d)) return
+      const name = (nodes[i - 1] || '').slice(0, 60)
+      if (!name || name.length < 2 || /\.(com|es|net)$/i.test(name) || (name === name.toUpperCase() && name.split(' ').length >= 3)) return
+      const sector = nodes[i + 1] && nodes[i + 1].length < 40 && !/\./.test(nodes[i + 1]) ? nodes[i + 1] : null
+      put({ name, domain: d, sector })
+    })
+    // 2) Client logos.
     for (const tag of h.match(/<img\b[^>]*>/gi) || []) {
       const src = tag.match(/(?:data-src|data-lazy-src|src)=["']([^"']+)["']/i)?.[1] || ''
       if (/^data:/.test(src) && !/data-src/.test(tag)) continue
       const file = (tag.match(/data-(?:lazy-)?src=["']([^"']+)["']/i)?.[1] || src).split('/').pop() || ''
       const alt = tag.match(/alt=["']([^"']*)["']/i)?.[1] || ''
-      const ctx = /logo|client|portfolio|partner/i.test(file + ' ' + alt)
-      if (!ctx) continue
+      if (!/logo|client|portfolio|partner/i.test(file + ' ' + alt)) continue
       const n = tidy(alt && !/\.(png|jpe?g|svg|webp)$/i.test(alt) && alt.length < 50 ? alt : file)
-      if (n.length < 3 || JUNK.test(n) || new RegExp(domain.split('.')[0], 'i').test(n)) continue
-      const key = n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, '')
-      if (key.length >= 3 && !names.has(key)) names.set(key, n.split(' ').map(w => w === w.toLowerCase() ? w.charAt(0).toUpperCase() + w.slice(1) : w).join(' '))
+      if (n.length < 3 || JUNK.test(n) || new RegExp(own, 'i').test(n)) continue
+      put({ name: n.split(' ').map(w => w === w.toLowerCase() ? w.charAt(0).toUpperCase() + w.slice(1) : w).join(' ') })
     }
   }
-  return { names: [...names.values()].slice(0, 120), pages: htmls.length }
+  return { names: [...out.values()].slice(0, 250), pages: htmls.length }
 }

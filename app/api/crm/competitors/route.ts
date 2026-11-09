@@ -57,9 +57,9 @@ export async function POST(req: Request) {
     }
     if (body.action === 'candidate') {
       const { data: c } = await sb.from('crm_competitors').select('name,domain').eq('id', String(body.id)).single()
-      const name = String(body.name || '').slice(0, 120)
+      const name = String(body.name || '').slice(0, 120); const dom = String(body.domain || '').toLowerCase().replace(/[^a-z0-9.-]/g, '').slice(0, 100)
       if (!c || !name) return NextResponse.json({ error: 'bad_request' }, { status: 400 })
-      const { error } = await sb.from('crm_candidates').upsert({ source: 'agency', source_ref: `${c.domain}:${name.toLowerCase()}`, name, area: null, extra: { agency: c.name, agency_domain: c.domain, note: `Listed as a client on ${c.domain}` }, score: 40, status: 'new' }, { onConflict: 'source,source_ref', ignoreDuplicates: true })
+      const { error } = await sb.from('crm_candidates').upsert({ source: 'agency', source_ref: `${c.domain}:${dom || name.toLowerCase()}`, name, area: null, website: dom ? `https://${dom}/` : null, category: body.sector ? String(body.sector).slice(0, 60) : null, extra: { agency: c.name, agency_domain: c.domain, note: `Listed as a client on ${c.domain}` }, score: 40, status: 'new' }, { onConflict: 'source,source_ref', ignoreDuplicates: true })
       if (error) throw new Error(error.message)
       return NextResponse.json({ ok: true })
     }
