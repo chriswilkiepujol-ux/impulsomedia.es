@@ -30,7 +30,7 @@ export function middleware(request: NextRequest) {
   const rawHost = (request.headers.get('x-forwarded-host') || request.headers.get('host') || '').toLowerCase()
   const isCrmHost = rawHost.startsWith('crm.')
   const isPublicSite = rawHost === 'impulsomedia.es' || rawHost === 'www.impulsomedia.es'
-  // --- Free website audit: staging only (qa.impulsomedia.es) until launch. On the public site it does not exist. ---
+  // --- Free website audit: LIVE since 9 Nov 2026 (NEXT_PUBLIC_FREE_AUDIT_LIVE=1 in production). Kept as a kill switch: set it to 0 and redeploy to hide it again. ---
   const isFreeAudit = pathname === '/auditoria-web-gratis' || pathname === '/en/free-website-audit' || pathname.startsWith('/api/free-audit')
   // Exception before launch: a report we shared from the CRM (id + k in the link) opens on the public domain, because QA is password-protected.
   // The API decides what is allowed (GET of a report, request/answer forms); new audits stay off the public site until launch.
