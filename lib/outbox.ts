@@ -1,5 +1,6 @@
-// Rule: no email leaves for anyone other than Chris without his approval.
-// Code that wants to email a client, lead or visitor calls queueEmail(); Chris approves it in CRM → Outbox,
+// Rule: no outreach or client email (prospects, proposals, client reports) leaves without Chris's approval.
+// Exception approved by Chris: free-audit report emails to the person who requested them send automatically.
+// Code that wants to email a client or lead calls queueEmail(); Chris approves it in CRM → Outbox,
 // and only then sendOutbox() sends it. Emails to Chris himself (notifications) are not affected.
 import { sendPush } from './push'
 
