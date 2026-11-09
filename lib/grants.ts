@@ -12,8 +12,8 @@ export type Grant = { source: 'bdns' | 'boe'; ref: string; title: string; url: s
 export async function fromBdns(days = 3, debug?: any): Promise<Grant[]> {
   const to = new Date(), from = new Date(Date.now() - days * 864e5)
   const out: Grant[] = []
-  for (const term of ['digitalización', 'digital', 'comercio electrónico', 'tecnologías de la información']) {
-    const u = `https://www.infosubvenciones.es/bdnstrans/api/convocatorias/busqueda?vpd=GE&page=0&pageSize=50&order=numeroConvocatoria&direccion=desc&descripcion=${encodeURIComponent(term)}&descripcionTipoBusqueda=1&fechaDesde=${encodeURIComponent(dmy(from))}&fechaHasta=${encodeURIComponent(dmy(to))}`
+  for (const term of ['digitalización', 'digital', 'comercio', 'pymes', 'tecnologías de la información', 'innovación']) {
+    const u = `https://www.infosubvenciones.es/bdnstrans/api/convocatorias/busqueda?vpd=GE&page=0&pageSize=100&order=numeroConvocatoria&direccion=desc&descripcion=${encodeURIComponent(term)}&descripcionTipoBusqueda=1&fechaDesde=${encodeURIComponent(dmy(from))}&fechaHasta=${encodeURIComponent(dmy(to))}`
     try {
       const r = await fetch(u, { headers: { accept: 'application/json', 'user-agent': UA }, signal: AbortSignal.timeout(15000) })
       const txt = await r.text(); if (debug) debug.push({ term, status: r.status, head: txt.slice(0, 600) })
@@ -41,6 +41,8 @@ export async function fromBoe(days = 3, debug?: any): Promise<Grant[]> {
       const items: any[] = []; walk((await r.json())?.data?.sumario, items)
       for (const it of items) {
         const t = String(it.titulo)
+        // Only actual calls or their extracts, not agreements between bodies.
+        if (!/convoca|extracto|ayudas|subvenciones/i.test(t) || /convenio|adenda|acuerdo de colaboraci/i.test(t)) continue
         if (!WANT.test(t) || !WHO.test(t) || NOT.test(t)) continue
         out.push({ source: 'boe', ref: it.identificador, title: t, url: it.url_html || it.url_pdf?.texto || `https://www.boe.es/diario_boe/txt.php?id=${it.identificador}`, published: `${ymd(d).slice(0, 4)}-${ymd(d).slice(4, 6)}-${ymd(d).slice(6, 8)}` })
       }

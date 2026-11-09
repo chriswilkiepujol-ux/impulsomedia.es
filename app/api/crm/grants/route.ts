@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const sb = crmTokenClient(token)
   const { days, debug } = await req.json().catch(() => ({}))
   const dbg: any[] | undefined = debug ? [] : undefined
-  const [a, b] = await Promise.all([fromBdns(Math.min(Number(days) || 14, 60), dbg), fromBoe(Math.min(Number(days) || 7, 14), dbg)])
+  const [a, b] = await Promise.all([fromBdns(Math.min(Number(days) || 14, 180), dbg), fromBoe(Math.min(Number(days) || 7, 14), dbg)])
   const r = await storeGrants(sb, [...a, ...b])
   return NextResponse.json({ ok: true, bdns: a.length, boe: b.length, ...r, debug: dbg })
 }
