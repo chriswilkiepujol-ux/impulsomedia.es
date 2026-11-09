@@ -13,18 +13,22 @@ export async function fromBdns(days = 3, debug?: any): Promise<Grant[]> {
   const to = new Date(), from = new Date(Date.now() - days * 864e5)
   const out: Grant[] = []
   for (const term of ['digitalización', 'digital', 'comercio', 'pymes', 'tecnologías de la información', 'innovación']) {
-    const u = `https://www.infosubvenciones.es/bdnstrans/api/convocatorias/busqueda?vpd=GE&page=0&pageSize=100&order=numeroConvocatoria&direccion=desc&descripcion=${encodeURIComponent(term)}&descripcionTipoBusqueda=1&fechaDesde=${encodeURIComponent(dmy(from))}&fechaHasta=${encodeURIComponent(dmy(to))}`
+    for (let page = 0; page < 5; page++) {
+    const u = `https://www.infosubvenciones.es/bdnstrans/api/convocatorias/busqueda?vpd=GE&page=${page}&pageSize=100&order=numeroConvocatoria&direccion=desc&descripcion=${encodeURIComponent(term)}&descripcionTipoBusqueda=1&fechaDesde=${encodeURIComponent(dmy(from))}&fechaHasta=${encodeURIComponent(dmy(to))}`
     try {
       const r = await fetch(u, { headers: { accept: 'application/json', 'user-agent': UA }, signal: AbortSignal.timeout(15000) })
-      const txt = await r.text(); if (debug) debug.push({ term, status: r.status, head: txt.slice(0, 600) })
-      if (!r.ok) continue
+      const txt = await r.text()
+      if (!r.ok) break
       const j = JSON.parse(txt)
+      if (debug) debug.push({ term, page, n: (j.content || []).length, total: j.totalElements, andalucia: (j.content || []).filter((c: any) => /andaluc|c[aá]diz|m[aá]laga/i.test(`${c.nivel2} ${c.nivel3}`)).map((c: any) => c.descripcion.slice(0, 140)) })
       for (const c of j.content || []) {
         const title = String(c.descripcion || '').trim(); const org = [c.nivel1, c.nivel2, c.nivel3].filter(Boolean).join(' · ')
         if (!WANT.test(title) || !WHO.test(title + ' ' + org) || NOT.test(title) || !PLACE.test(org + ' ' + title)) continue
         out.push({ source: 'bdns', ref: String(c.numeroConvocatoria || c.id), title, url: `https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias/${c.numeroConvocatoria || c.id}`, published: c.fechaRecepcion ? String(c.fechaRecepcion).slice(0, 10) : null, body: org })
       }
-    } catch (e: any) { if (debug) debug.push({ term, error: String(e?.message || e) }) }
+      if (j.last || !(j.content || []).length) break
+    } catch (e: any) { if (debug) debug.push({ term, error: String(e?.message || e) }); break }
+    }
   }
   return out
 }
