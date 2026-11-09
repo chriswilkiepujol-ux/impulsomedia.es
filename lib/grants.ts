@@ -4,7 +4,7 @@ const UA = 'ImpulsoMediaCRM/1.0'
 const WANT = /digitaliz|transformaci[oó]n digital|kit digital|kit consulting|comercio electr[oó]nico|tienda online|presencia (en )?(internet|online|digital)|marketing digital|tic\b|tecnolog[ií]as de la informaci[oó]n|innovaci[oó]n.{0,40}(pyme|comercio|empresa)|moderniza.{0,40}comercio/i
 const WHO = /pyme|empresa|comercio|comercial|aut[oó]nom|emprend|artesan|hostel|turis|negocio/i
 const NOT = /entidades locales|municipios? (de|en situaci)|ayuntamientos? (para|de) la|administraci[oó]n electr|brecha digital|centros educativos|universidad|investigaci[oó]n cient|personal docente|becas?/i
-const PLACE = /andaluc|c[aá]diz|m[aá]laga|san roque|algeciras|l[ií]nea de la concepci|los barrios|tarifa|estepona|manilva|casares|campo de gibraltar|estado|nacional|red\.es|ministerio/i
+const PLACE = /andaluc|c[aá]diz|m[aá]laga|san roque|algeciras|l[ií]nea de la concepci|los barrios|tarifa|estepona|manilva|casares|campo de gibraltar|^estado\b|red\.es|ministerio/i
 const dmy = (d: Date) => `${String(d.getUTCDate()).padStart(2, '0')}/${String(d.getUTCMonth() + 1).padStart(2, '0')}/${d.getUTCFullYear()}`
 const ymd = (d: Date) => d.toISOString().slice(0, 10).replace(/-/g, '')
 export type Grant = { source: 'bdns' | 'boe'; ref: string; title: string; url: string; published: string | null; body?: string }
