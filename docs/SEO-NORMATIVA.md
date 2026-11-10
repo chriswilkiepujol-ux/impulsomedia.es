@@ -68,12 +68,16 @@ Objetivo: más impresiones, clics y rankings, llegar a posiciones 1-5 en las key
 
 | Tipo | Qué es | Cómo se aplica |
 |---|---|---|
-| **A — Técnico obligatorio** | Sitemap de páginas nuevas, hreflang, canonical, OG, alt, JSON-LD roto, enlaces rotos, límites de esta normativa | PR en cuanto se detecta. Chris solo fusiona. No cambia el copy |
-| **B — Pequeño** | Retoques de contenido: una FAQ, un párrafo, un caso, enlaces internos, alt | Se acumulan en la lista de propuestas. Lote mensual (1er lunes de mes): Chris dice sí/no a cada una y va un único PR |
+| **A — Técnico obligatorio** | Sitemap de páginas nuevas, hreflang, canonical, OG, alt, JSON-LD roto, enlaces rotos, límites de esta normativa | Se propone y se lanza en cuanto Chris lo confirma en la conversación. No cambia el copy |
+| **B — Pequeño** | Retoques de contenido: una FAQ, un párrafo, un caso, enlaces internos, alt | Se acumulan en la lista de propuestas. Chris dice sí/no; lo aprobado se lanza desde la conversación, agrupado para poder medir |
 | **C — Grande** | Títulos, H1, descriptions, URLs/slugs, redirecciones, menú, plantillas, fusionar o borrar páginas, en páginas principales | No se toca sin conversación: el agente explica por qué, datos, riesgo, efecto esperado, cómo se mide y cómo se revierte. Solo con un sí explícito de Chris |
-| **D — Satélite SEO** | Landings geográficas o de captación que no van en el menú principal (`/diseno-web-*`, `/seo-algeciras`, `/agencia-marketing-digital-algeciras`, `/en/*-gibraltar`, `/en/web-design-sotogrande`) y posts del blog | Más libertad: también títulos y contenido, pero propuestos en la lista y aprobados con sí/no; se agrupan en el lote mensual salvo que sea urgente |
+| **D — Satélite SEO** | Landings geográficas o de captación que no van en el menú principal (`/diseno-web-*`, `/seo-algeciras`, `/agencia-marketing-digital-algeciras`, `/en/*-gibraltar`, `/en/web-design-sotogrande`) y posts del blog | Más libertad: también títulos y contenido, propuestos en la lista y aprobados con sí/no |
 
 **Páginas principales** (tipo C para títulos/estructura): home `/` y `/en`, `/servicios` y `/servicios/*` (y `/en/services*`), `/precios`, `/nosotros`, `/contacto`, `/proyectos`, `/opiniones`, `/blog` (índice) y sus versiones EN.
+
+Cómo se publica: **sin ramas ni Pull Requests**. Todo se decide con Chris en la conversación y se lanza desde ahí (commit a `main` tras tsc + build + `seo:check`). El agente semanal solo diagnostica y propone.
+
+Páginas de localidades: las páginas principales (menú) no enlazan a las landings de ciudades; el contenido local vive aparte; no se mezclan enlaces ES↔EN.
 
 Reglas de medición:
 - Una sola modificación relevante por página y ciclo; no volver a tocar una página hasta 4 semanas después de cambiarla (salvo errores tipo A).
