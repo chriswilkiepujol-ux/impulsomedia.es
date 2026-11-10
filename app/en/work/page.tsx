@@ -1,3 +1,4 @@
+import { projectsItemList } from '@/lib/schema'
 import type { Metadata } from 'next'
 import { ProyectosContent } from '../../proyectos/proyectos-content'
 
@@ -36,6 +37,10 @@ export default function Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsItemList('en')) }}
       />
       <ProyectosContent lang="en" />
     </>

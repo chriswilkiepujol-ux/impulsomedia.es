@@ -1,3 +1,4 @@
+import { reviewsSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 import { OpinionesContent } from './opiniones-content'
 
@@ -35,6 +36,10 @@ export default function Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsSchema('es')) }}
       />
       <OpinionesContent lang="es" />
     </>

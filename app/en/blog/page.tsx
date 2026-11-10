@@ -1,3 +1,4 @@
+import { blogItemList } from '@/lib/schema'
 import type { Metadata } from 'next'
 import { BlogListingContent } from '../../blog/blog-listing-content'
 
@@ -36,6 +37,10 @@ export default function Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogItemList('en')) }}
       />
       <BlogListingContent lang="en" />
     </>

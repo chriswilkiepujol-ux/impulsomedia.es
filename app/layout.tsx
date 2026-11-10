@@ -107,10 +107,10 @@ export const metadata: Metadata = {
 }
 
 // JSON-LD Structured Data
-const structuredData = {
-  '@context': 'https://schema.org',
+const businessNode = {
   '@type': 'ProfessionalService',
   name: 'ImpulsoMedia',
+  alternateName: ['Impulso Media', 'ImpulsoMedia Sotogrande'],
   description: 'Agencia digital especializada en diseño web, SEO, PPC, paid social, programática, afiliación, ASO y consultoría. Creamos sitios web desde cero para negocios locales y marcas a mayor escala.',
   url: 'https://impulsomedia.es',
   logo: 'https://impulsomedia.es/images/impulsomedia-logo.svg',
@@ -131,8 +131,9 @@ const structuredData = {
     longitude: -5.2833,
   },
   hasMap: 'https://g.page/r/Cart50OPlmevEBE',
-  sameAs: ['https://g.page/r/Cart50OPlmevEBE'],
-  founder: { '@type': 'Person', name: 'Chris Wilkie' },
+  sameAs: ['https://g.page/r/Cart50OPlmevEBE', 'https://www.instagram.com/impulsomediaes/'],
+  founder: { '@type': 'Person', name: 'Chris Wilkie', jobTitle: 'Founder', worksFor: { '@id': 'https://impulsomedia.es/#business' } },
+  knowsAbout: ['Web design', 'SEO', 'Local SEO', 'Google Ads', 'Paid social', 'Branding', 'AI automation', 'Process automation', 'iGaming marketing', 'Programmatic advertising'],
   areaServed: [
     { '@type': 'Place', name: 'Sotogrande' },
     { '@type': 'Place', name: 'San Roque' },
@@ -149,6 +150,7 @@ const structuredData = {
     'Web Design', 'SEO', 'PPC', 'Paid Social', 'Programmatic Advertising',
     'Affiliate Marketing', 'In-App Marketing', 'ASO', 'Social Media Management',
     'Influencer Marketing', 'Web Maintenance', 'Digital Marketing Consultancy',
+    'Branding', 'AI Automation',
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
@@ -166,6 +168,8 @@ const structuredData = {
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marketing de Influencers' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Mantenimiento Web' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Consultoría' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Branding', url: 'https://impulsomedia.es/servicios/branding' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Automatización con IA', url: 'https://impulsomedia.es/servicios/automatizacion-ia' } },
     ],
   },
   aggregateRating: {
@@ -182,6 +186,22 @@ const structuredData = {
     closes: '18:00',
   },
   knowsLanguage: ['Spanish', 'English'],
+}
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    businessNode,
+    {
+      '@type': 'WebSite',
+      '@id': 'https://impulsomedia.es/#website',
+      url: 'https://impulsomedia.es',
+      name: 'ImpulsoMedia',
+      alternateName: 'Impulso Media',
+      inLanguage: ['es-ES', 'en-GB'],
+      publisher: { '@id': 'https://impulsomedia.es/#business' },
+    },
+  ],
 }
 
 export default async function RootLayout({

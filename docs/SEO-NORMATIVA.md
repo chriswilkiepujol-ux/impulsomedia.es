@@ -55,6 +55,14 @@ Si `seo:check` da errores no se hace push. Los avisos (`!`) se revisan y se just
 - Sin redirecciones en cadena; sin enlaces rotos internos; HTTPS y dominio canónico únicos.
 - Verificar en producción tras el despliegue: 200 en todas las URLs nuevas y `<head>` correcto (`curl`).
 
+### IA y datos estructurados (AI search)
+- `/llms.txt` y `/llms-full.txt` se generan solos desde los datos (`lib/llms.ts`): una página nueva aparece si está en `lib/areas.ts` (pilares o zonas), en `lib/landing-data*` / `service-pages*` o en `lib/blog-data.ts`. No editar a mano.
+- Schema de toda la web en `app/layout.tsx` (`@graph`: `ProfessionalService` + `WebSite`), con `sameAs` (Google Business, Instagram @impulsomediaes) y `alternateName`. Cada perfil nuevo de la marca (LinkedIn de empresa, Facebook, directorios) se añade a `sameAs`.
+- Listados con `ItemList` (`lib/schema.ts`): servicios, blog y proyectos; opiniones como `Review`. Salen de los mismos datos que la página (`lib/projects-data.ts`, `lib/reviews-data.ts`): no duplicar datos en los componentes.
+- Solo reseñas reales; la valoración (`aggregateRating`) debe coincidir con Google.
+- Contenido en HTML del servidor (nada importante solo en cliente), FAQs en formato pregunta/respuesta y datos de contacto idénticos en web, Google Business y directorios.
+- Seguridad: las cabeceras viven en Vercel (Project → Routing, regla "Security headers"); no hay CSP estricta a propósito (riesgo para analítica e inline JSON-LD).
+
 ## Cuando se añade una página nueva — checklist rápido
 1. Datos (`lib/landing-data*.ts` / `service-pages*.ts`) con `alternatePath` si hay versión en otro idioma.
 2. Ruta `app/.../page.tsx`.
