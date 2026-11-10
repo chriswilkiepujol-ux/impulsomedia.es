@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { NosotrosContent } from '../../nosotros/nosotros-content'
 
 export const metadata: Metadata = {
-  title: 'About Us – Digital Agency in Sotogrande',
+  title: 'About Us',
   description: 'Digital agency based in Sotogrande. We build websites from scratch, no templates, with a direct relationship and fast communication over WhatsApp.',
   alternates: {
     canonical: '/en/about',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     images: [{ url: '/images/og-image-v2.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
-    title: 'About Us – Digital Agency in Sotogrande | ImpulsoMedia',
+    title: 'About Us | ImpulsoMedia',
     description: 'Digital agency based in Sotogrande. We build websites from scratch, no templates, direct relationship.',
     url: 'https://impulsomedia.es/en/about',
     locale: 'en_GB',

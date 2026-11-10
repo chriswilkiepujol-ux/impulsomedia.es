@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { BlogListingContent } from '../../blog/blog-listing-content'
 
 export const metadata: Metadata = {
-  title: 'Digital Marketing & Local SEO Blog',
+  title: 'Blog',
   description: 'Notes on local SEO, marketing campaigns and real projects in Sotogrande, San Roque, Gibraltar and Campo de Gibraltar.',
   alternates: {
     canonical: '/en/blog',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     images: [{ url: '/images/og-image-v2.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
-    title: 'Digital Marketing & Local SEO Blog | ImpulsoMedia',
+    title: 'Blog | ImpulsoMedia',
     description: 'Notes on local SEO, marketing campaigns and real projects.',
     url: 'https://impulsomedia.es/en/blog',
     locale: 'en_GB',

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ContactoContent } from './contacto-content'
 
 export const metadata: Metadata = {
-  title: 'Contacto – Agencia Digital en Sotogrande',
+  title: 'Contacto',
   description: 'Empieza tu proyecto con ImpulsoMedia. Contáctanos por WhatsApp o formulario y te responderemos rápido. Agencia digital en Sotogrande, Cádiz.',
   alternates: {
     canonical: '/contacto',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     images: [{ url: '/images/og-image-v2.jpg', width: 1200, height: 630, alt: 'ImpulsoMedia' }],
-    title: 'Contacto – Agencia Digital en Sotogrande | ImpulsoMedia',
+    title: 'Contacto | ImpulsoMedia',
     description: 'Empieza tu proyecto con ImpulsoMedia. Contáctanos por WhatsApp o formulario.',
     url: 'https://impulsomedia.es/contacto',
   },
