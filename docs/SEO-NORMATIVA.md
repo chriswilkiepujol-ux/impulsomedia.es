@@ -38,7 +38,7 @@ Si `seo:check` da errores no se hace push. Los avisos (`!`) se revisan y se just
 - `twitter:image` presente.
 
 ### Sitemap e indexación
-- ✔ Toda ruta nueva en `public/sitemap.xml` (con `lastmod`, `priority`, alternates). El script avisa de rutas que faltan.
+- ✔ **Regla absoluta:** toda ruta nueva indexable en `public/sitemap.xml` en el mismo commit que la crea, sin excepción (con `lastmod`, `priority`, alternates). El script avisa de rutas que faltan.
 - ✔ `robots.txt` y `sitemap.xml` responden 200.
 - Tras publicar: pedir indexación en Search Console (máx. 10/día) de las URLs nuevas, empezando por las de más prioridad.
 
@@ -62,6 +62,23 @@ Si `seo:check` da errores no se hace push. Los avisos (`!`) se revisan y se just
 4. `lib/areas.ts`, `lib/route-map.ts`, footer si procede, `public/sitemap.xml`.
 5. `pnpm seo:check` en verde → commit → push → comprobar en producción.
 6. Pedir indexación en Search Console; anotar en el dashboard SEO.
+
+## Política de cambios SEO (Chris, 10 nov 2026)
+Objetivo: más impresiones, clics y rankings, llegar a posiciones 1-5 en las keywords objetivo, sin cambiar tantas cosas a la vez que no se sepa qué ha funcionado.
+
+| Tipo | Qué es | Cómo se aplica |
+|---|---|---|
+| **A — Técnico obligatorio** | Sitemap de páginas nuevas, hreflang, canonical, OG, alt, JSON-LD roto, enlaces rotos, límites de esta normativa | PR en cuanto se detecta. Chris solo fusiona. No cambia el copy |
+| **B — Pequeño** | Retoques de contenido: una FAQ, un párrafo, un caso, enlaces internos, alt | Se acumulan en la lista de propuestas. Lote mensual (1er lunes de mes): Chris dice sí/no a cada una y va un único PR |
+| **C — Grande** | Títulos, H1, descriptions, URLs/slugs, redirecciones, menú, plantillas, fusionar o borrar páginas, en páginas principales | No se toca sin conversación: el agente explica por qué, datos, riesgo, efecto esperado, cómo se mide y cómo se revierte. Solo con un sí explícito de Chris |
+| **D — Satélite SEO** | Landings geográficas o de captación que no van en el menú principal (`/diseno-web-*`, `/seo-algeciras`, `/agencia-marketing-digital-algeciras`, `/en/*-gibraltar`, `/en/web-design-sotogrande`) y posts del blog | Más libertad: también títulos y contenido, pero propuestos en la lista y aprobados con sí/no; se agrupan en el lote mensual salvo que sea urgente |
+
+**Páginas principales** (tipo C para títulos/estructura): home `/` y `/en`, `/servicios` y `/servicios/*` (y `/en/services*`), `/precios`, `/nosotros`, `/contacto`, `/proyectos`, `/opiniones`, `/blog` (índice) y sus versiones EN.
+
+Reglas de medición:
+- Una sola modificación relevante por página y ciclo; no volver a tocar una página hasta 4 semanas después de cambiarla (salvo errores tipo A).
+- Todo cambio aplicado se apunta en el changelog (doc del proyecto `claude/seo-changelog.md`) con fecha, página, qué se cambió y la línea base (impresiones, clics y posición a 28 días) para compararla a las 4 semanas.
+- Las propuestas viven numeradas (P-xx) en el doc del proyecto `claude/seo-propuestas.md` con su tipo y su estado (Propuesta / Sí / No / Aplicada).
 
 ## Vigilancia continua
 Un agente SEO semanal (tarea programada) revisa Search Console y esta normativa en producción y propone mejoras. Sus informes van al dashboard y al doc de proyecto. Si encuentra incumplimientos, los lista con la corrección propuesta.

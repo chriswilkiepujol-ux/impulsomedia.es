@@ -450,4 +450,22 @@
     <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/services/ai-automation"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/servicios/automatizacion-ia"/>
   </url>
+  <url>
+    <loc>https://impulsomedia.es/auditoria-web-gratis</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/auditoria-web-gratis"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/free-website-audit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/auditoria-web-gratis"/>
+  </url>
+  <url>
+    <loc>https://impulsomedia.es/en/free-website-audit</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/auditoria-web-gratis"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/free-website-audit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/auditoria-web-gratis"/>
+  </url>
 </urlset>
