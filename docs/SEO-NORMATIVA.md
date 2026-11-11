@@ -45,7 +45,7 @@ Si `seo:check` da errores no se hace push. Los avisos (`!`) se revisan y se just
 ### Contenido y enlazado
 - Cada landing: contenido **único** (caso, FAQ y ejemplos propios); FAQ con schema `FAQPage`; `BreadcrumbList` y `Service` JSON-LD (`landingSchema`).
 - ✔ JSON-LD parseable.
-- Enlazado interno **bidireccional**: ciudad ↔ servicio (`lib/areas.ts`, `AreasStrip`, footer). Toda página nueva recibe al menos 3 enlaces internos y enlaza a 3.
+- Enlazado interno: las landings de localidades enlazan a los servicios, a otras landings del **mismo idioma** y al índice (`/zonas`, `/en/areas`); las páginas principales **no** enlazan a landings (solo el footer, con un enlace al índice). Toda página nueva recibe al menos 3 enlaces internos y enlaza a 3. Contenido de IA genérico (sin detalles de cómo se construyen los sistemas).
 - ✔ Imágenes con `alt` descriptivo.
 - Sin precios en landings; los precios solo en `/precios` (guía con "desde" orientativos).
 - Gibraltar: copy para empresas internacionales (operadores, finanzas, despachos) y locales; no hablar de "frontera".
@@ -67,7 +67,7 @@ Si `seo:check` da errores no se hace push. Los avisos (`!`) se revisan y se just
 1. Datos (`lib/landing-data*.ts` / `service-pages*.ts`) con `alternatePath` si hay versión en otro idioma.
 2. Ruta `app/.../page.tsx`.
 3. Portada SVG + PNG OG.
-4. `lib/areas.ts`, `lib/route-map.ts`, footer si procede, `public/sitemap.xml`.
+4. Landing de localidad: `lib/areas.ts` (con `zone` y descripciones, aparece sola en el índice de zonas) y `lib/route-map.ts`; siempre `public/sitemap.xml`.
 5. `pnpm seo:check` en verde → commit → push → comprobar en producción.
 6. Pedir indexación en Search Console; anotar en el dashboard SEO.
 
