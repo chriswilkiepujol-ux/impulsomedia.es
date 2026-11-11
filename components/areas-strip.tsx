@@ -1,13 +1,13 @@
 "use client"
 
 import { useLanguage } from '@/lib/language-context'
-import { areasFor, servicePillars, type AreaLink } from '@/lib/areas'
+import { areasFor, areasHubPath, servicePillars, type AreaLink } from '@/lib/areas'
 import { ArrowRight } from 'lucide-react'
 
 /**
- * Compact "where we work" strip with links to the city × service landings.
- * Used on service pages and under blog posts so the landings get internal
- * links from pages that already have authority, not only from the footer.
+ * Compact strip shown ONLY on the city × service landings: links to the
+ * service pillars and to the other landings in the same language, plus the
+ * areas hub. Main-menu pages and blog posts must not render it (Chris, 10 nov 2026).
  */
 export function AreasStrip({ services, exclude }: { services?: AreaLink['service'][]; exclude?: string }) {
   const { language, t } = useLanguage()
@@ -42,6 +42,13 @@ export function AreasStrip({ services, exclude }: { services?: AreaLink['service
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           ))}
+          <a
+            href={areasHubPath(language)}
+            className="inline-flex items-center gap-2 px-3.5 py-2 text-[0.78rem] md:text-[0.85rem] text-[#a67c2e] no-underline hover:underline"
+          >
+            {t('Todas las zonas', 'All areas')}
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </div>
       </div>
     </section>

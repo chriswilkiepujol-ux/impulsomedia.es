@@ -5,7 +5,6 @@ import { HeaderV2 as Header } from '@/components/v2/header'
 import { Services } from '@/components/services'
 import { CtaBand } from '@/components/cta-band'
 import { FooterV2 as Footer, ProcessV2 } from '@/components/v2/sections'
-import { AreasStrip } from '@/components/areas-strip'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
 export function ServiciosContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
@@ -16,7 +15,6 @@ export function ServiciosContent({ lang = 'es' }: { lang?: 'es' | 'en' } = {}) {
         <main>
           <Services primary />
           <ProcessV2 />
-          <AreasStrip />
           <CtaBand />
         </main>
         <Footer />

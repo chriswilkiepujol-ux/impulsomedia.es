@@ -450,4 +450,40 @@
     <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/services/ai-automation"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/servicios/automatizacion-ia"/>
   </url>
+  <url>
+    <loc>https://impulsomedia.es/zonas</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/zonas"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/areas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/zonas"/>
+  </url>
+  <url>
+    <loc>https://impulsomedia.es/en/areas</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/zonas"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/areas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/zonas"/>
+  </url>
+  <url>
+    <loc>https://impulsomedia.es/blog/agentes-ia-para-empresas</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/blog/agentes-ia-para-empresas"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/blog/ai-agents-for-business"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/blog/agentes-ia-para-empresas"/>
+  </url>
+  <url>
+    <loc>https://impulsomedia.es/en/blog/ai-agents-for-business</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://impulsomedia.es/blog/agentes-ia-para-empresas"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://impulsomedia.es/en/blog/ai-agents-for-business"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://impulsomedia.es/blog/agentes-ia-para-empresas"/>
+  </url>
 </urlset>

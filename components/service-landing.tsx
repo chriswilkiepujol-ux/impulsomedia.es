@@ -10,6 +10,7 @@ import { Reveal } from '@/components/reveal'
 import Image from 'next/image'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { AreasStrip } from '@/components/areas-strip'
+import { isAreaPage } from '@/lib/areas'
 import { MessageCircle, Calendar, ArrowUpRight } from 'lucide-react'
 import { getLandingByPath } from '@/lib/landing-data'
 
@@ -193,7 +194,7 @@ export function ServiceLanding({ path }: { path: string }) {
             </section>
           )}
 
-          <AreasStrip exclude={page.path} />
+          {isAreaPage(page.path) && <AreasStrip exclude={page.path} />}
 
           {/* CTA */}
           <CtaCard

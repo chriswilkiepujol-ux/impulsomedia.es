@@ -210,10 +210,9 @@ export function FooterV2() {
   const en = language === 'en'
   const year = new Date().getFullYear()
   const services = [['/servicios/diseno-web', 'Diseño web', 'Web design'], ['/servicios/seo', 'SEO', 'SEO'], ['/servicios/branding', 'Branding', 'Branding'], ['/servicios/publicidad', 'Google Ads y redes', 'Google Ads & paid social'], ['/servicios/automatizacion-ia', 'Automatización e IA', 'AI automation'], ['/servicios/performance', 'Performance a escala', 'Performance at scale']]
-  const company = [['/precios', 'Precios', 'Pricing'], ['/proyectos', 'Proyectos', 'Work'], ['/nosotros', 'Nosotros', 'About'], ['/opiniones', 'Opiniones', 'Reviews'], ['/blog', 'Blog', 'Blog'], ['/contacto', 'Contacto', 'Contact'], ['/auditoria-web-gratis', 'Auditoría web gratis', 'Free website audit']]
-  const areas = en
-    ? [['/en/web-design-sotogrande', 'Web design Sotogrande'], ['/en/web-design-gibraltar', 'Web design Gibraltar'], ['/en/seo-gibraltar', 'SEO Gibraltar'], ['/en/digital-marketing-gibraltar', 'Digital marketing Gibraltar'], ['/en/igaming-marketing', 'iGaming marketing']]
-    : [['/diseno-web-san-roque', 'Diseño web San Roque y Sotogrande'], ['/diseno-web-algeciras', 'Diseño web Algeciras'], ['/diseno-web-la-linea', 'Diseño web La Línea'], ['/diseno-web-estepona', 'Diseño web Estepona'], ['/seo-algeciras', 'SEO Algeciras'], ['/agencia-marketing-digital-algeciras', 'Marketing digital Algeciras']]
+  const company = [['/precios', 'Precios', 'Pricing'], ['/proyectos', 'Proyectos', 'Work'], ['/nosotros', 'Nosotros', 'About'], ['/opiniones', 'Opiniones', 'Reviews'], ['/contacto', 'Contacto', 'Contact']]
+  // City landings are never listed here (Chris, 10 nov 2026): one discreet link to the areas hub instead.
+  const resources = [['/blog', 'Blog', 'Blog'], ['/auditoria-web-gratis', 'Auditoría web gratis', 'Free website audit'], ['/zonas', 'Zonas donde trabajamos', 'Areas we cover']]
   return (
     <footer>
       <div className="wrap">
@@ -225,7 +224,7 @@ export function FooterV2() {
           </div>
           <div><h6>{t('Servicios', 'Services')}</h6><ul>{services.map(([h, es, e]) => <li key={h}><Link href={href(en, h)}>{en ? e : es}</Link></li>)}</ul></div>
           <div><h6>{t('Empresa', 'Company')}</h6><ul>{company.map(([h, es, e]) => <li key={h}><Link href={href(en, h)}>{en ? e : es}</Link></li>)}</ul></div>
-          <div><h6>{t('Zonas', 'Areas')}</h6><ul>{areas.map(([h, l]) => <li key={h}><Link href={h}>{l}</Link></li>)}</ul></div>
+          <div><h6>{t('Recursos', 'Resources')}</h6><ul>{resources.map(([h, es, e]) => <li key={h}><Link href={href(en, h)}>{en ? e : es}</Link></li>)}</ul></div>
         </div>
         <div className="bottom">
           <span>chris@impulsomedia.es · +34 680 863 229</span>
