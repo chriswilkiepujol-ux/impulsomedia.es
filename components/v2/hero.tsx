@@ -16,7 +16,7 @@ function HeroFilm() {
     if (!v) return
     const nav = navigator as Navigator & { connection?: { saveData?: boolean } }
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || nav.connection?.saveData) return
-    v.src = '/video/hero-bg.mp4'
+    v.src = '/video/hero-bg-2.mp4'
     v.play().catch(() => {})
   }, [])
   return (
@@ -36,7 +36,6 @@ export function HeroV2() {
   return (
     <header className="hero">
       <HeroFilm />
-      <div className="gridlines" aria-hidden="true" />
       <div className="wrap">
         <div className="top">
           <div>
