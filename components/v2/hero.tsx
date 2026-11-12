@@ -3,11 +3,28 @@
 import Link from 'next/link'
 import { useLanguage } from '@/lib/language-context'
 import { esToEn } from '@/lib/route-map'
-import { Mesh, GOLD, GOLD2, INK } from './shared'
+import { useEffect, useRef, useState } from 'react'
 import { useFreeAuditLive } from '@/lib/free-audit-flag'
 import { AuditQuick } from './audit-band'
 
-const MESH = [GOLD, GOLD2, INK, GOLD]
+/** Looping gold-silk background film. Poster shows first; the video only loads when motion is welcome. */
+function HeroFilm() {
+  const ref = useRef<HTMLVideoElement>(null)
+  const [on, setOn] = useState(false)
+  useEffect(() => {
+    const v = ref.current
+    if (!v) return
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean } }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || nav.connection?.saveData) return
+    v.src = '/video/hero-bg.mp4'
+    v.play().catch(() => {})
+  }, [])
+  return (
+    <div className="film" aria-hidden="true">
+      <video ref={ref} className={on ? 'on' : undefined} muted loop playsInline preload="none" tabIndex={-1} onPlaying={() => setOn(true)} />
+    </div>
+  )
+}
 
 export function HeroV2() {
   const { t, language } = useLanguage()
@@ -18,7 +35,7 @@ export function HeroV2() {
 
   return (
     <header className="hero">
-      <Mesh colors={MESH} alpha={0.22} />
+      <HeroFilm />
       <div className="gridlines" aria-hidden="true" />
       <div className="wrap">
         <div className="top">
