@@ -3,28 +3,9 @@
 import Link from 'next/link'
 import { useLanguage } from '@/lib/language-context'
 import { esToEn } from '@/lib/route-map'
-import { useEffect, useRef, useState } from 'react'
+import { Silk } from './silk'
 import { useFreeAuditLive } from '@/lib/free-audit-flag'
 import { AuditQuick } from './audit-band'
-
-/** Looping gold-silk background film. Poster shows first; the video only loads when motion is welcome. */
-function HeroFilm() {
-  const ref = useRef<HTMLVideoElement>(null)
-  const [on, setOn] = useState(false)
-  useEffect(() => {
-    const v = ref.current
-    if (!v) return
-    const nav = navigator as Navigator & { connection?: { saveData?: boolean } }
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || nav.connection?.saveData) return
-    v.src = '/video/hero-bg-2.mp4'
-    v.play().catch(() => {})
-  }, [])
-  return (
-    <div className="film" aria-hidden="true">
-      <video ref={ref} className={on ? 'on' : undefined} muted loop playsInline preload="none" tabIndex={-1} onPlaying={() => setOn(true)} />
-    </div>
-  )
-}
 
 export function HeroV2() {
   const { t, language } = useLanguage()
@@ -35,7 +16,7 @@ export function HeroV2() {
 
   return (
     <header className="hero">
-      <HeroFilm />
+      <Silk />
       <div className="wrap">
         <div className="top">
           <div>
