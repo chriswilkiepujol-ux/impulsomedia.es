@@ -16,6 +16,12 @@ export async function GET(req: Request) {
     const { data: cands } = await sb.from('crm_candidates').select('id,name').eq('status', 'new').is('extra->research', null).not('category', 'in', '("Restaurante","Hostelería","Fitness")').order('score', { ascending: false }).limit(2)
     for (const c of cands || []) research.push(fetch(`${origin}/api/crm/research`, { method: 'POST', headers: { 'content-type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ id: c.id }), signal: AbortSignal.timeout(55000) }).then(r => r.json()).then(j => ({ name: c.name, ...j })).catch(e => ({ name: c.name, error: String(e?.message || e) })))
   } catch {}
+  // 1b) Find the owner / decision-maker for the best leads that haven't been checked yet (3 a day, own invocations).
+  const people: Promise<any>[] = []
+  try {
+    const { data: top } = await sb.from('crm_leads').select('id,name').eq('relationship', 'lead').eq('do_not_contact', false).in('opp_tier', ['A', 'B']).is('people_checked_at', null).not('website', 'is', null).order('opp_score', { ascending: false }).limit(3)
+    for (const l of top || []) people.push(fetch(`${origin}/api/crm/people`, { method: 'POST', headers: { 'content-type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ id: l.id }), signal: AbortSignal.timeout(55000) }).then(r => r.json()).then(j => ({ name: l.name, found: j.people?.length || 0, best: j.best != null ? j.people[j.best]?.name : null, error: j.error })).catch(e => ({ name: l.name, error: String(e?.message || e) })))
+  } catch {}
   // 2) Park leads that got the whole sequence (day-14 message) two weeks ago and never replied: back in 30 days.
   let parked = 0
   try {
@@ -37,7 +43,8 @@ export async function GET(req: Request) {
   const t0 = Date.now()
   for (const l of leads || []) { if (Date.now() - t0 > 30000) break; results.push({ name: l.name, ...(await auditLead(sb, l, { psi: false })) }) }
   const researched = await Promise.all(research)
+  const owners = await Promise.all(people)
   let digest: any = null
   try { digest = await runDigest(sb) } catch (e: any) { digest = { error: String(e?.message || e) } }
-  return NextResponse.json({ audited: results.length, results, researched, parked, digest })
+  return NextResponse.json({ audited: results.length, results, researched, owners, parked, digest })
 }
