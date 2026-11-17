@@ -2,6 +2,9 @@
 // Los "pixels" indican que anuncian o han anunciado; NO prueban que haya campañas activas hoy.
 import { refreshOpportunity } from './opportunity'
 import { detectAgency } from './agency'
+// Any sign of WhatsApp (links, chat-button plugins, icons, text) counts as "has WhatsApp".
+export const WA_ANY = /wa\.me\/|api\.whatsapp\.com|web\.whatsapp\.com|whatsapp:\/\/|whatsapp|joinchat|qlwapp|ht[-_]ctc|click-?to-?chat|getbutton\.io|whatshelp|wati\.io|callbell/i
+export const FORM_ANY = /<form[\s>]|typeform\.com|hsforms\.net|jotform\.com|calendly\.com|tally\.so|docs\.google\.com\/forms|wpcf7|elementor-form|wpforms|gform_|hs-form|ninja-form|formspree|wixforms|form-builder/i
 export type Reason = { label: string; points: number };
 export type Fit = { web: number; seo: number; ppc: number; social: number };
 export const PITCH_LABEL: Record<string, string> = { verificar: 'Check website',  onepager: 'One-page website (€400–500)', web: 'New website', seo: 'Monthly SEO', ppc: 'Monthly Google Ads', social: 'Monthly Meta/Social Ads' };
@@ -33,8 +36,9 @@ export function analyse(h: string) {
   return {
     title, meta_description: meta,
     has_viewport: /<meta[^>]+name=["']viewport["']/i.test(h),
-    has_whatsapp: /wa\.me\/|api\.whatsapp\.com|web\.whatsapp\.com|whatsapp:\/\//i.test(h),
-    has_contact_form: /<form[\s>]/i.test(h),
+    // Any sign of WhatsApp counts (links, chat-button plugins, icons, text): we only ever claim "no WhatsApp" when there is none at all.
+    has_whatsapp: WA_ANY.test(h),
+    has_contact_form: FORM_ANY.test(h),
     has_tel_link: tels.length > 0,
     has_schema: /application\/ld\+json/i.test(h),
     has_analytics: /googletagmanager\.com|google-analytics\.com|gtag\(|plausible\.io|matomo/i.test(h),

@@ -183,7 +183,7 @@ function aboveFold(html: string) {
     .filter(x => x.text && x.text.length < 60 && (actionWords.test(x.text) || /\b(btn|button|cta)\b/i.test(x.attrs) || /role=["']button/i.test(x.attrs)))
     .map(x => x.text)
   const tel = (h: string) => /href=["']?(tel|callto):/i.test(h) || /onclick=["'][^"']*tel:/i.test(h)
-  const wa = (h: string) => /wa\.me\/|api\.whatsapp\.com|whatsapp:\/\//i.test(h)
+  const wa = (h: string) => /wa\.me\/|api\.whatsapp\.com|web\.whatsapp\.com|whatsapp:\/\/|whatsapp|joinchat|qlwapp|ht[-_]ctc|click-?to-?chat|getbutton\.io|whatshelp|wati\.io|callbell/i.test(h)
   const form = (h: string) => /<form[\s>]/i.test(h) || /typeform\.com|hsforms\.net|jotform\.com|calendly\.com|tally\.so|docs\.google\.com\/forms|wpcf7|elementor-form|wpforms|gform_|hs-form|ninja-form/i.test(h)
   return {
     tel: tel(head), wa: wa(head), form: form(head), mail: /mailto:/i.test(head),
