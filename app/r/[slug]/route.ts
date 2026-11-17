@@ -9,6 +9,14 @@ const BOT = /bot|crawler|spider|preview|whatsapp|facebookexternalhit|facebot|tel
 export async function GET(req: Request, ctx: { params: Promise<{ slug: string }> }) {
   const { slug } = await ctx.params
   const home = 'https://impulsomedia.es/'
+  // impulsomedia.es/r/me marks this browser as Chris's own: his clicks on tracked links are never counted.
+  if (slug === 'me') {
+    const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Device marked</title></head><body style="font-family:system-ui,sans-serif;max-width:420px;margin:15vh auto;padding:0 20px;text-align:center;color:#111418"><div style="font-size:44px">✓</div><h1 style="font-size:22px">This browser is marked as yours</h1><p style="color:#5b6270;line-height:1.5">Clicks on your tracked links from this browser won't count as a client click in the CRM. Do this once in each browser you use (Safari, Chrome, and the WhatsApp or Instagram in-app browser).</p></body></html>`
+    const res = new NextResponse(page, { headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex', 'cache-control': 'no-store' } })
+    res.headers.append('set-cookie', 'im_owner=1; Domain=.impulsomedia.es; Path=/; Max-Age=63072000; Secure; SameSite=Lax')
+    return res
+  }
+  const isOwner = /(?:^|;\s*)im_owner=1/.test(req.headers.get('cookie') || '')
   let target = home
   try {
     const sb = await crmBot()
@@ -17,7 +25,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ slug: string }>
     target = l.target
     if (new URL(req.url).searchParams.has('en') && /impulsomedia\.es\/proyectos\/?$/.test(target)) target = 'https://impulsomedia.es/en/work'
     const ua = req.headers.get('user-agent') || ''
-    if (!BOT.test(ua) && req.method === 'GET') {
+    if (!isOwner && !BOT.test(ua) && req.method === 'GET') {
       const now = new Date(); const firstToday = !l.last_click_at || new Date(l.last_click_at).toDateString() !== now.toDateString()
       await sb.from('crm_link_hits').insert({ slug, ua: ua.slice(0, 200), referer: (req.headers.get('referer') || '').slice(0, 200) })
       await sb.from('crm_links').update({ clicks: (l.clicks || 0) + 1, first_click_at: l.first_click_at || now.toISOString(), last_click_at: now.toISOString() }).eq('slug', slug)
