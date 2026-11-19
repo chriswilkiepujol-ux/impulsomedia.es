@@ -36,15 +36,6 @@ const projects = [
     image: "/images/pujol-wilkie-screenshot.png",
   },
   {
-    id: "one4one",
-    name: "One4One Fitness",
-    url: "one4onefc.com",
-    href: "https://one4onefc.com",
-    industryEn: "Fitness & Gym",
-    industryEs: "Fitness & Gimnasio",
-    image: "/images/one4one-screenshot.png",
-  },
-  {
     id: "racketbreaks",
     name: "Racket Breaks",
     url: "racketbreaks.com",

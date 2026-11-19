@@ -121,7 +121,7 @@ export const landingPages2: LandingPage[] = [
     cases: [
       { name: 'Sotovet', sector: 'Clínica veterinaria', summary: 'Web nueva y presencia local para una clínica de Sotogrande: reservas y teléfono a un toque, ficha de Google alineada con la web.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
       { name: 'Ágora Sotogrande', sector: 'Restaurante y discoteca', summary: 'Web con reservas online y campañas por temporada para un local de eventos. Las reservas han subido desde el lanzamiento.', href: 'https://agorasotogrande.com', image: '/images/agora-screenshot.png' },
-      { name: 'One4One Fitness', sector: 'Gimnasio', summary: 'Web y captación local para un centro de entrenamiento de la zona.', href: 'https://one4onefc.com', image: '/images/one4one-screenshot.png' },
+      { name: 'Pujol Wilkie', sector: 'Servicios jurídicos', summary: 'Identidad modernizada y web nueva para un despacho que atiende a compradores extranjeros, en español e inglés.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
     ],
     faqTitle: 'Preguntas sobre marketing digital en Algeciras',
     faqs: [
@@ -258,7 +258,7 @@ export const landingPages2: LandingPage[] = [
     cases: [
       { name: 'Sotovet', sector: 'Clínica veterinaria · Sotogrande', summary: 'Web nueva desde cero: rápida, bien organizada, con reservas y teléfono a un toque. Clientes españoles y extranjeros.', href: 'https://www.sotovet.com', image: '/images/sotovet-screenshot.png' },
       { name: 'Ágora Sotogrande', sector: 'Restaurante y discoteca · Sotogrande', summary: 'Web con reservas online para el local de eventos de referencia de la zona. Las reservas han subido desde el lanzamiento.', href: 'https://agorasotogrande.com', image: '/images/agora-screenshot.png' },
-      { name: 'One4One Fitness', sector: 'Gimnasio · San Roque', summary: 'Web y captación local para un centro de entrenamiento del municipio.', href: 'https://one4onefc.com', image: '/images/one4one-screenshot.png' },
+      { name: 'Pujol Wilkie', sector: 'Servicios jurídicos · Sotogrande', summary: 'Identidad modernizada y web nueva para un despacho que atiende a compradores extranjeros, en español e inglés.', href: 'https://pujolwilkie.com', image: '/images/pujol-wilkie-screenshot.png' },
     ],
     faqTitle: 'Preguntas sobre diseño web en San Roque',
     faqs: [

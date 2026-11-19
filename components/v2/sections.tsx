@@ -112,7 +112,6 @@ const projects = [
   { id: 'racket', name: 'Racket Breaks', url: 'racketbreaks.com', href: 'https://www.racketbreaks.com', es: 'Viajes de pádel', en: 'Padel travel', img: '/images/racketbreaks-screenshot.png', w: 1352, h: 849, kpiEs: 'Reservas UK', kpiEn: 'UK bookings', c: 'c3' },
   { id: 'sotovet', name: 'Sotovet', url: 'sotovet.com', href: 'https://www.sotovet.com', es: 'Clínica veterinaria', en: 'Veterinary clinic', img: '/images/sotovet-screenshot.png', w: 1116, h: 697, kpiEs: 'Web nueva', kpiEn: 'New website', c: 'c4' },
   { id: 'nathan', name: 'Nathan & Josh', url: 'nathanjosh.com', href: 'https://www.nathanjosh.com', es: 'Media kit de creadores', en: 'Creator media kit', img: '/images/nathanjosh-screenshot.png', w: 1068, h: 932, kpiEs: 'Brand deals', kpiEn: 'Brand deals', c: 'c5' },
-  { id: 'one4one', name: 'One4One Fitness', url: 'one4onefc.com', href: 'https://one4onefc.com', es: 'Fitness y gimnasio', en: 'Fitness & gym', img: '/images/one4one-screenshot.png', w: 979, h: 580, kpiEs: 'Web', kpiEn: 'Web', c: 'c6' },
 ]
 
 export function WorkV2() {

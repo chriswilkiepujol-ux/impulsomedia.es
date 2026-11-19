@@ -37,18 +37,6 @@ export const projects = [
     image: "/images/pujol-wilkie-screenshot.png",
   },
   {
-    id: "one4one",
-    name: "One4One Fitness",
-    url: "one4onefc.com",
-    href: "https://one4onefc.com",
-    industryEn: "Fitness & Gym · Sotogrande",
-    industryEs: "Fitness & Gimnasio · Sotogrande",
-    descEn: "Full website for one of Sotogrande's premier fitness centres. Clear pricing, trainer profiles, and class schedules — all built to drive sign-ups.",
-    descEs: "Web completa para uno de los principales centros de fitness de Sotogrande. Precios claros, perfiles de entrenadores y horarios de clases.",
-    tags: ["Web Design", "Fitness", "Conversion"],
-    image: "/images/one4one-screenshot.png",
-  },
-  {
     id: "racketbreaks",
     name: "Racket Breaks",
     url: "racketbreaks.com",
