@@ -440,6 +440,8 @@
 /* big cards wrapped in <Reveal> still span two columns */
 .v2 .work > .reveal:has(> .proj.big) { grid-column: span 2; }
 @media (max-width: 560px) { .v2 .work > .reveal:has(> .proj.big) { grid-column: span 1; } }
+/* second wide card only spans two columns on the 3-column desktop grid, so tablet rows stay full */
+@media (max-width: 900px) { .v2 .work > .reveal.wide-cell:has(> .proj.big) { grid-column: span 1; } .v2 .proj.big.wide .shot { height: 240px; } }
 
 /* ===================== Service orbit (Servicios hero) ===================== */
 .v2 .orbit { position: relative; width: 100%; max-width: min(560px, calc(100svh - 140px)); aspect-ratio: 1; margin-left: auto; container-type: inline-size; }

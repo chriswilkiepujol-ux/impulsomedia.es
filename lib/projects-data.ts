@@ -72,4 +72,18 @@ export const projects = [
     tags: ["Web Design", "Content Automation", "Publishing"],
     image: "/images/onlinegames-screenshot.png",
   },
+  {
+    // Marketing work only: the site itself was built by another agency, so it is never counted or marked up as a website we made.
+    id: "miplanfunerario",
+    kind: "growth",
+    name: "Mi Plan Funerario",
+    url: "miplanfunerario.es",
+    href: "https://miplanfunerario.es",
+    industryEn: "Funeral Plans · Spain",
+    industryEs: "Planes Funerarios · España",
+    descEn: "Ongoing SEO and Google Ads management for a funeral plan company selling across Spain. We started with a full audit of the ads account and a baseline that ties ad spend to real sales in the CRM, so the campaigns are optimised for sales, not clicks.",
+    descEs: "Gestión continua de SEO y Google Ads para una empresa de planes funerarios que vende en toda España. Empezamos con una auditoría completa de la cuenta y una línea base que cruza la inversión con las ventas reales del CRM, para optimizar por ventas y no por clics.",
+    tags: ["SEO", "Google Ads", "Tracking"],
+    image: "/images/miplanfunerario-screenshot.png",
+  },
 ]

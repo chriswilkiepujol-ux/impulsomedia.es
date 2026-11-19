@@ -73,7 +73,7 @@ export function projectsItemList(lang: Lang) {
         name: p.name,
         url: p.href,
         description: lang === 'es' ? p.descEs : p.descEn,
-        creator: { '@id': BUSINESS_ID },
+        ...('kind' in p && p.kind === 'growth' ? {} : { creator: { '@id': BUSINESS_ID } }),
       },
     })),
   }

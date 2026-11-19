@@ -112,6 +112,8 @@ const projects = [
   { id: 'racket', name: 'Racket Breaks', url: 'racketbreaks.com', href: 'https://www.racketbreaks.com', es: 'Viajes de pádel', en: 'Padel travel', img: '/images/racketbreaks-screenshot.png', w: 1352, h: 849, kpiEs: 'Reservas UK', kpiEn: 'UK bookings', c: 'c3' },
   { id: 'sotovet', name: 'Sotovet', url: 'sotovet.com', href: 'https://www.sotovet.com', es: 'Clínica veterinaria', en: 'Veterinary clinic', img: '/images/sotovet-screenshot.png', w: 1116, h: 697, kpiEs: 'Web nueva', kpiEn: 'New website', c: 'c4' },
   { id: 'nathan', name: 'Nathan & Josh', url: 'nathanjosh.com', href: 'https://www.nathanjosh.com', es: 'Media kit de creadores', en: 'Creator media kit', img: '/images/nathanjosh-screenshot.png', w: 1068, h: 932, kpiEs: 'Brand deals', kpiEn: 'Brand deals', c: 'c5' },
+  { id: 'onlinegames', name: 'OnlineGames.cat', url: 'onlinegames.cat', href: 'https://onlinegames.cat', es: 'Noticias de videojuegos', en: 'Video game news', img: '/images/onlinegames-screenshot.png', w: 1339, h: 926, kpiEs: 'Contenido automático', kpiEn: 'Automated content', c: 'c6' },
+  { id: 'mpf', name: 'Mi Plan Funerario', url: 'miplanfunerario.es', href: 'https://miplanfunerario.es', es: 'Planes funerarios · España', en: 'Funeral plans · Spain', img: '/images/miplanfunerario-screenshot.png', w: 1116, h: 3138, kpiEs: 'SEO + Google Ads', kpiEn: 'SEO + Google Ads', big: true, wide: true, c: 'c3' },
 ]
 
 export function WorkV2() {
@@ -121,12 +123,12 @@ export function WorkV2() {
     <section className="section" id="proyectos">
       <div className="wrap">
         <Reveal><div className="eyebrow">{t('Nuestro trabajo', 'Our work')}</div></Reveal>
-        <Reveal><h2>{t('Webs lanzadas este año', 'Websites launched this year')}</h2></Reveal>
-        <Reveal><p className="lead">{t('Pasa el ratón por cada proyecto para recorrer la web. Todas construidas desde cero, sin plantillas.', 'Hover over a project to scroll through the site. All built from scratch, no templates.')}</p></Reveal>
+        <Reveal><h2>{t('Webs y campañas de este año', 'Websites and campaigns this year')}</h2></Reveal>
+        <Reveal><p className="lead">{t('Webs construidas desde cero, sin plantillas, y negocios cuyo SEO y anuncios gestionamos. Pasa el ratón por cada proyecto para recorrer la web.', 'Websites built from scratch, no templates, and businesses whose SEO and ads we run. Hover over a project to scroll through the site.')}</p></Reveal>
         <div className="work">
           {projects.map(p => (
-            <Reveal key={p.id} as="div">
-              <a className={`proj ${p.big ? 'big' : ''} ${p.c}`} href={p.href} target="_blank" rel="noopener noreferrer">
+            <Reveal key={p.id} as="div" className={'wide' in p && p.wide ? 'wide-cell' : undefined}>
+              <a className={`proj ${p.big ? 'big' : ''} ${'wide' in p && p.wide ? 'wide' : ''} ${p.c}`} href={p.href} target="_blank" rel="noopener noreferrer">
                 <div className="shot"><div className="frame"><Image src={p.img} alt={`${p.name} – ${en ? p.en : p.es}`} width={p.w} height={p.h} sizes="(max-width: 900px) 100vw, 33vw" /></div></div>
                 <div className="meta"><div><h3>{p.name}</h3><small>{en ? p.en : p.es} · {p.url}</small></div><span className="kpi">{en ? p.kpiEn : p.kpiEs}</span></div>
               </a>

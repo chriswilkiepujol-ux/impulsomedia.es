@@ -43,8 +43,8 @@ export function Work({ primary = false }: { primary?: boolean } = {}) {
         <div className="wrap">
           <SectionHead
             eyebrow={es ? 'Casos' : 'Case studies'}
-            title={es ? `${projects.length} webs, ${projects.length} retos distintos` : `${projects.length} sites, ${projects.length} different challenges`}
-            lead={es ? 'Pasa el ratón por cada captura para recorrer la web. Haz clic para visitarla.' : 'Hover over each screenshot to scroll through the site. Click to visit it.'}
+            title={es ? `${projects.length} proyectos, ${projects.length} retos distintos` : `${projects.length} projects, ${projects.length} different challenges`}
+            lead={es ? 'Webs que hemos construido y negocios cuyo SEO y campañas gestionamos. Pasa el ratón por cada captura para recorrer la web.' : 'Websites we have built and businesses whose SEO and campaigns we run. Hover over each screenshot to scroll through the site.'}
           />
           <div className="cases">
             {projects.map((p, i) => (
