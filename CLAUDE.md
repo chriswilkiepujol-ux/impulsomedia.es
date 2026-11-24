@@ -8,3 +8,4 @@
 - Landings: sin precios; Gibraltar = empresas internacionales + locales, sin "frontera"; FAQ en acordeón; `ServiceLanding` recibe `path` (no funciones/iconos como props desde servidor).
 - Deploy: Vercel auto desde `main`; si no se dispara, usar `create_deployment` con el sha del commit (proyecto prj_92PL2DgjNQ93BsGh1yhIUgWbLVn0, team team_NGq1UHgOyYUQKZvjL253C5yD).
 - Commits: terminar con las líneas de atribución que pida la sesión.
+- **Impulso Social** (`social.impulsomedia.es`, privado, mismo login que el CRM): app estática en `public/social-app/` (sin build), API en `app/api/social/`, lógica en `lib/social/` (slides = JSON → JPG con `next/og` + sharp; fuentes TTF en `lib/social/fonts`). Tablas `social_posts`, `social_settings`, `social_log` en el Supabase del CRM. Nada se publica en Instagram sin un «me gusta» de Chris en la app. Detalle en el doc de proyecto `claude/social-studio.md`.

@@ -52,6 +52,21 @@ export function middleware(request: NextRequest) {
   }
   if (isPublicSite && pathname.startsWith('/crm-app')) return new NextResponse('Not found', { status: 404 })
   // --- fin CRM ---
+  // --- Impulso Social: social.impulsomedia.es sirve la app estática de /social-app (privada, login del CRM). La API vive en /api/social/. ---
+  if (rawHost.startsWith('social.')) {
+    const noindex = { 'x-robots-tag': 'noindex, nofollow, noarchive', 'cache-control': 'no-store' }
+    if (pathname === '/robots.txt') return new NextResponse('User-agent: *\nDisallow: /\n', { headers: { 'content-type': 'text/plain', ...noindex } })
+    if (pathname === '/manifest.webmanifest') return NextResponse.rewrite(new URL('/social-app/manifest.webmanifest', request.url))
+    // Slide JPGs keep their own long cache header; everything else on this host is never cached or indexed.
+    if (pathname.startsWith('/api/social/img/')) return NextResponse.next()
+    const res = pathname.startsWith('/social-app/') || pathname.startsWith('/api/social/')
+      ? NextResponse.next()
+      : NextResponse.rewrite(new URL('/social-app/index.html', request.url))
+    Object.entries(noindex).forEach(([k, v]) => res.headers.set(k, v))
+    return res
+  }
+  if (isPublicSite && pathname.startsWith('/social-app')) return new NextResponse('Not found', { status: 404 })
+  // --- fin Social ---
   const staging = isStaging(request)
 
   if (staging) {

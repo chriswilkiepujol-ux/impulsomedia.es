@@ -1,0 +1,17 @@
+{
+  "name": "Impulso Social",
+  "short_name": "Social",
+  "description": "Content feed, queue and Instagram publishing for ImpulsoMedia.",
+  "id": "/",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#111418",
+  "theme_color": "#111418",
+  "icons": [
+    { "src": "/social-app/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/social-app/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/social-app/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
