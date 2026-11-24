@@ -93,6 +93,8 @@ export const fullCaption = (p: { caption: string; hashtags: string }) => `${(p.c
 
 // ---------- Instagram ----------
 // Tokens from "Instagram API with Instagram Login" start with IG and use graph.instagram.com; Facebook Login tokens use graph.facebook.com.
+// @impulsomediaes, as shown in the Meta app (Use cases → Instagram API → Generate access tokens).
+const IG_ACCOUNT_ID = process.env.SOCIAL_IG_ACCOUNT_ID || '17841437272052168'
 const igHost = (token: string) => (token.startsWith('IG') ? 'https://graph.instagram.com' : 'https://graph.facebook.com')
 const IGV = process.env.IG_API_VERSION ? `/${process.env.IG_API_VERSION}` : ''
 async function ig(token: string, path: string, params: Record<string, string> = {}, method: 'GET' | 'POST' = 'GET') {
@@ -113,10 +115,19 @@ export async function igIdentify(token: string): Promise<{ id: string; username:
     const me = await ig(token, 'me', { fields: 'user_id,username' })
     return { id: String(me.user_id || me.id), username: me.username || '' }
   }
-  const pages = await ig(token, 'me/accounts', { fields: 'instagram_business_account{id,username}' })
-  const acc = (pages.data || []).map((p: any) => p.instagram_business_account).find(Boolean)
-  if (!acc) throw new Error('Instagram: this token has no professional Instagram account linked to a Facebook Page.')
-  return { id: String(acc.id), username: acc.username || '' }
+  // Facebook-style tokens. Meta's "Unified login" (new apps since 2026) issues a system-user token tied to the Instagram
+  // account itself, with no Facebook Page in between, so the account is read directly by its ID first.
+  const errors: string[] = []
+  try {
+    const me = await ig(token, IG_ACCOUNT_ID, { fields: 'id,username' })
+    if (me?.id) return { id: String(me.id), username: me.username || '' }
+  } catch (e: any) { errors.push(String(e?.message || e)) }
+  try {
+    const pages = await ig(token, 'me/accounts', { fields: 'instagram_business_account{id,username}' })
+    const acc = (pages.data || []).map((p: any) => p.instagram_business_account).find(Boolean)
+    if (acc) return { id: String(acc.id), username: acc.username || '' }
+  } catch (e: any) { errors.push(String(e?.message || e)) }
+  throw new Error(errors[0] || 'Instagram: this token cannot see the Instagram account.')
 }
 export async function igRefresh(token: string): Promise<string | null> {
   if (!token.startsWith('IG')) return null

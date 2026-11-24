@@ -254,13 +254,12 @@
     for (var i = 1; i <= 7; i++) { var on = !!slots[i]; days += '<div class="d' + (on ? '' : ' off') + '"><button class="toggle' + (on ? ' on' : '') + '" data-act="slot-toggle" data-d="' + i + '" role="switch" aria-checked="' + on + '" aria-label="' + DOW[i - 1] + '"></button><b>' + DOW[i - 1] + '</b><input type="time" data-slot="' + i + '" value="' + esc(slots[i] || '12:30') + '"' + (on ? '' : ' disabled') + ' aria-label="' + DOW[i - 1] + ' time"></div>' }
     var ig = connected()
       ? '<p><b style="color:var(--green)">Connected</b> to @' + esc(s.ig_username || '') + '. Liked posts publish on their own at their time.' + (s.ig_token_at ? ' Token renewed ' + esc(fmt(s.ig_token_at, { day: 'numeric', month: 'short' })) + ' (it renews itself).' : '') + '</p><div class="row-btns"><button class="btn sm" data-act="ig-check">Test connection</button><button class="btn sm red" data-act="ig-disconnect">Disconnect</button></div>'
-      : '<p>One-off setup, about 15 minutes. Until then you can post by hand with the arrow button.</p><ol class="steps">' +
-        '<li>The Instagram account must be a <b>professional</b> one (Business or Creator).</li>' +
-        '<li>Go to <b>developers.facebook.com</b>, log in and create an app. When it asks what for, pick <b>Other</b> and then <b>Business</b>.</li>' +
-        '<li>In the app, add the product <b>Instagram</b> and open <b>API setup with Instagram login</b>.</li>' +
-        '<li>Under <b>Generate access tokens</b>, add the account <b>@' + HANDLE + '</b>, log in to it and allow access.</li>' +
-        '<li>Press <b>Generate token</b>, copy it and paste it here.</li></ol>' +
-        '<div class="field"><label for="igtok">Instagram access token</label><textarea id="igtok" rows="3" style="min-height:80px" placeholder="IGAA…" autocomplete="off" spellcheck="false"></textarea></div><button class="btn gold block" data-act="ig-connect">Connect Instagram</button>'
+      : '<p>One-off step. Until then you can post by hand with the arrow button.</p><ol class="steps">' +
+        '<li>Open the Meta app <b>Impulso Social</b> at developers.facebook.com.</li>' +
+        '<li>Go to <b>Use cases</b>, <b>Customize</b>, <b>API setup with Unified login</b>.</li>' +
+        '<li>In step 2, press <b>Generate token</b> next to <b>@' + HANDLE + '</b> and allow access.</li>' +
+        '<li>Copy the token and paste it here.</li></ol>' +
+        '<div class="field"><label for="igtok">Instagram access token</label><textarea id="igtok" rows="3" style="min-height:80px" placeholder="Paste the token here" autocomplete="off" spellcheck="false"></textarea></div><button class="btn gold block" data-act="ig-connect">Connect Instagram</button>'
     var sw = function (key, title, sub) { return '<div class="sw"><div><b>' + title + '</b><span>' + sub + '</span></div><button class="toggle' + (s[key] ? ' on' : '') + '" data-act="set-toggle" data-key="' + key + '" role="switch" aria-checked="' + !!s[key] + '" aria-label="' + title + '"></button></div>' }
     sheet('<h2>Settings</h2><div class="body"><div class="lbl">Instagram</div>' + ig + '<hr><div class="lbl">Posting days (Madrid time)</div><div class="days">' + days + '</div><button class="btn sm" data-act="slots-save">Save posting days</button><hr>' +
       sw('autopublish', 'Publish liked posts automatically', 'Off: liked posts stay in the queue until you press Publish.') +
