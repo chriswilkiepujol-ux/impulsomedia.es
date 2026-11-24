@@ -171,6 +171,7 @@
       var rank = { pub: 4, sch: 3, fail: 2, sug: 1 }
       if (!map[k] || rank[c] > rank[map[k].c]) map[k] = { c: c, p: p, n: (map[k] ? map[k].n : 0) + 1 }; else map[k].n++
     })
+    var STI = { sch: ICON.clock, pub: ICON.check, sug: ICON.heart, fail: ICON.x }, STN = { sch: 'Queued', pub: 'Published', sug: 'Planned, not liked yet', fail: 'Failed' }
     var cells = '', inWin = { sch: 0, sug: 0, pub: 0 }
     ;['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(function (d) { cells += '<div class="dow mono">' + d + '</div>' })
     var weeks = Math.ceil(((end - start) / 864e5 + 1) / 7)
@@ -179,15 +180,15 @@
       var k = d.toISOString().slice(0, 10), m = map[k], cls = 'cell'
       if (k < today) cls += ' past'; if (k === today) cls += ' today'; if (d > end) cls += ' out'
       if (m) { cls += ' ' + m.c; if (k >= today && d <= end && inWin[m.c] != null) inWin[m.c]++ }
-      cells += '<button class="' + cls + '" data-act="day" data-day="' + k + '"' + (m ? '' : ' disabled') + ' aria-label="' + esc(fmt(k + 'T12:00:00Z', { weekday: 'long', day: 'numeric', month: 'long' })) + '"><span class="n">' + d.getUTCDate() + '</span>' + (m ? '<img loading="lazy" src="' + img(m.p, 1, 540) + '" alt=""><i class="st"></i>' : '') + '</button>'
+      cells += '<button class="' + cls + '" data-act="day" data-day="' + k + '"' + (m ? '' : ' disabled') + ' aria-label="' + esc(fmt(k + 'T12:00:00Z', { weekday: 'long', day: 'numeric', month: 'long' })) + '"><span class="n">' + d.getUTCDate() + '</span>' + (m ? '<img loading="lazy" src="' + img(m.p, 1, 540) + '" alt=""><i class="st" title="' + STN[m.c] + '">' + STI[m.c] + '</i>' : '') + '</button>'
     }
     var pill = {}, total = 0
     S.posts.forEach(function (p) { if (p.status === 'rejected') return; var x = p.pillar || 'other'; pill[x] = (pill[x] || 0) + 1; total++ })
     var mix = Object.keys(pill).sort(function (a, b) { return pill[b] - pill[a] }).map(function (x) { return '<div class="bar"><span>' + esc(x) + '</span><span class="track"><i style="width:' + Math.round(pill[x] / total * 100) + '%"></i></span><span>' + pill[x] + '</span></div>' }).join('')
     return '<div class="section-h"><h2>Next 30 days</h2><span class="mono">' + esc(fmt(now, { month: 'short', year: 'numeric' })) + '</span></div>' +
-      '<div class="stats"><div class="stat"><b>' + inWin.sch + '</b><span>queued</span></div><div class="stat"><b>' + inWin.sug + '</b><span>waiting for a like</span></div><div class="stat"><b>' + published().length + '</b><span>published</span></div></div>' +
+      '<div class="stats"><div class="stat sch"><b>' + inWin.sch + '</b><span><i class="st">' + ICON.clock + '</i>queued</span></div><div class="stat sug"><b>' + inWin.sug + '</b><span><i class="st">' + ICON.heart + '</i>waiting for a like</span></div><div class="stat pub"><b>' + published().length + '</b><span><i class="st">' + ICON.check + '</i>published</span></div></div>' +
       '<div class="cal">' + cells + '</div>' +
-      '<div class="legend"><span><i style="background:var(--gold)"></i>Queued</span><span><i style="background:var(--green)"></i>Published</span><span><i style="background:var(--mute)"></i>Planned, not liked yet</span></div>' +
+      '<div class="legend"><span class="sch"><i class="st">' + ICON.clock + '</i>Queued</span><span class="pub"><i class="st">' + ICON.check + '</i>Published</span><span class="sug"><i class="st">' + ICON.heart + '</i>Planned, not liked yet</span></div>' +
       '<div class="section-h"><h2>Content mix</h2></div><div class="mix">' + mix + '</div>'
   }
   function viewProfile() {

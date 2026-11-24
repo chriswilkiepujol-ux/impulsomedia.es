@@ -6,6 +6,8 @@
 :root {
   --bg: #111418; --surface: #181c22; --raised: #1f242c; --line: #2a3039; --fg: #f4f1ea; --sub: #c4bfb3; --mute: #8a8f97;
   --gold: #d4a853; --gold-ink: #111418; --red: #ff4d5e; --green: #3ecf8e; --blue: #7fb2ff;
+  /* Status colours for the plan: kept away from the brand gold so they read on any slide. */
+  --st-sch: #ff8a1f; --st-pub: #22c55e; --st-sug: #4da3ff; --st-fail: #ff4d5e;
   --display: "Bricolage", ui-sans-serif, system-ui, sans-serif; --body: "Manrope", ui-sans-serif, system-ui, sans-serif; --mono: "DM Mono", ui-monospace, monospace;
   --col: 480px; --safe-b: env(safe-area-inset-bottom, 0px); --safe-t: env(safe-area-inset-top, 0px);
 }
@@ -145,12 +147,19 @@ h1, h2, h3 { font-family: var(--display); letter-spacing: -.02em; margin: 0; lin
 .cell.today { border-color: var(--gold); }
 .cell.out .n { color: var(--mute); }
 .cell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.cell.sug img { opacity: .55; }
-.cell .st { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; z-index: 2; }
-.cell.sch .st { background: var(--gold); } .cell.pub .st { background: var(--green); } .cell.fail .st { background: var(--red); }
-.cell.sug { border-style: dashed; }
-.legend { display: flex; flex-wrap: wrap; gap: 12px; padding: 12px 14px 0; font-size: 12.5px; color: var(--sub); }
-.legend i { display: inline-block; width: 16px; height: 5px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+.cell.sug img { opacity: .5; }
+.cell.sch, .cell.pub, .cell.sug, .cell.fail { border-width: 2px; }
+.cell.sch { border-color: var(--st-sch); } .cell.pub { border-color: var(--st-pub); } .cell.fail { border-color: var(--st-fail); }
+.cell.sug { border-color: var(--st-sug); border-style: dashed; }
+/* Status badge: a filled circle with its own icon (clock, tick, heart, cross). */
+.st { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; color: #0b0d10; flex: none; }
+.st svg { width: 12px; height: 12px; stroke-width: 2.6; }
+.sch > .st, .sch .st { background: var(--st-sch); } .pub > .st, .pub .st { background: var(--st-pub); } .sug > .st, .sug .st { background: var(--st-sug); } .fail > .st, .fail .st { background: var(--st-fail); }
+.cell .st { position: absolute; right: 3px; bottom: 3px; z-index: 2; box-shadow: 0 0 0 2px rgba(11,13,16,.85); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 14px 14px 0; font-size: 13px; color: var(--fg); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.stat span { display: flex; align-items: center; gap: 7px; }
+.stat.sch b { color: var(--st-sch); } .stat.pub b { color: var(--st-pub); } .stat.sug b { color: var(--st-sug); }
 .mix { padding: 6px 14px 0; display: grid; gap: 8px; }
 .mix .bar { display: grid; grid-template-columns: 110px 1fr 28px; gap: 10px; align-items: center; font-size: 13px; color: var(--sub); }
 .mix .bar i { display: block; height: 8px; border-radius: 4px; background: var(--gold); }
