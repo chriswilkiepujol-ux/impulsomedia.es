@@ -121,7 +121,7 @@
   {
     "plan_date": "2026-12-19", "title": "EN: free website audit", "pillar": "herramienta", "lang": "en", "theme": "light",
     "slides": [
-      {"k": "poster", "eyebrow": "Free website audit", "h": "Type your website. See what *a new client sees*.", "sub": "One minute, nothing to install. Link in the caption.", "art": {"k": "audit", "mode": "input", "q": "www.yoursite.com"}}
+      {"k": "poster", "eyebrow": "Free website audit", "h": "Type your website. See what a *new client* sees.", "sub": "One minute, nothing to install. Link in the caption.", "art": {"k": "audit", "mode": "input", "q": "www.yoursite.com"}}
     ],
     "caption": "We have added a free tool to our website: a quick audit for any business site.\n\nType your web address and in about a minute you get a report covering eight areas, from the first impression and mobile speed to technical SEO and how easy it is to contact you. Each one comes with a score and the first thing we would change.\n\nThere is nothing to install and no access to hand over. The report is yours, whoever you decide to work with.\n\nTry it at impulsomedia.es/en/free-website-audit (link in bio).",
     "hashtags": "#Sotogrande #Gibraltar #WebDesign #LocalSEO #CostaDelSol",
