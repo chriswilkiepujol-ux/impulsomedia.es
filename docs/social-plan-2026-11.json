@@ -1,909 +1,293 @@
 [
- {
-  "plan_date": "2026-11-26",
-  "title": "Lanzamiento: auditoría web gratis",
-  "pillar": "herramienta",
-  "lang": "es",
-  "theme": "gold",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Nuevo",
-    "h": "Pon tu web. Mira *qué ve un cliente* al entrar.",
-    "sub": "Auditoría web gratis. Un minuto, sin instalar nada.",
-    "art": {
-     "k": "audit"
-    }
-   },
-   {
-    "k": "text",
-    "eyebrow": "Por qué",
-    "h": "Tú ves tu web cada día. Un cliente, *una vez*.",
-    "b": "Y en diez segundos decide si te llama o cierra la pestaña. La auditoría la mira con esos ojos."
-   },
-   {
-    "k": "list",
-    "eyebrow": "Ocho apartados con nota",
-    "h": "Entre ellos",
-    "items": [
-     "Primera impresión",
-     "Lo fácil que es contactarte",
-     "Velocidad en el móvil",
-     "SEO técnico",
-     "Medición y anuncios"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "Pruébala *con tu web*",
-    "sub": "Es gratis y puedes aplicar las mejoras con quien tú quieras.",
-    "url": "impulsomedia.es/auditoria-web-gratis"
-   }
-  ],
-  "caption": "Hemos abierto una herramienta nueva en nuestra web: una auditoría gratuita para cualquier negocio.\n\nEscribes la dirección de tu web y en un minuto tienes un informe con ocho apartados: qué se entiende al entrar, lo fácil que es contactarte, la velocidad en el móvil, el SEO técnico y varias cosas más. Cada uno con su nota y con lo que haríamos primero.\n\nNo hace falta instalar nada ni darnos acceso a nada. Y lo que te llevas es tuyo: puedes aplicar las mejoras por tu cuenta o con quien quieras.\n\nPruébala en impulsomedia.es/auditoria-web-gratis (enlace en el perfil).",
-  "hashtags": "#Sotogrande #CampoDeGibraltar #DiseñoWeb #SEOLocal #MarketingDigital",
-  "alt_text": "Fondo dorado con el texto: Pon tu web y mira qué ve un cliente al entrar. Auditoría web gratis.",
-  "note": "Launch post for the free audit. Make sure the profile link points to the audit page that day.",
-  "old_plan_date": "2026-11-26"
- },
- {
-  "plan_date": "2026-11-28",
-  "title": "Quién está detrás: Chris, fundador",
-  "pillar": "marca",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "photo",
-    "img": "founder",
-    "eyebrow": "Quién está detrás",
-    "h": "Hola, soy *Chris*.",
-    "sub": "Fundador de ImpulsoMedia, en Sotogrande."
-   },
-   {
-    "k": "text",
-    "eyebrow": "De dónde vengo",
-    "h": "Más de 10 años comprando publicidad para *iGaming*",
-    "b": "Un sector donde cada euro se mide y lo que no rinde se apaga el mismo día."
-   },
-   {
-    "k": "text",
-    "eyebrow": "Cómo trabajo",
-    "h": "Si me escribes, te *contesto yo*",
-    "b": "Hago las webs y llevo las campañas personalmente. Sin cuentas que pasan de mano en mano ni informes que nadie lee."
-   },
-   {
-    "k": "cta",
-    "h": "¿Hablamos de *tu negocio*?",
-    "sub": "La primera llamada no te compromete a nada.",
-    "url": "impulsomedia.es/contacto"
-   }
-  ],
-  "caption": "Hola, soy Chris Wilkie, fundador de ImpulsoMedia.\n\nLlevo más de diez años comprando publicidad para operadores de iGaming, un sector donde cada euro se mide y lo que no funciona se apaga el mismo día. Ahora aplico esa forma de trabajar a negocios de Sotogrande, el Campo de Gibraltar, la Costa del Sol y Gibraltar.\n\nHago las webs y llevo las campañas personalmente. Si me escribes, te contesto yo.\n\nEn esta cuenta vamos a compartir ideas prácticas para que a tu negocio lleguen más clientes, y para que sepas qué pedirle a cualquier agencia. También a nosotros.\n\n¿Hablamos? Escríbenos por mensaje.",
-  "hashtags": "#Sotogrande #CampoDeGibraltar #MarketingDigital #DiseñoWeb #Gibraltar",
-  "alt_text": "Retrato de Chris Wilkie, fundador de ImpulsoMedia, con el texto «Hola, soy Chris».",
-  "note": "Founder introduction, written in the first person from the Founder section of the website. Read it before you like it."
- },
- {
-  "plan_date": "2026-12-01",
-  "title": "Por qué otro negocio sale antes en Google Maps",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "SEO local",
-    "h": "Por qué otro negocio sale *antes que tú* en Google Maps",
-    "sub": "No es suerte. Google mira tres cosas.",
-    "art": {
-     "k": "map"
-    }
-   },
-   {
-    "k": "point",
-    "n": "1",
-    "h": "Lo *cerca* que estás de quien busca",
-    "b": "No lo puedes cambiar, pero sí comprobar que tu dirección y tu zona de servicio están bien puestas."
-   },
-   {
-    "k": "point",
-    "n": "2",
-    "h": "Si *encajas* con lo que se busca",
-    "b": "La categoría de tu ficha, tus servicios y lo que dice tu web.",
-    "art": {
-     "k": "search",
-     "q": "fisio en Sotogrande"
-    }
-   },
-   {
-    "k": "point",
-    "n": "3",
-    "h": "Lo *conocido y fiable* que pareces",
-    "b": "Reseñas recientes y contestadas, fotos propias y una web que nombra tu pueblo.",
-    "art": {
-     "k": "review",
-     "name": "Ana",
-     "text": "Muy buen trato y muy puntuales.",
-     "reply": "Gracias, Ana, por confiar en nuestra clínica de Sotogrande."
-    }
-   },
-   {
-    "k": "cta",
-    "h": "¿Miramos cómo sale *tu negocio*?",
-    "sub": "Escríbenos por mensaje y lo revisamos contigo.",
-    "url": "impulsomedia.es"
-   }
-  ],
-  "caption": "Cuando alguien busca «dentista cerca de mí», Google ordena el mapa con tres criterios que él mismo explica: la distancia, si tu negocio encaja con la búsqueda y lo conocido que es.\n\nLa distancia no la controlas. Las otras dos, sí.\n\nUna ficha de Google completa, con la categoría correcta, fotos tuyas y reseñas contestadas, hace más por un negocio local que muchas webs.\n\nSi quieres saber cómo se ve el tuyo desde fuera, escríbenos por mensaje.",
-  "hashtags": "#SEOLocal #GoogleMaps #Sotogrande #CampoDeGibraltar #NegociosLocales",
-  "alt_text": "Texto sobre fondo claro: Por qué otro negocio sale antes que tú en Google Maps.",
-  "old_plan_date": "2026-11-27"
- },
- {
-  "plan_date": "2026-12-03",
-  "title": "5 preguntas antes de firmar con una agencia",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Antes de firmar",
-    "h": "5 preguntas para *cualquier agencia*",
-    "sub": "También para nosotros.",
-    "art": {
-     "k": "checklist",
-     "marks": [
-      2
-     ]
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "Pregunta",
-    "h": "Y pide la respuesta *por escrito*",
-    "items": [
-     "¿A nombre de quién quedan la web y las cuentas?",
-     "¿Hay permanencia?",
-     "¿Qué voy a ver cada mes?",
-     "¿Cómo sabré cuántos clientes me trae?",
-     "¿Quién hace el trabajo?"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "Hazlas *antes de firmar*",
-    "sub": "Y háznoslas también a nosotros. Escríbenos por mensaje.",
-    "url": "impulsomedia.es"
-   }
-  ],
-  "caption": "Contratar una agencia de marketing no debería ser un acto de fe.\n\nAntes de firmar, haz cinco preguntas y pide la respuesta por escrito: a nombre de quién quedan la web y las cuentas de anuncios, si hay permanencia, qué vas a ver cada mes, cómo sabrás cuántos clientes te trae y quién hace de verdad el trabajo.\n\nUna agencia seria contesta a las cinco sin rodeos. Si alguna respuesta es vaga, ya tienes una pista.\n\nHáznoslas también a nosotros. Escríbenos por mensaje y te contestamos una por una.",
-  "hashtags": "#MarketingDigital #Sotogrande #CampoDeGibraltar #PymesEspaña #DiseñoWeb",
-  "alt_text": "Portada con el texto «5 preguntas para cualquier agencia» sobre una lista de comprobación.",
-  "note": "New. Helps owners avoid a bad deal when hiring an agency."
- },
- {
-  "plan_date": "2026-12-05",
-  "title": "La prueba de los 5 segundos",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "stat",
-    "eyebrow": "Haz la prueba",
-    "big": "5 s",
-    "h": "Enseña tu web *cinco segundos* a alguien que no te conozca.",
-    "b": "Si no sabe decir qué vendes, dónde estás y cómo contactarte, ya sabes por dónde empezar."
-   }
-  ],
-  "caption": "Una prueba que puedes hacer hoy mismo y que dice más de tu web que muchos informes.\n\nBusca a alguien que no conozca tu negocio. Enséñale tu web en el móvil durante cinco segundos y quítasela. Pregúntale qué vendes, dónde estás y cómo te contactaría.\n\nSi falla una de las tres, no es culpa suya. Es que la portada no lo está diciendo lo bastante claro o lo bastante arriba.\n\nY si quieres una segunda opinión, nuestra auditoría gratuita revisa justo eso. Enlace en el perfil.",
-  "hashtags": "#DiseñoWeb #Sotogrande #CampoDeGibraltar #PymesEspaña #MarketingDigital",
-  "alt_text": "Un «5 s» grande con el texto «Enseña tu web cinco segundos a alguien que no te conozca».",
-  "old_plan_date": "2026-12-03"
- },
- {
-  "plan_date": "2026-12-08",
-  "title": "3 cosas que no hacemos",
-  "pillar": "marca",
-  "lang": "es",
-  "theme": "gold",
-  "slides": [
-   {
-    "k": "list",
-    "eyebrow": "Cómo trabajamos",
-    "h": "3 cosas que *no hacemos*",
-    "mark": "no",
-    "items": [
-     "Contratos de permanencia",
-     "Dar un precio sin conocerte",
-     "Informes que nadie entiende"
-    ]
-   }
-  ],
-  "caption": "Tres cosas que no hacemos en ImpulsoMedia.\n\nNo atamos a nadie con permanencias. No damos precios antes de saber qué necesita tu negocio. Y no mandamos informes llenos de gráficas que no dicen nada.\n\nLo contamos porque muchos negocios de la zona ya han tenido una mala experiencia con alguna agencia, y es normal que desconfíen.\n\nSi quieres ver cómo trabajamos, empieza por una llamada. Escríbenos por mensaje.",
-  "hashtags": "#Sotogrande #AgenciaDeMarketing #MarketingDigital #CampoDeGibraltar #NegociosLocales",
-  "alt_text": "Lista con cruces de tres cosas que ImpulsoMedia no hace: permanencia, precios sin conocerte e informes que nadie entiende.",
-  "old_plan_date": "2026-12-05"
- },
- {
-  "plan_date": "2026-12-10",
-  "title": "4 comprobaciones antes de gastar en Google Ads",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Google Ads",
-    "h": "Antes de poner un euro, comprueba *4 cosas*",
-    "sub": "Para no pagar clics que no sirven.",
-    "art": {
-     "k": "ad"
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "La lista",
-    "h": "Cuatro *preguntas*",
-    "items": [
-     "¿Sabes cuánto vale un cliente nuevo?",
-     "¿A dónde llega quien hace clic?",
-     "¿Mides llamadas y formularios?",
-     "¿Has limitado la zona?"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "¿Ya tienes *campañas*?",
-    "sub": "Les echamos un vistazo y te decimos qué cambiaríamos primero.",
-    "url": "impulsomedia.es"
-   }
-  ],
-  "caption": "Google Ads puede traer clientes desde la primera semana, pero también es muy fácil gastar dinero en él sin enterarse de nada.\n\nAntes de activar una campaña conviene tener claras cuatro cosas: cuánto vale para ti un cliente nuevo, a qué página llega quien hace clic, si estás midiendo llamadas y formularios, y en qué zona se van a ver tus anuncios.\n\nCon eso resuelto puedes saber qué te trae cada euro. Sin eso, solo ves clics.\n\nSi ya tienes campañas en marcha y no sabes si rinden, escríbenos por mensaje y las miramos.",
-  "hashtags": "#GoogleAds #PublicidadOnline #Sotogrande #MarketingDigital #PymesEspaña",
-  "alt_text": "Texto sobre fondo claro: Antes de poner un euro en Google Ads, comprueba 4 cosas.",
-  "old_plan_date": "2026-12-10"
- },
- {
-  "plan_date": "2026-12-12",
-  "title": "Las consultas que llegan fuera de horario",
-  "pillar": "ia",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "poster",
-    "eyebrow": "Fuera de horario",
-    "h": "Te escriben a las *22:04*. ¿Quién contesta?",
-    "art": {
-     "k": "chat",
-     "time": "22:04",
-     "q": "Hola, ¿tenéis hueco mañana por la mañana?",
-     "note": "Sin respuesta"
-    }
-   }
-  ],
-  "caption": "A las diez de la noche de un domingo también hay gente buscando un fisio, un abogado o una mesa para el sábado.\n\nUna parte de las consultas llega por la noche, en fin de semana o en festivos. Si nadie contesta hasta el siguiente día laborable, algunas ya se habrán ido a otro sitio.\n\nUn asistente con IA puede responder al momento, resolver las dudas de siempre y dejarte los datos de la persona para que la llames tú. No sustituye a nadie: se ocupa de lo repetitivo.\n\nSi quieres saber cómo quedaría en tu negocio, escríbenos por mensaje.",
-  "hashtags": "#InteligenciaArtificial #Automatización #Sotogrande #PymesEspaña #NegociosLocales",
-  "alt_text": "Un mensaje recibido a las 22:04 que sigue sin respuesta, con el texto «Te escriben a las 22:04. ¿Quién contesta?».",
-  "old_plan_date": "2026-12-08"
- },
- {
-  "plan_date": "2026-12-15",
-  "title": "Cómo contestar a una reseña de Google",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Ficha de Google",
-    "h": "Cómo contestar a una reseña, *buena o mala*",
-    "sub": "Tres líneas bastan.",
-    "art": {
-     "k": "review",
-     "name": "Ana",
-     "text": "Muy buen trato y muy puntuales.",
-     "reply": "Gracias, Ana, por confiar en nuestra clínica de Sotogrande."
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "Tres ideas",
-    "h": "Para contestar *bien*",
-    "items": [
-     "Contesta todas, también las de cinco estrellas",
-     "Usa el nombre, el servicio y el pueblo",
-     "En las malas, calma. Nunca discutas en público"
-    ]
-   },
-   {
-    "k": "text",
-    "eyebrow": "Recuerda",
-    "h": "No contestas solo a *quien escribió*",
-    "b": "Contestas a todos los que van a leer esa reseña antes de decidir si te llaman."
-   },
-   {
-    "k": "cta",
-    "h": "¿Reseñas *sin contestar*?",
-    "sub": "Te ayudamos a preparar las respuestas. Escríbenos por mensaje.",
-    "url": "impulsomedia.es"
-   }
-  ],
-  "caption": "Las reseñas de Google se leen más de lo que parece, y las respuestas también.\n\nTres ideas para contestarlas bien: responde a todas, no solo a las malas. Usa el nombre de la persona y menciona el servicio. Y cuando la reseña sea negativa, respira antes de escribir: reconoce el problema y ofrece una solución, sin discutir.\n\nPiensa que no le contestas solo a quien la escribió. Le contestas a todo el que la va a leer antes de llamarte.\n\nSi tienes reseñas acumuladas sin responder, escríbenos y te echamos una mano.",
-  "hashtags": "#SEOLocal #GoogleMaps #Sotogrande #NegociosLocales #CampoDeGibraltar",
-  "alt_text": "Texto sobre fondo claro: Cómo contestar a una reseña, buena o mala.",
-  "old_plan_date": "2026-12-07"
- },
- {
-  "plan_date": "2026-12-17",
-  "title": "Tu ficha de Google antes de Navidad",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Antes de las fiestas",
-    "h": "4 cosas que cambiar hoy en tu *ficha de Google*",
-    "sub": "Diez minutos antes de Navidad.",
-    "art": {
-     "k": "calendar",
-     "marks": [
-      24,
-      25,
-      31
-     ],
-     "offset": 1
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "La lista",
-    "h": "Diez minutos, *cuatro cambios*",
-    "items": [
-     "El horario de los festivos, día a día",
-     "Una publicación con tu oferta de Navidad",
-     "Fotos recientes del local",
-     "El teléfono y el WhatsApp correctos"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "¿Te la *revisamos*?",
-    "sub": "Escríbenos por mensaje y la miramos contigo.",
-    "url": "impulsomedia.es"
-   }
-  ],
-  "caption": "En Navidad cambia casi todo en un negocio: el horario, la oferta y quién coge el teléfono. Lo que casi nunca cambia es la ficha de Google.\n\nY es lo primero que mira quien te busca en el mapa. Llegar a un sitio que Google decía que estaba abierto y encontrarlo cerrado suele acabar en una mala reseña.\n\nDiez minutos hoy: horarios especiales de los festivos, una publicación con tu oferta, un par de fotos nuevas y el teléfono comprobado.\n\nSi no sabes dónde se cambia cada cosa, escríbenos por mensaje.",
-  "hashtags": "#SEOLocal #GoogleMaps #Navidad #Sotogrande #NegociosLocales",
-  "alt_text": "Texto sobre fondo claro: 4 cosas que cambiar hoy en tu ficha de Google.",
-  "old_plan_date": "2026-12-17"
- },
- {
-  "plan_date": "2026-12-19",
-  "title": "EN: free website audit",
-  "pillar": "herramienta",
-  "lang": "en",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "poster",
-    "eyebrow": "Free website audit",
-    "h": "Type your website. See what *a new client sees*.",
-    "sub": "One minute, nothing to install. Link in the caption.",
-    "art": {
-     "k": "audit",
-     "mode": "input",
-     "q": "www.yoursite.com"
-    }
-   }
-  ],
-  "caption": "We have added a free tool to our website: a quick audit for any business site.\n\nType your web address and in about a minute you get a report covering eight areas, from the first impression and mobile speed to technical SEO and how easy it is to contact you. Each one comes with a score and the first thing we would change.\n\nThere is nothing to install and no access to hand over. The report is yours, whoever you decide to work with.\n\nTry it at impulsomedia.es/en/free-website-audit (link in bio).",
-  "hashtags": "#Sotogrande #Gibraltar #WebDesign #LocalSEO #CostaDelSol",
-  "alt_text": "A website audit box with the text “Type your website. See what a new client sees.”",
-  "old_plan_date": "2026-12-12"
- },
- {
-  "plan_date": "2026-12-22",
-  "title": "Lo que tiene que estar a tu nombre",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "list",
-    "eyebrow": "Compruébalo hoy",
-    "h": "Esto tiene que estar *a tu nombre*",
-    "mark": "yes",
-    "items": [
-     "El dominio de tu web",
-     "La web y su contenido",
-     "La cuenta de Google Ads",
-     "La ficha de Google",
-     "Los datos de tus clientes"
-    ]
-   }
-  ],
-  "caption": "Hay negocios que cambian de agencia y descubren que no pueden llevarse nada: ni el dominio, ni la web, ni la cuenta de anuncios.\n\nCinco cosas tienen que estar siempre a tu nombre: el dominio, la web y su contenido, la cuenta de Google Ads, la ficha de Google y los datos de tus clientes. La agencia trabaja en ellas con acceso, pero el dueño eres tú.\n\nCompruébalo hoy. Si no sabes a nombre de quién está tu dominio, pregúntalo.\n\n¿Tienes dudas con el tuyo? Escríbenos por mensaje y te decimos cómo mirarlo.",
-  "hashtags": "#MarketingDigital #DiseñoWeb #GoogleAds #Sotogrande #PymesEspaña",
-  "alt_text": "Lista de cinco cosas que deben estar a nombre del negocio: dominio, web, cuenta de Google Ads, ficha de Google y datos de clientes.",
-  "note": "New. Single image. Owning your domain, site and ad accounts."
- },
- {
-  "plan_date": "2026-12-24",
-  "title": "Felices fiestas",
-  "pillar": "marca",
-  "lang": "es",
-  "theme": "gold",
-  "slides": [
-   {
-    "k": "poster",
-    "eyebrow": "Felices fiestas",
-    "h": "*Gracias* por este año.",
-    "sub": "A los clientes que han confiado en nosotros y a quienes nos seguís por aquí."
-   }
-  ],
-  "caption": "Feliz Navidad de parte de ImpulsoMedia.\n\nGracias a los clientes que han confiado en nosotros este año y a quienes nos seguís por aquí.\n\nSeguimos la semana que viene con ideas para empezar bien el año.",
-  "hashtags": "#FelizNavidad #Sotogrande #CampoDeGibraltar",
-  "alt_text": "Texto grande sobre fondo dorado: «Gracias por este año».",
-  "old_plan_date": "2026-12-24"
- },
- {
-  "plan_date": "2026-12-29",
-  "title": "5 cosas que hacer en enero con tu web",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Para 2027",
-    "h": "5 cosas que hacer *en enero* con tu web",
-    "sub": "Ninguna lleva más de una tarde.",
-    "art": {
-     "k": "site"
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "La lista",
-    "h": "Apúntalas",
-    "items": [
-     "Actualiza horarios, servicios y fotos",
-     "Pide diez reseñas a clientes contentos",
-     "Revisa tu web desde el móvil",
-     "Apunta de dónde llegó cada cliente",
-     "Elige una sola cosa que mejorar"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "Empieza por saber *cómo está tu web*",
-    "sub": "Auditoría gratuita, en un minuto.",
-    "url": "impulsomedia.es/auditoria-web-gratis"
-   }
-  ],
-  "caption": "Enero es buen momento para poner la web al día, antes de que el año se llene.\n\nCinco cosas sencillas: actualizar la información, pedir reseñas, mirar la web desde el móvil como si fueras un cliente, apuntar de dónde llegó cada cliente este año y elegir una sola mejora para empezar.\n\nLa cuarta es la que más cuesta y la que más enseña. Si no sabes de dónde vienen tus clientes, cualquier inversión en marketing es a ciegas.\n\nPara la primera revisión, nuestra auditoría gratuita te da un punto de partida. Enlace en el perfil.",
-  "hashtags": "#DiseñoWeb #MarketingDigital #Sotogrande #PymesEspaña #NegociosLocales",
-  "alt_text": "Texto sobre fondo oscuro: 5 cosas que hacer en enero para que tu web trabaje todo el año.",
-  "old_plan_date": "2026-12-22"
- },
- {
-  "plan_date": "2027-01-02",
-  "title": "Servicios: cinco formas de traerte más clientes",
-  "pillar": "marca",
-  "lang": "es",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "list",
-    "eyebrow": "Qué hacemos",
-    "h": "Cinco formas de traerte *más clientes*",
-    "mark": "yes",
-    "items": [
-     "Diseño y mejora de webs",
-     "SEO local y ficha de Google",
-     "Google Ads",
-     "Anuncios en Instagram y Facebook",
-     "Automatización con IA"
-    ]
-   }
-  ],
-  "caption": "Todo lo que hacemos tiene un solo objetivo: que a tu negocio lleguen más clientes.\n\nUna web clara y rápida, para que quien entra te llame. SEO local y ficha de Google, para que te encuentren cerca. Google Ads y anuncios en redes, para llegar a quien todavía no te conoce. Y automatización con IA, para contestar antes y perder menos consultas.\n\nNo hace falta hacerlo todo a la vez. Empezamos por lo que más falta le hace a tu negocio.\n\n¿No sabes por dónde empezar? La auditoría gratuita te da una primera pista: impulsomedia.es/auditoria-web-gratis",
-  "hashtags": "#DiseñoWeb #SEOLocal #GoogleAds #InteligenciaArtificial #Sotogrande",
-  "alt_text": "Lista de los cinco servicios de ImpulsoMedia: webs, SEO local, Google Ads, anuncios en redes y automatización con IA.",
-  "note": "New. Single image covering all services. Could be replaced by the service wheel video once it exists."
- },
- {
-  "plan_date": "2027-01-05",
-  "title": "Un portal es un alquiler, tu web es tuya",
-  "pillar": "educar",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "versus",
-    "la": "En un portal",
-    "ha": "Pagas *alquiler*",
-    "ba": "El día que dejas de pagar, dejas de salir.",
-    "lb": "En tu web",
-    "hb": "Construyes *algo tuyo*",
-    "bb": "Tu posición en Google, tus reseñas y cada contacto se quedan contigo."
-   }
-  ],
-  "caption": "Los portales funcionan. El problema es depender solo de ellos.\n\nUn portal es un alquiler: pagas cada mes por aparecer y, el día que dejas de pagar, dejas de salir. Lo que inviertes en tu propia web se queda contigo: tu posición en Google, tus reseñas y cada persona que te escribe.\n\nNo hay que elegir. Lo sensato es usar el portal mientras construyes algo tuyo, y comparar cuánto te cuesta un cliente por cada camino.\n\nSi quieres hacer esa cuenta con tus números, escríbenos por mensaje.",
-  "hashtags": "#MarketingInmobiliario #Sotogrande #SEOLocal #CostaDelSol #NegociosLocales",
-  "alt_text": "Dos mitades enfrentadas: en un portal pagas alquiler, en tu web construyes algo tuyo.",
-  "old_plan_date": "2026-12-14"
- },
- {
-  "plan_date": "2027-01-07",
-  "title": "5 tareas que la IA ya puede hacer en tu negocio",
-  "pillar": "ia",
-  "lang": "es",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "IA para negocios",
-    "h": "5 tareas de cada día que ya puede hacer *la IA*",
-    "sub": "Sin cambiar tu forma de trabajar.",
-    "art": {
-     "k": "flow"
-    }
-   },
-   {
-    "k": "point",
-    "n": "1",
-    "h": "Contestar las *preguntas de siempre*",
-    "b": "Horarios, cómo llegar, si hay cita esta semana. También de noche y en fin de semana.",
-    "art": {
-     "k": "chat",
-     "time": "21:40",
-     "q": "¿Abrís el sábado por la mañana?",
-     "a": "Sí, de 10 a 14. ¿Te reservo hora?"
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "Las otras cuatro",
-    "h": "Y además",
-    "items": [
-     "Recoger los datos de quien pide cita",
-     "Pasar los correos a tu agenda",
-     "Pedir la reseña después de cada servicio",
-     "Prepararte el resumen de la semana"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "¿Cuál te quitaría *más horas*?",
-    "sub": "Cuéntanoslo por mensaje y te decimos si se puede automatizar.",
-    "url": "impulsomedia.es"
-   }
-  ],
-  "caption": "La inteligencia artificial no va de robots. Va de dejar de hacer a mano lo que se repite todos los días.\n\nEn un negocio local casi siempre son las mismas cinco cosas: contestar preguntas, recoger datos, copiar información de un sitio a otro, pedir reseñas y preparar informes.\n\nNinguna necesita que cambies de programa ni de forma de trabajar. Se monta alrededor de lo que ya usas.\n\n¿Cuál de las cinco te quitaría más horas a la semana? Escríbenos por mensaje y lo vemos.",
-  "hashtags": "#InteligenciaArtificial #Automatización #PymesEspaña #Sotogrande #MarketingDigital",
-  "alt_text": "Texto sobre fondo oscuro: 5 tareas que tu negocio repite cada día y que ya puede hacer la IA.",
-  "old_plan_date": "2026-11-30"
- },
- {
-  "plan_date": "2027-01-09",
-  "title": "EN: what international clients check on a Gibraltar company website",
-  "pillar": "local",
-  "lang": "en",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "For Gibraltar companies",
-    "h": "What an international client checks *first* on your website",
-    "sub": "Four things, usually in under a minute.",
-    "art": {
-     "k": "rock"
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "Before they email you",
-    "h": "Four *checks*",
-    "items": [
-     "Who is behind the company",
-     "Whether you work with clients like them",
-     "How fast it loads where they are",
-     "How to reach a real person"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "Want a *second pair of eyes*?",
-    "sub": "Our free audit reads your site the way a new client would.",
-    "url": "impulsomedia.es/en/free-website-audit"
-   }
-  ],
-  "caption": "Most companies in Gibraltar serve clients who will never walk into the office. For them, the website is the office.\n\nBefore they email you, they check four things: who is behind the company, whether you work with clients like them, whether the site loads properly where they are, and how to reach a real person.\n\nNone of this needs a redesign. It usually comes down to a clearer homepage and a visible way to get in touch.\n\nIf you would like an outside view, our free website audit takes about a minute. Link in bio.",
-  "hashtags": "#Gibraltar #GibraltarBusiness #WebDesign #DigitalMarketing #Sotogrande",
-  "alt_text": "Text on a light background: What an international client checks on your website first.",
-  "old_plan_date": "2026-12-04"
- },
- {
-  "plan_date": "2027-01-12",
-  "title": "La auditoría gratuita en 3 pasos",
-  "pillar": "herramienta",
-  "lang": "es",
-  "theme": "gold",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Cómo funciona",
-    "h": "Tu web, revisada en *un minuto*",
-    "sub": "Así funciona la auditoría gratuita.",
-    "art": {
-     "k": "audit",
-     "mode": "input"
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "Tres pasos",
-    "h": "Pones, esperas, lees",
-    "items": [
-     "Pon tu web: dirección, nombre y email",
-     "Espera un minuto mientras la leemos",
-     "Lee el resultado: ocho apartados con nota"
-    ]
-   },
-   {
-    "k": "text",
-    "eyebrow": "Lo que no hace",
-    "h": "No mira tu tráfico *ni tus campañas*",
-    "b": "Para eso hace falta acceso a tus cuentas. Esta es la versión corta, para saber por dónde empezar."
-   },
-   {
-    "k": "cta",
-    "h": "Un minuto. *Sin instalar nada.*",
-    "url": "impulsomedia.es/auditoria-web-gratis"
-   }
-  ],
-  "caption": "¿Cómo funciona la auditoría gratuita de nuestra web? En tres pasos y en un minuto.\n\nPones la dirección de tu web, esperas mientras la leemos como la leería un cliente nuevo y recibes un informe con ocho apartados puntuados.\n\nConviene saber también lo que no hace: no mide tus visitas, tus posiciones en Google ni tus campañas, porque para eso necesitaríamos acceso a tus cuentas. Es un primer vistazo honesto, no un sustituto de una auditoría hecha por una persona.\n\nEnlace en el perfil.",
-  "hashtags": "#DiseñoWeb #SEOLocal #Sotogrande #CostaDelSol #NegociosLocales",
-  "alt_text": "Texto sobre fondo claro: Tu web, revisada en un minuto y en tres pasos.",
-  "old_plan_date": "2026-12-01"
- },
- {
-  "plan_date": "2027-01-14",
-  "title": "Proyecto: Racket Breaks",
-  "pillar": "casos",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Proyecto",
-    "h": "Racket Breaks: una web que *vende viajes de pádel*",
-    "sub": "Y que prepara el presupuesto de cada grupo.",
-    "art": {
-     "k": "phone",
-     "tag": "Presupuesto"
-    }
-   },
-   {
-    "k": "text",
-    "eyebrow": "El reto",
-    "h": "Grupos que organizan su viaje *desde casa*",
-    "b": "Vienen de Reino Unido y Europa. Tenían que poder ver los destinos y pedir un presupuesto a su medida, sin cruzarse diez correos."
-   },
-   {
-    "k": "list",
-    "eyebrow": "Lo que hicimos",
-    "h": "Una plataforma *a medida*",
-    "items": [
-     "Destinos por todo el sur de España",
-     "Presupuesto a medida para cada grupo",
-     "Pensada para el móvil",
-     "SEO desde el primer día"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "¿Tienes un proyecto *parecido*?",
-    "sub": "Turismo, deporte u ocio. Cuéntanoslo por mensaje.",
-    "url": "impulsomedia.es/proyectos"
-   }
-  ],
-  "caption": "Racket Breaks organiza vacaciones de pádel en Sotogrande, Marbella, Estepona, Málaga y Almería para grupos que vienen de Reino Unido y del resto de Europa.\n\nSu web tenía que hacer algo más que enseñar fotos: explicar cada destino y preparar un presupuesto a medida para cada grupo, todo desde el móvil.\n\nLa construimos a medida y con el SEO pensado desde el principio, para que quien busca un viaje de pádel en el sur de España los encuentre.\n\nPuedes ver el proyecto completo en nuestra web. Enlace en el perfil.",
-  "hashtags": "#Pádel #DiseñoWeb #Sotogrande #CostaDelSol #Marbella",
-  "alt_text": "Texto sobre fondo oscuro: Racket Breaks, una web que vende viajes de pádel.",
-  "note": "Names a client. Check with Max before it goes out, and invite @racketbreaks as collaborator if they have Instagram.",
-  "old_plan_date": "2026-12-11"
- },
- {
-  "plan_date": "2027-01-16",
-  "title": "EN: 5 questions to ask any web designer",
-  "pillar": "educar",
-  "lang": "en",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Before you hire",
-    "h": "5 questions to ask *any web designer*",
-    "sub": "Including us.",
-    "art": {
-     "k": "site",
-     "tag": "Get a quote"
-    }
-   },
-   {
-    "k": "list",
-    "eyebrow": "Ask them",
-    "h": "The *five*",
-    "items": [
-     "Who owns the site when it is finished?",
-     "What does “SEO included” mean?",
-     "Will both languages be properly written?",
-     "How will I know it is working?",
-     "What happens after launch?"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "Ask us *the same five*",
-    "sub": "Send us a message and we will answer them one by one.",
-    "url": "impulsomedia.es/en"
-   }
-  ],
-  "caption": "Choosing someone to build your website is hard when every proposal sounds the same.\n\nFive questions cut through it: who owns the site at the end, what “SEO included” actually covers, whether both languages will be properly written, how results will be measured, and what happens after launch.\n\nA good agency answers all five without hesitating. We are happy to be asked them too.\n\nSend us a message and we will go through them with you.",
-  "hashtags": "#Sotogrande #WebDesign #CostaDelSol #Gibraltar #Marbella",
-  "alt_text": "Text on a light background: 5 questions to ask any web designer in Sotogrande.",
-  "old_plan_date": "2026-12-21"
- },
- {
-  "plan_date": "2027-01-19",
-  "title": "Qué es un agente de IA, explicado fácil",
-  "pillar": "ia",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Explicado fácil",
-    "h": "Qué es un *agente de IA*",
-    "sub": "Y para qué le sirve a un negocio. Sin tecnicismos.",
-    "art": {
-     "k": "flow"
-    }
-   },
-   {
-    "k": "versus",
-    "la": "Un chat",
-    "ha": "Te *contesta*",
-    "ba": "Responde a lo que le preguntas.",
-    "lb": "Un agente",
-    "hb": "Hace *el trabajo*",
-    "bb": "Le das un encargo y se ocupa de los pasos: buscar, rellenar, avisar."
-   },
-   {
-    "k": "list",
-    "eyebrow": "Ejemplos",
-    "h": "Lo que puede hacer *por ti*",
-    "items": [
-     "Clasificar los correos que entran",
-     "Preparar un presupuesto con tus tarifas",
-     "Avisarte de una consulta urgente",
-     "Actualizar tu hoja de clientes"
-    ]
-   },
-   {
-    "k": "text",
-    "eyebrow": "Con cabeza",
-    "h": "Tú decides qué hace solo y qué te *consulta antes*",
-    "b": "Lo delicado, como enviar un presupuesto, siempre puede pasar por ti."
-   },
-   {
-    "k": "cta",
-    "h": "Lo explicamos *en el blog*",
-    "sub": "Qué son, qué pueden hacer y cómo empezar.",
-    "url": "impulsomedia.es/blog"
-   }
-  ],
-  "caption": "Se habla mucho de agentes de IA y poco de lo que son.\n\nUn chat responde a lo que le preguntas. Un agente recibe un encargo y lo lleva a cabo: lee el correo que entra, busca los datos, prepara la respuesta y te avisa cuando hace falta que decidas tú.\n\nPara un negocio pequeño eso significa menos tiempo copiando y pegando, y menos consultas que se quedan sin contestar.\n\nEn nuestro blog lo explicamos con más calma: qué son, qué pueden hacer y por dónde empezar. Enlace en el perfil.",
-  "hashtags": "#InteligenciaArtificial #AgentesIA #Automatización #PymesEspaña #Sotogrande",
-  "alt_text": "Texto sobre fondo oscuro: Qué es un agente de IA y para qué le sirve a un negocio.",
-  "old_plan_date": "2026-12-15"
- },
- {
-  "plan_date": "2027-01-21",
-  "title": "Proyecto: Pujol Wilkie",
-  "pillar": "casos",
-  "lang": "es",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "cover",
-    "eyebrow": "Proyecto",
-    "h": "Pujol Wilkie: una web para quien decide *desde otro país*",
-    "sub": "Despacho de abogados en Sotogrande y Marbella.",
-    "art": {
-     "k": "site",
-     "mode": "langs",
-     "q": "pujolwilkie.com",
-     "tag": "Contactar"
-    }
-   },
-   {
-    "k": "text",
-    "eyebrow": "El reto",
-    "h": "Confiar *antes de llamar*",
-    "b": "Quien compra una casa en España desde fuera necesita saber quién está detrás y en qué le puede ayudar, en español y en inglés."
-   },
-   {
-    "k": "list",
-    "eyebrow": "Lo que hicimos",
-    "h": "Claridad *antes que adornos*",
-    "items": [
-     "Servicios explicados sin jerga legal",
-     "En español y en inglés",
-     "Contacto visible en cada página",
-     "Base de SEO para que la encuentren"
-    ]
-   },
-   {
-    "k": "cta",
-    "h": "¿Tu web *genera confianza*?",
-    "sub": "La auditoría gratuita te dice qué ve un cliente nuevo.",
-    "url": "impulsomedia.es/auditoria-web-gratis"
-   }
-  ],
-  "caption": "Pujol Wilkie es un despacho de abogados de Sotogrande y Marbella que acompaña a clientes internacionales en la compra de vivienda en España.\n\nSus clientes suelen tomar la decisión desde otro país, sin haber pisado la oficina. La web tiene que hacer ese primer trabajo: explicar con claridad quién está detrás, en qué puede ayudar y cómo contactar.\n\nLa rehicimos con esa idea: menos adornos y más claridad, y una base de SEO para que quien busca asesoramiento legal en la zona la encuentre.\n\nProyecto completo en nuestra web. Enlace en el perfil.",
-  "hashtags": "#Sotogrande #Marbella #DiseñoWeb #SEOLocal #CostaDelSol",
-  "alt_text": "Texto sobre fondo claro: Pujol Wilkie, una web para clientes que deciden desde otro país.",
-  "note": "Names a client. Check with Esther before it goes out.",
-  "old_plan_date": "2026-12-18"
- },
- {
-  "plan_date": "2027-01-23",
-  "title": "Cómo trabajamos: tres pasos",
-  "pillar": "marca",
-  "lang": "es",
-  "theme": "dark",
-  "slides": [
-   {
-    "k": "list",
-    "eyebrow": "Cómo trabajamos",
-    "h": "Tres pasos y *ninguna sorpresa*",
-    "items": [
-     "Una primera llamada para conocerte",
-     "Una propuesta por escrito",
-     "Trabajo que se revisa cada mes"
-    ]
-   }
-  ],
-  "caption": "Empezar a trabajar con una agencia no debería ser un salto al vacío.\n\nCon nosotros son tres pasos: una primera llamada para conocerte, una propuesta por escrito con lo que haríamos y en qué orden, y trabajo que se revisa cada mes con números delante.\n\nSin permanencia. Y si ya tienes una web que te gusta, trabajamos sobre ella: no siempre hace falta empezar de cero.\n\nSi quieres dar el primer paso, escríbenos por mensaje.",
-  "hashtags": "#Sotogrande #AgenciaDeMarketing #DiseñoWeb #CampoDeGibraltar #MarketingDigital",
-  "alt_text": "Lista de los tres pasos para empezar a trabajar con ImpulsoMedia: llamada, propuesta por escrito y revisión mensual.",
-  "old_plan_date": "2026-12-19"
- },
- {
-  "plan_date": "2027-01-26",
-  "title": "Quiénes somos: del iGaming a tu negocio",
-  "pillar": "marca",
-  "lang": "es",
-  "theme": "light",
-  "slides": [
-   {
-    "k": "poster",
-    "eyebrow": "Quiénes somos",
-    "h": "Venimos de un sector donde *cada euro se mide*.",
-    "sub": "Y trabajamos igual para los negocios de aquí."
-   }
-  ],
-  "caption": "Somos ImpulsoMedia, una agencia digital en Sotogrande.\n\nVenimos del iGaming, donde la publicidad se mide hasta el último euro y lo que no funciona se cambia el mismo día. Esa forma de trabajar es la que aplicamos ahora a clínicas, despachos, inmobiliarias y restaurantes del Campo de Gibraltar, la Costa del Sol y Gibraltar.\n\nHacemos webs nuevas y mejoramos las que ya existen, trabajamos el SEO local, gestionamos anuncios y automatizamos tareas con IA.\n\nSi quieres saber por dónde empezaríamos con tu negocio, escríbenos por mensaje.",
-  "hashtags": "#Sotogrande #AgenciaDeMarketing #MarketingDigital #CampoDeGibraltar #Gibraltar",
-  "alt_text": "Texto grande sobre fondo claro: «Venimos de un sector donde cada euro se mide».",
-  "old_plan_date": "2026-11-28"
- }
+  {
+    "plan_date": "2026-11-26", "title": "Lanzamiento: auditoría web gratis", "pillar": "herramienta", "lang": "es", "theme": "gold",
+    "slides": [
+      {"k": "cover", "eyebrow": "Nuevo", "h": "Pon tu web. Mira *qué ve un cliente* al entrar.", "sub": "Auditoría web gratis. Un minuto, sin instalar nada.", "art": {"k": "audit"}},
+      {"k": "text", "eyebrow": "Por qué", "h": "Tú ves tu web cada día. Un cliente, *una vez*.", "b": "Y en diez segundos decide si te llama o cierra la pestaña. La auditoría la mira con esos ojos."},
+      {"k": "list", "eyebrow": "Ocho apartados con nota", "h": "Entre ellos", "items": ["Primera impresión", "Lo fácil que es contactarte", "Velocidad en el móvil", "SEO técnico", "Medición y anuncios"]},
+      {"k": "cta", "h": "Pruébala *con tu web*", "sub": "Es gratis y puedes aplicar las mejoras con quien tú quieras.", "url": "impulsomedia.es/auditoria-web-gratis"}
+    ],
+    "caption": "Hemos abierto una herramienta nueva en nuestra web: una auditoría gratuita para cualquier negocio.\n\nEscribes la dirección de tu web y en un minuto tienes un informe con ocho apartados: qué se entiende al entrar, lo fácil que es contactarte, la velocidad en el móvil, el SEO técnico y varias cosas más. Cada uno con su nota y con lo que haríamos primero.\n\nNo hace falta instalar nada ni darnos acceso a nada. Y lo que te llevas es tuyo: puedes aplicar las mejoras por tu cuenta o con quien quieras.\n\nPruébala en impulsomedia.es/auditoria-web-gratis (enlace en el perfil).",
+    "hashtags": "#Sotogrande #CampoDeGibraltar #DiseñoWeb #SEOLocal #MarketingDigital",
+    "alt_text": "Fondo dorado con el texto: Pon tu web y mira qué ve un cliente al entrar. Auditoría web gratis.",
+    "note": "Launch post for the free audit. Make sure the profile link points to the audit page that day."
+  },
+  {
+    "plan_date": "2026-11-28", "title": "Quién está detrás: Chris, fundador", "pillar": "marca", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "photo", "img": "founder", "eyebrow": "Quién está detrás", "h": "Hola, soy *Chris*.", "sub": "Fundador de ImpulsoMedia, en Sotogrande."},
+      {"k": "text", "eyebrow": "De dónde vengo", "h": "Más de 10 años comprando publicidad para *iGaming*", "b": "Un sector donde cada euro se mide y lo que no rinde se apaga el mismo día."},
+      {"k": "text", "eyebrow": "Cómo trabajo", "h": "Si me escribes, te *contesto yo*", "b": "Hago las webs y llevo las campañas personalmente. Sin cuentas que pasan de mano en mano ni informes que nadie lee."},
+      {"k": "cta", "h": "¿Hablamos de *tu negocio*?", "sub": "La primera llamada no te compromete a nada.", "url": "impulsomedia.es/contacto"}
+    ],
+    "caption": "Hola, soy Chris Wilkie, fundador de ImpulsoMedia.\n\nLlevo más de diez años comprando publicidad para operadores de iGaming, un sector donde cada euro se mide y lo que no funciona se apaga el mismo día. Ahora aplico esa forma de trabajar a negocios de Sotogrande, el Campo de Gibraltar, la Costa del Sol y Gibraltar.\n\nHago las webs y llevo las campañas personalmente. Si me escribes, te contesto yo.\n\nEn esta cuenta vamos a compartir ideas prácticas para que a tu negocio lleguen más clientes, y para que sepas qué pedirle a cualquier agencia. También a nosotros.\n\n¿Hablamos? Escríbenos por mensaje.",
+    "hashtags": "#Sotogrande #CampoDeGibraltar #MarketingDigital #DiseñoWeb #Gibraltar",
+    "alt_text": "Retrato de Chris Wilkie, fundador de ImpulsoMedia, con el texto «Hola, soy Chris».",
+    "note": "Founder introduction, written in the first person from the Founder section of the website. Read it before you like it."
+  },
+  {
+    "plan_date": "2026-12-01", "title": "Por qué otro negocio sale antes en Google Maps", "pillar": "educar", "lang": "es", "theme": "light",
+    "slides": [
+      {"k": "cover", "eyebrow": "SEO local", "h": "Por qué otro negocio sale *antes que tú* en Google Maps", "sub": "No es suerte. Google mira tres cosas.", "art": {"k": "map"}},
+      {"k": "point", "n": "1", "h": "Lo *cerca* que estás de quien busca", "b": "No lo puedes cambiar, pero sí comprobar que tu dirección y tu zona de servicio están bien puestas."},
+      {"k": "point", "n": "2", "h": "Si *encajas* con lo que se busca", "b": "La categoría de tu ficha, tus servicios y lo que dice tu web.", "art": {"k": "search", "q": "fisio en Sotogrande"}},
+      {"k": "point", "n": "3", "h": "Lo *conocido y fiable* que pareces", "b": "Reseñas recientes y contestadas, fotos propias y una web que nombra tu pueblo.", "art": {"k": "review", "name": "Ana", "text": "Muy buen trato y muy puntuales.", "reply": "Gracias, Ana, por confiar en nuestra clínica de Sotogrande."}},
+      {"k": "cta", "h": "¿Miramos cómo sale *tu negocio*?", "sub": "Escríbenos por mensaje y lo revisamos contigo.", "url": "impulsomedia.es"}
+    ],
+    "caption": "Cuando alguien busca «dentista cerca de mí», Google ordena el mapa con tres criterios que él mismo explica: la distancia, si tu negocio encaja con la búsqueda y lo conocido que es.\n\nLa distancia no la controlas. Las otras dos, sí.\n\nUna ficha de Google completa, con la categoría correcta, fotos tuyas y reseñas contestadas, hace más por un negocio local que muchas webs.\n\nSi quieres saber cómo se ve el tuyo desde fuera, escríbenos por mensaje.",
+    "hashtags": "#SEOLocal #GoogleMaps #Sotogrande #CampoDeGibraltar #NegociosLocales",
+    "alt_text": "Texto sobre fondo claro: Por qué otro negocio sale antes que tú en Google Maps.",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-03", "title": "5 preguntas antes de firmar con una agencia", "pillar": "educar", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "cover", "eyebrow": "Antes de firmar", "h": "5 preguntas para *cualquier agencia*", "sub": "También para nosotros.", "art": {"k": "checklist", "marks": [2]}},
+      {"k": "list", "eyebrow": "Pregunta", "h": "Y pide la respuesta *por escrito*", "items": ["¿A nombre de quién quedan la web y las cuentas?", "¿Hay permanencia?", "¿Qué voy a ver cada mes?", "¿Cómo sabré cuántos clientes me trae?", "¿Quién hace el trabajo?"]},
+      {"k": "cta", "h": "Hazlas *antes de firmar*", "sub": "Y háznoslas también a nosotros. Escríbenos por mensaje.", "url": "impulsomedia.es"}
+    ],
+    "caption": "Contratar una agencia de marketing no debería ser un acto de fe.\n\nAntes de firmar, haz cinco preguntas y pide la respuesta por escrito: a nombre de quién quedan la web y las cuentas de anuncios, si hay permanencia, qué vas a ver cada mes, cómo sabrás cuántos clientes te trae y quién hace de verdad el trabajo.\n\nUna agencia seria contesta a las cinco sin rodeos. Si alguna respuesta es vaga, ya tienes una pista.\n\nHáznoslas también a nosotros. Escríbenos por mensaje y te contestamos una por una.",
+    "hashtags": "#MarketingDigital #Sotogrande #CampoDeGibraltar #PymesEspaña #DiseñoWeb",
+    "alt_text": "Portada con el texto «5 preguntas para cualquier agencia» sobre una lista de comprobación.",
+    "note": "New. Helps owners avoid a bad deal when hiring an agency."
+  },
+  {
+    "plan_date": "2026-12-05", "title": "La prueba de los 5 segundos", "pillar": "educar", "lang": "es", "theme": "light",
+    "slides": [
+      {"k": "stat", "eyebrow": "Haz la prueba", "big": "5 s", "h": "Enseña tu web *cinco segundos* a alguien que no te conozca.", "b": "Si no sabe decir qué vendes, dónde estás y cómo contactarte, ya sabes por dónde empezar."}
+    ],
+    "caption": "Una prueba que puedes hacer hoy mismo y que dice más de tu web que muchos informes.\n\nBusca a alguien que no conozca tu negocio. Enséñale tu web en el móvil durante cinco segundos y quítasela. Pregúntale qué vendes, dónde estás y cómo te contactaría.\n\nSi falla una de las tres, no es culpa suya. Es que la portada no lo está diciendo lo bastante claro o lo bastante arriba.\n\nY si quieres una segunda opinión, nuestra auditoría gratuita revisa justo eso. Enlace en el perfil.",
+    "hashtags": "#DiseñoWeb #Sotogrande #CampoDeGibraltar #PymesEspaña #MarketingDigital",
+    "alt_text": "Un «5 s» grande con el texto «Enseña tu web cinco segundos a alguien que no te conozca».",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-08", "title": "3 cosas que no hacemos", "pillar": "marca", "lang": "es", "theme": "gold",
+    "slides": [
+      {"k": "list", "eyebrow": "Cómo trabajamos", "h": "3 cosas que *no hacemos*", "mark": "no", "items": ["Contratos de permanencia", "Dar un precio sin conocerte", "Informes que nadie entiende"]}
+    ],
+    "caption": "Tres cosas que no hacemos en ImpulsoMedia.\n\nNo atamos a nadie con permanencias. No damos precios antes de saber qué necesita tu negocio. Y no mandamos informes llenos de gráficas que no dicen nada.\n\nLo contamos porque muchos negocios de la zona ya han tenido una mala experiencia con alguna agencia, y es normal que desconfíen.\n\nSi quieres ver cómo trabajamos, empieza por una llamada. Escríbenos por mensaje.",
+    "hashtags": "#Sotogrande #AgenciaDeMarketing #MarketingDigital #CampoDeGibraltar #NegociosLocales",
+    "alt_text": "Lista con cruces de tres cosas que ImpulsoMedia no hace: permanencia, precios sin conocerte e informes que nadie entiende.",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-10", "title": "4 comprobaciones antes de gastar en Google Ads", "pillar": "educar", "lang": "es", "theme": "light",
+    "slides": [
+      {"k": "cover", "eyebrow": "Google Ads", "h": "Antes de poner un euro, comprueba *4 cosas*", "sub": "Para no pagar clics que no sirven.", "art": {"k": "ad"}},
+      {"k": "list", "eyebrow": "La lista", "h": "Cuatro *preguntas*", "items": ["¿Sabes cuánto vale un cliente nuevo?", "¿A dónde llega quien hace clic?", "¿Mides llamadas y formularios?", "¿Has limitado la zona?"]},
+      {"k": "cta", "h": "¿Ya tienes *campañas*?", "sub": "Les echamos un vistazo y te decimos qué cambiaríamos primero.", "url": "impulsomedia.es"}
+    ],
+    "caption": "Google Ads puede traer clientes desde la primera semana, pero también es muy fácil gastar dinero en él sin enterarse de nada.\n\nAntes de activar una campaña conviene tener claras cuatro cosas: cuánto vale para ti un cliente nuevo, a qué página llega quien hace clic, si estás midiendo llamadas y formularios, y en qué zona se van a ver tus anuncios.\n\nCon eso resuelto puedes saber qué te trae cada euro. Sin eso, solo ves clics.\n\nSi ya tienes campañas en marcha y no sabes si rinden, escríbenos por mensaje y las miramos.",
+    "hashtags": "#GoogleAds #PublicidadOnline #Sotogrande #MarketingDigital #PymesEspaña",
+    "alt_text": "Texto sobre fondo claro: Antes de poner un euro en Google Ads, comprueba 4 cosas.",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-12", "title": "Las consultas que llegan fuera de horario", "pillar": "ia", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "poster", "eyebrow": "Fuera de horario", "h": "Te escriben a las *22:04*. ¿Quién contesta?", "art": {"k": "chat", "time": "22:04", "q": "Hola, ¿tenéis hueco mañana por la mañana?", "note": "Sin respuesta"}}
+    ],
+    "caption": "A las diez de la noche de un domingo también hay gente buscando un fisio, un abogado o una mesa para el sábado.\n\nUna parte de las consultas llega por la noche, en fin de semana o en festivos. Si nadie contesta hasta el siguiente día laborable, algunas ya se habrán ido a otro sitio.\n\nUn asistente con IA puede responder al momento, resolver las dudas de siempre y dejarte los datos de la persona para que la llames tú. No sustituye a nadie: se ocupa de lo repetitivo.\n\nSi quieres saber cómo quedaría en tu negocio, escríbenos por mensaje.",
+    "hashtags": "#InteligenciaArtificial #Automatización #Sotogrande #PymesEspaña #NegociosLocales",
+    "alt_text": "Un mensaje recibido a las 22:04 que sigue sin respuesta, con el texto «Te escriben a las 22:04. ¿Quién contesta?».",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-15", "title": "Cómo contestar a una reseña de Google", "pillar": "educar", "lang": "es", "theme": "light",
+    "slides": [
+      {"k": "cover", "eyebrow": "Ficha de Google", "h": "Cómo contestar a una reseña, *buena o mala*", "sub": "Tres líneas bastan.", "art": {"k": "review", "name": "Ana", "text": "Muy buen trato y muy puntuales.", "reply": "Gracias, Ana, por confiar en nuestra clínica de Sotogrande."}},
+      {"k": "list", "eyebrow": "Tres ideas", "h": "Para contestar *bien*", "items": ["Contesta todas, también las de cinco estrellas", "Usa el nombre, el servicio y el pueblo", "En las malas, calma. Nunca discutas en público"]},
+      {"k": "text", "eyebrow": "Recuerda", "h": "No contestas solo a *quien escribió*", "b": "Contestas a todos los que van a leer esa reseña antes de decidir si te llaman."},
+      {"k": "cta", "h": "¿Reseñas *sin contestar*?", "sub": "Te ayudamos a preparar las respuestas. Escríbenos por mensaje.", "url": "impulsomedia.es"}
+    ],
+    "caption": "Las reseñas de Google se leen más de lo que parece, y las respuestas también.\n\nTres ideas para contestarlas bien: responde a todas, no solo a las malas. Usa el nombre de la persona y menciona el servicio. Y cuando la reseña sea negativa, respira antes de escribir: reconoce el problema y ofrece una solución, sin discutir.\n\nPiensa que no le contestas solo a quien la escribió. Le contestas a todo el que la va a leer antes de llamarte.\n\nSi tienes reseñas acumuladas sin responder, escríbenos y te echamos una mano.",
+    "hashtags": "#SEOLocal #GoogleMaps #Sotogrande #NegociosLocales #CampoDeGibraltar",
+    "alt_text": "Texto sobre fondo claro: Cómo contestar a una reseña, buena o mala.",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-17", "title": "Tu ficha de Google antes de Navidad", "pillar": "educar", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "cover", "eyebrow": "Antes de las fiestas", "h": "4 cosas que cambiar hoy en tu *ficha de Google*", "sub": "Diez minutos antes de Navidad.", "art": {"k": "calendar", "marks": [24, 25, 31], "offset": 1}},
+      {"k": "list", "eyebrow": "La lista", "h": "Diez minutos, *cuatro cambios*", "items": ["El horario de los festivos, día a día", "Una publicación con tu oferta de Navidad", "Fotos recientes del local", "El teléfono y el WhatsApp correctos"]},
+      {"k": "cta", "h": "¿Te la *revisamos*?", "sub": "Escríbenos por mensaje y la miramos contigo.", "url": "impulsomedia.es"}
+    ],
+    "caption": "En Navidad cambia casi todo en un negocio: el horario, la oferta y quién coge el teléfono. Lo que casi nunca cambia es la ficha de Google.\n\nY es lo primero que mira quien te busca en el mapa. Llegar a un sitio que Google decía que estaba abierto y encontrarlo cerrado suele acabar en una mala reseña.\n\nDiez minutos hoy: horarios especiales de los festivos, una publicación con tu oferta, un par de fotos nuevas y el teléfono comprobado.\n\nSi no sabes dónde se cambia cada cosa, escríbenos por mensaje.",
+    "hashtags": "#SEOLocal #GoogleMaps #Navidad #Sotogrande #NegociosLocales",
+    "alt_text": "Texto sobre fondo claro: 4 cosas que cambiar hoy en tu ficha de Google.",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-19", "title": "EN: free website audit", "pillar": "herramienta", "lang": "en", "theme": "light",
+    "slides": [
+      {"k": "poster", "eyebrow": "Free website audit", "h": "Type your website. See what *a new client sees*.", "sub": "One minute, nothing to install. Link in the caption.", "art": {"k": "audit", "mode": "input", "q": "www.yoursite.com"}}
+    ],
+    "caption": "We have added a free tool to our website: a quick audit for any business site.\n\nType your web address and in about a minute you get a report covering eight areas, from the first impression and mobile speed to technical SEO and how easy it is to contact you. Each one comes with a score and the first thing we would change.\n\nThere is nothing to install and no access to hand over. The report is yours, whoever you decide to work with.\n\nTry it at impulsomedia.es/en/free-website-audit (link in bio).",
+    "hashtags": "#Sotogrande #Gibraltar #WebDesign #LocalSEO #CostaDelSol",
+    "alt_text": "A website audit box with the text “Type your website. See what a new client sees.”",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-22", "title": "Lo que tiene que estar a tu nombre", "pillar": "educar", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "list", "eyebrow": "Compruébalo hoy", "h": "Esto tiene que estar *a tu nombre*", "mark": "yes", "items": ["El dominio de tu web", "La web y su contenido", "La cuenta de Google Ads", "La ficha de Google", "Los datos de tus clientes"]}
+    ],
+    "caption": "Hay negocios que cambian de agencia y descubren que no pueden llevarse nada: ni el dominio, ni la web, ni la cuenta de anuncios.\n\nCinco cosas tienen que estar siempre a tu nombre: el dominio, la web y su contenido, la cuenta de Google Ads, la ficha de Google y los datos de tus clientes. La agencia trabaja en ellas con acceso, pero el dueño eres tú.\n\nCompruébalo hoy. Si no sabes a nombre de quién está tu dominio, pregúntalo.\n\n¿Tienes dudas con el tuyo? Escríbenos por mensaje y te decimos cómo mirarlo.",
+    "hashtags": "#MarketingDigital #DiseñoWeb #GoogleAds #Sotogrande #PymesEspaña",
+    "alt_text": "Lista de cinco cosas que deben estar a nombre del negocio: dominio, web, cuenta de Google Ads, ficha de Google y datos de clientes.",
+    "note": "New. Single image. Owning your domain, site and ad accounts."
+  },
+  {
+    "plan_date": "2026-12-24", "title": "Felices fiestas", "pillar": "marca", "lang": "es", "theme": "gold",
+    "slides": [
+      {"k": "poster", "eyebrow": "Felices fiestas", "h": "*Gracias* por este año.", "sub": "A los clientes que han confiado en nosotros y a quienes nos seguís por aquí."}
+    ],
+    "caption": "Feliz Navidad de parte de ImpulsoMedia.\n\nGracias a los clientes que han confiado en nosotros este año y a quienes nos seguís por aquí.\n\nSeguimos la semana que viene con ideas para empezar bien el año.",
+    "hashtags": "#FelizNavidad #Sotogrande #CampoDeGibraltar",
+    "alt_text": "Texto grande sobre fondo dorado: «Gracias por este año».",
+    "note": null
+  },
+  {
+    "plan_date": "2026-12-29", "title": "5 cosas que hacer en enero con tu web", "pillar": "educar", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "cover", "eyebrow": "Para 2027", "h": "5 cosas que hacer *en enero* con tu web", "sub": "Ninguna lleva más de una tarde.", "art": {"k": "site"}},
+      {"k": "list", "eyebrow": "La lista", "h": "Apúntalas", "items": ["Actualiza horarios, servicios y fotos", "Pide diez reseñas a clientes contentos", "Revisa tu web desde el móvil", "Apunta de dónde llegó cada cliente", "Elige una sola cosa que mejorar"]},
+      {"k": "cta", "h": "Empieza por saber *cómo está tu web*", "sub": "Auditoría gratuita, en un minuto.", "url": "impulsomedia.es/auditoria-web-gratis"}
+    ],
+    "caption": "Enero es buen momento para poner la web al día, antes de que el año se llene.\n\nCinco cosas sencillas: actualizar la información, pedir reseñas, mirar la web desde el móvil como si fueras un cliente, apuntar de dónde llegó cada cliente este año y elegir una sola mejora para empezar.\n\nLa cuarta es la que más cuesta y la que más enseña. Si no sabes de dónde vienen tus clientes, cualquier inversión en marketing es a ciegas.\n\nPara la primera revisión, nuestra auditoría gratuita te da un punto de partida. Enlace en el perfil.",
+    "hashtags": "#DiseñoWeb #MarketingDigital #Sotogrande #PymesEspaña #NegociosLocales",
+    "alt_text": "Texto sobre fondo oscuro: 5 cosas que hacer en enero para que tu web trabaje todo el año.",
+    "note": null
+  },
+  {
+    "plan_date": "2027-01-02", "title": "Servicios: cinco formas de traerte más clientes", "pillar": "marca", "lang": "es", "theme": "light",
+    "slides": [
+      {"k": "list", "eyebrow": "Qué hacemos", "h": "Cinco formas de traerte *más clientes*", "mark": "yes", "items": ["Diseño y mejora de webs", "SEO local y ficha de Google", "Google Ads", "Anuncios en Instagram y Facebook", "Automatización con IA"]}
+    ],
+    "caption": "Todo lo que hacemos tiene un solo objetivo: que a tu negocio lleguen más clientes.\n\nUna web clara y rápida, para que quien entra te llame. SEO local y ficha de Google, para que te encuentren cerca. Google Ads y anuncios en redes, para llegar a quien todavía no te conoce. Y automatización con IA, para contestar antes y perder menos consultas.\n\nNo hace falta hacerlo todo a la vez. Empezamos por lo que más falta le hace a tu negocio.\n\n¿No sabes por dónde empezar? La auditoría gratuita te da una primera pista: impulsomedia.es/auditoria-web-gratis",
+    "hashtags": "#DiseñoWeb #SEOLocal #GoogleAds #InteligenciaArtificial #Sotogrande",
+    "alt_text": "Lista de los cinco servicios de ImpulsoMedia: webs, SEO local, Google Ads, anuncios en redes y automatización con IA.",
+    "note": "New. Single image covering all services. Could be replaced by the service wheel video once it exists."
+  },
+  {
+    "plan_date": "2027-01-05", "title": "Un portal es un alquiler, tu web es tuya", "pillar": "educar", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "versus", "la": "En un portal", "ha": "Pagas *alquiler*", "ba": "El día que dejas de pagar, dejas de salir.", "lb": "En tu web", "hb": "Construyes *algo tuyo*", "bb": "Tu posición en Google, tus reseñas y cada contacto se quedan contigo."}
+    ],
+    "caption": "Los portales funcionan. El problema es depender solo de ellos.\n\nUn portal es un alquiler: pagas cada mes por aparecer y, el día que dejas de pagar, dejas de salir. Lo que inviertes en tu propia web se queda contigo: tu posición en Google, tus reseñas y cada persona que te escribe.\n\nNo hay que elegir. Lo sensato es usar el portal mientras construyes algo tuyo, y comparar cuánto te cuesta un cliente por cada camino.\n\nSi quieres hacer esa cuenta con tus números, escríbenos por mensaje.",
+    "hashtags": "#MarketingInmobiliario #Sotogrande #SEOLocal #CostaDelSol #NegociosLocales",
+    "alt_text": "Dos mitades enfrentadas: en un portal pagas alquiler, en tu web construyes algo tuyo.",
+    "note": null
+  },
+  {
+    "plan_date": "2027-01-07", "title": "5 tareas que la IA ya puede hacer en tu negocio", "pillar": "ia", "lang": "es", "theme": "light",
+    "slides": [
+      {"k": "cover", "eyebrow": "IA para negocios", "h": "5 tareas de cada día que ya puede hacer *la IA*", "sub": "Sin cambiar tu forma de trabajar.", "art": {"k": "flow"}},
+      {"k": "point", "n": "1", "h": "Contestar las *preguntas de siempre*", "b": "Horarios, cómo llegar, si hay cita esta semana. También de noche y en fin de semana.", "art": {"k": "chat", "time": "21:40", "q": "¿Abrís el sábado por la mañana?", "a": "Sí, de 10 a 14. ¿Te reservo hora?"}},
+      {"k": "list", "eyebrow": "Las otras cuatro", "h": "Y además", "items": ["Recoger los datos de quien pide cita", "Pasar los correos a tu agenda", "Pedir la reseña después de cada servicio", "Prepararte el resumen de la semana"]},
+      {"k": "cta", "h": "¿Cuál te quitaría *más horas*?", "sub": "Cuéntanoslo por mensaje y te decimos si se puede automatizar.", "url": "impulsomedia.es"}
+    ],
+    "caption": "La inteligencia artificial no va de robots. Va de dejar de hacer a mano lo que se repite todos los días.\n\nEn un negocio local casi siempre son las mismas cinco cosas: contestar preguntas, recoger datos, copiar información de un sitio a otro, pedir reseñas y preparar informes.\n\nNinguna necesita que cambies de programa ni de forma de trabajar. Se monta alrededor de lo que ya usas.\n\n¿Cuál de las cinco te quitaría más horas a la semana? Escríbenos por mensaje y lo vemos.",
+    "hashtags": "#InteligenciaArtificial #Automatización #PymesEspaña #Sotogrande #MarketingDigital",
+    "alt_text": "Texto sobre fondo oscuro: 5 tareas que tu negocio repite cada día y que ya puede hacer la IA.",
+    "note": null
+  },
+  {
+    "plan_date": "2027-01-09", "title": "EN: what international clients check on a Gibraltar company website", "pillar": "local", "lang": "en", "theme": "dark",
+    "slides": [
+      {"k": "cover", "eyebrow": "For Gibraltar companies", "h": "What an international client checks *first* on your website", "sub": "Four things, usually in under a minute.", "art": {"k": "rock"}},
+      {"k": "list", "eyebrow": "Before they email you", "h": "Four *checks*", "items": ["Who is behind the company", "Whether you work with clients like them", "How fast it loads where they are", "How to reach a real person"]},
+      {"k": "cta", "h": "Want a *second pair of eyes*?", "sub": "Our free audit reads your site the way a new client would.", "url": "impulsomedia.es/en/free-website-audit"}
+    ],
+    "caption": "Most companies in Gibraltar serve clients who will never walk into the office. For them, the website is the office.\n\nBefore they email you, they check four things: who is behind the company, whether you work with clients like them, whether the site loads properly where they are, and how to reach a real person.\n\nNone of this needs a redesign. It usually comes down to a clearer homepage and a visible way to get in touch.\n\nIf you would like an outside view, our free website audit takes about a minute. Link in bio.",
+    "hashtags": "#Gibraltar #GibraltarBusiness #WebDesign #DigitalMarketing #Sotogrande",
+    "alt_text": "Text on a light background: What an international client checks on your website first.",
+    "note": null
+  },
+  {
+    "plan_date": "2027-01-12", "title": "La auditoría gratuita en 3 pasos", "pillar": "herramienta", "lang": "es", "theme": "gold",
+    "slides": [
+      {"k": "cover", "eyebrow": "Cómo funciona", "h": "Tu web, revisada en *un minuto*", "sub": "Así funciona la auditoría gratuita.", "art": {"k": "audit", "mode": "input"}},
+      {"k": "list", "eyebrow": "Tres pasos", "h": "Pones, esperas, lees", "items": ["Pon tu web: dirección, nombre y email", "Espera un minuto mientras la leemos", "Lee el resultado: ocho apartados con nota"]},
+      {"k": "text", "eyebrow": "Lo que no hace", "h": "No mira tu tráfico *ni tus campañas*", "b": "Para eso hace falta acceso a tus cuentas. Esta es la versión corta, para saber por dónde empezar."},
+      {"k": "cta", "h": "Un minuto. *Sin instalar nada.*", "url": "impulsomedia.es/auditoria-web-gratis"}
+    ],
+    "caption": "¿Cómo funciona la auditoría gratuita de nuestra web? En tres pasos y en un minuto.\n\nPones la dirección de tu web, esperas mientras la leemos como la leería un cliente nuevo y recibes un informe con ocho apartados puntuados.\n\nConviene saber también lo que no hace: no mide tus visitas, tus posiciones en Google ni tus campañas, porque para eso necesitaríamos acceso a tus cuentas. Es un primer vistazo honesto, no un sustituto de una auditoría hecha por una persona.\n\nEnlace en el perfil.",
+    "hashtags": "#DiseñoWeb #SEOLocal #Sotogrande #CostaDelSol #NegociosLocales",
+    "alt_text": "Texto sobre fondo claro: Tu web, revisada en un minuto y en tres pasos.",
+    "note": null
+  },
+  {
+    "plan_date": "2027-01-14", "title": "Proyecto: Racket Breaks", "pillar": "casos", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "cover", "eyebrow": "Proyecto", "h": "Racket Breaks: una web que *vende viajes de pádel*", "sub": "Y que prepara el presupuesto de cada grupo.", "art": {"k": "phone", "tag": "Presupuesto"}},
+      {"k": "text", "eyebrow": "El reto", "h": "Grupos que organizan su viaje *desde casa*", "b": "Vienen de Reino Unido y Europa. Tenían que poder ver los destinos y pedir un presupuesto a su medida, sin cruzarse diez correos."},
+      {"k": "list", "eyebrow": "Lo que hicimos", "h": "Una plataforma *a medida*", "items": ["Destinos por todo el sur de España", "Presupuesto a medida para cada grupo", "Pensada para el móvil", "SEO desde el primer día"]},
+      {"k": "cta", "h": "¿Tienes un proyecto *parecido*?", "sub": "Turismo, deporte u ocio. Cuéntanoslo por mensaje.", "url": "impulsomedia.es/proyectos"}
+    ],
+    "caption": "Racket Breaks organiza vacaciones de pádel en Sotogrande, Marbella, Estepona, Málaga y Almería para grupos que vienen de Reino Unido y del resto de Europa.\n\nSu web tenía que hacer algo más que enseñar fotos: explicar cada destino y preparar un presupuesto a medida para cada grupo, todo desde el móvil.\n\nLa construimos a medida y con el SEO pensado desde el principio, para que quien busca un viaje de pádel en el sur de España los encuentre.\n\nPuedes ver el proyecto completo en nuestra web. Enlace en el perfil.",
+    "hashtags": "#Pádel #DiseñoWeb #Sotogrande #CostaDelSol #Marbella",
+    "alt_text": "Texto sobre fondo oscuro: Racket Breaks, una web que vende viajes de pádel.",
+    "note": "Names a client. Check with Max before it goes out, and invite @racketbreaks as collaborator if they have Instagram."
+  },
+  {
+    "plan_date": "2027-01-16", "title": "EN: 5 questions to ask any web designer", "pillar": "educar", "lang": "en", "theme": "light",
+    "slides": [
+      {"k": "cover", "eyebrow": "Before you hire", "h": "5 questions to ask *any web designer*", "sub": "Including us.", "art": {"k": "site", "tag": "Get a quote"}},
+      {"k": "list", "eyebrow": "Ask them", "h": "The *five*", "items": ["Who owns the site when it is finished?", "What does “SEO included” mean?", "Will both languages be properly written?", "How will I know it is working?", "What happens after launch?"]},
+      {"k": "cta", "h": "Ask us *the same five*", "sub": "Send us a message and we will answer them one by one.", "url": "impulsomedia.es/en"}
+    ],
+    "caption": "Choosing someone to build your website is hard when every proposal sounds the same.\n\nFive questions cut through it: who owns the site at the end, what “SEO included” actually covers, whether both languages will be properly written, how results will be measured, and what happens after launch.\n\nA good agency answers all five without hesitating. We are happy to be asked them too.\n\nSend us a message and we will go through them with you.",
+    "hashtags": "#Sotogrande #WebDesign #CostaDelSol #Gibraltar #Marbella",
+    "alt_text": "Text on a light background: 5 questions to ask any web designer in Sotogrande.",
+    "note": null
+  },
+  {
+    "plan_date": "2027-01-19", "title": "Qué es un agente de IA, explicado fácil", "pillar": "ia", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "cover", "eyebrow": "Explicado fácil", "h": "Qué es un *agente de IA*", "sub": "Y para qué le sirve a un negocio. Sin tecnicismos.", "art": {"k": "flow"}},
+      {"k": "versus", "la": "Un chat", "ha": "Te *contesta*", "ba": "Responde a lo que le preguntas.", "lb": "Un agente", "hb": "Hace *el trabajo*", "bb": "Le das un encargo y se ocupa de los pasos: buscar, rellenar, avisar."},
+      {"k": "list", "eyebrow": "Ejemplos", "h": "Lo que puede hacer *por ti*", "items": ["Clasificar los correos que entran", "Preparar un presupuesto con tus tarifas", "Avisarte de una consulta urgente", "Actualizar tu hoja de clientes"]},
+      {"k": "text", "eyebrow": "Con cabeza", "h": "Tú decides qué hace solo y qué te *consulta antes*", "b": "Lo delicado, como enviar un presupuesto, siempre puede pasar por ti."},
+      {"k": "cta", "h": "Lo explicamos *en el blog*", "sub": "Qué son, qué pueden hacer y cómo empezar.", "url": "impulsomedia.es/blog"}
+    ],
+    "caption": "Se habla mucho de agentes de IA y poco de lo que son.\n\nUn chat responde a lo que le preguntas. Un agente recibe un encargo y lo lleva a cabo: lee el correo que entra, busca los datos, prepara la respuesta y te avisa cuando hace falta que decidas tú.\n\nPara un negocio pequeño eso significa menos tiempo copiando y pegando, y menos consultas que se quedan sin contestar.\n\nEn nuestro blog lo explicamos con más calma: qué son, qué pueden hacer y por dónde empezar. Enlace en el perfil.",
+    "hashtags": "#InteligenciaArtificial #AgentesIA #Automatización #PymesEspaña #Sotogrande",
+    "alt_text": "Texto sobre fondo oscuro: Qué es un agente de IA y para qué le sirve a un negocio.",
+    "note": null
+  },
+  {
+    "plan_date": "2027-01-21", "title": "Proyecto: Pujol Wilkie", "pillar": "casos", "lang": "es", "theme": "light",
+    "slides": [
+      {"k": "cover", "eyebrow": "Proyecto", "h": "Pujol Wilkie: una web para quien decide *desde otro país*", "sub": "Despacho de abogados en Sotogrande y Marbella.", "art": {"k": "site", "mode": "langs", "q": "pujolwilkie.com", "tag": "Contactar"}},
+      {"k": "text", "eyebrow": "El reto", "h": "Confiar *antes de llamar*", "b": "Quien compra una casa en España desde fuera necesita saber quién está detrás y en qué le puede ayudar, en español y en inglés."},
+      {"k": "list", "eyebrow": "Lo que hicimos", "h": "Claridad *antes que adornos*", "items": ["Servicios explicados sin jerga legal", "En español y en inglés", "Contacto visible en cada página", "Base de SEO para que la encuentren"]},
+      {"k": "cta", "h": "¿Tu web *genera confianza*?", "sub": "La auditoría gratuita te dice qué ve un cliente nuevo.", "url": "impulsomedia.es/auditoria-web-gratis"}
+    ],
+    "caption": "Pujol Wilkie es un despacho de abogados de Sotogrande y Marbella que acompaña a clientes internacionales en la compra de vivienda en España.\n\nSus clientes suelen tomar la decisión desde otro país, sin haber pisado la oficina. La web tiene que hacer ese primer trabajo: explicar con claridad quién está detrás, en qué puede ayudar y cómo contactar.\n\nLa rehicimos con esa idea: menos adornos y más claridad, y una base de SEO para que quien busca asesoramiento legal en la zona la encuentre.\n\nProyecto completo en nuestra web. Enlace en el perfil.",
+    "hashtags": "#Sotogrande #Marbella #DiseñoWeb #SEOLocal #CostaDelSol",
+    "alt_text": "Texto sobre fondo claro: Pujol Wilkie, una web para clientes que deciden desde otro país.",
+    "note": "Names a client. Check with Esther before it goes out."
+  },
+  {
+    "plan_date": "2027-01-23", "title": "Cómo trabajamos: tres pasos", "pillar": "marca", "lang": "es", "theme": "dark",
+    "slides": [
+      {"k": "list", "eyebrow": "Cómo trabajamos", "h": "Tres pasos y *ninguna sorpresa*", "items": ["Una primera llamada para conocerte", "Una propuesta por escrito", "Trabajo que se revisa cada mes"]}
+    ],
+    "caption": "Empezar a trabajar con una agencia no debería ser un salto al vacío.\n\nCon nosotros son tres pasos: una primera llamada para conocerte, una propuesta por escrito con lo que haríamos y en qué orden, y trabajo que se revisa cada mes con números delante.\n\nSin permanencia. Y si ya tienes una web que te gusta, trabajamos sobre ella: no siempre hace falta empezar de cero.\n\nSi quieres dar el primer paso, escríbenos por mensaje.",
+    "hashtags": "#Sotogrande #AgenciaDeMarketing #DiseñoWeb #CampoDeGibraltar #MarketingDigital",
+    "alt_text": "Lista de los tres pasos para empezar a trabajar con ImpulsoMedia: llamada, propuesta por escrito y revisión mensual.",
+    "note": null
+  },
+  {
+    "plan_date": "2027-01-26", "title": "Quiénes somos: del iGaming a tu negocio", "pillar": "marca", "lang": "es", "theme": "light",
+    "slides": [
+      {"k": "poster", "eyebrow": "Quiénes somos", "h": "Venimos de un sector donde *cada euro se mide*.", "sub": "Y trabajamos igual para los negocios de aquí."}
+    ],
+    "caption": "Somos ImpulsoMedia, una agencia digital en Sotogrande.\n\nVenimos del iGaming, donde la publicidad se mide hasta el último euro y lo que no funciona se cambia el mismo día. Esa forma de trabajar es la que aplicamos ahora a clínicas, despachos, inmobiliarias y restaurantes del Campo de Gibraltar, la Costa del Sol y Gibraltar.\n\nHacemos webs nuevas y mejoramos las que ya existen, trabajamos el SEO local, gestionamos anuncios y automatizamos tareas con IA.\n\nSi quieres saber por dónde empezaríamos con tu negocio, escríbenos por mensaje.",
+    "hashtags": "#Sotogrande #AgenciaDeMarketing #MarketingDigital #CampoDeGibraltar #Gibraltar",
+    "alt_text": "Texto grande sobre fondo claro: «Venimos de un sector donde cada euro se mide».",
+    "note": null
+  }
 ]
