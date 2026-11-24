@@ -2,14 +2,14 @@
   {
     "plan_date": "2026-11-26", "title": "Lanzamiento: auditoría web gratis", "pillar": "herramienta", "lang": "es", "theme": "gold",
     "slides": [
-      {"k": "cover", "eyebrow": "Nuevo", "h": "Pon tu web. Mira *qué ve un cliente* al entrar.", "sub": "Auditoría web gratis. Un minuto, sin instalar nada.", "art": {"k": "audit"}},
+      {"k": "cover", "eyebrow": "Nuevo", "h": "Auditoría *gratis* de tu página web", "sub": "¿Sabes si está bien montada y si Google tiene lo que necesita para posicionarla?", "art": {"k": "audit"}},
       {"k": "text", "eyebrow": "Por qué", "h": "Tú ves tu web cada día. Un cliente, *una vez*.", "b": "Y en diez segundos decide si te llama o cierra la pestaña. La auditoría la mira con esos ojos."},
       {"k": "list", "eyebrow": "Ocho apartados con nota", "h": "Entre ellos", "items": ["Primera impresión", "Lo fácil que es contactarte", "Velocidad en el móvil", "SEO técnico", "Medición y anuncios"]},
       {"k": "cta", "h": "Pruébala *con tu web*", "sub": "Es gratis y puedes aplicar las mejoras con quien tú quieras.", "url": "impulsomedia.es/auditoria-web-gratis"}
     ],
     "caption": "Hemos abierto una herramienta nueva en nuestra web: una auditoría gratuita para cualquier negocio.\n\nEscribes la dirección de tu web y en un minuto tienes un informe con ocho apartados: qué se entiende al entrar, lo fácil que es contactarte, la velocidad en el móvil, el SEO técnico y varias cosas más. Cada uno con su nota y con lo que haríamos primero.\n\nNo hace falta instalar nada ni darnos acceso a nada. Y lo que te llevas es tuyo: puedes aplicar las mejoras por tu cuenta o con quien quieras.\n\nPruébala en impulsomedia.es/auditoria-web-gratis (enlace en el perfil).",
     "hashtags": "#Sotogrande #CampoDeGibraltar #DiseñoWeb #SEOLocal #MarketingDigital",
-    "alt_text": "Fondo dorado con el texto: Pon tu web y mira qué ve un cliente al entrar. Auditoría web gratis.",
+    "alt_text": "Fondo dorado con el texto «Auditoría gratis de tu página web» sobre un informe con ocho apartados puntuados.",
     "note": "Launch post for the free audit. Make sure the profile link points to the audit page that day."
   },
   {
@@ -121,11 +121,11 @@
   {
     "plan_date": "2026-12-19", "title": "EN: free website audit", "pillar": "herramienta", "lang": "en", "theme": "light",
     "slides": [
-      {"k": "poster", "eyebrow": "Free website audit", "h": "Type your website. See what a *new client* sees.", "sub": "One minute, nothing to install. Link in the caption.", "art": {"k": "audit", "mode": "input", "q": "www.yoursite.com"}}
+      {"k": "poster", "eyebrow": "New", "h": "*Free audit* of your website", "sub": "Is it built properly, and does Google have what it needs to rank it? Link in the caption.", "art": {"k": "audit", "mode": "input", "q": "www.yoursite.com"}}
     ],
     "caption": "We have added a free tool to our website: a quick audit for any business site.\n\nType your web address and in about a minute you get a report covering eight areas, from the first impression and mobile speed to technical SEO and how easy it is to contact you. Each one comes with a score and the first thing we would change.\n\nThere is nothing to install and no access to hand over. The report is yours, whoever you decide to work with.\n\nTry it at impulsomedia.es/en/free-website-audit (link in bio).",
     "hashtags": "#Sotogrande #Gibraltar #WebDesign #LocalSEO #CostaDelSol",
-    "alt_text": "A website audit box with the text “Type your website. See what a new client sees.”",
+    "alt_text": "The text “Free audit of your website” above a box where you type your web address.",
     "note": null
   },
   {
@@ -208,14 +208,14 @@
   {
     "plan_date": "2027-01-12", "title": "La auditoría gratuita en 3 pasos", "pillar": "herramienta", "lang": "es", "theme": "gold",
     "slides": [
-      {"k": "cover", "eyebrow": "Cómo funciona", "h": "Tu web, revisada en *un minuto*", "sub": "Así funciona la auditoría gratuita.", "art": {"k": "audit", "mode": "input"}},
+      {"k": "cover", "eyebrow": "Paso a paso", "h": "Cómo funciona la *auditoría gratis*", "sub": "Tu web, revisada en un minuto.", "art": {"k": "audit", "mode": "input"}},
       {"k": "list", "eyebrow": "Tres pasos", "h": "Pones, esperas, lees", "items": ["Pon tu web: dirección, nombre y email", "Espera un minuto mientras la leemos", "Lee el resultado: ocho apartados con nota"]},
       {"k": "text", "eyebrow": "Lo que no hace", "h": "No mira tu tráfico *ni tus campañas*", "b": "Para eso hace falta acceso a tus cuentas. Esta es la versión corta, para saber por dónde empezar."},
       {"k": "cta", "h": "Un minuto. *Sin instalar nada.*", "url": "impulsomedia.es/auditoria-web-gratis"}
     ],
     "caption": "¿Cómo funciona la auditoría gratuita de nuestra web? En tres pasos y en un minuto.\n\nPones la dirección de tu web, esperas mientras la leemos como la leería un cliente nuevo y recibes un informe con ocho apartados puntuados.\n\nConviene saber también lo que no hace: no mide tus visitas, tus posiciones en Google ni tus campañas, porque para eso necesitaríamos acceso a tus cuentas. Es un primer vistazo honesto, no un sustituto de una auditoría hecha por una persona.\n\nEnlace en el perfil.",
     "hashtags": "#DiseñoWeb #SEOLocal #Sotogrande #CostaDelSol #NegociosLocales",
-    "alt_text": "Texto sobre fondo claro: Tu web, revisada en un minuto y en tres pasos.",
+    "alt_text": "Fondo dorado con el texto «Cómo funciona la auditoría gratis» sobre la casilla donde se escribe la dirección de la web.",
     "note": null
   },
   {

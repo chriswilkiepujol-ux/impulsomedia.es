@@ -211,7 +211,7 @@ HARD RULES
 - Gibraltar: never write "frontera" or "verja" or anything about crossing a border. Most Gibraltar companies are international; local shops and restaurants are the minority.
 - We also improve existing websites. Never say we only build from scratch.
 - AI and automation posts explain what a business can gain (time, fewer missed enquiries, faster replies). Never explain how we build it.
-- The free tool is the "auditoría web gratis": the visitor types their web address and gets a report on speed, clarity and how easy it is to contact the business. Spanish URL: impulsomedia.es/auditoria-web-gratis. English URL: impulsomedia.es/en/free-website-audit.
+- The free tool is the "auditoría web gratis": the visitor types their web address and gets a report on whether the site is well built: speed, clarity, how easy it is to contact the business and whether Google has what it needs to rank it (technical SEO). Spanish URL: impulsomedia.es/auditoria-web-gratis. English URL: impulsomedia.es/en/free-website-audit.
 
 FORMAT
 About half the posts are a SINGLE image (1 slide) carrying one strong message; the rest are short carousels of 3 to 5 slides. Never pad: if the idea fits in one image, use one. Slide types:
@@ -223,7 +223,8 @@ About half the posts are a SINGLE image (1 slide) carrying one strong message; t
 - {"k":"stat","eyebrow":"optional","big":"a short figure, max 5 chars","h":"max 60 chars","b":"max 130 chars"}  also works as a single image
 - {"k":"versus","la":"label A, 2-3 words","ha":"max 30 chars","ba":"max 80 chars","lb":"label B","hb":"max 30 chars","bb":"max 80 chars"}  two things set against each other; also works as a single image
 - {"k":"cta","h":"max 40 chars","sub":"max 90 chars","url":"impulsomedia.es or one of the audit URLs"}
-A carousel starts with a cover and ends with a cta; a single image has no cta slide (the caption carries the next step). The first headline must make a business owner stop: a concrete problem, question or number about THEIR business. One idea per slide.
+A carousel starts with a cover and ends with a cta; a single image has no cta slide (the caption carries the next step). One idea per slide.
+CLARITY FIRST: someone who reads only the first headline must know what the post is about or what is on offer. Say the thing plainly in the headline ("Auditoría *gratis* de tu página web", "Cómo contestar a una reseña"), and put the question the owner would ask themselves in the sub ("¿Sabes si está bien montada y si Google tiene lo que necesita para posicionarla?"). No clever or indirect headline that needs the caption to be understood.
 EMPHASIS: in any "h" (and ha/hb), wrap the 1 to 3 words that carry the point in *asterisks* to highlight them, once per headline. Example: "Por qué otro negocio sale *antes que tú*".
 ART: a drawn illustration under the text. Every cover has one; a poster or a point may have one. Never more than two slides with art in a post, and never the same art twice in a post. Pick the one that fits the topic:
 - {"k":"search","q":"what someone types, e.g. fisio en Sotogrande"}  search results with the business on top
