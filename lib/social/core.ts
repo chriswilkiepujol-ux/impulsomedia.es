@@ -32,7 +32,7 @@ export async function log(sb: Sb, kind: string, post_id: string | null, detail: 
 }
 export async function getSettings(sb: Sb) {
   const { data } = await sb.from('social_settings').select('*').eq('id', 1).maybeSingle()
-  return data || { slots: { '1': '12:30', '2': '12:30', '4': '12:30', '5': '12:30', '6': '11:00' }, autopublish: true, autogenerate: true, gen_per_run: 3, min_drafts: 8, avoid: [] }
+  return data || { slots: { '2': '12:30', '4': '12:30', '6': '11:00' }, autopublish: true, autogenerate: true, gen_per_run: 3, min_drafts: 8, avoid: [] }
 }
 
 // ---------- time (slots are written in Madrid time) ----------
@@ -194,6 +194,8 @@ const BRIEF = `You write Instagram posts for ImpulsoMedia (impulsomedia.es), a d
 
 AUDIENCE: owners and managers of local businesses (clinics, law firms, estate agents, restaurants, trades) and companies based in Gibraltar. They are not marketers.
 
+PURPOSE: every post must be useful to that owner on its own, even if they never hire us. Two aims: help them bring more clients into their business (more calls, bookings and enquiries, so more turnover), and help them not get a bad deal from an agency (what to ask, what must stay in their name, how to tell if the work is paying off). Across a month, cover all the services: web design and improving existing sites, local SEO and the Google listing, Google Ads, ads on Instagram and Facebook, and AI automation. We post three times a week, so a post that is only "nice" is not worth a slot.
+
 VOICE
 - The company speaks: "nosotros" / "we". Never "yo", never a founder's name or face.
 - Spanish from Spain, written natively (not translated), plain and direct, using "tú". Say "ficha de Google" (not Google Business Profile), "cliente potencial" (not lead), "primera llamada", "cuota mensual".
@@ -212,17 +214,36 @@ HARD RULES
 - The free tool is the "auditoría web gratis": the visitor types their web address and gets a report on speed, clarity and how easy it is to contact the business. Spanish URL: impulsomedia.es/auditoria-web-gratis. English URL: impulsomedia.es/en/free-website-audit.
 
 FORMAT
-Each post is a carousel of 4 to 7 slides (or a single image with 1 slide), built from these slide types:
-- {"k":"cover","eyebrow":"2-3 words","h":"headline, max 60 chars","sub":"optional, max 90 chars"}
-- {"k":"point","n":"1","h":"max 60 chars","b":"max 150 chars"}
-- {"k":"text","eyebrow":"optional","h":"max 60 chars","b":"max 170 chars"}
-- {"k":"list","eyebrow":"optional","h":"max 45 chars","items":["3 to 5 items, max 45 chars each"]}
-- {"k":"stat","eyebrow":"optional","big":"a short figure, max 6 chars","h":"max 60 chars","b":"max 140 chars"}
+About half the posts are a SINGLE image (1 slide) carrying one strong message; the rest are short carousels of 3 to 5 slides. Never pad: if the idea fits in one image, use one. Slide types:
+- {"k":"cover","eyebrow":"2-3 words","h":"headline, max 55 chars","sub":"optional, max 80 chars","art":{...}}  first slide of a carousel
+- {"k":"poster","eyebrow":"2-3 words","h":"one statement, max 60 chars","sub":"optional, max 90 chars","art":{... optional}}  the usual single image
+- {"k":"point","n":"1","h":"max 50 chars","b":"max 130 chars","art":{... optional}}
+- {"k":"text","eyebrow":"optional","h":"max 50 chars","b":"max 170 chars"}
+- {"k":"list","eyebrow":"optional","h":"max 40 chars","items":["3 to 5 items, max 45 chars each"],"mark":"yes" (ticks) or "no" (crosses), optional}  also works as a single image
+- {"k":"stat","eyebrow":"optional","big":"a short figure, max 5 chars","h":"max 60 chars","b":"max 130 chars"}  also works as a single image
+- {"k":"versus","la":"label A, 2-3 words","ha":"max 30 chars","ba":"max 80 chars","lb":"label B","hb":"max 30 chars","bb":"max 80 chars"}  two things set against each other; also works as a single image
 - {"k":"cta","h":"max 40 chars","sub":"max 90 chars","url":"impulsomedia.es or one of the audit URLs"}
-A carousel starts with a cover and ends with a cta. The cover headline must make a business owner stop: a concrete problem, question or number about THEIR business. One idea per slide.
+A carousel starts with a cover and ends with a cta; a single image has no cta slide (the caption carries the next step). The first headline must make a business owner stop: a concrete problem, question or number about THEIR business. One idea per slide.
+EMPHASIS: in any "h" (and ha/hb), wrap the 1 to 3 words that carry the point in *asterisks* to highlight them, once per headline. Example: "Por qué otro negocio sale *antes que tú*".
+ART: a drawn illustration under the text. Every cover has one; a poster or a point may have one. Never more than two slides with art in a post, and never the same art twice in a post. Pick the one that fits the topic:
+- {"k":"search","q":"what someone types, e.g. fisio en Sotogrande"}  search results with the business on top
+- {"k":"map"}  a map with the business pin
+- {"k":"review","name":"first name","text":"a short review","reply":"the owner's reply"}  a Google review with its reply
+- {"k":"chat","time":"22:04","q":"a customer's message","a":"the reply (leave out to show nobody answered)","note":"optional, e.g. Sin respuesta"}
+- {"k":"audit"}  the free audit report;  {"k":"audit","mode":"input"}  the box where you type your website
+- {"k":"site"}  a website in a browser;  {"k":"site","mode":"langs"}  the same with an ES/EN switch
+- {"k":"phone"}  a phone with a call button;  {"k":"phone","mode":"slow"}  a phone still loading
+- {"k":"form"}  a long form against a short one
+- {"k":"ad"}  an advert with its parts numbered 1 to 4
+- {"k":"flow"}  email, AI, calendar joined in a line (automation)
+- {"k":"calendar","marks":[24,25,31],"offset":1}  a month with days marked (offset = weekday of the 1st, Monday 0)
+- {"k":"checklist"}  a checklist
+- {"k":"rock"}  Sotogrande and Gibraltar on the coast (only for Gibraltar posts)
+Text inside art is illustrative: never put a real business name, a result or a statistic in it.
 Caption: 3 to 6 short lines that add something the slides do not, ending with one clear next step (the free audit, or "escríbenos por mensaje" / "send us a message"). 350 to 700 characters.
 Hashtags: 4 or 5, mixing place (#Sotogrande #CampoDeGibraltar #Gibraltar #CostaDelSol #Marbella #Estepona #Algeciras) and topic (#DiseñoWeb #SEOLocal #GoogleAds #MarketingDigital #InteligenciaArtificial #PymesEspaña).
-alt_text: one sentence describing the first slide for screen readers.`
+alt_text: one sentence describing the first slide for screen readers.
+Set "format" to "image" when there is one slide and "carousel" otherwise.`
 
 export async function generateDrafts(sb: Sb, opts: { n?: number; topic?: string; source?: string } = {}) {
   const key = process.env.ANTHROPIC_API_KEY

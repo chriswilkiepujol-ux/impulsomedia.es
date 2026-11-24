@@ -11,7 +11,7 @@ const nextConfig = {
   },
   // The slide renderer (Impulso Social) reads its fonts from disk at runtime.
   outputFileTracingIncludes: {
-    '/api/social/**/*': ['./lib/social/fonts/**/*'],
+    '/api/social/**/*': ['./lib/social/fonts/**/*', './public/images/chris-wilkie.jpg'],
   },
 }
 

@@ -66,6 +66,8 @@ export function middleware(request: NextRequest) {
     return res
   }
   if (isPublicSite && pathname.startsWith('/social-app')) return new NextResponse('Not found', { status: 404 })
+  // The app only lives on its own subdomain: any other address of this project (the *.vercel.app ones) sends you there.
+  if (pathname.startsWith('/social-app') && process.env.VERCEL_ENV === 'production') return NextResponse.redirect('https://social.impulsomedia.es/', 307)
   // --- fin Social ---
   const staging = isStaging(request)
 
