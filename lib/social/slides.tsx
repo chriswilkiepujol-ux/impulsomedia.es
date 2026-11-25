@@ -130,8 +130,13 @@ function Rich({ text, px, t, weight = 800, color, hi, onHi }: { text: string; px
     <div style={{ display: 'flex', flexWrap: 'wrap', fontFamily: 'Bricolage', fontWeight: weight, fontSize: px, lineHeight: 1.06, letterSpacing: '-0.03em', color: color || t.fg }}>
       {parts.map((p, i) => {
         const prev = !!parts[i - 1]?.em, next = !!parts[i + 1]?.em, tight = !!parts[i + 1]?.glue
+        const tail = (x?: { w: string; em: boolean; glue: boolean }) => !!x && x.glue && !x.em && /^[.,;:?!»”)]+$/.test(x.w)
+        if (tail(p) && parts[i - 1]?.em) return null // drawn together with the highlight before it
         if (!p.em) return <div key={i} style={{ display: 'flex', marginLeft: p.glue ? hair : 0, marginRight: tight ? hair : gap }}>{p.w}</div>
-        return <div key={i} style={{ display: 'flex', background: hi || t.accent, color: onHi || t.onAccent, paddingLeft: prev ? 0 : edge, paddingRight: next ? gap : edge, marginRight: next || tight ? 0 : gap }}>{p.w}</div>
+        const block = <div key={i} style={{ display: 'flex', background: hi || t.accent, color: onHi || t.onAccent, paddingLeft: prev ? 0 : edge, paddingRight: next ? gap : edge, marginRight: next || tight ? 0 : gap }}>{p.w}</div>
+        // Closing punctuation right after a highlight ("*falla*?") stays on the same line as the highlight.
+        if (tail(parts[i + 1])) return <div key={i} style={{ display: 'flex', marginRight: parts[i + 2]?.glue ? hair : gap }}>{block}<div style={{ display: 'flex', marginLeft: hair }}>{parts[i + 1].w}</div></div>
+        return block
       })}
     </div>
   )
