@@ -72,9 +72,19 @@
   var SET_COLS = 'slots,autopublish,autogenerate,gen_per_run,min_drafts,ig_username,ig_user_id,ig_token_at,ig_checked_at'
   function load() {
     return Promise.all([db('social_posts?select=*&order=created_at.asc'), db('social_settings?select=' + SET_COLS + '&id=eq.1')]).then(function (r) {
-      S.posts = r[0]; S.settings = r[1][0] || { slots: {}, autopublish: true, autogenerate: true }
+      S.posts = r[0]; S.settings = r[1][0] || { slots: {}, autopublish: true, autogenerate: true }; lastLoad = Date.now()
     })
   }
+  // A tab left open used to keep showing posts as they were when it was opened (old text, old slide count) while the
+  // images came from the current version. Reload when the tab is looked at again, every two minutes, and when a post is opened.
+  var lastLoad = 0
+  function stale() { return Date.now() - lastLoad > 15000 }
+  function fresh() {
+    if (!S.session || document.hidden || ED || !stale()) return
+    lastLoad = Date.now()
+    load().then(function () { if ($sheet.hidden) rerender() }).catch(function () {})
+  }
+  document.addEventListener('visibilitychange', fresh); window.addEventListener('focus', fresh); setInterval(fresh, 120000)
 
   // ---------- derived ----------
   function drafts() {
@@ -343,7 +353,7 @@
     if (ev.target === $sheet) return closeSheet()
     var el = ev.target.closest('[data-act]'); if (!el) return
     var a = el.getAttribute('data-act'), id = el.getAttribute('data-id'), p = id ? byId(id) : null
-    if (a === 'tab') { S.tab = el.getAttribute('data-tab'); S.keep = {}; closeSheet(); render(); window.scrollTo(0, 0) }
+    if (a === 'tab') { S.tab = el.getAttribute('data-tab'); S.keep = {}; closeSheet(); render(); window.scrollTo(0, 0); fresh() }
     else if (a === 'seg') { S.seg = el.getAttribute('data-seg'); rerender() }
     else if (a === 'hint') { try { localStorage.setItem('social-hint', '1') } catch (e) {} rerender() }
     else if (a === 'reload') { load().then(function () { S.keep = {}; render(); toast('Up to date') }).catch(function (e) { toast(e.message, true) }) }
@@ -353,7 +363,7 @@
     else if (a === 'restore') { act('restore', id).then(function () { closeSheet(); rerender(); toast('Back in the feed') }).catch(function (e) { toast(e.message, true) }) }
     else if (a === 'more') { S.expanded[id] = true; var c = el.closest('.cap'); if (c && p) c.innerHTML = '<b>' + HANDLE + '</b>' + esc(p.caption || '') + (p.hashtags ? '\n<span class="tags">' + esc(p.hashtags) + '</span>' : '') }
     else if (a === 'menu' && p) menuSheet(p)
-    else if (a === 'open' && p) openSheet(p)
+    else if (a === 'open' && p) { openSheet(p); if (stale()) { lastLoad = Date.now(); load().then(function () { render(); var q = byId(id); if (q && !$sheet.hidden && !ED) openSheet(q) }).catch(function () {}) } }
     else if (a === 'day') daySheet(el.getAttribute('data-day'))
     else if (a === 'edit' && p) editorSheet(p)
     else if (a === 'share' && p) { closeSheet(); share(p) }
